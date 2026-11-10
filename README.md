@@ -24,6 +24,5 @@ The case-study cover photos are locally stored editorial photos, not screenshots
 
 - `public/images/project-classic-car.jpg` — Volvo Amazon by Mick from Northamptonshire, England, [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Volvo_122_-_Flickr_-_mick_-_Lumix_(cropped).jpg).
 
-The two Unsplash photos are available under the [Unsplash License](https://unsplash.com/license).
 # web4biz
 # web4biz
