@@ -22,8 +22,6 @@ Deploy the contents of `dist/` to a static host. Vite builds the React homepage 
 
 The case-study cover photos are locally stored editorial photos, not screenshots of the linked client websites.
 
-- `public/images/project-transport.jpg` — [source image](https://images.unsplash.com/photo-1519003722824-194d4455a60c)
-- `public/images/project-accounting.jpg` — [source image](https://images.unsplash.com/photo-1554224155-6726b3ff858f)
 - `public/images/project-classic-car.jpg` — Volvo Amazon by Mick from Northamptonshire, England, [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Volvo_122_-_Flickr_-_mick_-_Lumix_(cropped).jpg).
 
 The two Unsplash photos are available under the [Unsplash License](https://unsplash.com/license).
