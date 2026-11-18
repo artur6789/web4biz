@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title x-text="currentCase.title[lang] + ' — Case Study | web4biz.pl'">Case Study — web4biz.pl</title>
-  <meta name="description" content="Szczegółowe Case Study projektów web4biz.pl — wyzwanie biznesowe, architektura rozwiązania, interaktywne narzędzia i rezultaty wdrożenia."/>
+  <title x-text="currentCase.title[lang] + ' - Case Study | web4biz.pl'">Case Study - web4biz.pl</title>
+  <meta name="description" content="Szczegółowe Case Study projektów web4biz.pl - wyzwanie biznesowe, architektura rozwiązania, interaktywne narzędzia i rezultaty wdrożenia."/>
   <meta name="robots" content="index, follow"/>
 
   <!-- Google Fonts: Space Grotesk + DM Sans + JetBrains Mono -->
@@ -16,7 +16,7 @@
 
   <style>
     /* ═══════════════════════════════════════════════════════════════════
-       1. DESIGN TOKENS — 3 MOTYWY (STAŁA GEOMETRIA WE WSZYSTKICH MOTYWACH)
+       1. DESIGN TOKENS - 3 MOTYWY (STAŁA GEOMETRIA WE WSZYSTKICH MOTYWACH)
        ═══════════════════════════════════════════════════════════════════ */
     :root,
     [data-theme="editorial"] {
@@ -929,13 +929,13 @@
       <div class="case-hero-art" role="img" :aria-label="currentCase.title[lang]">
         <div class="case-art-frame">
 
-          <!-- ═══ Artwork 1: AD REM T2 — INTERAKTYWNA MAPA 8 HUBÓW EUROPY + KALKULATOR FLOTY ═══ -->
+          <!-- ═══ Artwork 1: AD REM T2 - INTERAKTYWNA MAPA 8 HUBÓW EUROPY + KALKULATOR FLOTY ═══ -->
           <div x-show="projectId === 'adremt2'" class="art-route-split">
             <div class="art-route-map-box">
               <div class="art-micro-header">
                 <span style="display:inline-flex; align-items:center; gap:6px;">
                   <i style="width:7px; height:7px; border-radius:50%; background:#d90429; display:inline-block;"></i>
-                  <span x-text="lang === 'pl' ? 'INTERAKTYWNA MAPA TRAS — KLIKNIJ LUB NAJEDŹ NA MIASTO' : 'INTERACTIVE ROUTE MAP — HOVER OR CLICK ANY CITY'"></span>
+                  <span x-text="lang === 'pl' ? 'INTERAKTYWNA MAPA TRAS - KLIKNIJ LUB NAJEDŹ NA MIASTO' : 'INTERACTIVE ROUTE MAP - HOVER OR CLICK ANY CITY'"></span>
                 </span>
                 <span style="color:#d90429; font-weight:700;" x-text="lang === 'pl' ? '◉ WARSZAWA (BAZA)' : '◉ WARSAW (HUB)'"></span>
               </div>
@@ -1089,7 +1089,7 @@
               <span x-text="lang === 'pl' ? 'Księgowość, która pozwala Ci ' : 'Accounting that lets you '"></span>
               <span style="color:#d90429;" x-text="lang === 'pl' ? 'spać spokojnie.' : 'sleep well.'"></span>
             </h3>
-            <p style="margin:0 0 20px; font-size:13px; color:#4a4a4a; max-width:500px; line-height:1.55;" x-text="lang === 'pl' ? 'Rodzinne biuro rachunkowe w Warszawie — osobne, czytelne ścieżki dla spółek prawa handlowego, jednoosobowych firm (KPiR) oraz fundacji i stowarzyszeń.' : 'Warsaw accounting practice featuring distinct conversion paths for LLCs, sole proprietors, and foundations/associations (NGOs).'"></p>
+            <p style="margin:0 0 20px; font-size:13px; color:#4a4a4a; max-width:500px; line-height:1.55;" x-text="lang === 'pl' ? 'Rodzinne biuro rachunkowe w Warszawie - osobne, czytelne ścieżki dla spółek prawa handlowego, jednoosobowych firm (KPiR) oraz fundacji i stowarzyszeń.' : 'Warsaw accounting practice featuring distinct conversion paths for LLCs, sole proprietors, and foundations/associations (NGOs).'"></p>
             <div style="display:flex; gap:10px;">
               <span style="padding:9px 18px; border-radius:var(--btn-radius); background:#d90429; color:#fff; font:700 11px var(--sans);" x-text="lang === 'pl' ? 'Umów konsultację' : 'Book consultation'"></span>
               <span style="padding:9px 18px; border-radius:var(--btn-radius); border:1px solid #d90429; color:#d90429; font:700 11px var(--sans);" x-text="lang === 'pl' ? 'Oferta dla NGO →' : 'NGO Offer →'"></span>
@@ -1116,7 +1116,7 @@
             </div>
           </div>
 
-<!-- Artwork 4: KUBATURA B2B — Interaktywny Symulator Ciężarówki 24 m³ -->
+<!-- Artwork 4: KUBATURA B2B - Interaktywny Symulator Ciężarówki 24 m³ -->
           <div x-show="projectId === 'kubatura'" x-cloak class="kubatura-split">
 
             <!-- Lewa scena: Pełnowymiarowy przekrój ciężarówki 24 m³ (kliknij sloty wewnątrz paki!) -->
@@ -1292,7 +1292,7 @@
               </div>
             </div>
 
-          <!-- Artwork 5: 玄 GEMBA — Authentic App UI -->
+          <!-- Artwork 5: 玄 GEMBA - Authentic App UI -->
           <div x-show="projectId === 'gemba'" x-cloak style="height:100%; position:relative; background-color:#f9f8f3; background-image:linear-gradient(#ebe8df 1px, transparent 1px), linear-gradient(90deg, #ebe8df 1px, transparent 1px); background-size:44px 44px; color:#161e21; overflow:hidden;">
 
             <div style="height:calc(100% - 42px); display:grid; grid-template-columns:1.05fr 0.95fr; gap:24px; padding:24px 32px 18px; align-items:center;">
@@ -1721,7 +1721,7 @@ setKubaturaTargetSlots(targetIdx) {
                 },
                 {
                   heading: 'Lista usług opisana językiem konkretnych zadań',
-                  body: 'Zamiast ogólników strona precyzyjnie nazywa sprawy, które przedsiębiorca może powierzyć biuru — od wsparcia przy rejestracji działalności po pełne księgi, KPiR oraz bieżące rozliczenia ZUS i kadry.',
+                  body: 'Zamiast ogólników strona precyzyjnie nazywa sprawy, które przedsiębiorca może powierzyć biuru - od wsparcia przy rejestracji działalności po pełne księgi, KPiR oraz bieżące rozliczenia ZUS i kadry.',
                   bullets: [
                     'Pomoc przy zakładaniu działalności gospodarczej i wyborze formy opodatkowania.',
                     'Prowadzenie KPiR, pełnej księgowości spółek oraz ewidencji VAT.',
@@ -1741,7 +1741,7 @@ setKubaturaTargetSlots(targetIdx) {
                 },
                 {
                   heading: 'Services framed as concrete tasks handed over to experts',
-                  body: 'Rather than vague slogans, the website names the exact responsibilities clients can delegate — from company registration to tax books, payroll, and ZUS filings.',
+                  body: 'Rather than vague slogans, the website names the exact responsibilities clients can delegate - from company registration to tax books, payroll, and ZUS filings.',
                   bullets: [
                     'Guided support when registering a new business and selecting tax models.',
                     'Full corporate accounting, revenue-and-expense ledgers (KPiR), and VAT records.',
@@ -1760,8 +1760,8 @@ setKubaturaTargetSlots(targetIdx) {
           'pmclassics': {
             shortName: { pl: 'PM Classics', en: 'PM Classics' },
             title: {
-              pl: 'PM Classics — Renowacja i Kolekcja Klasyków',
-              en: 'PM Classics — Classic Vehicle Restoration & Garage'
+              pl: 'PM Classics - Renowacja i Kolekcja Klasyków',
+              en: 'PM Classics - Classic Vehicle Restoration & Garage'
             },
             subtitle: {
               pl: 'Wielojęzyczna platforma łącząca wirtualny garaż klasyków, przelicznik trzech walut (EUR/PLN/NOK) i 3-etapowy brief renowacji.',
@@ -1837,8 +1837,8 @@ setKubaturaTargetSlots(targetIdx) {
               en: 'KUBATURA - Zero-Downtime Corporate Office Relocation'
             },
             subtitle: {
-              pl: 'Jak zamienić stresującą przeprowadzkę firmy w policzalną operację weekendową — i odsiać przypadkowe zapytania jeszcze przed wizją lokalną.',
-              en: 'Turning a high-risk corporate move into a predictable weekend operation—and qualifying B2B leads before the first site survey.'
+              pl: 'Jak zamienić stresującą przeprowadzkę firmy w policzalną operację weekendową - i odsiać przypadkowe zapytania jeszcze przed wizją lokalną.',
+              en: 'Turning a high-risk corporate move into a predictable weekend operation-and qualifying B2B leads before the first site survey.'
             },
             tag: { pl: '04 · Logistyka B2B / Kalkulator Floty', en: '04 · B2B Logistics / Fleet Estimator' },
             pageType: { pl: 'Platforma ofertowa B2B + estymator ładunku SVG', en: 'B2B service platform + SVG cargo estimator' },
@@ -1868,8 +1868,8 @@ setKubaturaTargetSlots(targetIdx) {
                   body: 'Większość firm przeprowadzkowych wygląda w sieci identycznie: stockowe zdjęcia uśmiechniętych panów z kartonem i ogólniki o „szybkim i tanim transporcie”. Tymczasem Office Manager albo Dyrektor Administracyjny, który przenosi 60-osobowe biuro, nie szuka taniego busa. Boi się jednego scenariusza: że w poniedziałek o 8:00 zespół usiądzie przy niepodłączonych monitorach, a segregatory kadrowe i księgowe zaginą między piętrami.'
                 },
                 {
-                  heading: 'Zero-Downtime zamiast obietnic — architektura zaufania od pierwszego ekranu',
-                  body: 'Zamiast lania wody o „wieloletnim doświadczeniu”, pierwszy ekran KUBATURY stawia twarde warunki operacyjne: start w piątek o 17:00, gotowość stanowisk w poniedziałek o 8:00, polisa OCP na 1 000 000 PLN oraz numerowane plomby bezpieczeństwa na pojemnikach RODO. Komunikat rozbity na dwa kontrastowe wersy — logistyczny pomarańcz i techniczny grafit — od razu oddziela relokacje korporacyjne od przeprowadzek mieszkań.'
+                  heading: 'Zero-Downtime zamiast obietnic - architektura zaufania od pierwszego ekranu',
+                  body: 'Zamiast lania wody o „wieloletnim doświadczeniu”, pierwszy ekran KUBATURY stawia twarde warunki operacyjne: start w piątek o 17:00, gotowość stanowisk w poniedziałek o 8:00, polisa OCP na 1 000 000 PLN oraz numerowane plomby bezpieczeństwa na pojemnikach RODO. Komunikat rozbity na dwa kontrastowe wersy - logistyczny pomarańcz i techniczny grafit - od razu oddziela relokacje korporacyjne od przeprowadzek mieszkań.'
                 },
                 {
                   heading: 'Fizyka ładunku w SVG: dlaczego liczymy jednocześnie m³ oraz kg',
@@ -1891,7 +1891,7 @@ setKubaturaTargetSlots(targetIdx) {
                   body: 'Most moving company websites look identical: stock photos of smiling guys holding cardboard boxes and vague promises of “fast, affordable transport.” An Office or Facility Manager relocating a 60-person floor is not shopping for a cheap van. They are losing sleep over one risk: Monday at 8:00 AM arriving with unpatched workstations and misplaced HR or tax files.'
                 },
                 {
-                  heading: 'Operational guarantees over fluff — engineering trust above the fold',
+                  heading: 'Operational guarantees over fluff - engineering trust above the fold',
                   body: 'Instead of generic claims about “years of experience,” KUBATURA leads with hard operational SLAs: Friday 17:00 kickoff, Monday 08:00 desk readiness, 1,000,000 PLN all-risk carrier insurance, and numbered security seals on HDPE archive crates. Split dual-tone typography in safety orange and industrial graphite immediately signals commercial engineering rather than residential moving.'
                 },
                 {
@@ -1899,13 +1899,13 @@ setKubaturaTargetSlots(targetIdx) {
                   body: 'In office relocations, furniture volume is rarely the real bottleneck. Loaded steel filing cabinets, server RACKs, and fireproof safes hit a box truck’s 3,500 kg gross payload limit long before filling its 24 m³ cargo bay. I built a live SVG container cutaway that calculates both constraints simultaneously and animates load distribution in real time.',
                   bullets: [
                     'One-click presets (15-Desk Office, 50-Desk Corporate Floor, GDPR Archive + Server Room) benchmark project scale in five seconds.',
-                    'Building friction inputs—floor level, freight elevator access, and route distance—dynamically adjust crew headcount and fee estimates.',
+                    'Building friction inputs-floor level, freight elevator access, and route distance-dynamically adjust crew headcount and fee estimates.',
                     'Fifteen modular cargo blocks inside the 4.8m × 2.2m × 2.3m bay shift color to flag payload overload before a truck is ever dispatched.'
                   ]
                 },
                 {
                   heading: 'Pre-qualifying leads before the phone rings + AI search readiness',
-                  body: 'A blank “Request a Quote” form invites residential tyre-kickers. KUBATURA’s estimator transfers the itemized manifest—total volume, weight, required 24 m³ trips, and equipment list—straight into the site survey brief with a single click. Paired with a minute-by-minute weekend timeline (including Monday morning Day-1 floor support) and MovingCompany + FAQPage Schema.org markup, the site converts high-intent B2B buyers.'
+                  body: 'A blank “Request a Quote” form invites residential tyre-kickers. KUBATURA’s estimator transfers the itemized manifest-total volume, weight, required 24 m³ trips, and equipment list-straight into the site survey brief with a single click. Paired with a minute-by-minute weekend timeline (including Monday morning Day-1 floor support) and MovingCompany + FAQPage Schema.org markup, the site converts high-intent B2B buyers.'
                 }
               ]
             }
@@ -1914,8 +1914,8 @@ setKubaturaTargetSlots(targetIdx) {
           'gemba': {
             shortName: { pl: '玄 GEMBA', en: '玄 GEMBA' },
             title: {
-              pl: '玄 GEMBA — Diagnostyka Lean, TPS & Six Sigma',
-              en: '玄 GEMBA — Lean, TPS & Six Sigma Diagnostic Workspace'
+              pl: '玄 GEMBA - Diagnostyka Lean, TPS & Six Sigma',
+              en: '玄 GEMBA - Lean, TPS & Six Sigma Diagnostic Workspace'
             },
             subtitle: {
               pl: 'Aplikacja webowa, która tłumaczy opis problemu z codziennej pracy na straty procesowe (Muda, Mura, Muri), dobiera właściwą z 34 metod Lean i prowadzi przez 5-fazowy plan usprawnień.',
@@ -1960,7 +1960,7 @@ setKubaturaTargetSlots(targetIdx) {
                 },
                 {
                   heading: 'Przełożenie praktyki Lean Green Belt na użyteczny produkt cyfrowy',
-                  body: 'Projekt stanowi bezpośrednie połączenie moich kompetencji procesowych (Lean Green Belt, Agile Delivery Lead) z inżynierią frontendową — pokazuje, jak złożoną metodykę operacyjną można zamknąć w intuicyjnym narzędziu webowym, które oszczędza czas liderów i zespołów.'
+                  body: 'Projekt stanowi bezpośrednie połączenie moich kompetencji procesowych (Lean Green Belt, Agile Delivery Lead) z inżynierią frontendową - pokazuje, jak złożoną metodykę operacyjną można zamknąć w intuicyjnym narzędziu webowym, które oszczędza czas liderów i zespołów.'
                 }
               ],
               en: [
