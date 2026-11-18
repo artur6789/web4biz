@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="pl" x-data="archieApp()" :class="{ 'dark': dark }">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Archie — Strony B2B i narzędzia webowe</title>
+  <meta name="description" content="Projektuję strony B2B i narzędzia webowe, które usprawniają codzienne procesy. Zobacz wybrane projekty Archie." />
+  <meta name="theme-color" content="#d8fa52" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <style>
+    [x-cloak] { display: none !important; }
+    :root {
+      font-family: 'DM Sans', sans-serif; color: #172019; background: #f4f2e9;
+      font-synthesis: none; text-rendering: optimizeLegibility;
+      --ink: #172019; --paper: #f4f2e9; --paper-dark: #e9e7dc; --lime: #d8fa52;
+      --muted: #666b60; --surface: #faf9f4; --line: #deddd3; --hero: #d8fa52;
+      --hero-ink: #172019; --mono: 'DM Mono', monospace; --display: 'Space Grotesk', sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; }
+    body { margin: 0; background: var(--paper); color: var(--ink); transition: background-color .35s ease, color .35s ease; }
+    body, button, input, textarea { font-family: 'DM Sans', sans-serif; }
+    button, a { -webkit-tap-highlight-color: transparent; cursor: pointer; }
+    a { color: inherit; text-decoration: none; }
+    button { color: inherit; }
+    ::selection { color: #172019; background: #d8fa52; }
+    :focus-visible { outline: 2px solid #477331; outline-offset: 4px; }
+    svg { display: block; }
+    .site-shell { overflow: clip; }
+    .page-wrap { width: min(1320px, calc(100% - 112px)); margin-inline: auto; }
+    .section-pad { padding-block: 132px; }
+    .arrow-icon { width: 18px; height: 18px; flex: 0 0 auto; }
+
+    .site-header { position: absolute; z-index: 20; inset: 0 0 auto; color: var(--hero-ink); }
+    .secondary-header { position: relative; background: var(--hero); }
+    .nav-wrap { width: min(1440px, calc(100% - 112px)); height: 88px; margin-inline: auto; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgb(23 32 25 / 15%); }
+    .wordmark { font: 700 25px/1 var(--display); letter-spacing: -.09em; }
+    .wordmark span { color: #6b8427; }
+    .nav-links { display: flex; align-items: center; gap: 38px; margin-left: 110px; }
+    .nav-links a, .nav-cta { font-size: 13px; font-weight: 600; }
+    .nav-links a { position: relative; }
+    .nav-links a::after { position: absolute; right: 0; bottom: -7px; left: 0; height: 1px; content: ''; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform .24s ease; }
+    .nav-links a:hover::after, .nav-links a.is-current::after { transform: scaleX(1); transform-origin: left; }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .utility-button, .menu-toggle { width: 38px; height: 38px; display: grid; place-items: center; border: 1px solid rgb(23 32 25 / 18%); border-radius: 50%; background: transparent; transition: background .2s, color .2s, border-color .2s; }
+    .utility-button:hover { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+    .theme-button svg { width: 18px; height: 18px; }
+    .lang-button { font: 500 10px var(--mono); letter-spacing: .03em; }
+    .nav-cta { display: inline-flex; align-items: center; gap: 9px; margin-left: 7px; padding: 13px 17px; border-radius: 3px; background: var(--ink); color: white; transition: background .2s, color .2s; }
+    .nav-cta:hover { background: white; color: var(--ink); }
+    .nav-cta .arrow-icon { width: 15px; height: 15px; }
+    .menu-toggle { display: none; }
+
+    .hero-section { position: relative; min-height: 790px; padding: 164px 0 83px; background: var(--hero); color: var(--hero-ink); isolation: isolate; }
+    .hero-section::before, .secondary-masthead::before { position: absolute; z-index: -1; inset: 0; content: ''; opacity: .14; background-image: linear-gradient(rgb(23 32 25 / 12%) 1px, transparent 1px), linear-gradient(90deg, rgb(23 32 25 / 12%) 1px, transparent 1px); background-size: 64px 64px; mask-image: linear-gradient(110deg, #000 0%, transparent 57%); -webkit-mask-image: linear-gradient(110deg, #000 0%, transparent 57%); }
+    .hero-layout { display: grid; grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr); gap: 36px; align-items: center; }
+    .eyebrow, .section-kicker { margin: 0; font: 500 10px/1.5 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+    .eyebrow { display: flex; align-items: center; gap: 11px; }
+    .eyebrow-mark { width: 8px; height: 8px; border-radius: 50%; background: #42621f; box-shadow: 0 0 0 4px rgb(66 98 31 / 13%); }
+    .hero-copy h1 { margin: 34px 0 25px; font: 600 clamp(3.6rem, 6.2vw, 6.8rem)/.86 var(--display); letter-spacing: -.09em; }
+    .hero-copy h1 .hero-line { display: block; padding-bottom: .12em; margin-bottom: -.12em; white-space: nowrap; }
+    .hero-copy h1 .headline-middle { padding-left: .42em; font-weight: 400; font-style: italic; letter-spacing: -.1em; }
+    .hero-intro { max-width: 490px; margin: 0; color: #3c4932; font-size: 17px; line-height: 1.65; }
+    .hero-actions { display: flex; align-items: center; gap: 25px; margin-top: 28px; }
+    .button { min-height: 52px; display: inline-flex; justify-content: center; align-items: center; gap: 16px; padding: 0 20px; border: 0; border-radius: 2px; font-size: 12px; font-weight: 700; transition: transform .2s, background .2s, color .2s; }
+    .button:hover { transform: translateY(-2px); }
+    .button-dark { background: var(--ink); color: white; }
+    .button-dark:hover { background: white; color: var(--ink); }
+    .text-link { font-size: 12px; font-weight: 600; }
+    .proof-row { display: flex; flex-wrap: wrap; gap: 22px; margin-top: 52px; padding-top: 16px; border-top: 1px solid rgb(23 32 25 / 24%); }
+    .proof-row span { font: 500 9px var(--mono); letter-spacing: .02em; text-transform: uppercase; }
+
+    /* Hero 3D Browser Showcase */
+    .hero-showcase { position: relative; min-width: 0; margin: 0; padding: 0 0 58px 15px; perspective: 1200px; }
+    .showcase-browser { position: relative; overflow: hidden; border: 1px solid rgb(255 255 255 / 70%); border-radius: 13px; background: #f7f6f0; box-shadow: 0 28px 65px rgb(23 32 25 / 22%), 0 4px 12px rgb(23 32 25 / 12%); }
+    .showcase-browser-bar { height: 36px; display: flex; align-items: center; gap: 6px; padding: 0 13px; background: #f0efe9; }
+    .showcase-browser-bar > span:not(.showcase-browser-menu) { width: 7px; height: 7px; border-radius: 50%; }
+    .showcase-browser-bar > span:first-child { background: #e58b79; }
+    .showcase-browser-bar > span:nth-child(2) { background: #e8bd67; }
+    .showcase-browser-bar > span:nth-child(3) { background: #90b887; }
+    .showcase-address { position: absolute; left: 50%; width: 44%; padding: 4px 9px; transform: translateX(-50%); border: 1px solid #e3e1d9; border-radius: 4px; background: #faf9f5; color: #7d8076; font: 9px var(--mono); text-align: center; }
+    .showcase-browser-menu { margin-left: auto; color: #777a71; font-size: 9px; letter-spacing: 2px; }
+    .showcase-site-header { height: 46px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 22px; background: #f8f7f2; color: #172019; }
+    .showcase-site-header strong { font: 700 11px var(--display); letter-spacing: -.04em; }
+    .showcase-site-header strong i { color: #8d9f4b; font-style: normal; }
+    .showcase-site-header > span:nth-child(2) { color: #52574e; font: 600 8px var(--mono); letter-spacing: .08em; white-space: pre; }
+    .showcase-cover { position: relative; height: clamp(250px, 26vw, 330px); overflow: hidden; isolation: isolate; background: #2a362c; color: white; }
+    .showcase-cover img { position: absolute; z-index: -2; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 54%; }
+    .showcase-cover-shade { position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, rgb(13 20 17 / 77%) 0%, rgb(13 20 17 / 48%) 48%, rgb(13 20 17 / 5%) 100%); }
+    .showcase-transport .showcase-cover { background: #f3f4f6; color: #1a1a1a; }
+    .showcase-transport .showcase-cover-shade { background: linear-gradient(90deg, rgb(243 244 246 / 98%) 0%, rgb(243 244 246 / 92%) 38%, transparent 100%); }
+    .showcase-accounting .showcase-cover { background: linear-gradient(135deg, #fde8d8, #ffe0e6); color: #1a1a1a; }
+    .showcase-accounting .showcase-cover-shade { display: none; }
+    .showcase-route-map { position: absolute; inset: 0; }
+    .showcase-cover-copy { position: absolute; top: 50%; left: 32px; width: min(68%, 340px); transform: translateY(-45%); }
+    .showcase-cover-copy > span:first-child { display: inline-flex; align-items: center; gap: 8px; font: 500 8px var(--mono); letter-spacing: .14em; }
+    .showcase-cover-copy h2 { margin: 12px 0 16px; font: 500 clamp(1.8rem, 3.2vw, 3.1rem)/.97 var(--display); letter-spacing: -.06em; white-space: pre-line; }
+    .showcase-cover-intro { max-width: 320px; margin: -6px 0 14px; font-size: 10.5px; line-height: 1.5; }
+    .showcase-cover-link { display: inline-flex; align-items: center; gap: 14px; padding-bottom: 6px; border-bottom: 1px solid currentColor; font: 600 8.5px var(--mono); letter-spacing: .08em; }
+    .showcase-site-footer { min-height: 44px; display: flex; align-items: center; gap: 14px; padding: 0 22px; background: #f8f7f2; color: #172019; font: 600 8.5px var(--mono); }
+    .showcase-site-footer > span:nth-child(2) { color: #73776d; font-weight: 500; }
+    .showcase-footer-arrow { display: grid; width: 23px; height: 23px; place-items: center; margin-left: auto; border: 1px solid #d6d5ca; border-radius: 50%; font-size: 11px; }
+    .showcase-note { position: absolute; z-index: 2; bottom: 62px; left: 0; width: min(246px, 58%); padding: 12px 14px; border: 1px solid rgb(255 255 255 / 60%); border-radius: 7px; background: #172019; box-shadow: 0 15px 32px rgb(15 23 18 / 25%); color: #f5f5ee; }
+    .showcase-note-kicker { display: block; margin-bottom: 8px; color: #b9c3aa; font: 500 7.5px var(--mono); letter-spacing: .08em; }
+    .showcase-steps { display: flex; justify-content: space-between; gap: 8px; }
+    .showcase-steps > span { display: flex; align-items: center; gap: 5px; font-size: 9px; font-weight: 600; }
+    .showcase-steps i { color: var(--lime); font: 500 7.5px var(--mono); font-style: normal; }
+    .showcase-controls { position: absolute; right: 0; bottom: 0; left: 0; display: flex; align-items: stretch; gap: 6px; }
+    .showcase-autoplay { width: 42px; min-height: 42px; display: grid; place-items: center; border: 1px solid rgb(23 32 25 / 17%); border-radius: 4px; background: rgb(255 255 255 / 22%); color: var(--hero-ink); font-size: 13px; }
+    .showcase-tabs { display: flex; gap: 5px; margin-left: auto; }
+    .showcase-tabs button { min-height: 42px; display: inline-flex; align-items: center; gap: 7px; padding: 0 11px; border: 1px solid rgb(23 32 25 / 17%); border-radius: 4px; background: rgb(255 255 255 / 22%); color: var(--hero-ink); font-size: 9.5px; font-weight: 600; }
+    .showcase-tabs button.is-active { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+    .showcase-tabs button > span { color: #9baa70; font: 500 8.5px var(--mono); }
+    .scroll-cue { position: absolute; bottom: 24px; left: max(56px, calc((100% - 1320px) / 2)); display: flex; align-items: center; gap: 10px; font: 500 9px var(--mono); text-transform: uppercase; }
+    .scroll-cue span { width: 30px; height: 1px; background: var(--ink); }
+
+    /* Work & Project Cards */
+    .work-section { background: var(--paper); }
+    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 35px; margin-bottom: 48px; }
+    .section-kicker { color: #637440; }
+    .section-heading h2, .services-heading h2 { margin: 17px 0 0; font: 600 clamp(2.8rem, 5.3vw, 5.3rem)/.98 var(--display); letter-spacing: -.075em; }
+    .work-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 18px; }
+    .filter-list { display: flex; flex-wrap: wrap; gap: 7px; }
+    .filter-button { min-height: 35px; padding: 0 13px; border: 1px solid #d5d4c9; border-radius: 99px; background: transparent; color: #62675d; font-size: 10.5px; transition: all .2s; }
+    .filter-button:hover, .filter-button.is-active { border-color: var(--ink); background: var(--ink); color: white; }
+    .project-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 18px; align-items: stretch; }
+    .project-card { grid-column: span 6; min-width: 0; overflow: hidden; border: 1px solid var(--line); background: var(--surface); transition: border-color .2s, box-shadow .2s; }
+    .project-card:hover { border-color: #82945b; box-shadow: 0 15px 32px rgb(23 32 25 / 9%); }
+    .project-card-adremt2 { grid-column: span 7; }
+    .project-card-ckadrem { grid-column: span 5; }
+    .project-card-pmclassics { grid-column: span 5; }
+    .project-art-link { display: block; }
+    .project-art { position: relative; min-height: 270px; overflow: hidden; isolation: isolate; background: #27332d; color: white; }
+    .project-photo, .project-photo-shade { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .project-photo { z-index: -2; object-fit: cover; object-position: center 54%; filter: saturate(.72); transition: transform .7s ease; }
+    .project-card:hover .project-photo { transform: scale(1.06); }
+    .project-photo-shade { z-index: -1; background: linear-gradient(90deg, rgb(18 16 15 / 62%), transparent 88%), linear-gradient(0deg, rgb(18 16 15 / 47%), transparent 66%); }
+    .art-micro { position: absolute; top: 22px; right: 24px; left: 24px; display: flex; justify-content: space-between; font: 500 9px var(--mono); letter-spacing: .12em; color: #fff; }
+    .art-caption { position: absolute; bottom: 22px; left: 24px; font: 500 9px var(--mono); letter-spacing: .15em; color: white; }
+    .classic-art-copy { position: absolute; top: 50%; left: 7%; display: flex; flex-direction: column; gap: 12px; transform: translateY(-45%); }
+    .classic-art-copy > span { font: 500 8px var(--mono); letter-spacing: .16em; }
+    .classic-art-copy strong { font: 500 clamp(2rem, 4vw, 3.3rem)/.91 var(--display); letter-spacing: -.07em; }
+    .classic-art-copy i { color: #efc99b; font-weight: 400; }
+
+    /* SVG Route Map Artwork */
+    .route-map-graphic { display: block; width: 100%; height: 100%; }
+    .route-map-land { fill: #e1e7de; }
+    .route-map-land-secondary { fill: #d8e0d6; }
+    .route-map-borders { fill: none; stroke: #c2cec1; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .route-map-poland { fill: rgb(217 4 41 / 17%); stroke: #d90429; stroke-width: 3; stroke-linejoin: round; }
+    .route-map-cities circle { fill: #d33239; stroke: #fff; stroke-width: 4; }
+    .route-map-start { fill: #d33239; stroke: #fff; stroke-width: 5; }
+    .route-map-label { fill: #fff; stroke: #1e2822; stroke-width: 5px; paint-order: stroke; font: 700 12px var(--mono); letter-spacing: .5px; }
+    .project-art-route { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); background: #f3f4f6; color: #1a1a1a; }
+    .project-route-canvas { position: relative; min-width: 0; min-height: 270px; overflow: hidden; padding: 14px; background: #eef1ed; }
+    .project-route-canvas > .route-map-graphic { position: absolute; inset: 35px 0 25px; width: 100%; height: calc(100% - 60px); }
+    .route-canvas-title { position: relative; z-index: 1; display: flex; justify-content: space-between; gap: 8px; color: #555b53; font: 600 8.5px var(--mono); letter-spacing: .08em; }
+    .route-map-legend { position: absolute; z-index: 1; right: 12px; bottom: 12px; left: 12px; display: flex; gap: 12px; color: #555b53; font: 500 7.5px var(--mono); }
+    .route-map-legend span { display: flex; align-items: center; gap: 5px; }
+    .route-map-legend i { width: 6px; height: 6px; border-radius: 50%; background: #d90429; display: inline-block; }
+    .project-route-panel { display: flex; flex-direction: column; justify-content: center; gap: 9px; min-width: 0; padding: 18px 16px; border-left: 3px solid #d90429; background: #fff; }
+    .route-panel-eyebrow, .route-panel-distance > span { color: #686a64; font: 600 8px var(--mono); letter-spacing: .1em; }
+    .project-route-panel h2 { margin: 0; font: 700 clamp(1.1rem, 1.7vw, 1.4rem)/1 var(--display); letter-spacing: -.05em; }
+    .project-route-panel > p { margin: 0; color: #5a5a5a; font-size: 10px; line-height: 1.5; }
+    .route-panel-distance { display: flex; flex-direction: column; gap: 4px; padding: 8px 0; border-block: 1px solid rgb(26 26 26 / 10%); }
+    .route-panel-distance strong { font-size: 14px; }
+    .route-panel-distance small { color: #777d75; font-size: 8px; line-height: 1.35; }
+    .route-panel-contact { color: #5a5a5a; font: 500 8px var(--mono); }
+
+    /* Ledger Artwork */
+    .project-art-ledger { background: linear-gradient(135deg, #fde8d8, #ffe0e6); color: #1a1a1a; }
+    .ck-hero-preview { position: absolute; inset: 0; overflow: hidden; padding: 49px 22px 15px; background: linear-gradient(135deg, #fde8d8 0%, #ffe0e6 100%); color: #1a1a1a; }
+    .ck-hero-nav { position: absolute; inset: 0 0 auto; height: 37px; display: flex; align-items: center; gap: 8px; padding: 0 22px; border-bottom: 1px solid rgb(26 26 26 / 9%); }
+    .ck-hero-nav strong { font: 700 12px var(--display); }
+    .ck-hero-nav > span, .ck-hero-nav small { color: #5a5a5a; font: 500 7.5px var(--mono); }
+    .ck-hero-nav small { margin-left: auto; }
+    .ck-hero-eyebrow { display: flex; align-items: center; gap: 6px; margin: 0 0 7px; color: #5a5a5a; font: 700 8px var(--mono); letter-spacing: .08em; }
+    .ck-hero-eyebrow i { width: 6px; height: 6px; border-radius: 50%; background: #d90429; display: inline-block; }
+    .ck-hero-preview h2 { max-width: 75%; margin: 0 0 7px; font: 800 clamp(1.2rem, 2.6vw, 2.1rem)/1.04 var(--display); letter-spacing: -.05em; }
+    .ck-hero-preview h2 em { color: #d90429; font-style: normal; }
+    .ck-hero-intro { max-width: 70%; margin: 0; color: #5a5a5a; font-size: 9.5px; line-height: 1.45; }
+    .ck-hero-actions { display: flex; gap: 7px; margin-top: 10px; }
+    .ck-hero-actions span { padding: 6px 10px; border: 1px solid #d90429; border-radius: 99px; color: #d90429; font-size: 8px; font-weight: 700; }
+    .ck-hero-actions span:first-child { background: #d90429; color: white; }
+    .ck-hero-index { position: absolute; right: 14px; bottom: 11px; color: #5a5a5a; font: 600 8px var(--mono); }
+
+    .project-info { padding: 22px 24px 19px; }
+    .project-tags { display: flex; gap: 7px; margin-bottom: 16px; }
+    .project-tags span { padding: 6px 8px; border: 1px solid #deddd3; color: #5f665c; font: 500 9px var(--mono); }
+    .project-info h3 { margin: 0 0 8px; font: 600 23px/1.1 var(--display); letter-spacing: -.055em; }
+    .project-info > p { min-height: 42px; margin: 0; color: #666b62; font-size: 12.5px; line-height: 1.65; }
+    .project-links { display: flex; justify-content: space-between; gap: 10px; margin-top: 19px; padding-top: 13px; border-top: 1px solid var(--line); }
+    .project-links a { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; }
+    .project-links a:last-child { color: #536536; }
+    .more-card { position: relative; grid-column: span 7; min-height: 200px; display: flex; flex-direction: column; justify-content: space-between; padding: 23px 26px; overflow: hidden; background: var(--paper-dark); transition: background .25s; }
+    .more-card:hover { background: var(--lime); }
+    .more-card-index { font: 500 9px var(--mono); letter-spacing: .14em; }
+    .more-card-title { position: relative; z-index: 1; max-width: 570px; font: 500 clamp(1.7rem, 3.4vw, 3.3rem)/1 var(--display); letter-spacing: -.065em; }
+    .more-card-link { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; }
+    .more-card-mark { position: absolute; right: 19px; bottom: -62px; font: 400 180px/.9 var(--display); opacity: .07; }
+
+    /* Services, About, Contact, Footer */
+    .services-section { background: var(--paper-dark); }
+    .services-wrap { display: grid; grid-template-columns: .8fr 1.2fr; gap: 9vw; }
+    .service-row { display: grid; grid-template-columns: 38px minmax(150px, .9fr) 1.1fr 24px; align-items: center; gap: 16px; min-height: 112px; border-top: 1px solid var(--line); }
+    .service-row:last-child { border-bottom: 1px solid var(--line); }
+    .service-number { align-self: start; padding-top: 26px; color: #6c794b; font: 500 10px var(--mono); }
+    .service-row h3 { margin: 0; font: 600 clamp(1.1rem, 1.5vw, 1.35rem)/1.15 var(--display); letter-spacing: -.04em; }
+    .service-row > p { max-width: 310px; margin: 0; color: #656a60; font-size: 12px; line-height: 1.65; }
+
+    .about-section, .about-practice { background: #202a25; color: #f5f2e8; }
+    .about-layout, .about-practice-layout { display: grid; grid-template-columns: .65fr 1.35fr; gap: 10vw; }
+    .about-side .section-kicker, .about-practice .section-kicker { color: var(--lime); }
+    .about-main h2, .about-practice h2 { max-width: 730px; margin: -13px 0 27px; font: 500 clamp(2.8rem, 6vw, 6.2rem)/.93 var(--display); letter-spacing: -.08em; }
+    .about-copy { max-width: 590px; margin: 0; color: #c1c7bd; font-size: 16px; line-height: 1.75; }
+    .about-link { display: inline-flex; align-items: center; gap: 12px; margin-top: 24px; color: var(--lime); font-size: 12px; font-weight: 600; }
+    .skill-block { margin-top: 66px; padding-top: 18px; border-top: 1px solid rgb(245 242 232 / 22%); }
+    .skill-block > p { margin: 0 0 16px; color: #aab3a9; font: 500 9px var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+    .skill-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-list span { padding: 9px 11px; border: 1px solid rgb(245 242 232 / 25%); color: #e6e8df; font-size: 10px; }
+
+    .contact-section { background: var(--lime); }
+    .contact-wrap { display: grid; grid-template-columns: 1.1fr .8fr; gap: 12vw; }
+    .contact-heading .section-kicker { color: #536b27; }
+    .contact-heading h2 { margin: 22px 0 17px; font: 600 clamp(3.6rem, 7.5vw, 7.5rem)/.85 var(--display); letter-spacing: -.095em; }
+    .contact-heading h2 span { display: block; }
+    .contact-intro { max-width: 420px; margin: 25px 0 32px; color: #415135; font-size: 14px; line-height: 1.7; }
+    .contact-intro span { display: block; }
+    .contact-email { display: inline-flex; flex-direction: column; gap: 7px; font: 500 9.5px var(--mono); text-transform: uppercase; }
+    .contact-email span { font: 600 15px var(--display); text-transform: none; }
+    .contact-form { display: flex; flex-direction: column; gap: 20px; padding-top: 28px; }
+    .contact-form label { display: flex; flex-direction: column; gap: 8px; font: 500 9.5px var(--mono); text-transform: uppercase; }
+    .contact-form input, .contact-form textarea { width: 100%; padding: 10px 0 12px; border: 0; border-bottom: 1px solid rgb(23 32 25 / 35%); background: transparent; color: var(--ink); font: 400 13.5px 'DM Sans', sans-serif; outline: 0; }
+    .button-lime { min-height: 54px; justify-content: space-between; padding-inline: 17px; background: var(--ink); color: white; }
+    .button-lime:hover { background: white; color: var(--ink); }
+    .form-note { margin: -9px 0 0; color: #4e5e3d; font-size: 10px; }
+    .site-footer { background: #172019; color: #f2f0e5; }
+    .footer-content { min-height: 90px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .footer-content .wordmark span { color: var(--lime); }
+    .footer-content > p { margin: 0; color: #c5c9c0; font: 500 9.5px var(--mono); }
+    .footer-content > p span { margin-left: 10px; color: #899188; }
+    .back-top { font: 500 10px var(--mono); }
+
+    /* Subpages: Projects, About, Case Study (from DetailPages.jsx) */
+    .secondary-masthead { position: relative; overflow: hidden; padding: 84px 0 72px; background: var(--hero); color: var(--hero-ink); isolation: isolate; }
+    .secondary-masthead h1 { max-width: 1000px; margin: 26px 0 18px; font: 600 clamp(3.2rem, 7.5vw, 6.8rem)/.91 var(--display); letter-spacing: -.09em; }
+    .secondary-intro { max-width: 620px; margin: 0; color: #3c4932; font-size: 17px; line-height: 1.7; }
+    .about-proof { display: flex; flex-wrap: wrap; gap: 34px; margin-top: 42px; padding-top: 16px; border-top: 1px solid rgb(23 32 25 / 24%); font: 500 11px var(--mono); }
+    .about-proof i { margin-left: 5px; font-style: normal; text-transform: uppercase; }
+    .experience-section { background: var(--paper); padding-block: 78px; }
+    .experience-list { border-top: 1px solid var(--line); }
+    .experience-row { display: grid; grid-template-columns: 1fr 50px 2fr; gap: 24px; padding: 28px 0 32px; border-bottom: 1px solid var(--line); }
+    .experience-date { color: #69784a; font: 500 10.5px var(--mono); }
+    .experience-number { color: var(--muted); font: 500 10px var(--mono); }
+    .experience-row h3 { margin: -4px 0 10px; font: 600 clamp(1.2rem, 2.2vw, 1.75rem)/1.1 var(--display); letter-spacing: -.05em; }
+    .experience-row p { max-width: 650px; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.75; }
+    .about-skills-section { background: var(--paper-dark); padding-block: 78px; }
+    .about-skills-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .about-detail-card { min-height: 220px; padding: 26px; border: 1px solid var(--line); background: var(--surface); }
+    .about-detail-card h2 { margin: 16px 0 18px; font: 600 24px/1.05 var(--display); letter-spacing: -.05em; }
+    .about-detail-card ul { display: grid; gap: 9px; margin: 0; padding: 0; list-style: none; }
+    .about-detail-card li, .about-detail-card p:not(.section-kicker) { color: var(--muted); font-size: 12.5px; line-height: 1.65; }
+    .about-detail-card li::before { margin-right: 10px; color: #718442; content: '↗'; }
+
+    .case-masthead { padding: 44px 0 0; background: var(--hero); color: var(--hero-ink); overflow: hidden; }
+    .case-masthead-inner > .section-kicker { margin-top: 38px; color: #536536; }
+    .back-link { display: inline-flex; align-items: center; gap: 9px; font-size: 12px; font-weight: 600; }
+    .case-masthead h1 { max-width: 1000px; margin: 22px 0 16px; font: 600 clamp(3rem, 6.6vw, 6.2rem)/.92 var(--display); letter-spacing: -.09em; }
+    .case-hero-art { position: relative; display: grid; height: clamp(320px, 38vw, 460px); place-items: center; margin-top: 38px; padding: clamp(14px, 3.5vw, 42px); overflow: hidden; background: radial-gradient(ellipse at 50% 48%, #364338, #18211b 72%); }
+    .case-hero-art .project-art { width: min(100%, 1040px); height: 100%; min-height: 0; box-shadow: 0 24px 60px rgb(0 0 0 / 35%); }
+    .case-meta-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; padding: 24px 0 29px; }
+    .case-meta-grid > div { display: flex; flex-direction: column; gap: 8px; }
+    .case-meta-grid span { color: #536536; font: 500 9px var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+    .case-meta-grid strong { font-size: 12.5px; font-weight: 600; line-height: 1.5; }
+    .case-stats-section { background: var(--paper-dark); }
+    .case-stats-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .case-stat { min-height: 128px; display: flex; flex-direction: column; justify-content: center; gap: 8px; padding: 18px 24px; border-left: 1px solid var(--line); }
+    .case-stat:last-child { border-right: 1px solid var(--line); }
+    .case-stat strong { font: 600 clamp(1.5rem, 2.8vw, 2.4rem)/1 var(--display); letter-spacing: -.06em; }
+    .case-stat span { color: var(--muted); font-size: 11px; line-height: 1.5; }
+    .case-content-layout { display: grid; grid-template-columns: .65fr 1.35fr; gap: 10vw; }
+    .case-content-aside { position: sticky; top: 35px; align-self: start; }
+    .case-content-aside ol { display: grid; gap: 14px; margin: 22px 0 26px; padding: 0; list-style: none; }
+    .case-content-aside li a { display: grid; grid-template-columns: 25px 1fr; gap: 9px; color: var(--muted); font-size: 12px; }
+    .case-content-aside li span { color: #718442; font: 500 10px var(--mono); }
+    .case-prose > section { position: relative; padding: 0 0 42px 54px; margin-bottom: 42px; border-bottom: 1px solid var(--line); }
+    .case-section-number { position: absolute; top: 6px; left: 0; color: #718442; font: 500 10.5px var(--mono); }
+    .case-prose h2 { margin: 0 0 16px; font: 600 clamp(1.6rem, 2.8vw, 2.4rem)/1.05 var(--display); letter-spacing: -.06em; }
+    .case-prose p, .case-prose li { color: var(--muted); font-size: 13.5px; line-height: 1.8; }
+    .case-prose ul { display: grid; gap: 10px; margin: 18px 0 0; padding: 0; list-style: none; }
+    .case-prose li { position: relative; padding-left: 20px; }
+    .case-prose li::before { position: absolute; left: 0; color: #718442; content: '↗'; }
+    .case-next { display: flex; flex-direction: column; gap: 15px; padding: 55px max(56px, calc((100% - 1320px) / 2)); background: #202a25; color: #f5f2e8; }
+    .case-next > span { display: flex; align-items: center; gap: 8px; color: var(--lime); font: 500 10px var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+    .case-next > strong { font: 500 clamp(2.1rem, 4.6vw, 4.5rem)/.98 var(--display); letter-spacing: -.07em; }
+
+    /* Dark Mode */
+    .dark { color-scheme: dark; --paper: #141a16; --paper-dark: #1c241f; --ink: #f0f2e9; --muted: #b0b8ad; --surface: #1e2621; --line: #39433b; --hero: #1a241e; --hero-ink: #f0f2e9; }
+    .dark .wordmark span, .dark .hero-copy h1 .headline-middle, .dark .project-links a:last-child, .dark .section-kicker, .dark .service-number, .dark .contact-heading .section-kicker, .dark .case-meta-grid span { color: var(--lime); }
+    .dark .nav-cta, .dark .button-dark, .dark .button-lime, .dark .filter-button.is-active { background: var(--lime); color: #172019; }
+    .dark .hero-intro, .dark .secondary-intro { color: #c6d0c3; }
+    .dark .contact-section { background: #29351f; color: #f0f2e9; }
+    .dark .contact-intro, .dark .form-note { color: #d2ddc7; }
+    .dark .contact-form input, .dark .contact-form textarea { border-color: rgb(255 255 255 / 45%); color: white; }
+    .dark .site-footer { background: #090e0b; }
+
+    @media (max-width: 960px) {
+      .page-wrap, .nav-wrap { width: calc(100% - 48px); }
+      .hero-layout, .services-wrap, .about-layout, .about-practice-layout, .contact-wrap, .case-content-layout { grid-template-columns: 1fr; gap: 38px; }
+      .project-card, .project-card-adremt2, .project-card-ckadrem, .project-card-pmclassics, .more-card { grid-column: span 12; }
+      .case-meta-grid, .case-stats-grid, .about-skills-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 720px) {
+      .nav-links, .nav-cta { display: none; }
+      .nav-links.is-open { position: absolute; top: 88px; left: 0; right: 0; display: flex; flex-direction: column; padding: 20px; background: var(--hero); margin: 0; }
+      .menu-toggle { display: flex; flex-direction: column; justify-content: center; gap: 5px; }
+      .menu-toggle span { width: 14px; height: 1.5px; background: currentColor; }
+      .about-skills-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="site-shell">
+
+    <!-- ═══ HEADER / NAVIGATION ═══ -->
+    <header class="site-header" :class="{ 'secondary-header': page !== 'home' }">
+      <nav class="nav-wrap" :aria-label="language === 'pl' ? 'Nawigacja główna' : 'Main navigation'">
+        <a class="wordmark" href="#top" @click.prevent="goTo('home')">archie<span>.</span></a>
+
+        <div class="nav-links" :class="{ 'is-open': menuOpen }">
+          <a href="#services" @click.prevent="goTo('home', 'services')" x-text="t.nav[0]"></a>
+          <a href="#projects" :class="{ 'is-current': page === 'projects' }" @click.prevent="goTo('projects')" x-text="t.nav[1]"></a>
+          <a href="#about" :class="{ 'is-current': page === 'about' }" @click.prevent="goTo('about')" x-text="t.nav[2]"></a>
+        </div>
+
+        <div class="nav-actions">
+          <button type="button" class="utility-button lang-button" @click="toggleLanguage()" x-text="language === 'pl' ? 'EN' : 'PL'"></button>
+          <button type="button" class="utility-button theme-button" @click="toggleTheme()" :aria-label="t.switchTheme">
+            <svg x-show="dark" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="3.5" stroke="currentColor" stroke-width="1.5"/><path d="M10 1.5v2m0 13v2m8.5-8.5h-2m-13 0h-2m14.51-6.01-1.42 1.42m-9.18 9.18-1.42 1.42m12.02 0-1.42-1.42m-9.18-9.18L4 2.99" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <svg x-show="!dark" viewBox="0 0 20 20" fill="none"><path d="M17 12.2A7.6 7.6 0 0 1 7.8 3 7.7 7.7 0 1 0 17 12.2Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          </button>
+          <a class="nav-cta" href="#contact" @click.prevent="goTo('home', 'contact')">
+            <span x-text="t.start"></span>
+            <svg viewBox="0 0 20 20" fill="none" class="arrow-icon"><path d="M5 15 15 5M6 5h9v9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <button type="button" class="menu-toggle" @click="menuOpen = !menuOpen" :aria-expanded="menuOpen">
+            <span></span><span></span>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         VIEW 1: HOME (App.jsx)
+         ═══════════════════════════════════════════════════════════════════ -->
+    <main id="main" x-show="page === 'home'">
+      <section class="hero-section" id="top">
+        <div class="hero-layout page-wrap">
+          <div class="hero-copy">
+            <p class="eyebrow"><span class="eyebrow-mark"></span><span x-text="t.eyebrow"></span></p>
+            <h1>
+              <span class="hero-line" x-text="t.heroLines[0]"></span>
+              <span class="hero-line headline-middle" x-text="t.heroLines[1]"></span>
+              <span class="hero-line" x-text="t.heroLines[2]"></span>
+            </h1>
+            <p class="hero-intro" x-text="t.intro"></p>
+            <div class="hero-actions">
+              <a class="button button-dark" href="#work">
+                <span x-text="t.workLink"></span>
+                <svg viewBox="0 0 20 20" fill="none" class="arrow-icon"><path d="M3 10h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <a class="text-link" href="#contact" x-text="t.contactLink"></a>
+            </div>
+            <div class="proof-row">
+              <template x-for="item in t.proof" :key="item">
+                <span x-text="item"></span>
+              </template>
+            </div>
+          </div>
+
+          <!-- 3D HeroShowcase Component from App.jsx -->
+          <figure class="hero-showcase" @mouseenter="showcaseHovered = true" @mouseleave="showcaseHovered = false; resetShowcase()">
+            <div class="showcase-browser" :class="'showcase-' + activeShowcase.theme" x-ref="frameRef" @mousemove="tiltShowcase($event)">
+              <div class="showcase-browser-bar" aria-hidden="true">
+                <span></span><span></span><span></span>
+                <div class="showcase-address" x-text="activeShowcase.brand.toLowerCase().replaceAll(' ', '') + '.com'"></div>
+                <span class="showcase-browser-menu">•••</span>
+              </div>
+              <div class="showcase-view">
+                <div class="showcase-site">
+                  <header class="showcase-site-header">
+                    <strong><span x-text="activeShowcase.brand"></span><i>.</i></strong>
+                    <span x-text="activeShowcase.nav"></span>
+                  </header>
+                  <div class="showcase-cover">
+                    <template x-if="activeShowcase.theme === 'transport'">
+                      <svg class="route-map-graphic showcase-route-map" viewBox="0 0 900 520" preserveAspectRatio="xMidYMid slice">
+                        <path class="route-map-land" d="m101 76 41-25 34 8 24-23 39 12 28 31 34-8 30 18 27-9 30 21 41-12 30 22 43-5 24 23 43-2 23 29 40 14 13 32-19 25-35 7-5 30-28 15-12 34-34 12-15 32-39 6-20 27-37-4-20-26-31-5-18-24-36-2-19-24-31-4-13-24-32-14-10-25-32-13-15-28-35-9-9-28-31-6-12-24 20-26Z"/>
+                        <path class="route-map-poland" d="m480 193 30-14 34 8 18 25 31 7 7 33-17 25 5 31-26 20-31-8-20 13-27-15-17-25-24-8-5-27 18-20Z"/>
+                        <g class="route-map-cities"><circle cx="534" cy="235" r="7"/><circle cx="367" cy="252" r="6"/><circle cx="284" cy="287" r="6"/><circle cx="412" cy="353" r="6"/></g>
+                        <circle class="route-map-start" cx="534" cy="235" r="12"/>
+                        <text class="route-map-label" x="551" y="240">WARSZAWA / BAZA</text>
+                      </svg>
+                    </template>
+                    <template x-if="activeShowcase.theme === 'classic'">
+                      <img :src="classicCarImg" :alt="activeShowcase.alt" />
+                    </template>
+                    <div class="showcase-cover-shade"></div>
+                    <div class="showcase-cover-copy">
+                      <span x-text="activeShowcase.eyebrow"></span>
+                      <h2 x-text="activeShowcase.title"></h2>
+                      <p class="showcase-cover-intro" x-show="activeShowcase.intro" x-text="activeShowcase.intro"></p>
+                      <span class="showcase-cover-link"><span x-text="activeShowcase.link"></span><b>↗</b></span>
+                    </div>
+                    <span class="showcase-cover-index" x-text="'0' + (showcaseIdx + 1) + ' — 03'"></span>
+                  </div>
+                  <div class="showcase-site-footer">
+                    <strong x-text="activeShowcase.detail"></strong>
+                    <span x-text="activeShowcase.meta"></span>
+                    <span class="showcase-footer-arrow">↗</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <figcaption class="showcase-note" x-ref="noteRef">
+              <span class="showcase-note-kicker" x-text="t.showcaseNote"></span>
+              <span class="showcase-steps">
+                <template x-for="(step, idx) in t.showcaseSteps" :key="step">
+                  <span><i x-text="'0' + (idx + 1)"></i><span x-text="step"></span></span>
+                </template>
+              </span>
+            </figcaption>
+
+            <div class="showcase-controls">
+              <button type="button" class="showcase-autoplay" @click="isPlaying = !isPlaying" x-text="isPlaying ? 'Ⅱ' : '▶'"></button>
+              <div class="showcase-tabs" role="tablist">
+                <template x-for="(tab, idx) in t.showcaseTabs" :key="tab">
+                  <button type="button" :class="{ 'is-active': showcaseIdx === idx }" @click="isPlaying = false; showcaseIdx = idx">
+                    <span x-text="'0' + (idx + 1)"></span><span x-text="tab"></span>
+                  </button>
+                </template>
+              </div>
+            </div>
+          </figure>
+        </div>
+        <a class="scroll-cue" href="#work"><span></span><span x-text="language === 'pl' ? 'Przewiń, żeby zobaczyć więcej' : 'Scroll to explore'"></span></a>
+      </section>
+
+      <!-- Work Section -->
+      <section class="work-section section-pad" id="work">
+        <div class="page-wrap">
+          <div class="section-heading">
+            <div><p class="section-kicker" x-text="t.sectionLabel"></p><h2 x-text="t.workTitle"></h2></div>
+          </div>
+          <div class="work-toolbar">
+            <div class="filter-list" role="group">
+              <template x-for="(key, idx) in ['all', 'b2b', 'tools', 'multilingual']" :key="key">
+                <button type="button" class="filter-button" :class="{ 'is-active': filter === key }" @click="filter = key" x-text="t.filters[idx]"></button>
+              </template>
+            </div>
+          </div>
+
+          <div class="project-grid">
+            <template x-for="project in visibleProjects" :key="project.id">
+              <article class="project-card" :class="'project-card-' + project.id">
+                <a class="project-art-link" @click.prevent="openCase(project.id)">
+                  <!-- Route Artwork -->
+                  <div x-show="project.art === 'route'" class="project-art project-art-route">
+                    <div class="project-route-canvas">
+                      <div class="route-canvas-title"><span>EUROPA / KIERUNKI</span><span>◉ WARSZAWA / BAZA</span></div>
+                      <svg class="route-map-graphic" viewBox="0 0 900 520" preserveAspectRatio="xMidYMid slice">
+                        <path class="route-map-land" d="m101 76 41-25 34 8 24-23 39 12 28 31 34-8 30 18 27-9 30 21 41-12 30 22 43-5 24 23 43-2 23 29 40 14 13 32-19 25-35 7-5 30-28 15-12 34-34 12-15 32-39 6-20 27-37-4-20-26-31-5-18-24-36-2-19-24-31-4-13-24-32-14-10-25-32-13-15-28-35-9-9-28-31-6-12-24 20-26Z"/>
+                        <path class="route-map-land route-map-land-secondary" d="m73 256 38 7 28 27-10 34-33 20-30-21-9-34Zm209 172 31-22 35 9 8 22-27 21-34-7Zm286 24 32-18 25 10-12 25-31 8Zm-75-436 34-13 30 15-13 25-32-4Z"/>
+                        <g class="route-map-borders">
+                          <path d="m199 79 21 48 39 22 25-19 34 26-9 47 28 26-10 37-31 17 2 41-32 19-17 42"/><path d="m263 79 20 52 38 25 37-12 26 29-8 37 34 22-9 34-36 17 1 43-28 22"/>
+                          <path d="m344 91 11 42 39 23 19 39-22 30 27 25-7 39 28 26-17 39"/><path d="m419 103 20 39 34 16 15 38-18 33 25 27-6 39 31 18"/>
+                        </g>
+                        <path class="route-map-poland" d="m480 193 30-14 34 8 18 25 31 7 7 33-17 25 5 31-26 20-31-8-20 13-27-15-17-25-24-8-5-27 18-20Z"/>
+                        <g class="route-map-cities">
+                          <circle cx="534" cy="235" r="7"/><circle cx="367" cy="252" r="6"/><circle cx="284" cy="287" r="6"/><circle cx="225" cy="226" r="6"/><circle cx="412" cy="353" r="6"/><circle cx="468" cy="326" r="6"/>
+                        </g>
+                        <circle class="route-map-start" cx="534" cy="235" r="12"/>
+                        <text class="route-map-label" x="551" y="240">WARSZAWA / BAZA</text>
+                      </svg>
+                      <div class="route-map-legend"><span><i></i> BAZA W WARSZAWIE</span><span><i></i> WYBIERZ PUNKT MIASTA</span></div>
+                    </div>
+                    <div class="project-route-panel">
+                      <span class="route-panel-eyebrow">↳ PODGLĄD RELACJI</span>
+                      <h2>Dokąd jedziemy?</h2>
+                      <p>Wybierz miasto docelowe na mapie, aby obliczyć dystans drogowy z Warszawy.</p>
+                      <div class="route-panel-distance"><span>DYSTANS DROGOWY</span><strong>Wybierz miasto</strong><small>Dystans drogowy jest obliczany do centrum miasta.</small></div>
+                      <span class="route-panel-contact">◷ Kontakt z dyspozytorem 24/7</span>
+                    </div>
+                  </div>
+
+                  <!-- Ledger Artwork -->
+                  <div x-show="project.art === 'ledger'" class="project-art project-art-ledger">
+                    <div class="ck-hero-preview">
+                      <div class="ck-hero-nav"><strong>Ad Rem</strong><span>CENTRUM KSIĘGOWE</span><small>O FIRMIE   USŁUGI   CENNIK</small></div>
+                      <p class="ck-hero-eyebrow"><i></i> AD REM / DO RZECZY</p>
+                      <h2>Księgowość, która<br/>pozwala Ci <em>spać spokojnie.</em></h2>
+                      <p class="ck-hero-intro">Rodzinna firma z 22-letnim doświadczeniem w obsłudze księgowej w Warszawie.</p>
+                      <div class="ck-hero-actions"><span>Umów konsultację</span><span>☎ Zadzwoń</span></div>
+                      <div class="ck-hero-index" x-text="project.number + ' / 03'"></div>
+                    </div>
+                  </div>
+
+                  <!-- Classic Car Artwork -->
+                  <div x-show="project.art === 'classic'" class="project-art project-art-classic">
+                    <img class="project-photo" :src="classicCarImg" alt="1966 Volvo Amazon" loading="lazy" />
+                    <div class="project-photo-shade"></div>
+                    <div class="art-micro">PM CLASSICS <span x-text="project.number + ' / 03'"></span></div>
+                    <div class="classic-art-copy"><span>THE ART OF</span><strong>Second<br/><i>chapters.</i></strong></div>
+                    <span class="art-caption">CLASSIC CAR RESTORATION</span>
+                  </div>
+                </a>
+
+                <div class="project-info">
+                  <div class="project-tags">
+                    <template x-for="tag in project.tags" :key="tag"><span x-text="tag"></span></template>
+                  </div>
+                  <h3 x-text="t.projectTitles[project.titleIndex]"></h3>
+                  <p x-text="t.projectDescriptions[project.titleIndex]"></p>
+                  <div class="project-links">
+                    <a @click.prevent="openCase(project.id)">
+                      <span x-text="t.case"></span>
+                      <svg viewBox="0 0 20 20" fill="none" class="arrow-icon"><path d="M5 15 15 5M6 5h9v9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </a>
+                    <a :href="project.href" :target="project.href.startsWith('http') ? '_blank' : '_self'" x-text="t.visit"></a>
+                  </div>
+                </div>
+              </article>
+            </template>
+
+            <a x-show="filter === 'all'" class="more-card" @click.prevent="goTo('projects')">
+              <span class="more-card-index">PORTFOLIO / 04—</span>
+              <span class="more-card-title" x-text="t.more"></span>
+              <span class="more-card-link">
+                <span x-text="t.allWork"></span>
+                <svg viewBox="0 0 20 20" fill="none" class="arrow-icon"><path d="M5 15 15 5M6 5h9v9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <span class="more-card-mark" aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Services Section -->
+      <section class="services-section section-pad" id="services">
+        <div class="page-wrap services-wrap">
+          <div class="services-heading"><p class="section-kicker" x-text="t.servicesLabel"></p><h2 x-text="t.servicesTitle"></h2></div>
+          <div class="service-list">
+            <template x-for="(srv, idx) in t.services" :key="srv[0]">
+              <article class="service-row">
+                <span class="service-number" x-text="'0' + (idx + 1)"></span>
+                <h3 x-text="srv[0]"></h3>
+                <p x-text="srv[1]"></p>
+                <span class="service-arrow"><svg viewBox="0 0 20 20" fill="none" class="arrow-icon"><path d="M5 15 15 5M6 5h9v9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              </article>
+            </template>
+          </div>
+        </div>
+      </section>
+
+      <!-- About Section -->
+      <section class="about-section section-pad" id="about">
+        <div class="page-wrap about-layout">
+          <div class="about-side"><p class="section-kicker" x-text="t.aboutLabel"></p></div>
+          <div class="about-main">
+            <h2 x-text="t.aboutTitle"></h2>
+            <p class="about-copy" x-text="t.aboutText"></p>
+            <a class="about-link" @click.prevent="goTo('about')">
+              <span x-text="t.aboutLink"></span>
+            </a>
+            <div class="skill-block">
+              <p x-text="t.skillsLabel"></p>
+              <div class="skill-list">
+                <template x-for="sk in t.skills" :key="sk"><span x-text="sk"></span></template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section class="contact-section section-pad" id="contact">
+        <div class="page-wrap contact-wrap">
+          <div class="contact-heading">
+            <p class="section-kicker" x-text="t.contactLabel"></p>
+            <h2>
+              <template x-for="line in t.contactTitle" :key="line"><span x-text="line"></span></template>
+            </h2>
+            <p class="contact-intro">
+              <template x-for="line in t.contactText" :key="line"><span x-text="line"></span></template>
+            </p>
+            <a class="contact-email" href="mailto:artur.zaluska@gmail.com">
+              <span x-text="t.emailLabel"></span>
+              <span>artur.zaluska@gmail.com</span>
+            </a>
+          </div>
+          <form class="contact-form" @submit.prevent="composeEmail($event)">
+            <label><span x-text="t.name"></span><input name="name" placeholder="Jan Kowalski" required /></label>
+            <label><span x-text="t.email"></span><input type="email" name="email" placeholder="jan@firma.com" required /></label>
+            <label><span x-text="t.message"></span><textarea name="message" rows="4" placeholder="..." required></textarea></label>
+            <button class="button button-lime" type="submit">
+              <span x-text="t.send"></span>
+              <svg viewBox="0 0 20 20" fill="none" class="arrow-icon"><path d="M5 15 15 5M6 5h9v9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         VIEW 2: PROJECTS PAGE (DetailPages.jsx)
+         ═══════════════════════════════════════════════════════════════════ -->
+    <main x-show="page === 'projects'" x-cloak>
+      <header class="secondary-masthead">
+        <div class="page-wrap">
+          <p class="section-kicker" x-text="d.projects.label"></p>
+          <h1 x-text="d.projects.title"></h1>
+          <p class="secondary-intro" x-text="d.projects.intro"></p>
+        </div>
+      </header>
+      <section class="work-section section-pad">
+        <div class="page-wrap">
+          <div class="work-toolbar">
+            <div class="filter-list">
+              <template x-for="(key, idx) in ['all', 'b2b', 'tools', 'multilingual']" :key="key">
+                <button type="button" class="filter-button" :class="{ 'is-active': filter === key }" @click="filter = key" x-text="t.filters[idx]"></button>
+              </template>
+            </div>
+          </div>
+          <div class="project-grid">
+            <template x-for="project in visibleProjects" :key="project.id">
+              <article class="project-card">
+                <div class="project-info">
+                  <div class="project-tags">
+                    <template x-for="tag in project.tags" :key="tag"><span x-text="tag"></span></template>
+                  </div>
+                  <h3 x-text="t.projectTitles[project.titleIndex]"></h3>
+                  <p x-text="t.projectDescriptions[project.titleIndex]"></p>
+                  <div class="project-links">
+                    <a @click.prevent="openCase(project.id)" x-text="t.case + ' →'"></a>
+                    <a :href="project.href" :target="project.href.startsWith('http') ? '_blank' : '_self'" x-text="t.visit"></a>
+                  </div>
+                </div>
+              </article>
+            </template>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         VIEW 3: ABOUT PAGE (DetailPages.jsx)
+         ═══════════════════════════════════════════════════════════════════ -->
+    <main x-show="page === 'about'" x-cloak>
+      <header class="secondary-masthead">
+        <div class="page-wrap">
+          <p class="section-kicker" x-text="d.about.label"></p>
+          <h1 x-text="d.about.title"></h1>
+          <p class="secondary-intro" x-text="d.about.intro"></p>
+          <div class="about-proof">
+            <span>10+ <i x-text="language === 'pl' ? 'lat w B2B' : 'years in B2B'"></i></span>
+            <span>5+ <i x-text="language === 'pl' ? 'lat w Agile' : 'years in Agile'"></i></span>
+            <span>PL / EN / IT</span>
+          </div>
+        </div>
+      </header>
+      <section class="about-practice section-pad">
+        <div class="page-wrap about-practice-layout">
+          <p class="section-kicker" x-text="d.about.approach"></p>
+          <div>
+            <h2 x-text="d.about.digitalTitle"></h2>
+            <p style="color:#c1c7bd; line-height:1.8;" x-text="d.about.digitalText"></p>
+            <a class="about-link" @click.prevent="goTo('projects')" x-text="d.about.projectsLink + ' →'"></a>
+          </div>
+        </div>
+      </section>
+      <section class="experience-section">
+        <div class="page-wrap">
+          <div class="section-heading"><div><p class="section-kicker" x-text="'03 / ' + d.about.experience"></p><h2 x-text="d.about.experience"></h2></div></div>
+          <div class="experience-list">
+            <template x-for="(role, idx) in d.about.roles" :key="role[0]">
+              <article class="experience-row">
+                <span class="experience-date" x-text="role[0]"></span>
+                <span class="experience-number" x-text="'0' + (idx + 1)"></span>
+                <div><h3 x-text="role[1]"></h3><p x-text="role[2]"></p></div>
+              </article>
+            </template>
+          </div>
+        </div>
+      </section>
+      <section class="about-skills-section">
+        <div class="page-wrap about-skills-grid">
+          <article class="about-detail-card">
+            <p class="section-kicker" x-text="d.about.certifications"></p>
+            <h2 x-text="d.about.certifications"></h2>
+            <ul><template x-for="it in d.about.certificationItems" :key="it"><li x-text="it"></li></template></ul>
+          </article>
+          <article class="about-detail-card">
+            <p class="section-kicker" x-text="d.about.tools"></p>
+            <h2 x-text="d.about.tools"></h2>
+            <ul><template x-for="it in d.about.toolItems" :key="it"><li x-text="it"></li></template></ul>
+          </article>
+          <article class="about-detail-card">
+            <p class="section-kicker" x-text="d.about.mentoring"></p>
+            <h2 x-text="d.about.mentoring"></h2>
+            <p x-text="d.about.mentoringText"></p>
+          </article>
+          <article class="about-detail-card">
+            <p class="section-kicker" x-text="d.about.education"></p>
+            <h2 x-text="d.about.education"></h2>
+            <p x-text="d.about.educationText"></p>
+            <h3 style="margin:18px 0 6px; font-size:13px;" x-text="d.about.languages"></h3>
+            <p x-text="d.about.languageText"></p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         VIEW 4: CASE STUDY PAGE (DetailPages.jsx)
+         ═══════════════════════════════════════════════════════════════════ -->
+    <main x-show="page === 'case-study'" x-cloak>
+      <article class="case-study-page">
+        <header class="case-masthead">
+          <div class="page-wrap case-masthead-inner">
+            <a class="back-link" @click.prevent="goTo('home', 'work')">← <span x-text="d.caseStudy.back"></span></a>
+            <p class="section-kicker"><span x-text="currentCase.tag"></span> <span x-text="'/ ' + currentCase.year"></span></p>
+            <h1 x-text="currentCase.title"></h1>
+            <p class="secondary-intro" x-text="currentCase.subtitle"></p>
+            <div class="case-meta-grid">
+              <div><span x-text="d.caseStudy.pageType"></span><strong x-text="currentCase.pageType"></strong></div>
+              <div><span x-text="d.caseStudy.keyFeatures"></span><strong x-text="currentCase.keyFeatures"></strong></div>
+              <div><span x-text="d.caseStudy.timeline"></span><strong x-text="currentCase.duration"></strong></div>
+              <div><span x-text="d.caseStudy.stack"></span><strong x-text="currentCase.technology"></strong></div>
+            </div>
+          </div>
+        </header>
+        <section class="case-stats-section">
+          <div class="page-wrap case-stats-grid">
+            <template x-for="st in currentCase.stats" :key="st[0]">
+              <div class="case-stat"><strong x-text="st[0]"></strong><span x-text="st[1]"></span></div>
+            </template>
+          </div>
+        </section>
+        <section class="case-content-section section-pad">
+          <div class="page-wrap case-content-layout">
+            <aside class="case-content-aside">
+              <p class="section-kicker" x-text="language === 'pl' ? 'STRUKTURA STRONY' : 'PAGE STRUCTURE'"></p>
+              <ol>
+                <template x-for="(sec, idx) in currentCase.sections" :key="sec.heading">
+                  <li><a :href="'#cs-' + idx"><span x-text="'0' + (idx + 1)"></span><span x-text="sec.heading"></span></a></li>
+                </template>
+              </ol>
+            </aside>
+            <div class="case-prose">
+              <template x-for="(sec, idx) in currentCase.sections" :key="sec.heading">
+                <section :id="'cs-' + idx">
+                  <span class="case-section-number" x-text="'0' + (idx + 1)"></span>
+                  <h2 x-text="sec.heading"></h2>
+                  <p x-text="sec.body"></p>
+                  <template x-if="sec.bullets">
+                    <ul><template x-for="b in sec.bullets" :key="b"><li x-text="b"></li></template></ul>
+                  </template>
+                </section>
+              </template>
+              <a class="button button-dark" :href="currentCase.url" :target="currentCase.url.startsWith('http') ? '_blank' : '_self'" x-text="d.caseStudy.openSite + ' ↗'"></a>
+            </div>
+          </div>
+        </section>
+        <a class="case-next" @click.prevent="openCase(nextProjectId)">
+          <span x-text="d.caseStudy.next + ' ↗'"></span>
+          <strong x-text="d.caseStudy.cases[nextProjectId].title"></strong>
+        </a>
+      </article>
+    </main>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="site-footer">
+      <div class="page-wrap footer-content">
+        <a class="wordmark" href="#top" @click.prevent="goTo('home')">archie<span>.</span></a>
+        <p><span x-text="t.footer"></span> <span x-text="'© ' + new Date().getFullYear() + ' Archie. ' + t.rights"></span></p>
+        <a class="back-top" href="#top" x-text="(language === 'pl' ? 'Na górę' : 'Back to top') + ' ↑'"></a>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    function archieApp() {
+      return {
+        language: localStorage.getItem('lang') === 'en' ? 'en' : 'pl',
+        dark: localStorage.getItem('theme') === 'dark',
+        page: 'home',
+        projectId: 'adremt2',
+        filter: 'all',
+        menuOpen: false,
+        showcaseIdx: 0,
+        isPlaying: true,
+        showcaseHovered: false,
+        classicCarImg: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Volvo_Amazon_1966.jpg/1280px-Volvo_Amazon_1966.jpg',
+
+        projects: [
+          { id: 'adremt2', category: ['b2b', 'tools'], titleIndex: 0, number: '01', tags: ['B2B / TSL', 'Route calculator'], href: 'https://adremt2.pl/index2.html', art: 'route' },
+          { id: 'ckadrem', category: ['b2b'], titleIndex: 1, number: '02', tags: ['Finance', 'Corporate'], href: 'https://ck-adrem.pl', art: 'ledger' },
+          { id: 'pmclassics', category: ['tools', 'multilingual'], titleIndex: 2, number: '03', tags: ['Automotive', 'PL / EN / NO'], href: 'pmclassics.html', art: 'classic' }
+        ],
+
+        copy: {
+          pl: {
+            nav: ['Usługi', 'Projekty', 'O mnie'],
+            start: 'Porozmawiajmy',
+            eyebrow: 'Niezależna praktyka cyfrowa · Polska / Europa',
+            heroLines: ['Dobra strona.', 'Lepszy sposób', 'na pracę.'],
+            intro: 'Projektuję strony B2B i narzędzia webowe, które zdejmują tarcie z codziennych procesów.',
+            workLink: 'Zobacz, co robię',
+            contactLink: 'Masz temat? →',
+            proof: ['10+ lat w B2B', '5+ lat w Agile', '20+ wdrożeń'],
+            showcaseTabs: ['Klasyczne auta', 'Narzędzia webowe', 'Usługi B2B'],
+            showcases: [
+              { brand: 'PM CLASSICS', nav: 'KOLEKCJA   O NAS   KONTAKT', eyebrow: 'SAMOCHODY Z HISTORIĄ', title: 'Klasyka, która\nzostaje z Tobą.', link: 'POZNAJ KOLEKCJĘ', detail: 'VOLVO AMAZON 122S', meta: 'ROCZNIK 1966', alt: 'Volvo Amazon', theme: 'classic' },
+              { brand: 'AD REM T2', nav: 'TRASY   WYCENA   FLOTA', eyebrow: 'PLANOWANIE TRANSPORTU', title: 'Wybierz\nkierunek.', intro: 'Wybierz miasto na mapie i sprawdź dystans drogowy z Warszawy.', link: 'ZAPYTAJ O TRASĘ', detail: 'EUROPA · WARSZAWA / BAZA', meta: 'KONTAKT Z DYSPOZYTOREM 24/7', theme: 'transport' },
+              { brand: 'AD REM', nav: 'O FIRMIE   USŁUGI   CENNIK', eyebrow: 'AD REM / DO RZECZY', title: 'Księgowość, która\npozwala Ci spać spokojnie.', intro: 'Rodzinna firma z 22-letnim doświadczeniem w obsłudze księgowej w Warszawie.', link: 'UMÓW KONSULTACJĘ', detail: 'PEŁNA KSIĘGOWOŚĆ · KPiR', meta: '22 LATA · WARSZAWA', theme: 'accounting' }
+            ],
+            showcaseNote: 'DOŚWIADCZENIE ZAPROJEKTOWANE Z CELEM',
+            showcaseSteps: ['Odkryj', 'Poznaj', 'Działaj'],
+            sectionLabel: '01 / Wybrane projekty',
+            workTitle: 'Wynik ma znaczenie.',
+            filters: ['Wszystkie', 'B2B', 'Narzędzia', 'Wielojęzyczne'],
+            projectTitles: ['Transport, logistyka i spedycja', 'Ad Rem Centrum Księgowe', 'PM Classics'],
+            projectDescriptions: [
+              'Interaktywna mapa pozwala wybrać miasto, sprawdzić dystans z Warszawy i przejść do indywidualnej wyceny.',
+              'Rodzinne biuro rachunkowe w Warszawie — pełna księgowość, KPiR i obsługa firm oraz organizacji.',
+              'Trzy języki, wirtualny garaż i wycena klasyków.'
+            ],
+            case: 'Zobacz case study',
+            visit: 'Otwórz stronę ↗',
+            allWork: 'Zobacz wszystkie projekty',
+            more: 'Każdy projekt zaczyna się od pytania, które warto zadać.',
+            servicesLabel: '02 / W czym pomagam',
+            servicesTitle: 'Mniej tarcia. Więcej działania.',
+            services: [
+              ['Strony, które pracują', 'Szybkie strony B2B, które porządkują ofertę i prowadzą klienta do decyzji.'],
+              ['Narzędzia, które liczą', 'Kalkulatory, konfiguratory i wyceny dopasowane do Twojego procesu.'],
+              ['Procesy, które konwertują', 'Analityka, UX i automatyzacje, które robią miejsce na rozwój.']
+            ],
+            aboutLabel: '03 / Podejście',
+            aboutTitle: 'Technologia rozumiejąca biznes.',
+            aboutText: 'Łączę praktykę cyfrową z doświadczeniem w B2B, zarządzaniu projektami i usprawnianiu procesów. Najpierw rozumiem problem. Potem dobieram narzędzie.',
+            aboutLink: 'Więcej o mnie →',
+            skillsLabel: 'Doświadczenie, nie buzzwordy',
+            skills: ['Lean Green Belt', 'Agile PM Practitioner', 'Management 3.0', 'ADKAR', 'Jira / Confluence', 'JavaScript / CSS'],
+            contactLabel: '04 / Następny krok',
+            contactTitle: ['Co dziś', 'możemy', 'usprawnić?'],
+            contactText: ['Opowiedz, co nie działa.', 'Wrócę z konkretnym pomysłem.'],
+            emailLabel: 'Napisz bezpośrednio',
+            name: 'Imię',
+            email: 'Adres e-mail',
+            message: 'W czym mogę pomóc?',
+            send: 'Otwórz wiadomość e-mail ↗',
+            footer: 'Niezależna praktyka cyfrowa',
+            rights: 'Wszelkie prawa zastrzeżone.',
+            switchTheme: 'Zmień motyw'
+          },
+          en: {
+            nav: ['Services', 'Work', 'About'],
+            start: 'Let’s talk',
+            eyebrow: 'Independent digital practice · Poland / Europe',
+            heroLines: ['Better websites.', 'Better ways', 'to work.'],
+            intro: 'I build B2B websites and practical web tools that take friction out of everyday work.',
+            workLink: 'See what I make',
+            contactLink: 'Have a project? →',
+            proof: ['10+ years in B2B', '5+ years in Agile', '20+ rollouts'],
+            showcaseTabs: ['Classic cars', 'Web tools', 'B2B services'],
+            showcases: [
+              { brand: 'PM CLASSICS', nav: 'COLLECTION   STORY   CONTACT', eyebrow: 'MOTORING, WITH A STORY', title: 'Made to be\nremembered.', link: 'EXPLORE THE COLLECTION', detail: 'VOLVO AMAZON 122S', meta: 'MODEL YEAR 1966', alt: 'Volvo Amazon', theme: 'classic' },
+              { brand: 'AD REM T2', nav: 'ROUTES   QUOTE   FLEET', eyebrow: 'TRANSPORT PLANNING', title: 'Choose a\ndestination.', intro: 'Pick a city on the map and check road distance from Warsaw.', link: 'ASK ABOUT THIS ROUTE', detail: 'EUROPE · WARSAW / BASE', meta: 'DISPATCHER CONTACT 24/7', theme: 'transport' },
+              { brand: 'AD REM', nav: 'ABOUT   SERVICES   PRICING', eyebrow: 'AD REM / GET IT DONE', title: 'Accounting that\nlets you sleep well.', intro: 'A family-run Warsaw accounting firm with 22 years of experience.', link: 'BOOK A CONSULTATION', detail: 'FULL ACCOUNTING · TAX BOOKS', meta: '22 YEARS · WARSAW', theme: 'accounting' }
+            ],
+            showcaseNote: 'A DIGITAL EXPERIENCE WITH A CLEAR PURPOSE',
+            showcaseSteps: ['Discover', 'Explore', 'Take action'],
+            sectionLabel: '01 / Selected work',
+            workTitle: 'Built to do more.',
+            filters: ['All work', 'B2B', 'Tools', 'Multilingual'],
+            projectTitles: ['Transport, Logistics & Freight', 'Ad Rem Accounting Centre', 'PM Classics'],
+            projectDescriptions: [
+              'An interactive map lets visitors choose a city, check road distance from Warsaw and request a tailored quote.',
+              'A Warsaw family accounting firm offering full accounting, tax books and support for businesses and non-profits.',
+              'Three languages, a virtual garage and a classic-car quote tool.'
+            ],
+            case: 'Read the case study',
+            visit: 'Visit live site ↗',
+            allWork: 'Explore all projects',
+            more: 'Every good project starts with a question worth asking.',
+            servicesLabel: '02 / What I do',
+            servicesTitle: 'Less friction. More momentum.',
+            services: [
+              ['Websites that work', 'Fast B2B websites that clarify your offer and move customers toward a decision.'],
+              ['Tools that calculate', 'Calculators, configurators and quote flows shaped around your process.'],
+              ['Journeys that convert', 'Analytics, UX and automation that make room for growth.']
+            ],
+            aboutLabel: '03 / The approach',
+            aboutTitle: 'Technology with business context.',
+            aboutText: 'I bring hands-on digital work together with B2B, project delivery and process improvement experience. First understand the problem. Then choose the tool.',
+            aboutLink: 'A little more about me →',
+            skillsLabel: 'Experience, not buzzwords',
+            skills: ['Lean Green Belt', 'Agile PM Practitioner', 'Management 3.0', 'ADKAR', 'Jira / Confluence', 'JavaScript / CSS'],
+            contactLabel: '04 / Your move',
+            contactTitle: ['What can', 'we make', 'work better?'],
+            contactText: ['Tell me what’s getting in the way.', 'I’ll come back with a concrete idea.'],
+            emailLabel: 'Or write directly',
+            name: 'Name',
+            email: 'Email address',
+            message: 'What do you need help with?',
+            send: 'Open email draft ↗',
+            footer: 'Independent digital practice',
+            rights: 'All rights reserved.',
+            switchTheme: 'Toggle color theme'
+          }
+        },
+
+        detailCopy: {
+          pl: {
+            projects: { label: '01 / Wybrane projekty', title: 'Praca, która robi różnicę.', intro: 'Strony i narzędzia, które ułatwiają codzienną pracę.' },
+            about: {
+              label: '02 / O mnie', title: 'Łączę technologię z tym, jak działa biznes.',
+              intro: 'Jako Independent Digital Consultant projektuję praktyczne rozwiązania webowe, łącząc ponad 10 lat doświadczenia w B2B, SaaS, logistyce i automotive z pracą nad stronami i narzędziami cyfrowymi.',
+              digitalTitle: 'Najpierw rozumiem pracę. Potem projektuję narzędzie.',
+              digitalText: 'Zaczynam od tego, jak klient podejmuje decyzję i co musi załatwić — dopiero potem dobieram układ, treść i technologię.',
+              experience: 'Doświadczenie', approach: 'Podejście', certifications: 'Metodyki i rozwój', tools: 'Narzędzia i technologie', mentoring: 'Mentoring', education: 'Edukacja', languages: 'Języki', projectsLink: 'Poznaj wybrane realizacje',
+              roles: [
+                ['2026 — obecnie', 'Independent Digital Consultant', 'Niezależne doradztwo cyfrowe oraz projektowanie i wdrażanie stron i narzędzi dopasowanych do potrzeb firm.'],
+                ['2023 — 2026', 'Agile Delivery Lead / Scrum Master · NewCold', 'Wdrażanie zwinnych frameworków w globalnych projektach WMS, rollout procesów zarządzania zmianą (ADKAR) oraz warsztaty L&D promujące kulturę Agile i Lean.'],
+                ['2019 — 2023', 'Agile Project Manager / Team Coach · Motomat Group', 'Budowa kanałów Contact Center dla grup dealerskich, szkolenia sprzedażowe oraz rola Scrum Mastera dla zespołów SaaS i BI.'],
+                ['2013 — 2019', 'Mobile Sales Consultant · Mercedes-Benz, Porsche', 'Prowadzenie pięcioosobowego zespołu w pop-up storze Mercedes-Benz i usprawnianie obsługi leadów.']
+              ],
+              certificationItems: ['Lean Green Belt', 'Agile PM Foundation & Practitioner', 'Management 3.0 Fundamentals', 'Change Management Foundation (ADKAR)', 'Scrum · Kanban · SAFe · Design Thinking'],
+              toolItems: ['Jira · Confluence · Azure DevOps · Monday', 'Miro · Mural · Figma', 'HTML · CSS · JavaScript · Tailwind', 'Power BI · CRM · DMS · SQL'],
+              mentoringText: 'Project Management Mentor @ IAMPM (2022–2024) — wsparcie aspirujących PM-ów w złożonych projektach.',
+              educationText: 'Magister stosunków międzynarodowych (studia dwujęzyczne PL/ENG), Collegium Civitas (Warszawa) i LUMSA University (Rzym).',
+              languageText: 'Polski (ojczysty) · Angielski (C1) · Włoski (B1)'
+            },
+            caseStudy: {
+              back: 'Wszystkie projekty', pageType: 'Typ strony', keyFeatures: 'Kluczowe funkcje', timeline: 'Czas', stack: 'Technologie', openSite: 'Otwórz stronę', next: 'Kolejny projekt',
+              cases: {
+                adremt2: {
+                  title: 'Transport, logistyka i spedycja', subtitle: 'Strona transportowa, która prowadzi od potrzeby przewozu do konkretnego zapytania.', tag: 'Transport / TSL', pageType: 'Strona usługowa + mapa transportu', keyFeatures: 'Mapa Europy · wybór trasy · zapytanie', duration: '3 tygodnie', technology: 'Vanilla JS · SVG · GeoJSON', year: '2026', url: 'https://adremt2.pl/index2.html',
+                  stats: [['3', 'Obszary usług transportowych'], ['MAPA', 'Wybór miasta i trasy'], ['OCP', 'Ubezpieczenie ładunku'], ['24/7', 'Kontakt z dyspozytorem']],
+                  sections: [
+                    { heading: 'Usługi widoczne od pierwszego ekranu', body: 'Strona porządkuje transport ekspresowy, spedycję drogową i logistykę kontraktową jako odrębne drogi wejścia.' },
+                    { heading: 'Mapa Europy jako narzędzie wyboru trasy', body: 'Interaktywna mapa pozwala wskazać miasta, zobaczyć przebieg połączenia i przejść do zapytania dotyczącego wybranej trasy.', bullets: ['Wybór relacji na mapie Europy i podgląd trasy.', 'Zapytanie powiązane z wybraną trasą.', 'Informacje o transporcie door-to-door.'] }
+                  ]
+                },
+                ckadrem: {
+                  title: 'Ad Rem Centrum Księgowe', subtitle: 'Strona porządkuje obsługę firm, fundacji i stowarzyszeń oraz prowadzi do konkretnych usług księgowych.', tag: 'Finanse / Usługi', pageType: 'Serwis usługowy z rozdzieleniem ofert', keyFeatures: 'Kategorie usług · KPiR i ZUS · kontakt', duration: '4 tygodnie', technology: 'Bootstrap 5 · Meta Pixel', year: '2024–2025', url: 'https://ck-adrem.pl',
+                  stats: [['START', 'Wsparcie przy zakładaniu firmy'], ['KPiR', 'Księgowość przedsiębiorców'], ['ZUS', 'Rozliczenia i zgłoszenia'], ['NGO', 'Osobna oferta dla organizacji']],
+                  sections: [
+                    { heading: 'Dwie wyraźne ścieżki przez ofertę', body: 'Układ rozróżnia obsługę firm od usług dla fundacji i stowarzyszeń.' },
+                    { heading: 'Lista usług oparta na konkretnych zadaniach', body: 'Zamiast ogólnych haseł strona nazywa sprawy, które można powierzyć biuru.', bullets: ['Pomoc przy zakładaniu działalności.', 'Księgowość i prowadzenie KPiR.', 'Oddzielna oferta dla fundacji i stowarzyszeń.'] }
+                  ]
+                },
+                pmclassics: {
+                  title: 'PM Classics', subtitle: 'Wielojęzyczna witryna łączy katalog pojazdów, ceny w trzech walutach i wielostopniowy brief renowacji.', tag: 'Automotive / Restoration', pageType: 'Wielojęzyczna witryna + katalog pojazdów', keyFeatures: 'Garaż · waluty · brief projektu', duration: '3 tygodnie', technology: 'Tailwind CSS · Alpine.js', year: '2026', url: 'pmclassics.html',
+                  stats: [['PL · EN · NO', 'Przełączanie języka'], ['3 WALUTY', 'EUR · PLN · NOK'], ['GARAŻ', 'Filtrowany katalog pojazdów'], ['3 KROKI', 'Brief projektu renowacji']],
+                  sections: [
+                    { heading: 'Katalog pojazdów, który działa jak garaż', body: 'Zdjęcia, filtry i uporządkowane karty zamieniają przeglądanie oferty w eksplorację kolekcji.' },
+                    { heading: 'Lokalizacja bez utraty kontekstu', body: 'Język i waluta są częścią tego samego doświadczenia.', bullets: ['Wersje polska, angielska i norweska.', 'Ceny prezentowane w EUR, PLN i NOK.'] }
+                  ]
+                }
+              }
+            }
+          },
+          en: {
+            projects: { label: '01 / Selected work', title: 'Work that makes a difference.', intro: 'Websites and tools that make everyday business easier.' },
+            about: {
+              label: '02 / About', title: 'Technology, grounded in how business works.',
+              intro: 'As an Independent Digital Consultant, I build practical web solutions, bringing over 10 years of experience across B2B, SaaS, logistics and automotive.',
+              digitalTitle: 'Understand the work first. Then design the tool.',
+              digitalText: 'I start with how a customer makes a decision and what they need to get done—then shape the content, interface and technology around it.',
+              experience: 'Experience', approach: 'Approach', certifications: 'Methods & learning', tools: 'Tools & technology', mentoring: 'Mentoring', education: 'Education', languages: 'Languages', projectsLink: 'Explore selected work',
+              roles: [
+                ['2026 — present', 'Independent Digital Consultant', 'Independent digital consulting, designing and building websites and tools around the needs of each business.'],
+                ['2023 — 2026', 'Agile Delivery Lead / Scrum Master · NewCold', 'Implementing agile frameworks in global WMS projects, rolling out ADKAR change processes and facilitating L&D workshops.'],
+                ['2019 — 2023', 'Agile Project Manager / Team Coach · Motomat Group', 'Building Contact Center channels for dealer groups and serving as Scrum Master for SaaS and BI teams.'],
+                ['2013 — 2019', 'Mobile Sales Consultant · Mercedes-Benz, Porsche', 'Leading a five-person team at a Mercedes-Benz pop-up showroom and improving lead handling.']
+              ],
+              certificationItems: ['Lean Green Belt', 'Agile PM Foundation & Practitioner', 'Management 3.0 Fundamentals', 'Change Management Foundation (ADKAR)', 'Scrum · Kanban · SAFe · Design Thinking'],
+              toolItems: ['Jira · Confluence · Azure DevOps · Monday', 'Miro · Mural · Figma', 'HTML · CSS · JavaScript · Tailwind', 'Power BI · CRM · DMS · SQL'],
+              mentoringText: 'Project Management Mentor @ IAMPM (2022–2024) — guiding aspiring PMs through complex projects.',
+              educationText: 'MA in International Relations (bilingual PL/EN), Collegium Civitas (Warsaw) and LUMSA University (Rome).',
+              languageText: 'Polish (native) · English (C1) · Italian (B1)'
+            },
+            caseStudy: {
+              back: 'All projects', pageType: 'Page type', keyFeatures: 'Key features', timeline: 'Timeline', stack: 'Technology', openSite: 'Visit the website', next: 'Next project',
+              cases: {
+                adremt2: {
+                  title: 'Transport, Logistics & Freight Forwarding', subtitle: 'A transport website that takes visitors from a shipping need to a focused enquiry.', tag: 'Transport / Logistics', pageType: 'Service site + transport route map', keyFeatures: 'Europe map · route selection · enquiry', duration: '3 weeks', technology: 'Vanilla JS · SVG · GeoJSON', year: '2026', url: 'https://adremt2.pl/index2.html',
+                  stats: [['3', 'Transport service areas'], ['MAP', 'Choose a city and route'], ['OCP', 'Cargo insurance information'], ['24/7', 'Dispatcher contact']],
+                  sections: [
+                    { heading: 'Services visible from the first screen', body: 'The page presents express transport, road freight forwarding and contract logistics as distinct starting points.' },
+                    { heading: 'A Europe map built around route selection', body: 'The interactive map lets visitors choose cities, see the route and continue to an enquiry.', bullets: ['Select a connection on the Europe map.', 'Start an enquiry in the context of the selected route.'] }
+                  ]
+                },
+                ckadrem: {
+                  title: 'Ad Rem Accounting Centre', subtitle: 'A service website that separates business accounting from the dedicated offer for foundations and associations.', tag: 'Finance / Services', pageType: 'Service website with segmented offers', keyFeatures: 'Service categories · bookkeeping · ZUS', duration: '4 weeks', technology: 'Bootstrap 5 · Meta Pixel', year: '2024–2025', url: 'https://ck-adrem.pl',
+                  stats: [['START', 'Help with setting up a business'], ['BOOKKEEPING', 'Revenue-and-expense records'], ['ZUS', 'Filings and registrations'], ['NGO', 'Dedicated organisation offer']],
+                  sections: [
+                    { heading: 'Two clear paths through the service offer', body: 'The page distinguishes business accounting from support for foundations and associations.' },
+                    { heading: 'Services described as real tasks', body: 'Instead of broad claims, the page names the work clients can hand over.', bullets: ['Help with starting a business.', 'Bookkeeping and ZUS filings.', 'Separate offer for NGOs.'] }
+                  ]
+                },
+                pmclassics: {
+                  title: 'PM Classics', subtitle: 'A multilingual site combining vehicle discovery, three-currency pricing and a multi-step restoration brief.', tag: 'Automotive / Restoration', pageType: 'Multilingual site + vehicle inventory', keyFeatures: 'Virtual garage · currencies · project brief', duration: '3 weeks', technology: 'Tailwind CSS · Alpine.js', year: '2026', url: 'pmclassics.html',
+                  stats: [['PL · EN · NO', 'Language switching'], ['3 CURRENCIES', 'EUR · PLN · NOK'], ['GARAGE', 'Filterable vehicle inventory'], ['3 STEPS', 'Restoration project brief']],
+                  sections: [
+                    { heading: 'An inventory that works like a virtual garage', body: 'Photography, filters and structured vehicle cards turn browsing into exploring a collection.' },
+                    { heading: 'Localization without breaking the flow', body: 'Language and currency are part of the same experience.', bullets: ['Polish, English and Norwegian versions.', 'Prices shown in EUR, PLN and NOK.'] }
+                  ]
+                }
+              }
+            }
+          }
+        },
+
+        get t() { return this.copy[this.language]; },
+        get d() { return this.detailCopy[this.language]; },
+        get activeShowcase() { return this.t.showcases[this.showcaseIdx]; },
+        get visibleProjects() {
+          return this.projects.filter(p => this.filter === 'all' || p.category.includes(this.filter));
+        },
+        get currentCase() {
+          return this.d.caseStudy.cases[this.projectId] || this.d.caseStudy.cases.adremt2;
+        },
+        get nextProjectId() {
+          const ids = ['adremt2', 'ckadrem', 'pmclassics'];
+          return ids[(ids.indexOf(this.projectId) + 1) % ids.length];
+        },
+
+        toggleLanguage() {
+          this.language = this.language === 'pl' ? 'en' : 'pl';
+          localStorage.setItem('lang', this.language);
+        },
+        toggleTheme() {
+          this.dark = !this.dark;
+          localStorage.setItem('theme', this.dark ? 'dark' : 'light');
+        },
+        goTo(view, sectionId = null) {
+          this.page = view;
+          this.menuOpen = false;
+          if (sectionId) {
+            setTimeout(() => document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' }), 60);
+          } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        },
+        openCase(id) {
+          this.projectId = id;
+          this.page = 'case-study';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        },
+        tiltShowcase(event) {
+          const frame = this.$refs.frameRef;
+          const note = this.$refs.noteRef;
+          if (!frame || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+          const bounds = frame.getBoundingClientRect();
+          const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+          const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+          gsap.to(frame, { rotateY: x * 3, rotateX: y * -3, transformPerspective: 1100, duration: 0.35, ease: 'power2.out', overwrite: true });
+          if (note) gsap.to(note, { x: x * -9, y: y * -7, duration: 0.35, ease: 'power2.out', overwrite: true });
+        },
+        resetShowcase() {
+          if (this.$refs.frameRef) gsap.to(this.$refs.frameRef, { rotateY: 0, rotateX: 0, duration: 0.55, ease: 'power3.out', overwrite: true });
+          if (this.$refs.noteRef) gsap.to(this.$refs.noteRef, { x: 0, y: 0, duration: 0.55, ease: 'power3.out', overwrite: true });
+        },
+        composeEmail(event) {
+          const data = new FormData(event.currentTarget);
+          const subject = this.language === 'pl' ? 'Zapytanie o współpracę' : 'Project enquiry';
+          const body = `${this.t.name}: ${data.get('name')}\n${this.t.email}: ${data.get('email')}\n\n${this.t.message}:\n${data.get('message')}`;
+          window.location.href = `mailto:artur.zaluska@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        },
+        init() {
+          setInterval(() => {
+            if (this.isPlaying && !this.showcaseHovered && this.page === 'home') {
+              this.showcaseIdx = (this.showcaseIdx + 1) % 3;
+            }
+          }, 5200);
+        }
+      };
+    }
+  </script>
+</body>
+</html>

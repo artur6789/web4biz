@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="pl" x-data="classicApp()" class="scroll-smooth dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PM Classics — Renowacja, Import & Klasyki z Duszą | Piotr Mantorski</title>
+  <meta name="description" content="PM Classics (Piotr Mantorski) — europejskie klasyki z charakterem (Volvo Amazon, Opel Manta, Simca, DAF) oraz klasyczne motocykle i skutery (Moto Guzzi, Lambretta). Renowacja i import PL / EN / NO."/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Playfair Display', 'serif'],
+            body: ['DM Sans', 'sans-serif']
+          },
+          colors: {
+            brass: '#C5A059',
+            'brass-light': '#DFBD78',
+            obsidian: '#0B0B0C',
+            charcoal: '#141416'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    [x-cloak] { display: none !important; }
+    body { background-color: #0B0B0C; color: #F4F4F5; font-family: 'DM Sans', sans-serif; }
+    h1, h2, h3, .font-serif-title { font-family: 'Playfair Display', serif; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #0B0B0C; }
+    ::-webkit-scrollbar-thumb { background: #C5A059; }
+    .gold-gradient { background: linear-gradient(135deg, #C5A059 0%, #DFBD78 50%, #9E7B3B 100%); }
+  </style>
+</head>
+<body class="antialiased selection:bg-brass selection:text-obsidian">
+
+  <!-- TOP BAR (Direct Contact & Languages Mention) -->
+  <div class="bg-charcoal border-b border-zinc-800/80 text-xs text-zinc-400 py-2 px-6">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-4">
+        <span class="flex items-center gap-1.5 text-brass">
+          <span class="w-1.5 h-1.5 rounded-full bg-brass animate-pulse"></span>
+          <span x-text="t.topBarBadge"></span>
+        </span>
+        <span class="hidden md:inline text-zinc-600">|</span>
+        <span class="hidden md:inline" x-text="t.topBarLangs"></span>
+      </div>
+      <div class="flex items-center gap-5">
+        <a href="tel:+48600030708" class="hover:text-brass transition-colors font-medium">+48 600 03 07 08</a>
+        <a href="mailto:pmantorski@gmail.com" class="hover:text-brass transition-colors">pmantorski@gmail.com</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-50 bg-obsidian/90 backdrop-blur-md border-b border-zinc-800/70">
+    <nav class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <!-- Brand -->
+      <a href="#" class="flex flex-col">
+        <span class="font-display text-2xl tracking-wider font-bold text-white">PM <span class="text-brass">CLASSICS</span></span>
+        <span class="text-[10px] uppercase tracking-[0.26em] text-zinc-400 -mt-1">Piotr Mantorski · Heritage Garage</span>
+      </a>
+
+      <!-- Desktop Menu -->
+      <ul class="hidden lg:flex items-center gap-8 text-sm font-medium text-zinc-300">
+        <li><a href="#stock" class="hover:text-brass transition-colors" x-text="t.navStock"></a></li>
+        <li><a href="#services" class="hover:text-brass transition-colors" x-text="t.navServices"></a></li>
+        <li><a href="#process" class="hover:text-brass transition-colors" x-text="t.navProcess"></a></li>
+        <li><a href="#contact" class="hover:text-brass transition-colors" x-text="t.navContact"></a></li>
+      </ul>
+
+      <!-- Controls: Currency + Language (PL/EN/NO) + CTA -->
+      <div class="flex items-center gap-3">
+        <!-- Currency Switcher -->
+        <div class="hidden sm:flex items-center bg-charcoal border border-zinc-800 rounded-full p-0.5 text-xs">
+          <template x-for="curr in ['EUR', 'PLN', 'NOK']" :key="curr">
+            <button @click="setCurrency(curr)"
+              :class="currency === curr ? 'bg-zinc-800 text-brass font-semibold' : 'text-zinc-400 hover:text-white'"
+              class="px-2.5 py-1 rounded-full transition-all" x-text="curr"></button>
+          </template>
+        </div>
+
+        <!-- Language Switcher (PL / EN / NO) -->
+        <div class="flex items-center bg-charcoal border border-zinc-800 rounded-full p-0.5 text-xs">
+          <template x-for="l in ['pl', 'en', 'no']" :key="l">
+            <button @click="setLang(l)"
+              :class="lang === l ? 'bg-brass text-obsidian font-bold' : 'text-zinc-400 hover:text-white'"
+              class="px-2.5 py-1 rounded-full uppercase transition-all" x-text="l"></button>
+          </template>
+        </div>
+
+        <a href="#contact" class="hidden md:inline-flex items-center gap-2 bg-brass hover:bg-brass-light text-obsidian font-semibold text-xs uppercase tracking-wider px-5 py-2.5 rounded-full transition-colors" x-text="t.navCta"></a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="relative min-h-[85vh] flex items-center overflow-hidden border-b border-zinc-900">
+    <!-- Background Image (Classic Volvo Amazon) -->
+    <div class="absolute inset-0 z-0">
+      <img :src="heroImage" alt="Volvo Amazon Classic" class="w-full h-full object-cover object-center opacity-35 scale-105 transition-all duration-700"/>
+      <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/75 to-obsidian/40"></div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6 py-24 grid lg:grid-cols-12 gap-12 items-end">
+      <div class="lg:col-span-8">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-brass/30 bg-brass/10 text-brass text-xs uppercase tracking-widest mb-6">
+          <span x-text="t.heroTag"></span>
+        </div>
+        <h1 class="font-display text-4xl sm:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-6" x-text="t.heroTitle"></h1>
+        <p class="text-lg sm:text-xl text-zinc-300 font-light max-w-2xl leading-relaxed mb-10" x-text="t.heroSub"></p>
+
+        <div class="flex flex-wrap items-center gap-4">
+          <a href="#stock" class="gold-gradient text-obsidian font-semibold text-sm uppercase tracking-wider px-8 py-4 rounded-full hover:opacity-95 transition-opacity" x-text="t.heroBtnStock"></a>
+          <a href="#contact" class="px-8 py-4 rounded-full border border-zinc-700 hover:border-brass text-white text-sm uppercase tracking-wider transition-colors bg-obsidian/60 backdrop-blur-sm" x-text="t.heroBtnSource"></a>
+        </div>
+      </div>
+
+      <!-- Trust Metrics Box -->
+      <div class="lg:col-span-4 bg-charcoal/90 backdrop-blur-md border border-zinc-800 p-7 rounded-2xl grid grid-cols-2 gap-6">
+        <div class="border-l-2 border-brass pl-4">
+          <p class="font-display text-3xl font-bold text-white">60s·70s</p>
+          <p class="text-xs text-zinc-400 mt-1" x-text="t.stat1"></p>
+        </div>
+        <div class="border-l-2 border-brass pl-4">
+          <p class="font-display text-3xl font-bold text-white">PL·EN·NO</p>
+          <p class="text-xs text-zinc-400 mt-1" x-text="t.stat2"></p>
+        </div>
+        <div class="border-l-2 border-brass pl-4">
+          <p class="font-display text-3xl font-bold text-white">Door-to-Door</p>
+          <p class="text-xs text-zinc-400 mt-1" x-text="t.stat3"></p>
+        </div>
+        <div class="border-l-2 border-brass pl-4">
+          <p class="font-display text-3xl font-bold text-white">A–Z</p>
+          <p class="text-xs text-zinc-400 mt-1" x-text="t.stat4"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 PILLARS OF BUSINESS -->
+  <section id="services" class="py-24 max-w-7xl mx-auto px-6">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-14">
+      <div>
+        <p class="text-xs uppercase tracking-[0.25em] text-brass mb-3" x-text="t.servicesEyebrow"></p>
+        <h2 class="font-display text-3xl md:text-5xl font-bold text-white" x-text="t.servicesTitle"></h2>
+      </div>
+      <p class="text-zinc-400 text-sm max-w-md mt-4 md:mt-0" x-text="t.servicesDesc"></p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      <template x-for="(srv, idx) in t.servicesList" :key="idx">
+        <div class="bg-charcoal border border-zinc-800/80 hover:border-brass/60 rounded-2xl p-8 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between mb-8">
+              <span class="font-display text-4xl text-brass/40 group-hover:text-brass transition-colors" x-text="'0' + (idx + 1)"></span>
+              <span class="text-xs uppercase tracking-widest px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300" x-text="srv.tag"></span>
+            </div>
+            <h3 class="font-display text-2xl font-bold text-white mb-4" x-text="srv.title"></h3>
+            <p class="text-zinc-400 text-sm leading-relaxed mb-6" x-text="srv.desc"></p>
+          </div>
+          <ul class="space-y-2 border-t border-zinc-800/80 pt-5 text-xs text-zinc-300">
+            <template x-for="bullet in srv.bullets" :key="bullet">
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-brass"></span>
+                <span x-text="bullet"></span>
+              </li>
+            </template>
+          </ul>
+        </div>
+      </template>
+    </div>
+  </section>
+
+  <!-- VIRTUAL GARAGE / STOCK SECTION -->
+  <section id="stock" class="py-24 bg-charcoal/50 border-y border-zinc-900">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
+        <div>
+          <p class="text-xs uppercase tracking-[0.25em] text-brass mb-3" x-text="t.stockEyebrow"></p>
+          <h2 class="font-display text-3xl md:text-5xl font-bold text-white" x-text="t.stockTitle"></h2>
+        </div>
+
+        <!-- Filters -->
+        <div class="flex flex-wrap items-center gap-2">
+          <template x-for="f in [
+            {id:'all', label: t.filterAll},
+            {id:'car', label: t.filterCars},
+            {id:'moto', label: t.filterMotos},
+            {id:'restoration', label: t.filterInRest}
+          ]" :key="f.id">
+            <button @click="stockFilter = f.id"
+              :class="stockFilter === f.id ? 'bg-brass text-obsidian font-semibold border-brass' : 'bg-obsidian text-zinc-400 border-zinc-800 hover:border-zinc-700'"
+              class="px-4 py-2 rounded-full text-xs uppercase tracking-wider border transition-all"
+              x-text="f.label"></button>
+          </template>
+        </div>
+      </div>
+
+      <!-- Vehicles Grid -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <template x-for="item in filteredStock" :key="item.id">
+          <article class="bg-obsidian border border-zinc-800/90 rounded-2xl overflow-hidden hover:border-brass/60 transition-all flex flex-col group">
+            <div class="relative h-64 overflow-hidden bg-zinc-900">
+              <img :src="item.image" :alt="item.name" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+              <!-- Status Badge -->
+              <span class="absolute top-4 left-4 text-[11px] uppercase tracking-wider font-semibold px-3 py-1 rounded-full backdrop-blur-md"
+                :class="{
+                  'bg-emerald-950/90 text-emerald-300 border border-emerald-700/50': item.status === 'available',
+                  'bg-amber-950/90 text-amber-300 border border-amber-700/50': item.status === 'restoration',
+                  'bg-zinc-900/90 text-zinc-400 border border-zinc-700': item.status === 'sold'
+                }"
+                x-text="statusLabel(item.status)"></span>
+              <span class="absolute top-4 right-4 bg-obsidian/80 backdrop-blur-md text-zinc-200 text-xs px-3 py-1 rounded-full border border-zinc-800" x-text="item.year"></span>
+            </div>
+
+            <div class="p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between text-xs text-zinc-400 mb-2">
+                  <span x-text="item.spec"></span>
+                  <span x-text="item.origin"></span>
+                </div>
+                <h3 class="font-display text-2xl font-bold text-white mb-2" x-text="item.name"></h3>
+                <p class="text-xs text-zinc-400 leading-relaxed mb-6" x-text="item.desc[lang]"></p>
+              </div>
+
+              <div class="pt-4 border-t border-zinc-800/80 flex items-center justify-between">
+                <div>
+                  <span class="text-[10px] uppercase tracking-widest text-zinc-500 block" x-text="t.priceLabel"></span>
+                  <span class="font-display text-xl font-bold text-brass" x-text="formatPrice(item.priceEUR, item.status)"></span>
+                </div>
+                <button @click="selectVehicleForInquiry(item)" class="text-xs uppercase tracking-wider font-semibold text-white hover:text-brass flex items-center gap-1.5 transition-colors">
+                  <span x-text="t.inquireBtn"></span> →
+                </button>
+              </div>
+            </div>
+          </article>
+        </template>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSPARENT EUROPEAN PROCESS -->
+  <section id="process" class="py-20 bg-charcoal/40 border-t border-zinc-900">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <p class="text-xs uppercase tracking-[0.25em] text-brass mb-3" x-text="t.procEyebrow"></p>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-white" x-text="t.procTitle"></h2>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <template x-for="(p, i) in t.procSteps" :key="i">
+          <div class="bg-obsidian border border-zinc-800 p-6 rounded-2xl relative">
+            <span class="text-xs font-bold uppercase tracking-widest text-brass block mb-3" x-text="'0' + (i+1)"></span>
+            <h3 class="font-display text-xl font-bold text-white mb-2" x-text="p.title"></h3>
+            <p class="text-xs text-zinc-400 leading-relaxed" x-text="p.desc"></p>
+          </div>
+        </template>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE CONCIERGE & RESTORATION BRIEF (LEAD GEN) -->
+  <section id="contact" class="py-24 max-w-5xl mx-auto px-6">
+    <div class="bg-charcoal border border-zinc-800 rounded-3xl p-8 md:p-12">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+        <div class="max-w-xl">
+          <p class="text-xs uppercase tracking-[0.25em] text-brass mb-2" x-text="t.formEyebrow"></p>
+          <h2 class="font-display text-3xl md:text-4xl font-bold text-white mb-3" x-text="t.formTitle"></h2>
+          <p class="text-sm text-zinc-400" x-text="t.formSub"></p>
+        </div>
+        <div class="bg-obsidian border border-zinc-800 rounded-2xl p-4 text-xs space-y-1.5 shrink-0">
+          <div class="text-zinc-400 font-medium">Piotr Mantorski — PM Classics</div>
+          <div><a href="tel:+48600030708" class="text-brass hover:underline font-semibold">+48 600 03 07 08</a></div>
+          <div><a href="mailto:pmantorski@gmail.com" class="text-zinc-300 hover:text-brass">pmantorski@gmail.com</a></div>
+        </div>
+      </div>
+
+      <form @submit.prevent="formSubmitted = true" class="space-y-8">
+        <!-- 1. Service Type -->
+        <div>
+          <label class="block text-xs uppercase tracking-wider text-zinc-400 mb-3" x-text="t.formStep1"></label>
+          <div class="grid sm:grid-cols-3 gap-3">
+            <template x-for="opt in t.formServiceOpts" :key="opt">
+              <button type="button" @click="brief.service = opt"
+                :class="brief.service === opt ? 'border-brass bg-brass/10 text-white' : 'border-zinc-800 bg-obsidian text-zinc-400 hover:border-zinc-700'"
+                class="p-3.5 rounded-xl border text-left text-xs font-medium transition-all" x-text="opt"></button>
+            </template>
+          </div>
+        </div>
+
+        <!-- 2. Vehicle Category & Budget -->
+        <div class="grid md:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-xs uppercase tracking-wider text-zinc-400 mb-3" x-text="t.formStep2"></label>
+            <div class="grid grid-cols-2 gap-3">
+              <template x-for="cat in t.formCatOpts" :key="cat">
+                <button type="button" @click="brief.category = cat"
+                  :class="brief.category === cat ? 'border-brass bg-brass/10 text-white' : 'border-zinc-800 bg-obsidian text-zinc-400'"
+                  class="p-3.5 rounded-xl border text-center text-xs font-medium transition-all" x-text="cat"></button>
+              </template>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs uppercase tracking-wider text-zinc-400 mb-3" x-text="t.formBudget"></label>
+            <select x-model="brief.budget" class="w-full bg-obsidian border border-zinc-800 rounded-xl p-3.5 text-xs text-white focus:border-brass outline-none">
+              <option value="5k-10k EUR">5 000 – 10 000 EUR</option>
+              <option value="10k-20k EUR">10 000 – 20 000 EUR</option>
+              <option value="20k-35k+ EUR">20 000 – 35 000+ EUR</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 3. Model / Details & Contact -->
+        <div class="grid md:grid-cols-2 gap-4">
+          <input type="text" x-model="brief.name" required :placeholder="t.phName" class="bg-obsidian border border-zinc-800 rounded-xl p-3.5 text-sm text-white focus:border-brass outline-none"/>
+          <input type="text" x-model="brief.contact" required :placeholder="t.phContact" class="bg-obsidian border border-zinc-800 rounded-xl p-3.5 text-sm text-white focus:border-brass outline-none"/>
+        </div>
+
+        <textarea x-model="brief.notes" rows="3" :placeholder="t.phNotes" class="w-full bg-obsidian border border-zinc-800 rounded-xl p-3.5 text-sm text-white focus:border-brass outline-none"></textarea>
+
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
+          <p class="text-xs text-zinc-400" x-text="t.formLangNote"></p>
+          <button type="submit" class="gold-gradient text-obsidian font-bold text-xs uppercase tracking-widest px-8 py-4 rounded-full hover:opacity-95 transition-opacity" x-text="t.formSubmit"></button>
+        </div>
+
+        <div x-show="formSubmitted" x-cloak class="p-4 rounded-xl bg-emerald-950/60 border border-emerald-700/50 text-emerald-200 text-xs" x-text="t.formSuccess"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-zinc-900 py-12 text-xs text-zinc-500">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <span class="text-white font-display font-bold tracking-wider">PM CLASSICS</span> — Piotr Mantorski (<a href="tel:+48600030708" class="hover:text-brass">+48 600 03 07 08</a> · <a href="mailto:pmantorski@gmail.com" class="hover:text-brass">pmantorski@gmail.com</a>)
+      </div>
+      <div>
+        Designed &amp; Engineered by <span class="text-brass">Archie</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- APPLICATION LOGIC & MULTILINGUAL DATA (PL / EN / NO) -->
+  <script>
+    function classicApp() {
+      return {
+        lang: localStorage.getItem('pmc_lang') || 'pl',
+        currency: localStorage.getItem('pmc_curr') || 'EUR',
+        stockFilter: 'all',
+        sliderPos: 50,
+        formSubmitted: false,
+        heroImage: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1800&q=80',
+        sliderBeforeImg: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1400&q=80',
+        sliderAfterImg: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1400&q=80',
+
+        brief: {
+          service: '',
+          category: '',
+          budget: '10k-20k EUR',
+          name: '',
+          contact: '',
+          notes: ''
+        },
+
+        rates: { EUR: 1, PLN: 4.3, NOK: 11.7 },
+
+        stockItems: [
+          {
+            id: 1,
+            wikiQuery: 'Volvo_Amazon',
+            type: 'car',
+            status: 'available',
+            year: '1966',
+            name: 'Volvo 122S Amazon',
+            spec: '1.8L B18 · Twin SU',
+            origin: 'Szwecja / SE',
+            priceEUR: 16500,
+            image: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=900&q=80',
+            desc: {
+              pl: 'Kultowy skandynawski klasyk z niezniszczalnym silnikiem B18. Po pełnej konserwacji podwozia, odświeżeniu lakieru i przeglądzie dwóch gaźników SU.',
+              en: 'Iconic Swedish classic featuring the bulletproof B18 engine with twin SU carburetors. Freshly restored undercarriage, chrome, and period-correct interior.',
+              no: 'Ikonisk skandinavisk klassiker med den slitesterke B18-motoren og doble SU-forgassere. Nylig restaurert understell, krom og klassisk interiør.'
+            }
+          },
+          {
+            id: 2,
+            wikiQuery: 'Opel_Manta',
+            type: 'car',
+            status: 'available',
+            year: '1972',
+            name: 'Opel Manta A 1.9 SR',
+            spec: '1.9L CIH · 90 KM',
+            origin: 'Niemcy / DE',
+            priceEUR: 18900,
+            image: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=900&q=80',
+            desc: {
+              pl: 'Pierwsza generacja Manty w poszukiwanej specyfikacji SR. Winylowy dach, klasyczne sportowe zegary i sylwetka coupé, jakiej już dziś nie robią.',
+              en: 'First-generation Manta A in desirable SR trim. Vinyl roof, rally-style instrumentation, and pure 1970s European fastback styling.',
+              no: 'Første generasjon Manta A i ettertraktet SR-utgave. Vinyltak, originale ekstramålere og ekte 70-talls coupe-linjer.'
+            }
+          },
+          {
+            id: 3,
+            wikiQuery: 'Simca_1000',
+            type: 'car',
+            status: 'restoration',
+            year: '1968',
+            name: 'Simca 1000 GLS',
+            spec: '944cc · Silnik z tyłu',
+            origin: 'Francja / FR',
+            priceEUR: 9800,
+            image: 'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=900&q=80',
+            desc: {
+              pl: 'Małe, urocze francuskie pudełko z silnikiem z tyłu i ogromnym charakterem. Egzemplarz w trakcie renowacji blacharsko-lakierniczej – możliwość wyboru koloru.',
+              en: 'Charming rear-engined French micro-sedan with unmistakable boxy character. Currently in restoration—reserve now to choose your period paint code.',
+              no: 'Sjarmerende fransk klassiker med hekkmotor og herlig 60-tallskarakter. Under restaurering nå – reserver for å velge original lakkfarge.'
+            }
+          },
+          {
+            id: 4,
+            wikiQuery: 'DAF_66',
+            type: 'car',
+            status: 'available',
+            year: '1974',
+            name: 'DAF 66 Marathon 1300',
+            spec: '1.3L · Variomatic',
+            origin: 'Holandia / NL',
+            priceEUR: 8900,
+            image: 'https://images.unsplash.com/photo-1489824904134-891ab64532f1?auto=format&fit=crop&w=900&q=80',
+            desc: {
+              pl: 'Holenderski unikat zaprojektowany przez Michelottiego z legendarną przekładnią pasową Variomatic – potrafi jechać tak samo szybko do tyłu, jak do przodu!',
+              en: 'Quirky Dutch classic styled by Michelotti with the legendary belt-driven Variomatic transmission. Completely serviced with new drive belts.',
+              no: 'Unik nederlandsk klassiker designet av Michelotti med det legendariske Variomatic-systemet. Nylig gjennomgått med nye drivremmer.'
+            }
+          },
+          {
+            id: 5,
+            wikiQuery: 'Moto_Guzzi_V7_Sport',
+            type: 'moto',
+            status: 'available',
+            year: '1971',
+            name: 'Moto Guzzi V7 Special 750',
+            spec: '757cc V-Twin · Wał Kardana',
+            origin: 'Włochy / IT',
+            priceEUR: 11400,
+            image: 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=900&q=80',
+            desc: {
+              pl: 'Włoska szkoła motocyklowa z poprzecznym silnikiem V2 z Mandello del Lario. Po pełnej rewizji mechanicznej, nowym chromowaniu i lakierowaniu.',
+              en: 'Iconic transverse V-Twin from Mandello del Lario. Complete mechanical overhaul, fresh triple chrome, and authentic Italian patina.',
+              no: 'Klassisk italiensk V-Twin fra Mandello del Lario. Totaloverhalt mekanisk med ny krom og autentiske detaljer.'
+            }
+          },
+          {
+            id: 6,
+            wikiQuery: 'Lambretta',
+            type: 'moto',
+            status: 'restoration',
+            year: '1967',
+            name: 'Lambretta Innocenti SX 150',
+            spec: '150cc 2-Stroke · 4-biegowa',
+            origin: 'Mediolan / IT',
+            priceEUR: 6400,
+            image: 'https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=900&q=80',
+            desc: {
+              pl: 'Kultowy włoski skuter z Mediolanu. Rozebrany do ostatniej śrubki, wypiaskowany i składany na oryginalnych włoskich podzespołach Innocenti.',
+              en: 'Legendary Milanese scooter undergoing a nut-and-bolt restoration. Media-blasted frame and rebuilt two-stroke engine using genuine Innocenti parts.',
+              no: 'Legendarisk italiensk scooter fra Milano under totalrestaurering. Sandblåst ramme og overhalt totaktsmotor med originale Innocenti-deler.'
+            }
+          }
+        ],
+
+        dict: {
+          pl: {
+            topBarBadge: 'PM Classics · Piotr Mantorski',
+            topBarLangs: 'Rozmawiamy po polsku, angielsku i norwesku (Vi snakker norsk)',
+            navStock: 'Garaż',
+            navServices: 'Usługi',
+            navRestoration: 'Renowacja',
+            navProcess: 'Proces',
+            navContact: 'Kontakt',
+            navCta: 'Zleć projekt',
+            heroTag: 'Klasyczne Auta i Motocykle z Charakterem · Europa & Skandynawia',
+            heroTitle: 'Ratujemy klasyki, jakich już dziś nie robią.',
+            heroSub: 'Od Volvo Amazon, Opla Manty, Simki i DAF-a, po włoskie Moto Guzzi oraz skutery Lambretta. Wyszukujemy w Europie, sprowadzamy i odrestaurowujemy stare samochody oraz motocykle z duszą.',
+            heroBtnStock: 'Zobacz nasz Stock',
+            heroBtnSource: 'Zleć poszukiwanie / renowację',
+            stat1: 'Małe i duże klasyki z klimatem dawnych lat',
+            stat2: 'Bezpośredni kontakt z Piotrem Mantorskim',
+            stat3: 'Transport na terenie całej Europy i Norwegii',
+            stat4: 'Od znalezienia bazy w szopie po wyjazd z warsztatu',
+            servicesEyebrow: 'Czym się zajmujemy',
+            servicesTitle: 'Trzy filary PM Classics',
+            servicesDesc: 'Szukamy aut i jednośladów, które wywołują uśmiech na twarzy i mają niepowtarzalny klimat.',
+            servicesList: [
+              {
+                tag: 'Gotowe do jazdy',
+                title: 'Własny Stock z Klimatem',
+                desc: 'Nie interesują nas nudne auta. W naszym garażu znajdziesz nietuzinkowe klasyki z lat 50., 60. i 70. – od szwedzkiego Volvo i niemieckiego Opla, po małe francuskie i holenderskie unikaty.',
+                bullets: ['Samochody (Volvo, DAF, Simca, Opel) i motocykle (Moto Guzzi, Lambretta)', 'Sprawdzone mechanicznie i blacharsko', 'Możliwość rezerwacji egzemplarzy w trakcie budowy']
+              },
+              {
+                tag: 'Na zamówienie',
+                title: 'Poszukiwanie & Sprowadzanie',
+                desc: 'Marzy Ci się konkretny model z dzieciństwa lub włoski skuter? Przeszukujemy lokalne ogłoszenia i kolekcje w całej Europie, weryfikujemy stan na miejscu i przywozimy pojazd pod Twój dom.',
+                bullets: ['Weryfikacja stanu blacharskiego i kompletności detali', 'Załatwienie formalności celnych i eksportowych (UE / Norwegia)', 'Własny, bezpieczny transport']
+              },
+              {
+                tag: 'Rzemiosło A–Z',
+                title: 'Renowacja Aut i Motocykli',
+                desc: 'Rozbieramy klasyki do gołej blachy i ramy. Ratujemy rzadkie detale, dorabiamy niedostępne elementy, remontujemy silniki, gaźniki, chromy i tapicerkę.',
+                bullets: ['Stałe raporty foto/wideo z postępu prac', 'Poszanowanie fabrycznego oryginału i patyny', 'Uczciwy kosztorys i konkurencyjne stawki robocizny']
+              }
+            ],
+            stockEyebrow: 'Wirtualny Garaż PM Classics',
+            stockTitle: 'Aktualny Stock (Auta & Motocykle)',
+            filterAll: 'Wszystkie (6)',
+            filterCars: 'Samochody (4)',
+            filterMotos: 'Motocykle i Skutery (2)',
+            filterInRest: 'W trakcie renowacji',
+            priceLabel: 'Cena orientacyjna',
+            inquireBtn: 'Zapytaj o ten egzemplarz',
+            restEyebrow: 'Prawdziwe rzemiosło warsztatowe',
+            restTitle: 'Od znaleziska z szopy do pełnego blasku',
+            restDesc: 'Stare samochody i motocykle wymagają cierpliwości. Dokumentujemy każdy etap – od piaskowania ramy w Lambretcie czy blacharki w Volvo Amazon, aż po pierwszą jazdę próbną.',
+            restSteps: [
+              { title: '1. Rozbiórka, piaskowanie i blacharka', text: 'Oczyszczamy nadwozie i ramy motocyklowe, wycinamy korozję i odtwarzamy fabryczne przetłoczenia.' },
+              { title: '2. Silniki, gaźniki i mechanika z epoki', text: 'Regenerujemy silniki 2T i 4T, ustawiamy klasyczne gaźniki, naprawiamy przekładnie i instalacje 6V/12V.' },
+              { title: '3. Lakier, chromy i detale', text: 'Dobieramy oryginalne kody lakierów z epoki, odnawiamy chromy i szyjemy tapicerki zgodnie z oryginałem.' }
+            ],
+            beforeTag: 'Baza przed renowacją',
+            afterTag: 'Po renowacji w PM Classics',
+            sliderHint: 'Przeciągnij suwak w lewo lub w prawo, aby porównać',
+            procEyebrow: 'Jak działamy',
+            procTitle: 'Prosty proces w 4 krokach',
+            procSteps: [
+              { title: 'Rozmowa z Piotrem', desc: 'Dzwonisz lub piszesz (po polsku, angielsku lub norwesku). Ustalamy, jakiego auta lub motocykla szukamy.' },
+              { title: 'Zakup bazy lub odbiór', desc: 'Znajdujemy i sprowadzamy bazę z Europy albo odbieramy Twój klasyk naszym transportem.' },
+              { title: 'Renowacja ze zdjęciami', desc: 'Dzielimy prace na etapy i regularnie wysyłamy Ci zdjęcia z warsztatu na WhatsApp lub e-mail.' },
+              { title: 'Dostawa pod dom', desc: 'Gotowy, wyregulowany samochód lub motocykl zawozimy prosto do Twojego garażu w Polsce, Europie czy Norwegii.' }
+            ],
+            formEyebrow: 'Porozmawiajmy o klasykach',
+            formTitle: 'Napisz do PM Classics',
+            formSub: 'Wybierz czego szukasz – Piotr Mantorski odezwie się bezpośrednio.',
+            formStep1: '1. W czym możemy pomóc?',
+            formServiceOpts: ['Zakup klasyka ze Stocku', 'Znalezienie i sprowadzenie pod klienta', 'Renowacja mojego auta / motocykla'],
+            formStep2: '2. Czego dotyczy projekt?',
+            formCatOpts: ['Stary samochód (np. Volvo, Opel, Simca, DAF)', 'Motocykl / Skuter (np. Moto Guzzi, Lambretta)'],
+            formBudget: '3. Orientacyjny budżet',
+            phName: 'Twoje imię',
+            phContact: 'Telefon lub e-mail',
+            phNotes: 'Napisz o jakim modelu myślisz lub co chcesz odrestaurować...',
+            formLangNote: 'Bezpośredni kontakt: +48 600 03 07 08 (PL / EN / NO).',
+            formSubmit: 'Wyślij wiadomość →',
+            formSuccess: 'Dzięki! Wiadomość trafiła do Piotra. Odezwie się w ciągu 24 godzin.'
+          },
+          en: {
+            topBarBadge: 'PM Classics · Piotr Mantorski',
+            topBarLangs: 'We speak English, Polish & Norwegian (Vi snakker norsk)',
+            navStock: 'Current Stock',
+            navServices: 'Services',
+            navRestoration: 'Restoration',
+            navProcess: 'Process',
+            navContact: 'Contact',
+            navCta: 'Start a Project',
+            heroTag: 'Characterful Classic Cars & Motorcycles · Europe & Scandinavia',
+            heroTitle: 'Saving the Classics They Don’t Make Anymore.',
+            heroSub: 'From Volvo Amazon, Opel Manta, Simca, and DAF to Italian Moto Guzzi bikes and Lambretta scooters. We scout across Europe, import, and lovingly restore classic cars and two-wheelers with soul.',
+            heroBtnStock: 'Browse Our Stock',
+            heroBtnSource: 'Commission Sourcing / Restoration',
+            stat1: 'Quirky & iconic 1960s–70s European vehicles',
+            stat2: 'Direct contact with Piotr Mantorski',
+            stat3: 'Door-to-door delivery across Europe & Norway',
+            stat4: 'From barn-find rescue to turnkey classic',
+            servicesEyebrow: 'What We Do',
+            servicesTitle: 'Three Pillars of PM Classics',
+            servicesDesc: 'We focus on authentic, character-packed classics that bring pure mechanical joy.',
+            servicesList: [
+              {
+                tag: 'Turnkey Classics',
+                title: 'Curated Stock with Soul',
+                desc: 'We love quirky and unforgettable machines—from Swedish Volvo Amazons and German Opel Mantas to rear-engined Simcas, Dutch DAFs, Moto Guzzis, and Lambrettas.',
+                bullets: ['Cars & vintage motorcycles/scooters in stock', 'Mechanically sorted and rust-inspected', 'Reserve in-progress builds and pick your color']
+              },
+              {
+                tag: 'Bespoke Sourcing',
+                title: 'European Finding & Import',
+                desc: 'Looking for a childhood favorite or a rare Italian scooter? We hunt down solid bases across Europe, inspect them in person, and handle transport and customs.',
+                bullets: ['Honest on-site rust and mechanical inspection', 'Full EU & Norwegian export/customs support', 'Safe enclosed transport to your garage']
+              },
+              {
+                tag: 'Workshop Craft',
+                title: 'Complete Restoration',
+                desc: 'Full bare-metal restorations for vintage cars, motorcycles, and scooters. Metalwork, engine rebuilds, carburetors, chrome plating, and period upholstery.',
+                bullets: ['Regular photo & video updates on WhatsApp/Email', 'True to original factory specs and period charm', 'Skilled Polish craftsmanship at fair workshop rates']
+              }
+            ],
+            stockEyebrow: 'PM Classics Virtual Garage',
+            stockTitle: 'Current Inventory (Cars & Motos)',
+            filterAll: 'All Vehicles (6)',
+            filterCars: 'Classic Cars (4)',
+            filterMotos: 'Motorcycles & Scooters (2)',
+            filterInRest: 'In Restoration',
+            priceLabel: 'Estimated Price',
+            inquireBtn: 'Ask About This Classic',
+            restEyebrow: 'Authentic Workshop Craftsmanship',
+            restTitle: 'From Barn Find to Road Ready',
+            restDesc: 'Whether it is a 1960s Lambretta scooter frame or a Volvo Amazon bodyshell, we document every step so clients across Europe and Norway can follow their build remotely.',
+            restSteps: [
+              { title: '1. Disassembly, Blasting & Metalwork', text: 'Stripping down car bodies and bike frames to bare metal, rust repair, and epoxy priming.' },
+              { title: '2. Vintage Engines, Carbs & Mechanics', text: 'Rebuilding 2-stroke and 4-stroke engines, tuning twin carbs, Variomatic drives, and 6V/12V wiring.' },
+              { title: '3. Period Paint, Chrome & Trim', text: 'Spraying authentic 60s/70s color codes, re-chroming bumpers, and stitching classic vinyl/leather seats.' }
+            ],
+            beforeTag: 'Barn-Find Base (Before)',
+            afterTag: 'PM Classics Restored (After)',
+            sliderHint: 'Drag slider left or right to compare',
+            procEyebrow: 'How We Work',
+            procTitle: 'Straightforward 4-Step Process',
+            procSteps: [
+              { title: 'Talk to Piotr', desc: 'Call or message us in English, Norwegian, or Polish to discuss the classic car or bike you want.' },
+              { title: 'Sourcing or Pickup', desc: 'We find the right base vehicle in Europe or pick up your current classic with our trailer.' },
+              { title: 'Staged Restoration', desc: 'We restore the vehicle step by step, sending regular photo and video updates from the workshop.' },
+              { title: 'Home Delivery', desc: 'Once tested and tuned, we deliver your finished classic straight to your door anywhere in Europe.' }
+            ],
+            formEyebrow: 'Get in Touch',
+            formTitle: 'Send a Project Inquiry',
+            formSub: 'Pick your area of interest below and Piotr Mantorski will get back to you personally.',
+            formStep1: '1. How can we help?',
+            formServiceOpts: ['Buy a Classic from Stock', 'Find & Import a Specific Model', 'Restore My Car or Motorcycle'],
+            formStep2: '2. Vehicle Type',
+            formCatOpts: ['Classic Car (Volvo, Opel, Simca, DAF, etc.)', 'Motorcycle / Scooter (Moto Guzzi, Lambretta)'],
+            formBudget: '3. Estimated Budget',
+            phName: 'Your Name',
+            phContact: 'Phone or Email',
+            phNotes: 'Tell us which model you are looking for or want to restore...',
+            formLangNote: 'Direct line: +48 600 03 07 08 (English / Norsk / Polski).',
+            formSubmit: 'Send Inquiry →',
+            formSuccess: 'Thank you! Piotr has received your message and will reply within 24 hours.'
+          },
+          no: {
+            topBarBadge: 'PM Classics · Piotr Mantorski',
+            topBarLangs: 'Vi snakker norsk, engelsk og polsk — Direkte kontakt uten mellomledd',
+            navStock: 'Kjøretøy på lager',
+            navServices: 'Tjenester',
+            navRestoration: 'Restaurering',
+            navProcess: 'Prosess',
+            navContact: 'Kontakt',
+            navCta: 'Start et prosjekt',
+            heroTag: 'Klassiske Biler, Motorsykler & Scootere med Sjel · Europa & Norge',
+            heroTitle: 'Vi redder klassikerne de ikke lager lenger.',
+            heroSub: 'Fra Volvo Amazon, Opel Manta, Simca og DAF til italienske Moto Guzzi og Lambretta-scootere. Vi finner, importerer og restaurerer eldre biler og motorsykler med ekte karakter.',
+            heroBtnStock: 'Se kjøretøy på lager',
+            heroBtnSource: 'Bestill søk / restaurering',
+            stat1: 'Sjarmerende 60- og 70-talls biler og motorsykler',
+            stat2: 'Vi snakker norsk (Piotr Mantorski)',
+            stat3: 'Levering på døren i hele Norge og Europa',
+            stat4: 'Fra låvefunn til ferdig registrert klassiker',
+            servicesEyebrow: 'Hva vi gjør',
+            servicesTitle: 'Tre pilarer i PM Classics',
+            servicesDesc: 'Vi brenner for klassiske kjøretøy med sjel – biler og tohjulinger som skiller seg ut.',
+            servicesList: [
+              {
+                tag: 'Klar for veien',
+                title: 'Eget lager med særpreg',
+                desc: 'Her finner du alt fra svenske klassikere som Volvo Amazon og tyske Opel Manta til morsomme småbiler som Simca og DAF, samt Moto Guzzi og Lambretta.',
+                bullets: ['Klassiske biler, motorsykler og scootere på lager', 'Teknisk gjennomgått og rustsjekket', 'Reserver biler under bygging og velg lakkfarge']
+              },
+              {
+                tag: 'På bestilling',
+                title: 'Søk & Import til Norge',
+                desc: 'Drømmer du om en spesiell modell fra ungdomstiden eller en italiensk veteranmotorsykkel? Vi finner riktig eksemplar i Europa, sjekker det grundig og leverer i Norge.',
+                bullets: ['Grundig inspeksjon av rust og mekanikk før kjøp', 'Full hjelp med eksport, moms og toll til Norge', 'Trygg transport helt hjem til din garasje']
+              },
+              {
+                tag: 'Håndverk A–Å',
+                title: 'Totalrestaurering',
+                desc: 'Vi plukker biler og motorsykler helt ned til rammen. Rustsveising, lakkering, motoroverhaling, forgassere, krom og salmakerarbeid til svært gode priser.',
+                bullets: ['Jevnlige bilde- og videorapporter på WhatsApp/e-post', 'Respekt for originale detaljer og tidstypisk stil', 'Solid polsk håndverk til gunstige verkstedpriser']
+              }
+            ],
+            stockEyebrow: 'PM Classics Virtuell Garasje',
+            stockTitle: 'Kjøretøy på lager nå',
+            filterAll: 'Alle kjøretøy (6)',
+            filterCars: 'Klassiske Biler (4)',
+            filterMotos: 'Motorsykler & Scootere (2)',
+            filterInRest: 'Under restaurering',
+            priceLabel: 'Veiledende pris',
+            inquireBtn: 'Spør om dette kjøretøyet',
+            restEyebrow: 'Ekte verkstedhåndverk',
+            restTitle: 'Fra låvefunn til strøken klassiker',
+            restDesc: 'Enten det gjelder en Volvo Amazon, en Simca 1000 eller en Lambretta fra 60-tallet, får du som kunde i Norge full oversikt med bilder fra hvert trinn i restaureringen.',
+            restSteps: [
+              { title: '1. Nedplukking, sandblåsing & rustsveising', text: 'Vi tar karosseri og motorsykkelrammer ned til bart metall, sveiser rust og legger epoksygrunning.' },
+              { title: '2. Motor, forgassere & mekanikk', text: 'Overhaling av 2-takts og 4-takts motorer, girkasser, Variomatic-systemer og elektrisk anlegg.' },
+              { title: '3. Tidstypisk lakk, krom & interiør', text: 'Lakkering i originale fargekoder, ny krom og omtrekking av seter i klassisk stil.' }
+            ],
+            beforeTag: 'Utgangspunkt (Før)',
+            afterTag: 'Restaurert hos PM Classics (Etter)',
+            sliderHint: 'Dra glidebryteren for å sammenligne før og etter',
+            procEyebrow: 'Slik jobber vi',
+            procTitle: 'Enkel og trygg prosess i 4 steg',
+            procSteps: [
+              { title: 'Snakk med Piotr på norsk', desc: 'Ring eller send melding på norsk, engelsk eller polsk. Vi avtaler hva slags bil eller motorsykkel du ønsker.' },
+              { title: 'Innkjøp eller henting', desc: 'Vi finner et godt objekt i Europa eller henter ditt kjøretøy i Norge med vår egen transport.' },
+              { title: 'Restaurering med fotorapporter', desc: 'Du følger hele prosessen hjemmefra via faste bilde- og videorapporter fra verkstedet.' },
+              { title: 'Levering på døren', desc: 'Når kjøretøyet er ferdig testet, leverer vi det direkte hjem til deg i Norge eller EU.' }
+            ],
+            formEyebrow: 'Ta kontakt med oss',
+            formTitle: 'Send en forespørsel til PM Classics',
+            formSub: 'Velg hva du ønsker hjelp med under, så tar Piotr Mantorski direkte kontakt.',
+            formStep1: '1. Hva gjelder henvendelsen?',
+            formServiceOpts: ['Kjøp av klassiker fra lager', 'Finne og importere en klassiker', 'Restaurering av min bil / motorsykkel'],
+            formStep2: '2. Type kjøretøy',
+            formCatOpts: ['Klassisk Bil (f.eks. Volvo, Opel, Simca, DAF)', 'Motorsykkel / Scooter (Moto Guzzi, Lambretta)'],
+            formBudget: '3. Estimert budsjett',
+            phName: 'Ditt navn',
+            phContact: 'Telefonnummer eller e-post',
+            phNotes: 'Beskriv hvilken modell du leter etter eller ønsker å restaurere...',
+            formLangNote: 'Direkte telefon: +48 600 03 07 08 (Vi snakker norsk / EN / PL).',
+            formSubmit: 'Send forespørsel →',
+            formSuccess: 'Takk! Meldingen er sendt til Piotr. Han tar kontakt innen 24 timer.'
+          }
+        },
+
+        get t() {
+          return this.dict[this.lang];
+        },
+
+        get filteredStock() {
+          if (this.stockFilter === 'all') return this.stockItems;
+          if (this.stockFilter === 'restoration') return this.stockItems.filter(i => i.status === 'restoration');
+          return this.stockItems.filter(i => i.type === this.stockFilter);
+        },
+
+        setLang(l) {
+          this.lang = l;
+          localStorage.setItem('pmc_lang', l);
+          this.brief.service = this.t.formServiceOpts[0];
+          this.brief.category = this.t.formCatOpts[0];
+        },
+
+        setCurrency(c) {
+          this.currency = c;
+          localStorage.setItem('pmc_curr', c);
+        },
+
+        statusLabel(st) {
+          const labels = {
+            pl: { available: 'Dostępny od ręki', restoration: 'W renowacji · Rezerwacja', sold: 'Sprzedany' },
+            en: { available: 'Available Now', restoration: 'In Build · Reservable', sold: 'Sold' },
+            no: { available: 'Tilgjengelig nå', restoration: 'Under bygging · Reserverbar', sold: 'Solgt' }
+          };
+          return labels[this.lang][st];
+        },
+
+        formatPrice(eur, status) {
+          if (status === 'sold') return this.lang === 'pl' ? 'Sprzedany' : (this.lang === 'no' ? 'Solgt' : 'Sold');
+          const val = Math.round(eur * this.rates[this.currency]);
+          return val.toLocaleString('pl-PL') + ' ' + this.currency;
+        },
+
+        selectVehicleForInquiry(item) {
+          this.brief.service = this.t.formServiceOpts[0];
+          this.brief.notes = `${item.year} ${item.name} (${this.formatPrice(item.priceEUR, item.status)})`;
+          document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        },
+
+        async loadAuthenticVehiclePhotos() {
+          // Fetches verified model photos (Volvo Amazon, Opel Manta, Simca 1000, DAF 66, Moto Guzzi V7, Lambretta) via Wikipedia REST API
+          for (const item of this.stockItems) {
+            try {
+              const res = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${item.wikiQuery}`);
+              if (res.ok) {
+                const data = await res.json();
+                const imgUrl = (data.originalimage && data.originalimage.source) || (data.thumbnail && data.thumbnail.source);
+                if (imgUrl) {
+                  item.image = imgUrl;
+                  if (item.wikiQuery === 'Volvo_Amazon') {
+                    this.heroImage = imgUrl;
+                  }
+                  if (item.wikiQuery === 'Opel_Manta') {
+                    this.sliderBeforeImg = imgUrl;
+                    this.sliderAfterImg = imgUrl;
+                  }
+                }
+              }
+            } catch (e) {
+              // Keeps clean fallback URL if offline
+            }
+          }
+        },
+
+        init() {
+          this.brief.service = this.t.formServiceOpts[0];
+          this.brief.category = this.t.formCatOpts[0];
+          this.loadAuthenticVehiclePhotos();
+        }
+      }
+    }
+  </script>
+</body>
+</html>
