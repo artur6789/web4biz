@@ -1,0 +1,1886 @@
+<!DOCTYPE html>
+<html lang="pl" x-data="web4bizApp()" :data-theme="direction" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>web4biz.pl — Strony B2B, Narzędzia Webowe &amp; Aplikacje React | Archie</title>
+  <meta name="description" content="web4biz.pl — projektuję i wdrażam szybkie strony B2B z SEO, interaktywne kalkulatory wycen (SVG/GeoJSON), wielojęzyczne platformy oraz aplikacje w React."/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://web4biz.pl/"/>
+
+  <!-- Google Fonts: Space Grotesk + DM Sans + JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Space+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet"/>
+
+  <!-- GSAP + Alpine.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════════════
+       1. DESIGN TOKENS — 3 MOTYWY (STAŁA GEOMETRIA WE WSZYSTKICH MOTYWACH)
+       ═══════════════════════════════════════════════════════════════════ */
+    :root,
+    [data-theme="editorial"] {
+      --bg: #f4f2e9;
+      --bg-alt: #e9e7dc;
+      --surface: #faf9f4;
+      --ink: #172019;
+      --muted: #5e6459;
+      --line: #d8d7cd;
+      --accent: #d8fa52;
+      --accent-ink: #172019;
+      --signal: #477331;
+      --hero-bg: #d8fa52;
+      --hero-ink: #172019;
+      --hero-muted: #34422a;
+      --card-radius: 8px;
+      --btn-radius: 6px;
+      --ease-out-quart: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-out-snappy: cubic-bezier(0.215, 0.61, 0.355, 1);
+      --display: 'Space Grotesk', sans-serif;
+      --sans: 'DM Sans', sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+    }
+
+    /* Widok 03 (Półksiężyc): Forest & Brass Executive Hybrid */
+    [data-theme="forest"] {
+      --bg: #141a16;
+      --bg-alt: #1a221d;
+      --surface: #1e2721;
+      --ink: #f0f2e9;
+      --muted: #aeb8ab;
+      --line: rgba(240, 242, 233, 0.13);
+      --accent: #d8fa52;
+      --accent-ink: #141a16;
+      --signal: #c5a059;
+      --hero-bg: #18211b;
+      --hero-ink: #f0f2e9;
+      --hero-muted: #c2cbbd;
+    }
+
+    /* Widok 02 (Księżyc): 21st.dev Obsidian & Cyan */
+    [data-theme="bento"] {
+      --bg: #07090b;
+      --bg-alt: #0c0f14;
+      --surface: #11151c;
+      --ink: #f4f6f8;
+      --muted: #94a3b8;
+      --line: rgba(255, 255, 255, 0.09);
+      --accent: #06b6d4;
+      --accent-ink: #061014;
+      --signal: #22d3ee;
+      --hero-bg: #07090b;
+      --hero-ink: #f4f6f8;
+      --hero-muted: #94a3b8;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    [x-cloak] { display: none !important; }
+    html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-synthesis: none;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background-color 240ms var(--ease-out-quart), color 240ms var(--ease-out-quart);
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { font-family: inherit; color: inherit; }
+    ::selection { background: var(--accent); color: var(--accent-ink); }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+    .page-wrap { width: min(1340px, calc(100% - 64px)); margin-inline: auto; }
+    .section-pad { padding-block: 108px; }
+    .tabular { font-variant-numeric: tabular-nums; }
+
+    .tactile {
+      transition: transform 110ms var(--ease-out-snappy),
+                  background-color 160ms var(--ease-out-snappy),
+                  border-color 160ms var(--ease-out-snappy),
+                  color 160ms var(--ease-out-snappy),
+                  box-shadow 180ms var(--ease-out-quart);
+    }
+    .tactile:active { transform: scale(0.96); }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       2. NAWIGACJA + PRZEŁĄCZNIK SŁONECZKO / PÓŁKSIĘŻYC / KSIĘŻYC
+       ═══════════════════════════════════════════════════════════════════ */
+    .hero-section {
+      position: relative;
+      background: var(--hero-bg);
+      color: var(--hero-ink);
+      padding: 20px 0 92px;
+      isolation: isolate;
+      border-bottom: 1px solid var(--line);
+      transition: background-color 240ms var(--ease-out-quart), color 240ms var(--ease-out-quart);
+    }
+    .hero-section::before {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      content: '';
+      opacity: 0.14;
+      background-image:
+        linear-gradient(currentColor 1px, transparent 1px),
+        linear-gradient(90deg, currentColor 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: linear-gradient(115deg, rgba(0,0,0,0.45) 0%, transparent 65%);
+      -webkit-mask-image: linear-gradient(115deg, rgba(0,0,0,0.45) 0%, transparent 65%);
+    }
+
+    .nav-wrap {
+      height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid color-mix(in srgb, var(--hero-ink) 16%, transparent);
+      margin-bottom: 54px;
+    }
+    .wordmark {
+      font: 700 24px/1 var(--display);
+      letter-spacing: -0.07em;
+      display: inline-flex;
+      align-items: baseline;
+      gap: 2px;
+    }
+    .wordmark-accent { color: var(--signal); }
+    [data-theme="bento"] .wordmark-accent,
+    [data-theme="forest"] .wordmark-accent { color: var(--accent); }
+    .wordmark-sub {
+      font: 500 10px var(--mono);
+      letter-spacing: 0.08em;
+      opacity: 0.65;
+      margin-left: 10px;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .nav-links a { position: relative; padding-bottom: 4px; }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 1.5px;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 200ms var(--ease-out-quart);
+    }
+    .nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .lang-btn {
+      height: 38px;
+      min-width: 44px;
+      padding: 0 13px;
+      border-radius: var(--btn-radius);
+      border: 1px solid color-mix(in srgb, var(--hero-ink) 22%, transparent);
+      background: transparent;
+      font: 600 11px var(--mono);
+      cursor: pointer;
+    }
+    .lang-btn:hover { background: var(--hero-ink); color: var(--hero-bg); }
+
+    .theme-dock {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      padding: 3px;
+      border-radius: var(--btn-radius);
+      border: 1px solid color-mix(in srgb, var(--hero-ink) 22%, transparent);
+      background: color-mix(in srgb, var(--hero-ink) 6%, transparent);
+    }
+    .theme-icon-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: calc(var(--btn-radius) - 2px);
+      border: 0;
+      background: transparent;
+      color: var(--hero-ink);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      opacity: 0.62;
+    }
+    .theme-icon-btn:hover { opacity: 1; }
+    .theme-icon-btn.is-active {
+      opacity: 1;
+      background: var(--hero-ink);
+      color: var(--hero-bg);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+    }
+    [data-theme="bento"] .theme-icon-btn.is-active,
+    [data-theme="forest"] .theme-icon-btn.is-active {
+      background: var(--accent);
+      color: var(--accent-ink);
+    }
+    .theme-icon-btn svg { width: 16px; height: 16px; }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 18px;
+      border-radius: var(--btn-radius);
+      background: var(--hero-ink);
+      color: var(--hero-bg);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    [data-theme="bento"] .nav-cta,
+    [data-theme="forest"] .nav-cta {
+      background: var(--accent);
+      color: var(--accent-ink);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       3. HERO GRID + 3D BROWSER SHOWCASE
+       ═══════════════════════════════════════════════════════════════════ */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font: 500 11px/1.4 var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin: 0 0 22px;
+    }
+    .eyebrow-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--signal);
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--signal) 20%, transparent);
+    }
+    [data-theme="bento"] .eyebrow-dot,
+    [data-theme="forest"] .eyebrow-dot { background: var(--accent); }
+
+    .hero-title {
+      margin: 0 0 22px;
+      font: 600 clamp(3.3rem, 6.4vw, 6.2rem)/0.89 var(--display);
+      letter-spacing: -0.08em;
+    }
+    .hero-title .line { display: block; }
+    .hero-title .line-italic {
+      padding-left: 0.36em;
+      font-weight: 400;
+      font-style: italic;
+      letter-spacing: -0.09em;
+    }
+    [data-theme="bento"] .hero-title .line-italic,
+    [data-theme="forest"] .hero-title .line-italic { color: var(--accent); }
+
+    .hero-intro {
+      max-width: 510px;
+      margin: 0 0 28px;
+      color: var(--hero-muted);
+      font-size: 17px;
+      line-height: 1.62;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+    .btn-primary {
+      min-height: 50px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 24px;
+      border-radius: var(--btn-radius);
+      border: 0;
+      background: var(--hero-ink);
+      color: var(--hero-bg);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    [data-theme="bento"] .btn-primary,
+    [data-theme="forest"] .btn-primary {
+      background: var(--accent);
+      color: var(--accent-ink);
+    }
+    .btn-secondary {
+      min-height: 50px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 20px;
+      border-radius: var(--btn-radius);
+      border: 1px solid color-mix(in srgb, var(--hero-ink) 28%, transparent);
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .proof-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-top: 42px;
+      padding-top: 16px;
+      border-top: 1px solid color-mix(in srgb, var(--hero-ink) 22%, transparent);
+      font: 500 10px var(--mono);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .hero-showcase { position: relative; margin: 0; perspective: 1200px; }
+    .showcase-browser {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.65);
+      border-radius: 13px;
+      background: #f7f6f0;
+      color: #172019;
+      box-shadow: 0 28px 65px rgba(15, 23, 18, 0.26), 0 4px 12px rgba(15, 23, 18, 0.14);
+      backface-visibility: hidden;
+    }
+    .showcase-browser-bar {
+      height: 36px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 14px;
+      background: #ecebe4;
+      border-bottom: 1px solid #dfddd4;
+    }
+    .dot-r, .dot-y, .dot-g { width: 8px; height: 8px; border-radius: 50%; }
+    .dot-r { background: #e58b79; }
+    .dot-y { background: #e8bd67; }
+    .dot-g { background: #90b887; }
+    .showcase-address {
+      margin-inline: auto;
+      padding: 4px 14px;
+      border-radius: 4px;
+      background: #faf9f5;
+      border: 1px solid #e0dfd6;
+      color: #686c63;
+      font: 500 10px var(--mono);
+    }
+    .showcase-stage { height: 330px; position: relative; overflow: hidden; }
+    .showcase-footer-bar {
+      height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      background: #f8f7f2;
+      border-top: 1px solid #e6e4dc;
+      font: 600 11px var(--mono);
+      color: #172019;
+    }
+    .showcase-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .showcase-tab {
+      flex: 1 1 auto;
+      min-height: 42px;
+      padding: 0 14px;
+      border-radius: var(--btn-radius);
+      border: 1px solid color-mix(in srgb, var(--hero-ink) 25%, transparent);
+      background: color-mix(in srgb, var(--surface) 60%, transparent);
+      color: var(--hero-ink);
+      font: 500 11.5px var(--sans);
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+    }
+    .showcase-tab.is-active {
+      background: var(--hero-ink);
+      color: var(--hero-bg);
+      border-color: var(--hero-ink);
+    }
+    [data-theme="bento"] .showcase-tab.is-active,
+    [data-theme="forest"] .showcase-tab.is-active {
+      background: var(--accent);
+      color: var(--accent-ink);
+      border-color: var(--accent);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       4. MINIATURY PROJEKTÓW I MAPA EUROPY SVG (Z ProjectArtwork.jsx)
+       ═══════════════════════════════════════════════════════════════════ */
+    .route-map-graphic { display: block; width: 100%; height: 100%; }
+    .route-map-land { fill: #e1e7de; }
+    .route-map-land-secondary { fill: #d8e0d6; }
+    .route-map-borders {
+      fill: none;
+      stroke: #c2cec1;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .route-map-poland { fill: rgba(217, 4, 41, 0.17); stroke: #d90429; stroke-width: 3; stroke-linejoin: round; }
+    .route-map-cities circle { fill: #d33239; stroke: #fff; stroke-width: 3.5; }
+    .route-map-start { fill: #d33239; stroke: #fff; stroke-width: 5; }
+    .route-map-label {
+      fill: #172019;
+      stroke: #ffffff;
+      stroke-width: 3.5px;
+      paint-order: stroke;
+      font: 700 14px var(--sans);
+      letter-spacing: 0.02em;
+    }
+    .route-city-dot {
+      fill: #d33239;
+      stroke: #ffffff;
+      stroke-width: 3.5;
+      cursor: pointer;
+      transition: transform 150ms ease, fill 150ms ease;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+    .route-city-dot:hover,
+    .route-city-dot.is-selected {
+      fill: #172019;
+      transform: scale(1.35);
+    }
+
+    .art-route-split {
+      display: grid;
+      grid-template-columns: 1.45fr 1fr;
+      height: 100%;
+      background: #eef1ed;
+      color: #1a1a1a;
+    }
+    .art-route-map-box { position: relative; padding: 14px; overflow: hidden; }
+    .art-micro-header {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      font: 500 10.5px var(--mono);
+      letter-spacing: 0.06em;
+      color: #555b53;
+    }
+    .art-route-panel {
+      background: #ffffff;
+      border-left: 3px solid #d90429;
+      padding: 18px 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 8px;
+    }
+    .art-route-panel p {
+      margin: 0;
+      font-size: 12px;
+      line-height: 1.5;
+      color: #374151;
+    }
+
+    /* Pigułki wyboru w oknie Hero (bez domyślnych ramek buttona) */
+    .hero-chip {
+      appearance: none;
+      -webkit-appearance: none;
+      padding: 4px 9px;
+      border-radius: 4px;
+      border: 1px solid #d5d7d0;
+      background: #f4f5f2;
+      color: #374151;
+      font: 600 10px var(--mono);
+      cursor: pointer;
+      transition: all 140ms ease;
+    }
+    .hero-chip:hover { border-color: #172019; color: #172019; }
+    .hero-chip.is-active {
+      background: #d90429;
+      border-color: #d90429;
+      color: #ffffff;
+    }
+
+.gemba-chip {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 100%;
+      padding: 7px 10px;
+      border-radius: 3px;
+      border: 1px solid #dfdcd2;
+      background: #fcfbf8;
+      color: #475053;
+      font: 500 11px/1.35 var(--sans);
+      text-align: left;
+      cursor: pointer;
+      transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease, box-shadow 140ms ease;
+    }
+    .gemba-chip:hover { border-color: #b8432e; }
+    .gemba-chip.is-active {
+      border-color: #b8432e;
+      background: #fdf3f1;
+      color: #161e21;
+      box-shadow: inset 3px 0 0 #b8432e;
+    }
+
+    .ck-mini-preview {
+      height: 100%;
+      padding: 48px 24px 18px;
+      background: linear-gradient(135deg, #fde8d8 0%, #ffe0e6 100%);
+      color: #1a1a1a;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .ck-mini-nav {
+      position: absolute;
+      inset: 0 0 auto;
+      height: 36px;
+      padding: 0 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(26,26,26,0.09);
+      font: 500 10.5px var(--mono);
+      letter-spacing: 0.05em;
+    }
+
+    .pm-mini-preview {
+      height: 100%;
+      position: relative;
+      background: #121312;
+      color: #f4f4f5;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      isolation: isolate;
+      overflow: hidden;
+    }
+    .pm-mini-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 58%;
+      z-index: -2;
+      filter: saturate(0.82) contrast(1.05);
+      transition: transform 500ms var(--ease-out-quart);
+    }
+    .project-card:hover .pm-mini-bg { transform: scale(1.04); }
+    .pm-mini-shade {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        linear-gradient(90deg, rgba(11, 11, 12, 0.86) 0%, rgba(11, 11, 12, 0.48) 65%, rgba(11, 11, 12, 0.2) 100%),
+        linear-gradient(0deg, rgba(11, 11, 12, 0.72) 0%, transparent 55%);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       5. SIATKA 5 PROJEKTÓW I 3-PAKOWY KONFIGURATOR OFERTY
+       ═══════════════════════════════════════════════════════════════════ */
+    .section-kicker {
+      margin: 0;
+      font: 500 11px/1.4 var(--mono);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--signal);
+    }
+    [data-theme="bento"] .section-kicker,
+    [data-theme="forest"] .section-kicker { color: var(--accent); }
+    .section-title {
+      margin: 12px 0 0;
+      font: 600 clamp(2.4rem, 4.6vw, 4.4rem)/0.96 var(--display);
+      letter-spacing: -0.07em;
+    }
+
+    .filter-bar { display: flex; flex-wrap: wrap; gap: 8px; margin: 32px 0 24px; }
+    .filter-pill {
+      min-height: 36px;
+      padding: 0 15px;
+      border-radius: var(--btn-radius);
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--muted);
+      font: 500 11px var(--mono);
+      cursor: pointer;
+    }
+    .filter-pill.is-active, .filter-pill:hover {
+      background: var(--ink);
+      color: var(--bg);
+      border-color: var(--ink);
+    }
+    [data-theme="bento"] .filter-pill.is-active,
+    [data-theme="forest"] .filter-pill.is-active {
+      background: var(--accent);
+      color: var(--accent-ink);
+      border-color: var(--accent);
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 20px;
+      align-items: stretch;
+    }
+    .project-card {
+      grid-column: span 6;
+      border: 1px solid var(--line);
+      border-radius: var(--card-radius);
+      background: var(--surface);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 220ms var(--ease-out-quart), border-color 180ms var(--ease-out-snappy), box-shadow 220ms var(--ease-out-quart);
+    }
+    .span-7 { grid-column: span 7; }
+    .span-5 { grid-column: span 5; }
+    .span-4 { grid-column: span 4; }
+
+    @media (hover: hover) and (pointer: fine) {
+      .project-card:hover {
+        transform: translateY(-3px);
+        border-color: var(--signal);
+        box-shadow: 0 18px 36px rgba(0, 0, 0, 0.12);
+      }
+    }
+
+    .project-art-box {
+      display: block;
+      height: 265px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+    }
+    .project-body { padding: 22px 24px 20px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+    .project-tags span {
+      padding: 5px 10px;
+      border: 1px solid var(--line);
+      border-radius: calc(var(--btn-radius) / 1.5);
+      font: 500 11px var(--mono);
+      letter-spacing: 0.02em;
+      color: var(--ink);
+      opacity: 0.85;
+      white-space: nowrap;
+    }
+    .project-body h3 { margin: 0 0 8px; font: 600 22px/1.12 var(--display); letter-spacing: -0.04em; }
+    .project-body p { margin: 0 0 18px; color: var(--muted); font-size: 13px; line-height: 1.62; min-height: 42px; }
+    .project-footer {
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font: 600 11px var(--mono);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       6. WYBÓR 3 PAKIETÓW PROJEKTOWYCH
+       ═══════════════════════════════════════════════════════════════════ */
+    .services-section {
+      background: var(--bg-alt);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .tier-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+      margin-top: 36px;
+      align-items: stretch;
+    }
+    .tier-card {
+      position: relative;
+      border: 1.5px solid var(--line);
+      border-radius: var(--card-radius);
+      background: var(--surface);
+      padding: 28px 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: left;
+      cursor: pointer;
+    }
+    .tier-card.is-active {
+      border-color: var(--ink);
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.1);
+      background: color-mix(in srgb, var(--accent) 16%, var(--surface));
+    }
+    [data-theme="bento"] .tier-card.is-active,
+    [data-theme="forest"] .tier-card.is-active {
+      border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 11%, var(--surface));
+    }
+    .tier-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--btn-radius);
+      font: 600 10px var(--mono);
+      background: color-mix(in srgb, var(--ink) 8%, transparent);
+    }
+    .tier-card.is-active .tier-badge {
+      background: var(--ink);
+      color: var(--bg);
+    }
+    [data-theme="bento"] .tier-card.is-active .tier-badge,
+    [data-theme="forest"] .tier-card.is-active .tier-badge {
+      background: var(--accent);
+      color: var(--accent-ink);
+    }
+    .tier-bullets {
+      list-style: none;
+      margin: 18px 0 22px;
+      padding: 16px 0 0;
+      border-top: 1px solid var(--line);
+      display: grid;
+      gap: 10px;
+      font-size: 12.5px;
+      color: var(--ink);
+    }
+    .tier-bullets li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.45;
+    }
+    .tier-bullets li i {
+      font-style: normal;
+      color: var(--signal);
+      font-weight: 700;
+    }
+    [data-theme="bento"] .tier-bullets li i,
+    [data-theme="forest"] .tier-bullets li i { color: var(--accent); }
+
+    .tier-summary-bar {
+      margin-top: 24px;
+      padding: 24px 28px;
+      border-radius: var(--card-radius);
+      border: 1px solid var(--line);
+      background: var(--surface);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    /* Contact Section */
+    .contact-section {
+      background: var(--hero-bg);
+      color: var(--hero-ink);
+      border-top: 1px solid var(--line);
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .contact-input {
+      width: 100%;
+      padding: 12px 0;
+      border: 0;
+      border-bottom: 1px solid color-mix(in srgb, var(--hero-ink) 35%, transparent);
+      background: transparent;
+      color: var(--hero-ink);
+      font-size: 14px;
+      outline: none;
+    }
+    .contact-input:focus {
+      border-bottom-color: var(--hero-ink);
+      box-shadow: 0 1px 0 var(--hero-ink);
+    }
+
+    @media (max-width: 1024px) {
+      .hero-grid, .contact-grid, .tier-grid { grid-template-columns: 1fr; }
+      .span-7, .span-5, .span-4 { grid-column: span 6; }
+    }
+    @media (max-width: 720px) {
+      .page-wrap { width: calc(100% - 32px); }
+      .nav-links, .wordmark-sub { display: none; }
+      .project-card, .span-7, .span-5, .span-4 { grid-column: span 12; }
+      .art-route-split { grid-template-columns: 1fr; }
+      .art-route-panel { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══ HERO SECTION + NAWIGACJA Z PRZEŁĄCZNIKIEM SŁONECZKO / PÓŁKSIĘŻYC / KSIĘŻYC ═══ -->
+  <section class="hero-section" id="top">
+    <div class="page-wrap">
+
+      <!-- Main Navigation -->
+      <header class="nav-wrap">
+        <a href="#top" class="wordmark">
+          web<span class="wordmark-accent">4</span>biz<span>.pl</span>
+          <span class="wordmark-sub">by archie.</span>
+        </a>
+
+        <nav class="nav-links" :aria-label="lang === 'pl' ? 'Główna nawigacja' : 'Main navigation'">
+          <a href="#work" x-text="t.navWork"></a>
+          <a href="#estimator" x-text="t.navEstimator"></a>
+          <a href="#about" x-text="t.navAbout"></a>
+          <a href="#contact" x-text="t.navContact"></a>
+        </nav>
+
+        <div class="nav-actions">
+          <!-- Przełącznik języka PL / EN -->
+          <button type="button" class="lang-btn tactile" @click="toggleLang()"
+            :aria-label="lang === 'pl' ? 'Switch to English' : 'Zmień język na polski'"
+            x-text="lang === 'pl' ? 'EN' : 'PL'"></button>
+
+          <!-- Potrójny przełącznik widoku: 01 Słoneczko / 03 Półksiężyc / 02 Księżyc -->
+          <div class="theme-dock" role="group" :aria-label="lang === 'pl' ? 'Wybierz motyw kolorystyczny' : 'Choose color theme'">
+            <!-- 01: Słoneczko (Editorial Lime & Paper) -->
+            <button type="button" class="theme-icon-btn tactile"
+              :class="direction === 'editorial' ? 'is-active' : ''"
+              @click="setDirection('editorial')"
+              :title="lang === 'pl' ? 'Widok 01: Jasny (Lime & Paper)' : 'View 01: Light (Lime & Paper)'"
+              aria-label="Widok 01">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                <circle cx="10" cy="10" r="3.6"/>
+                <path d="M10 2v2.2M10 15.8V18M18 10h-2.2M4.2 10H2M15.66 4.34l-1.56 1.56M5.9 14.1l-1.56 1.56M15.66 15.66l-1.56-1.56M5.9 5.9 4.34 4.34"/>
+              </svg>
+            </button>
+
+            <!-- 03: Półksiężyc / Zmierzch (Forest & Brass) -->
+            <button type="button" class="theme-icon-btn tactile"
+              :class="direction === 'forest' ? 'is-active' : ''"
+              @click="setDirection('forest')"
+              :title="lang === 'pl' ? 'Widok 03: Półmrok (Forest & Brass)' : 'View 03: Dusk (Forest & Brass)'"
+              aria-label="Widok 03">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="10" cy="10" r="6.5"/>
+                <path d="M10 3.5a6.5 6.5 0 0 1 0 13V3.5Z" fill="currentColor"/>
+              </svg>
+            </button>
+
+            <!-- 02: Księżyc (Obsidian & Cyan Night) -->
+            <button type="button" class="theme-icon-btn tactile"
+              :class="direction === 'bento' ? 'is-active' : ''"
+              @click="setDirection('bento')"
+              :title="lang === 'pl' ? 'Widok 02: Nocny (Obsidian & Cyan)' : 'View 02: Night (Obsidian & Cyan)'"
+              aria-label="Widok 02">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16.8 12.4A6.8 6.8 0 0 1 7.6 3.2a6.9 6.9 0 1 0 9.2 9.2Z"/>
+              </svg>
+            </button>
+          </div>
+
+          <a href="#estimator" class="nav-cta tactile">
+            <span x-text="t.navCta"></span>
+            <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </header>
+
+      <!-- 2-Column Hero Layout -->
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            <span x-text="t.eyebrow"></span>
+          </p>
+
+          <h1 class="hero-title">
+            <span class="line" x-text="t.heroLine1"></span>
+            <span class="line line-italic" x-text="t.heroLine2"></span>
+            <span class="line" x-text="t.heroLine3"></span>
+          </h1>
+
+          <p class="hero-intro" x-text="t.heroIntro"></p>
+
+          <div class="hero-actions">
+            <a href="#work" class="btn-primary tactile">
+              <span x-text="t.heroBtnPrimary"></span>
+              <span aria-hidden="true">→</span>
+            </a>
+            <a href="#estimator" class="btn-secondary tactile" x-text="t.heroBtnSecondary"></a>
+          </div>
+
+          <div class="proof-row tabular">
+            <template x-for="item in t.proof" :key="item">
+              <span x-text="item"></span>
+            </template>
+          </div>
+        </div>
+
+        <!-- 3D BROWSER SHOWCASE (4 INTERAKTYWNE PROJEKTY W OKNIE HERO) -->
+        <figure class="hero-showcase" @mousemove="tiltHeroBrowser($event)" @mouseleave="resetHeroBrowser()">
+          <div class="showcase-browser" x-ref="browserFrame">
+            <div class="showcase-browser-bar">
+              <span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span>
+              <div class="showcase-address" x-text="activeShowcase.domain"></div>
+              <span style="font-size:10px; color:#777a71;">•••</span>
+            </div>
+
+            <div class="showcase-stage">
+
+              <!-- Stage 0: AD REM T2 Route Map SVG (Pełna mapa Europy z granicami i klikalnymi punktami) -->
+              <div x-show="showcaseIdx === 0" class="art-route-split">
+                <div class="art-route-map-box">
+                  <div class="art-micro-header">
+                    <span x-text="lang === 'pl' ? 'EUROPA / KIERUNKI' : 'EUROPE / ROUTES'"></span>
+                    <span style="color:#d90429;" x-text="lang === 'pl' ? '◉ WARSZAWA / BAZA' : '◉ WARSAW / HUB'"></span>
+                  </div>
+
+                  <svg class="route-map-graphic" viewBox="0 0 900 520" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:28px 0 0; height:calc(100% - 28px);">
+                    <path class="route-map-land" d="m101 76 41-25 34 8 24-23 39 12 28 31 34-8 30 18 27-9 30 21 41-12 30 22 43-5 24 23 43-2 23 29 40 14 13 32-19 25-35 7-5 30-28 15-12 34-34 12-15 32-39 6-20 27-37-4-20-26-31-5-18-24-36-2-19-24-31-4-13-24-32-14-10-25-32-13-15-28-35-9-9-28-31-6-12-24 20-26Z"/>
+                    <path class="route-map-land route-map-land-secondary" d="m73 256 38 7 28 27-10 34-33 20-30-21-9-34Zm209 172 31-22 35 9 8 22-27 21-34-7Zm286 24 32-18 25 10-12 25-31 8Zm-75-436 34-13 30 15-13 25-32-4Z"/>
+                    <g class="route-map-borders">
+                      <path d="m199 79 21 48 39 22 25-19 34 26-9 47 28 26-10 37-31 17 2 41-32 19-17 42"/>
+                      <path d="m263 79 20 52 38 25 37-12 26 29-8 37 34 22-9 34-36 17 1 43-28 22"/>
+                      <path d="m344 91 11 42 39 23 19 39-22 30 27 25-7 39 28 26-17 39"/>
+                      <path d="m419 103 20 39 34 16 15 38-18 33 25 27-6 39 31 18"/>
+                      <path d="m493 105 18 46 36 13 15 40-20 26 26 27-12 40 26 20"/>
+                      <path d="m568 126 23 37 36 11 15 31-16 33 27 31-16 37"/>
+                      <path d="m134 167 44 14 21 31-14 34 20 27-7 33m-83-16 49 9 27 30 42 9 20 29m-36-167 52 10 34-16 44 12 31-9 38 12 33-14 42 19 41-12 33 14"/>
+                      <path d="m176 368 42 6 27 29 36 7m113-62 31 15 37-7 26 22 40 5m31-136 43 7 21 31 40 4m-224-192 19-32 39 4 22 32"/>
+                    </g>
+                    <path class="route-map-poland" d="m480 193 30-14 34 8 18 25 31 7 7 33-17 25 5 31-26 20-31-8-20 13-27-15-17-25-24-8-5-27 18-20Z"/>
+
+                    <!-- Linia aktywnej trasy z Warszawy (534, 235) -->
+                    <line x1="534" y1="235" :x2="activeCity.x" :y2="activeCity.y"
+                          stroke="#d90429" stroke-width="3" stroke-dasharray="6 4" stroke-linecap="round"/>
+
+                    <!-- Sieć miast pomocniczych w Europie -->
+                    <g class="route-map-cities" style="opacity:0.55;">
+                      <circle cx="472" cy="171" r="5"/><circle cx="426" cy="205" r="5"/>
+                      <circle cx="319" cy="238" r="5"/><circle cx="174" cy="318" r="5"/>
+                      <circle cx="251" cy="365" r="5"/><circle cx="338" cy="399" r="5"/>
+                      <circle cx="468" cy="326" r="5"/><circle cx="593" cy="172" r="5"/>
+                      <circle cx="625" cy="223" r="5"/><circle cx="659" cy="280" r="5"/>
+                      <circle cx="585" cy="382" r="5"/><circle cx="482" cy="400" r="5"/>
+                    </g>
+
+                    <!-- 4 Główne klikalne huby (Rotterdam, Berlin, Mediolan, Paryż) -->
+                    <circle class="route-city-dot" :class="selectedCityIdx === 0 ? 'is-selected' : ''" @click="selectedCityIdx = 0" cx="284" cy="287" r="7.5"/>
+                    <circle class="route-city-dot" :class="selectedCityIdx === 1 ? 'is-selected' : ''" @click="selectedCityIdx = 1" cx="367" cy="252" r="7.5"/>
+                    <circle class="route-city-dot" :class="selectedCityIdx === 2 ? 'is-selected' : ''" @click="selectedCityIdx = 2" cx="412" cy="353" r="7.5"/>
+                    <circle class="route-city-dot" :class="selectedCityIdx === 3 ? 'is-selected' : ''" @click="selectedCityIdx = 3" cx="225" cy="226" r="7.5"/>
+
+                    <!-- Etykieta wybranego miasta docelowego -->
+                    <text :x="activeCity.x" :y="activeCity.y - 14" text-anchor="middle" class="route-map-label" x-text="activeCity.name[lang]"></text>
+
+                    <!-- Punkt startowy Warszawa -->
+                    <circle class="route-map-start" cx="534" cy="235" r="10"/>
+                    <text class="route-map-label" x="550" y="240" x-text="lang === 'pl' ? 'WARSZAWA' : 'WARSAW'"></text>
+                  </svg>
+                </div>
+
+                <div class="art-route-panel">
+                  <span style="font:600 10px var(--mono); color:#d90429;" x-text="lang === 'pl' ? '↳ PODGLĄD RELACJI' : '↳ ROUTE PREVIEW'"></span>
+                  <h3 style="margin:0; font:700 20px/1.05 var(--display); color:#172019;" x-text="lang === 'pl' ? 'Dokąd jedziemy?' : 'Where to next?'"></h3>
+
+                  <div style="display:flex; flex-wrap:wrap; gap:5px; margin:4px 0;">
+                    <template x-for="(city, cIdx) in heroCities" :key="city.id">
+                      <button type="button" class="hero-chip"
+                        :class="selectedCityIdx === cIdx ? 'is-active' : ''"
+                        @click="selectedCityIdx = cIdx"
+                        x-text="city.name[lang]"></button>
+                    </template>
+                  </div>
+
+                  <div class="tabular" style="padding:9px 0; border-block:1px solid rgba(0,0,0,0.1); font:700 12px/1.35 var(--mono); color:#172019;">
+                    <div style="font-size:9.5px; color:#686a64; font-weight:600; margin-bottom:2px;" x-text="lang === 'pl' ? 'DYSTANS DROGOWY Z WARSZAWY:' : 'ROAD DISTANCE FROM WARSAW:'"></div>
+                    <span x-text="activeCity.name[lang] + ' — '"></span>
+                    <span style="color:#d90429;" x-text="activeCity.km + ' km'"></span>
+                    <span style="font-weight:500; color:#555b53;" x-text="' (' + activeCity.time + ')'"></span>
+                  </div>
+                  <span style="font:500 10px var(--mono); color:#5a5a5a;" x-text="lang === 'pl' ? '◷ Kontakt z dyspozytorem 24/7' : '◷ 24/7 Dispatcher Contact'"></span>
+                </div>
+              </div>
+
+              <!-- Stage 1: CK AD REM Accounting Preview -->
+              <div x-show="showcaseIdx === 1" x-cloak class="ck-mini-preview">
+                <div class="ck-mini-nav">
+                  <span x-text="lang === 'pl' ? 'Ad Rem · CENTRUM KSIĘGOWE' : 'Ad Rem · ACCOUNTING CENTRE'"></span>
+                  <span style="color:#5a5a5a;" x-text="lang === 'pl' ? 'SPÓŁKI B2B · FUNDACJE NGO · KPiR' : 'CORPORATE B2B · NGO · TAX BOOKS'"></span>
+                </div>
+                <p style="margin:0 0 8px; font:600 10.5px var(--mono); color:#d90429; letter-spacing:0.08em;" x-text="lang === 'pl' ? '● AD REM / DO RZECZY · 22 LATA DOŚWIADCZENIA' : '● AD REM / TO THE POINT · 22 YEARS IN WARSAW'"></p>
+                <h3 style="margin:0 0 10px; font:700 30px/1.02 var(--display); letter-spacing:-0.05em; max-width:420px;">
+                  <span x-text="lang === 'pl' ? 'Księgowość, która pozwala Ci ' : 'Accounting that lets you '"></span>
+                  <span style="color:#d90429;" x-text="lang === 'pl' ? 'spać spokojnie.' : 'sleep well.'"></span>
+                </h3>
+                <p style="margin:0 0 16px; font-size:12px; color:#4a4a4a; max-width:390px;" x-text="lang === 'pl' ? 'Dwie wyraźne ścieżki konwersji: obsługa spółek i przedsiębiorców oraz dedykowana oferta dla fundacji i stowarzyszeń.' : 'Two clear conversion paths: full corporate bookkeeping for businesses and a dedicated offer for foundations and NGOs.'"></p>
+                <div style="display:flex; gap:8px;">
+                  <span style="padding:8px 14px; border-radius:var(--btn-radius); background:#d90429; color:#fff; font:700 10.5px var(--sans);" x-text="lang === 'pl' ? 'Umów konsultację' : 'Book consultation'"></span>
+                  <span style="padding:8px 14px; border-radius:var(--btn-radius); border:1px solid #d90429; color:#d90429; font:700 10.5px var(--sans);" x-text="lang === 'pl' ? 'Oferta NGO →' : 'NGO Offer →'"></span>
+                </div>
+              </div>
+
+              <!-- Stage 2: PM Classics Preview -->
+              <div x-show="showcaseIdx === 2" x-cloak class="pm-mini-preview">
+                <img :src="classicCarImg" alt="1966 Volvo Amazon 122S Classic Car" class="pm-mini-bg"/>
+                <div class="pm-mini-shade"></div>
+                <div style="display:flex; justify-content:space-between; align-items:center; font:500 10.5px var(--mono); letter-spacing:0.08em; color:#dfbd78;">
+                  <span x-text="lang === 'pl' ? 'PM CLASSICS · GARAŻ KLASYKÓW' : 'PM CLASSICS · HERITAGE GARAGE'"></span>
+                  <span>PL · EN · NO | EUR · PLN · NOK</span>
+                </div>
+                <div>
+                  <span style="font:500 10.5px var(--mono); letter-spacing:0.1em; color:#e4e4e7;" x-text="lang === 'pl' ? '1966 VOLVO 122S AMAZON · KOLEKCJA' : '1966 VOLVO 122S AMAZON · COLLECTION'"></span>
+                  <h3 style="margin:6px 0 14px; font:600 34px/0.96 var(--display); letter-spacing:-0.05em;">
+                    <span x-text="lang === 'pl' ? 'Klasyka, która ' : 'Classics that '"></span>
+                    <i style="color:#dfbd78; font-weight:400;" x-text="lang === 'pl' ? 'zostaje z Tobą.' : 'stay with you.'"></i>
+                  </h3>
+                  <span style="display:inline-block; padding:7px 12px; background:#c5a059; color:#0b0b0c; font:700 10.5px var(--mono); border-radius:var(--btn-radius);"
+                    x-text="lang === 'pl' ? 'WIRTUALNY GARAŻ: 16 500 EUR / 70 950 PLN →' : 'VIRTUAL GARAGE: 16,500 EUR / 193,050 NOK →'">
+                  </span>
+                </div>
+              </div>
+
+<!-- Stage 3: 玄 GEMBA Preview (Czarny pasek Glossary zawsze na samym dole) -->
+              <div x-show="showcaseIdx === 3" x-cloak style="height:100%; position:relative; background-color:#f9f8f3; background-image:linear-gradient(#ebe8df 1px, transparent 1px), linear-gradient(90deg, #ebe8df 1px, transparent 1px); background-size:36px 36px; color:#161e21; overflow:hidden;">
+                
+                <!-- Górna część robocza (wypełnia przestrzeń nad czarnym paskiem) -->
+                <div style="height:calc(100% - 38px); padding:20px 26px 14px; display:grid; grid-template-columns:1fr 1.15fr; gap:20px; align-items:center;">
+                  <div style="display:flex; flex-direction:column; justify-content:space-between; height:100%;">
+                    <div style="display:inline-flex; align-items:center; gap:7px; font:600 10px var(--mono); letter-spacing:0.1em; color:#5b6568;">
+                      <i style="width:7px; height:7px; background:#b8432e; display:inline-block;"></i>
+                      <span>LEAN · TPS · SIX SIGMA</span>
+                    </div>
+                    <div>
+                      <h3 style="margin:0 0 8px; font:700 28px/0.96 var(--display); letter-spacing:-0.05em; color:#161e21;">
+                        <span x-text="lang === 'pl' ? 'Opisz problem.' : 'Describe the problem.'"></span><br/>
+                        <span style="color:#b8432e;" x-text="lang === 'pl' ? 'Otrzymaj metodę.' : 'Get the method.'"></span>
+                      </h3>
+                      <p style="margin:0; font-size:11.5px; color:#5b6568; line-height:1.45;"
+                        x-text="lang === 'pl' ? 'Wybierz objaw obok, aby zobaczyć diagnozę straty i metodę:' : 'Pick a symptom on the right to see the waste and matched tool:'"></p>
+                    </div>
+                    <div style="display:flex; gap:18px; padding-top:8px; border-top:1px solid #e2dfd5; font:700 12px var(--display);" class="tabular">
+                      <span>47 <small style="font:500 9px var(--mono); color:#6e777a;" x-text="lang==='pl'?'METOD':'METHODS'"></small></span>
+                      <span>70+ <small style="font:500 9px var(--mono); color:#6e777a;" x-text="lang==='pl'?'POJĘĆ':'TERMS'"></small></span>
+                      <span>5 <small style="font:500 9px var(--mono); color:#6e777a;" x-text="lang==='pl'?'FAZ':'PHASES'"></small></span>
+                    </div>
+                  </div>
+
+                  <!-- Prawa karta diagnostyczna -->
+                  <div style="background:#ffffff; border:1px solid #dfdcd2; padding:14px 16px; box-shadow:0 8px 24px rgba(22,30,33,0.05); display:flex; flex-direction:column; gap:8px;">
+                    <div style="display:flex; justify-content:space-between; font:600 9.5px var(--mono); letter-spacing:0.08em; color:#5b6568;">
+                      <span x-text="lang === 'pl' ? 'OPISZ PROBLEM / OBJAW' : 'DESCRIBE THE PROBLEM'"></span>
+                      <span style="color:#b8432e;">01</span>
+                    </div>
+                    <template x-for="(g, gIdx) in gembaDemos" :key="g.id">
+                      <button type="button" class="gemba-chip"
+                        :class="gembaDemoIdx === gIdx ? 'is-active' : ''"
+                        @click="gembaDemoIdx = gIdx"
+                        x-text="g.symptom[lang]"></button>
+                    </template>
+                    <div style="padding-top:8px; border-top:1px solid #ece9e0; display:flex; justify-content:space-between; align-items:center; gap:8px; font:600 9.5px var(--mono); white-space:nowrap;">
+                      <span style="color:#5b6568;" x-text="gembaDemos[gembaDemoIdx].waste[lang]"></span>
+                      <span style="color:#b8432e;" x-text="'→ ' + gembaDemos[gembaDemoIdx].method"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Dolny pasek Glossary na stałe zakotwiczony do samego dołu (bottom: 0) -->
+                <div style="position:absolute; left:0; right:0; bottom:0; height:38px; background:#151c1f; color:#ffffff; padding:0 26px; display:flex; justify-content:space-between; align-items:center; font:500 10.5px var(--sans); border-top:1px solid #dfdcd2;">
+                  <span style="font:500 9.5px var(--mono); color:#9ba3a7; letter-spacing:0.1em;">GLOSSARY · TPS</span>
+                  <div style="display:flex; gap:18px;">
+                    <span><b style="color:#b8432e; font-weight:500; margin-right:4px;">改善</b>Kaizen</span>
+                    <span><b style="color:#b8432e; font-weight:500; margin-right:4px;">無駄</b>Muda</span>
+                    <span><b style="color:#b8432e; font-weight:500; margin-right:4px;">自働化</b>Jidoka</span>
+                    <span><b style="color:#b8432e; font-weight:500; margin-right:4px;">平準化</b>Heijunka</span>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- Browser Footer -->
+            <div class="showcase-footer-bar tabular">
+              <strong x-text="activeShowcase.badge[lang]"></strong>
+              <span style="color:#686c63;" x-text="activeShowcase.tech"></span>
+              <a :href="activeShowcase.url" target="_blank" rel="noopener" style="color:#172019; font-weight:700;" x-text="lang === 'pl' ? 'OTWÓRZ ↗' : 'LIVE ↗'"></a>
+            </div>
+          </div>
+
+          <!-- Interactive Switcher Tabs Under Browser -->
+          <div class="showcase-tabs" role="tablist">
+            <template x-for="(sc, idx) in showcases" :key="sc.domain">
+              <button type="button" class="showcase-tab tactile"
+                :class="showcaseIdx === idx ? 'is-active' : ''"
+                @click="showcaseIdx = idx">
+                <span style="opacity:0.65;" x-text="'0' + (idx + 1)"></span>
+                <span x-text="sc.tab[lang]"></span>
+              </button>
+            </template>
+          </div>
+        </figure>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SECTION 01: WSZYSTKIE 5 PROJEKTÓW ═══ -->
+  <section class="section-pad" id="work">
+    <div class="page-wrap">
+
+      <div style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:24px;">
+        <div>
+          <p class="section-kicker" x-text="t.workKicker"></p>
+          <h2 class="section-title" x-text="t.workTitle"></h2>
+        </div>
+        <p style="max-width:360px; margin:0; color:var(--muted); font-size:14px; line-height:1.6;" x-text="t.workSub"></p>
+      </div>
+
+      <!-- Category Filters -->
+      <div class="filter-bar" role="group">
+        <template x-for="f in filters" :key="f.id">
+          <button type="button" class="filter-pill tactile"
+            :class="activeFilter === f.id ? 'is-active' : ''"
+            @click="activeFilter = f.id"
+            x-text="f.label[lang]"></button>
+        </template>
+      </div>
+
+      <!-- 12-Column Asymmetric Grid with all 5 builds -->
+      <div class="project-grid">
+
+        <!-- 1. AD REM T2 (Span 7) -->
+        <article class="project-card span-7" x-show="activeFilter === 'all' || activeFilter === 'tools' || activeFilter === 'b2b'">
+          <a href="case-study.html?project=adremt2" class="project-art-box">
+            <div class="art-route-split">
+              <div class="art-route-map-box">
+                <div class="art-micro-header">
+                  <span x-text="lang === 'pl' ? 'EUROPA / KIERUNKI' : 'EUROPE / ROUTES'"></span>
+                  <span x-text="lang === 'pl' ? '◉ WARSZAWA / BAZA' : '◉ WARSAW / HUB'"></span>
+                </div>
+                <svg class="route-map-graphic" viewBox="0 0 900 520" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:28px 0 0; height:calc(100% - 28px);">
+                  <path class="route-map-land" d="m101 76 41-25 34 8 24-23 39 12 28 31 34-8 30 18 27-9 30 21 41-12 30 22 43-5 24 23 43-2 23 29 40 14 13 32-19 25-35 7-5 30-28 15-12 34-34 12-15 32-39 6-20 27-37-4-20-26-31-5-18-24-36-2-19-24-31-4-13-24-32-14-10-25-32-13-15-28-35-9-9-28-31-6-12-24 20-26Z"/>
+                  <path class="route-map-land route-map-land-secondary" d="m73 256 38 7 28 27-10 34-33 20-30-21-9-34Zm209 172 31-22 35 9 8 22-27 21-34-7Zm286 24 32-18 25 10-12 25-31 8Zm-75-436 34-13 30 15-13 25-32-4Z"/>
+                  <g class="route-map-borders">
+                    <path d="m199 79 21 48 39 22 25-19 34 26-9 47 28 26-10 37-31 17 2 41-32 19-17 42"/>
+                    <path d="m263 79 20 52 38 25 37-12 26 29-8 37 34 22-9 34-36 17 1 43-28 22"/>
+                    <path d="m344 91 11 42 39 23 19 39-22 30 27 25-7 39 28 26-17 39"/>
+                    <path d="m419 103 20 39 34 16 15 38-18 33 25 27-6 39 31 18"/>
+                    <path d="m493 105 18 46 36 13 15 40-20 26 26 27-12 40 26 20"/>
+                    <path d="m568 126 23 37 36 11 15 31-16 33 27 31-16 37"/>
+                  </g>
+                  <path class="route-map-poland" d="m480 193 30-14 34 8 18 25 31 7 7 33-17 25 5 31-26 20-31-8-20 13-27-15-17-25-24-8-5-27 18-20Z"/>
+                  <g class="route-map-cities">
+                    <circle cx="534" cy="235" r="7"/><circle cx="367" cy="252" r="6"/><circle cx="284" cy="287" r="6"/>
+                    <circle cx="412" cy="353" r="6"/><circle cx="225" cy="226" r="6"/><circle cx="319" cy="238" r="6"/>
+                  </g>
+                  <circle class="route-map-start" cx="534" cy="235" r="10"/>
+                  <text class="route-map-label" x="550" y="240" x-text="lang === 'pl' ? 'WARSZAWA / BAZA' : 'WARSAW / HUB'"></text>
+                </svg>
+              </div>
+              <div class="art-route-panel">
+                <span style="font:500 10.5px var(--mono); color:#686a64;" x-text="lang === 'pl' ? '↳ PODGLĄD RELACJI' : '↳ ROUTE PREVIEW'"></span>
+                <h4 style="margin:0; font:700 18px/1 var(--display);" x-text="lang === 'pl' ? 'Dokąd jedziemy?' : 'Choose destination'"></h4>
+                <p x-text="lang === 'pl' ? 'Wybierz miasto docelowe na mapie Europy i przejdź do wyceny trasy z Warszawy.' : 'Pick a destination city on the Europe map to estimate road distance from Warsaw.'"></p>
+                <span style="font:500 10.5px var(--mono); color:#d90429;" x-text="lang === 'pl' ? '◷ Dyspozytor 24/7 · 0 PLN kosztów API' : '◷ 24/7 Dispatcher · Zero Map API Cost'"></span>
+              </div>
+            </div>
+          </a>
+          <div class="project-body">
+            <div>
+              <div class="project-tags">
+                <span x-text="lang === 'pl' ? '01 / Transport & TSL' : '01 / B2B Logistics'"></span>
+                <span>Vanilla JS · SVG · GeoJSON</span>
+                <span x-text="lang === 'pl' ? 'Kalkulator Tras' : 'Route Calculator'"></span>
+              </div>
+              <h3 x-text="lang === 'pl' ? 'AD REM T2 — Transport, logistyka i spedycja' : 'AD REM T2 — Transport, Logistics &amp; Freight'"></h3>
+              <p x-text="lang === 'pl' ? 'Interaktywna mapa Europy pozwala wskazać miasto, sprawdzić dystans drogowy z Warszawy i wysłać sprecyzowane zapytanie do dyspozytora.' : 'Interactive European vector map lets visitors pick a destination, calculate road distance from Warsaw, and send a pre-populated freight enquiry.'"></p>
+            </div>
+            <div class="project-footer">
+              <a href="case-study.html?project=adremt2" class="tactile" x-text="lang === 'pl' ? 'Case study →' : 'Case study →'"></a>
+              <a href="https://adremt2.pl/index2.html" target="_blank" rel="noopener" style="color:var(--signal);">
+                <span x-text="lang === 'pl' ? 'Otwórz projekt ↗' : 'Open live site ↗'"></span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2. CK AD REM (Span 5) -->
+        <article class="project-card span-5" x-show="activeFilter === 'all' || activeFilter === 'b2b'">
+          <a href="case-study.html?project=ckadrem" class="project-art-box">
+            <div class="ck-mini-preview">
+              <div class="ck-mini-nav">
+                <span x-text="lang === 'pl' ? 'Ad Rem · CENTRUM KSIĘGOWE' : 'Ad Rem · ACCOUNTING CENTRE'"></span>
+                <span x-text="lang === 'pl' ? '22 LATA · WARSZAWA' : '22 YEARS · WARSAW'"></span>
+              </div>
+              <p style="margin:0 0 6px; font:500 10.5px var(--mono); color:#d90429;" x-text="lang === 'pl' ? '● AD REM / DO RZECZY' : '● AD REM / TO THE POINT'"></p>
+              <h4 style="margin:0 0 8px; font:700 24px/1.05 var(--display); letter-spacing:-0.04em;">
+                <span x-text="lang === 'pl' ? 'Księgowość, która pozwala Ci ' : 'Accounting that lets you '"></span>
+                <span style="color:#d90429;" x-text="lang === 'pl' ? 'spać spokojnie.' : 'sleep well.'"></span>
+              </h4>
+              <p style="margin:0; font-size:11.5px; color:#4a4a4a;" x-text="lang === 'pl' ? 'Osobne ścieżki dla spółek B2B oraz fundacji i stowarzyszeń (NGO).' : 'Dedicated conversion paths for B2B companies and non-profit NGOs.'"></p>
+            </div>
+          </a>
+          <div class="project-body">
+            <div>
+              <div class="project-tags">
+                <span x-text="lang === 'pl' ? '02 / Finanse & Księgowość' : '02 / Finance &amp; Accounting'"></span>
+                <span>Bootstrap 5 · Meta Pixel</span>
+              </div>
+              <h3 x-text="lang === 'pl' ? 'Ad Rem Centrum Księgowe' : 'Ad Rem Accounting Centre'"></h3>
+              <p x-text="lang === 'pl' ? 'Serwis porządkujący pełną księgowość, KPiR, kadry i ZUS z wyraźnym rozdzieleniem oferty dla firm oraz organizacji pozarządowych (NGO).' : 'Corporate website structuring full bookkeeping, tax ledgers, and ZUS filings with dedicated conversion paths for businesses and NGOs.'"></p>
+            </div>
+            <div class="project-footer">
+              <a href="case-study.html?project=ckadrem" class="tactile" x-text="lang === 'pl' ? 'Case study →' : 'Case study →'"></a>
+              <a href="https://ck-adrem.pl" target="_blank" rel="noopener" style="color:var(--signal);">
+                <span x-text="lang === 'pl' ? 'Otwórz projekt ↗' : 'Open live site ↗'"></span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3. PM CLASSICS (Span 4) -->
+        <article class="project-card span-4" x-show="activeFilter === 'all' || activeFilter === 'tools'">
+          <a href="case-study.html?project=pmclassics" class="project-art-box">
+            <div class="pm-mini-preview">
+              <img :src="classicCarImg" alt="1966 Volvo Amazon 122S Classic" class="pm-mini-bg" loading="lazy"/>
+              <div class="pm-mini-shade"></div>
+              <div style="display:flex; justify-content:space-between; font:500 10.5px var(--mono); color:#dfbd78;">
+                <span>PM CLASSICS · 1966 VOLVO</span>
+                <span>PL · EN · NO</span>
+              </div>
+              <div>
+                <div style="font:500 10px var(--mono); letter-spacing:0.1em; opacity:0.88;"
+                  x-text="lang === 'pl' ? 'SZTUKA RENOWACJI' : 'THE ART OF RESTORATION'"></div>
+                <div style="font:600 27px/0.95 var(--display); letter-spacing:-0.05em;">
+                  <span x-text="lang === 'pl' ? 'Drugie życie ' : 'Second '"></span>
+                  <i style="color:#dfbd78; font-weight:400;" x-text="lang === 'pl' ? 'klasyków.' : 'chapters.'"></i>
+                </div>
+              </div>
+              <div style="font:500 10px var(--mono); letter-spacing:0.08em; color:#e4e4e7;"
+                x-text="lang === 'pl' ? 'WIRTUALNY GARAŻ · EUR · PLN · NOK' : 'VIRTUAL GARAGE · EUR · PLN · NOK'"></div>
+            </div>
+          </a>
+          <div class="project-body">
+            <div>
+              <div class="project-tags">
+                <span x-text="lang === 'pl' ? '03 / Klasyki & Renowacja' : '03 / Classic Automotive'"></span>
+                <span x-text="lang === 'pl' ? 'PL / EN / NO · 3 Waluty' : 'PL / EN / NO · 3 Currencies'"></span>
+              </div>
+              <h3>PM Classics</h3>
+              <p x-text="lang === 'pl' ? 'Trzyjęzyczna platforma renowacji klasyków z filtrowanym garażem, przelicznikiem walut (EUR/PLN/NOK) i 3-krokowym briefem.' : 'Trilingual classic vehicle restoration platform with a filterable garage, live currency switcher (EUR/PLN/NOK), and 3-step brief.'"></p>
+            </div>
+            <div class="project-footer">
+              <a href="case-study.html?project=pmclassics" class="tactile" x-text="lang === 'pl' ? 'Case study →' : 'Case study →'"></a>
+              <a href="pmclassics.html" style="color:var(--signal);">
+                <span x-text="lang === 'pl' ? 'Otwórz projekt ↗' : 'Open live site ↗'"></span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4. KUBATURA B2B (Span 4) -->
+        <article class="project-card span-4" x-show="activeFilter === 'all' || activeFilter === 'b2b' || activeFilter === 'tools'">
+          <a href="case-study.html?project=kubatura" class="project-art-box" style="background-color:#f4f5f7; background-image:linear-gradient(rgba(24,26,31,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(24,26,31,0.045) 1px, transparent 1px); background-size:28px 28px; color:#181a1f; padding:22px; display:flex; flex-direction:column; justify-content:space-between;">
+            <div style="display:flex; justify-content:space-between; align-items:center; font:600 10px var(--mono); letter-spacing:0.06em;">
+              <span style="display:inline-flex; align-items:center; gap:6px;">
+                <span style="padding:2px 6px; border-radius:3px; background:#ea580c; color:#ffffff; font-weight:700;">B2B</span>
+                KUBATURA.
+              </span>
+              <span style="color:#ea580c;">OCP 1 000 000 PLN</span>
+            </div>
+
+            <div>
+              <div style="font:700 24px/1.02 var(--display); letter-spacing:-0.04em;">
+                <span style="color:#ea580c;" x-text="lang === 'pl' ? 'Przeprowadzka biura w weekend.' : 'Office relocation over one weekend.'"></span><br/>
+                <span style="color:#373c47;" x-text="lang === 'pl' ? 'Zero przestoju w pracy.' : 'Zero operational downtime.'"></span>
+              </div>
+            </div>
+
+            <div style="display:flex; justify-content:space-between; font:600 9.5px var(--mono); color:#5a606e; border-top:1px solid rgba(24,26,31,0.12); padding-top:8px;">
+              <span x-text="lang === 'pl' ? 'KALKULATOR m³ + kg · SVG 24 m³' : 'm³ + kg CALCULATOR · SVG 24 m³'"></span>
+              <span style="color:#181a1f;">PT 17 → PN 08</span>
+            </div>
+          </a>
+
+          <div class="project-body">
+            <div>
+              <div class="project-tags">
+                <span x-text="lang === 'pl' ? '04 / Logistyka & Relokacje B2B' : '04 / B2B Relocation'"></span>
+                <span x-text="lang === 'pl' ? 'Kalkulator m³ / kg · SVG' : 'm³ / kg Calc · SVG'"></span>
+              </div>
+              <h3 x-text="lang === 'pl' ? 'KUBATURA B2B — Relokacje Biur i Archiwów' : 'KUBATURA B2B — Corporate Office Relocation'"></h3>
+              <p x-text="lang === 'pl' ? 'Strona B2B dla weekendowych relokacji biur z interaktywnym kalkulatorem kubatury (m³), masy (kg) i przekrojem kontenera 24 m³.' : 'Weekend B2B office relocation platform with a live cargo volume (m³), payload (kg), and 24 m³ box-truck cutaway estimator.'"></p>
+            </div>
+            <div class="project-footer">
+              <a href="case-study.html?project=kubatura" class="tactile" x-text="lang === 'pl' ? 'Case study →' : 'Case study →'"></a>
+              <a href="kubatura.html" style="color:var(--signal);">
+                <span x-text="lang === 'pl' ? 'Otwórz projekt ↗' : 'Open live site ↗'"></span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 5. 玄 GEMBA — LEAN PROBLEM-SOLVING WORKSPACE (Span 4) -->
+        <article class="project-card span-4" x-show="activeFilter === 'all' || activeFilter === 'tools' || activeFilter === 'react'">
+          <a href="case-study.html?project=gemba" class="project-art-box" style="background-color:#f9f8f3; background-image:linear-gradient(#ebe8df 1px, transparent 1px), linear-gradient(90deg, #ebe8df 1px, transparent 1px); background-size:36px 36px; color:#161e21; padding:0; display:flex; flex-direction:column; justify-content:space-between; position:relative; overflow:hidden; border-bottom:0; background-clip:padding-box;">
+            <!-- Górna część: Jasny papier techniczny z ceglanym akcentem #B8432E -->
+            <div style="padding:20px 22px 14px; display:flex; flex-direction:column; justify-content:space-between; flex:1;">
+              <div style="display:flex; justify-content:space-between; align-items:center; font:500 10px var(--mono); letter-spacing:0.1em; color:#5b6568;">
+                <span style="display:inline-flex; align-items:center; gap:7px;">
+                  <i style="width:6px; height:6px; background:#b8432e; display:inline-block;"></i>
+                  LEAN · TPS · SIX SIGMA
+                </span>
+                <span style="color:#b8432e; font-weight:700;">BASE44</span>
+              </div>
+
+              <div style="margin:10px 0;">
+                <div style="font:700 25px/0.98 var(--display); letter-spacing:-0.05em; color:#161e21;">
+                  <span x-text="lang === 'pl' ? 'Opisz problem.' : 'Describe the problem.'"></span><br/>
+                  <span style="color:#b8432e;" x-text="lang === 'pl' ? 'Otrzymaj metodę.' : 'Get the method.'"></span>
+                </div>
+              </div>
+
+              <!-- Metryki 34 / 70+ / 5 jak w aplikacji -->
+              <div style="display:flex; gap:24px; padding-top:10px; border-top:1px solid #e2dfd5;" class="tabular">
+                <div>
+                  <strong style="font:700 13px/1 var(--display); color:#161e21; display:block;">47</strong>
+                  <span style="font:500 8.5px var(--mono); color:#6e777a; letter-spacing:0.06em;" x-text="lang === 'pl' ? 'METOD' : 'METHODS'"></span>
+                </div>
+                <div>
+                  <strong style="font:700 13px/1 var(--display); color:#161e21; display:block;">70+</strong>
+                  <span style="font:500 8.5px var(--mono); color:#6e777a; letter-spacing:0.06em;" x-text="lang === 'pl' ? 'POJĘĆ' : 'TERMS'"></span>
+                </div>
+                <div>
+                  <strong style="font:700 13px/1 var(--display); color:#161e21; display:block;">5</strong>
+                  <span style="font:500 8.5px var(--mono); color:#6e777a; letter-spacing:0.06em;" x-text="lang === 'pl' ? 'FAZ PLANU' : 'PHASES PER PLAN'"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dolny pasek: Ciemny moduł Glossary (#151C1F) z Kanji w kolorze #B8432E -->
+            <div style="background:#151c1f; color:#ffffff; padding:10px 22px; display:grid; grid-template-columns:repeat(4, auto); justify-content:space-between; align-items:center; font:500 10px var(--sans); border-top:1px solid #dfdcd2; margin-bottom:-1px;">
+              <span><b style="color:#b8432e; font-weight:500; margin-right:3px;">改善</b>Kaizen</span>
+              <span><b style="color:#b8432e; font-weight:500; margin-right:3px;">無駄</b>Muda</span>
+              <span><b style="color:#b8432e; font-weight:500; margin-right:3px;">自働化</b>Jidoka</span>
+              <span><b style="color:#b8432e; font-weight:500; margin-right:3px;">平準化</b>Heijunka</span>
+            </div>
+          </a>
+
+          <div class="project-body">
+            <div>
+              <div class="project-tags">
+                <span x-text="lang === 'pl' ? '05 / Narzędzie Diagnostyczne' : '05 / Diagnostic Web App'"></span>
+                
+              </div>
+              <h3 x-text="lang === 'pl' ? '玄 GEMBA — Diagnostyka Lean &amp; Six Sigma' : '玄 GEMBA — Lean &amp; Six Sigma Workspace'"></h3>
+              <p x-text="lang === 'pl' ? 'Aplikacja tłumacząca problemy z pracy na straty procesowe (Muda, Mura, Muri), dobierająca właściwą z 47 metod Lean i prowadząca przez 5-etapowy plan działań.' : 'Diagnostic web app translating workplace problems into process waste, matching them to 47 Lean/Six Sigma methods and a 5-phase action workspace.'"></p>
+            </div>
+            <div class="project-footer">
+              <a href="case-study.html?project=gemba" class="tactile" x-text="lang === 'pl' ? 'Case study →' : 'Case study →'"></a>
+              <a href="https://lean-guide-flow.base44.app" target="_blank" rel="noopener" style="color:var(--signal);">
+                <span x-text="lang === 'pl' ? 'Otwórz aplikację ↗' : 'Open live app ↗'"></span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SECTION 02: WYBÓR 3 PAKIETÓW PROJEKTOWYCH ═══ -->
+  <section class="services-section section-pad" id="estimator">
+    <div class="page-wrap">
+
+      <div style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:24px;">
+        <div>
+          <p class="section-kicker" x-text="lang === 'pl' ? '02 / WYBIERZ WARIANT DLA SWOJEJ FIRMY' : '02 / CHOOSE YOUR PROJECT TIER'"></p>
+          <h2 class="section-title" x-text="lang === 'pl' ? 'Trzy proste pakiety projektowe.' : 'Three clear ways to build.'"></h2>
+        </div>
+        <p style="max-width:400px; margin:0; color:var(--muted); font-size:14px; line-height:1.6;"
+          x-text="lang === 'pl' ? 'Kliknij wariant dopasowany do Twojego celu biznesowego — poniżej zobaczysz czas realizacji i jednym kliknięciem przeniesiesz go do formularza.' : 'Select the tier that matches your business goal to see estimated delivery time and transfer it to the contact form in one click.'"></p>
+      </div>
+
+      <!-- 3 Czytelne Karty Wyboru -->
+      <div class="tier-grid" role="radiogroup" :aria-label="lang === 'pl' ? 'Wybór pakietu wdrożeniowego' : 'Project tier selection'">
+        <template x-for="(tier, idx) in tiers" :key="tier.id">
+          <button type="button" class="tier-card tactile"
+            :class="selectedTier === tier.id ? 'is-active' : ''"
+            @click="selectedTier = tier.id"
+            :aria-pressed="selectedTier === tier.id">
+            <div>
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:16px;">
+                <span class="tier-badge" x-text="'0' + (idx + 1) + ' · ' + tier.badge[lang]"></span>
+                <span class="tabular" style="font:600 11px var(--mono); color:var(--signal);" x-text="tier.timeline[lang]"></span>
+              </div>
+
+              <h3 style="margin:0 0 10px; font:600 24px/1.1 var(--display); letter-spacing:-0.04em;" x-text="tier.title[lang]"></h3>
+              <p style="margin:0; font-size:13px; color:var(--muted); line-height:1.6;" x-text="tier.desc[lang]"></p>
+
+              <ul class="tier-bullets">
+                <template x-for="b in tier.bullets[lang]" :key="b">
+                  <li><i>✓</i><span x-text="b"></span></li>
+                </template>
+              </ul>
+            </div>
+
+            <div style="padding-top:14px; border-top:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; width:100%; font:500 10.5px var(--mono); color:var(--muted);">
+              <span x-text="tier.example[lang]"></span>
+              <strong style="color:var(--ink);" x-text="selectedTier === tier.id ? (lang === 'pl' ? '● WYBRANO' : '● SELECTED') : (lang === 'pl' ? 'WYBIERZ →' : 'SELECT →')"></strong>
+            </div>
+          </button>
+        </template>
+      </div>
+
+      <!-- Czytelny pasek podsumowania wybranego pakietu -->
+      <div class="tier-summary-bar tabular">
+        <div>
+          <span style="font:500 10px var(--mono); text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); display:block;"
+            x-text="lang === 'pl' ? 'Wybrany wariant projektu:' : 'Selected project tier:'"></span>
+          <div style="display:flex; flex-wrap:wrap; align-items:baseline; gap:12px; margin-top:4px;">
+            <strong style="font:600 24px var(--display);" x-text="activeTierObj.title[lang]"></strong>
+            <span style="font:600 12px var(--mono); color:var(--signal);" x-text="'(' + activeTierObj.timeline[lang] + ')'"></span>
+          </div>
+        </div>
+
+        <button type="button" class="btn-primary tactile" @click="prefillContact()">
+          <span x-text="lang === 'pl' ? 'Przejdź do wyceny tego wariantu ↓' : 'Continue with this tier ↓'"></span>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ SECTION 03: ABOUT / PODEJŚCIE ═══ -->
+  <section class="section-pad" id="about" style="background:var(--surface); color:var(--ink); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+    <div class="page-wrap" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:48px; align-items:start;">
+      <div>
+        <p class="section-kicker" x-text="lang === 'pl' ? '03 / PODEJŚCIE' : '03 / THE APPROACH'"></p>
+        <h2 class="section-title" style="color:var(--ink); margin-top:14px;" x-text="lang === 'pl' ? 'Najpierw rozumiem pracę. Potem projektuję narzędzie.' : 'Understand the work first. Then design the tool.'"></h2>
+      </div>
+      <div>
+        <p style="font-size:16px; line-height:1.75; color:var(--muted); margin:0 0 28px;" x-text="lang === 'pl' ? 'Łączę ponad 10 lat doświadczenia w sprzedaży B2B, logistyce, automotive i zarządzaniu projektami (Agile PM, Lean Green Belt, ADKAR) z budową szybkich stron oraz narzędzi cyfrowych. Zaczynam od tego, jak Twój klient podejmuje decyzję — dopiero potem dobieram układ, treść i technologię (HTML/Alpine lub React).' : 'I bring over 10 years of experience in B2B sales, logistics, automotive, and project delivery (Agile PM, Lean Green Belt, ADKAR) into web engineering. I start with how your buyer makes a decision—then shape the layout, copy, and stack (HTML/Alpine or React) around it.'"></p>
+        <div style="display:flex; flex-wrap:wrap; gap:8px; padding-top:20px; border-top:1px solid var(--line);">
+          <span style="padding:8px 12px; border:1px solid var(--line); border-radius:var(--btn-radius); font:500 10.5px var(--mono);">Lean Green Belt</span>
+          <span style="padding:8px 12px; border:1px solid var(--line); border-radius:var(--btn-radius); font:500 10.5px var(--mono);">Agile PM Practitioner</span>
+          <span style="padding:8px 12px; border:1px solid var(--line); border-radius:var(--btn-radius); font:500 10.5px var(--mono);">Change Management (ADKAR)</span>
+          <span style="padding:8px 12px; border:1px solid var(--line); border-radius:var(--btn-radius); font:500 10.5px var(--mono);">React · Tailwind · Alpine.js · GSAP</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SECTION 04: KONTAKT ═══ -->
+  <section class="contact-section section-pad" id="contact">
+    <div class="page-wrap contact-grid">
+      <div>
+        <p class="section-kicker" x-text="lang === 'pl' ? '04 / NASTĘPNY KROK' : '04 / NEXT STEP'"></p>
+        <h2 style="margin:18px 0; font:600 clamp(3.4rem, 7vw, 6.8rem)/0.86 var(--display); letter-spacing:-0.09em;">
+          <span style="display:block;" x-text="lang === 'pl' ? 'Co dziś' : 'What can'"></span>
+          <span style="display:block;" x-text="lang === 'pl' ? 'możemy' : 'we make'"></span>
+          <span style="display:block;" x-text="lang === 'pl' ? 'usprawnić?' : 'work better?'"></span>
+        </h2>
+        <p style="max-width:400px; font-size:15px; line-height:1.65; color:var(--hero-muted); margin-bottom:28px;" x-text="lang === 'pl' ? 'Opowiedz, co blokuje sprzedaż lub zajmuje za dużo czasu. Wrócę z konkretnym pomysłem i wyceną.' : 'Tell me what is slowing down your sales or operations. I will come back with a concrete idea and quote.'"></p>
+       <a href="mailto:artur.zaluska@gmail.com" style="font:600 16px var(--display); text-decoration:underline;">artur.zaluska@gmail.com</a>
+      </div>
+
+<form @submit.prevent="sendMail()" style="display:flex; flex-direction:column; gap:20px; padding-top:16px;">
+        <!-- Ukryte pole antyspamowe (Honeypot) -->
+        <input type="text" x-model="form.honey" style="display:none;" tabindex="-1" autocomplete="off"/>
+
+        <label style="display:flex; flex-direction:column; gap:6px; font:500 10.5px var(--mono); text-transform:uppercase;">
+          <span x-text="lang === 'pl' ? 'Imię' : 'Name'"></span>
+          <input type="text" id="contact-name" class="contact-input" x-model="form.name" placeholder="Jan Kowalski" required/>
+        </label>
+
+        <label style="display:flex; flex-direction:column; gap:6px; font:500 10.5px var(--mono); text-transform:uppercase;">
+          <span x-text="lang === 'pl' ? 'Adres e-mail' : 'Email address'"></span>
+          <input type="email" class="contact-input" x-model="form.email" placeholder="jan@firma.pl" required/>
+        </label>
+
+        <label style="display:flex; flex-direction:column; gap:6px; font:500 10.5px var(--mono); text-transform:uppercase;">
+          <span x-text="lang === 'pl' ? 'Wybrany pakiet / wiadomość' : 'Selected tier / message'"></span>
+          <textarea rows="4" class="contact-input" x-model="form.message" :placeholder="lang === 'pl' ? 'Napisz kilka słów o swoim projekcie...' : 'Tell me briefly about your project...'" required></textarea>
+        </label>
+
+        <button type="submit" class="btn-primary tactile" :disabled="formStatus === 'sending'" style="justify-content:space-between; width:100%;" :style="formStatus === 'sending' ? 'opacity:0.65; cursor:wait;' : ''">
+          <span x-text="formStatus === 'sending'
+            ? (lang === 'pl' ? 'Wysyłanie wiadomości...' : 'Sending message...')
+            : formStatus === 'success'
+              ? (lang === 'pl' ? 'Wiadomość wysłana ✓' : 'Message sent ✓')
+              : (lang === 'pl' ? 'Wyślij wiadomość →' : 'Send message →')"></span>
+          <span aria-hidden="true" x-text="formStatus === 'success' ? '✓' : '→'"></span>
+        </button>
+
+        <!-- Komunikat po wysyłce lub błędzie walidacji -->
+        <p x-show="formFeedback" x-cloak
+           style="margin:0; padding:12px 14px; border-radius:var(--btn-radius); font:500 12px/1.5 var(--mono);"
+           :style="formStatus === 'success'
+             ? 'background:rgba(34,197,94,0.15); border:1px solid rgba(34,197,94,0.4); color:var(--hero-ink);'
+             : 'background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.4); color:var(--hero-ink);'"
+           x-text="formFeedback"></p>
+      </form>
+    </div>
+  </section>
+
+  <footer style="background:var(--bg-alt); color:var(--ink); border-top:1px solid var(--line); padding:32px 0; font:500 11px var(--mono);">
+    <div class="page-wrap" style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px;">
+      <span><strong>web4biz.pl</strong> · Independent Digital Practice by Archie</span>
+      <span style="color:#899188;" x-text="lang === 'pl' ? '© 2026 Archie. Wszelkie prawa zastrzeżone.' : '© 2026 Archie. All rights reserved.'"></span>
+      <a href="#top" x-text="lang === 'pl' ? '↑ Na górę' : '↑ Back to top'"></a>
+    </div>
+  </footer>
+
+  <script>
+    function web4bizApp() {
+      return {
+        direction: localStorage.getItem('w4b_theme') || 'editorial',
+        lang: localStorage.getItem('lang') === 'en' ? 'en' : 'pl',
+        showcaseIdx: 0,
+        activeFilter: 'all',
+
+        // Interaktywne miasta dla mapy AD REM T2 w oknie Hero
+        selectedCityIdx: 0,
+        heroCities: [
+          { id: 'rtm', x: 284, y: 287, km: '1 180', time: '~15h', name: { pl: 'Rotterdam', en: 'Rotterdam' } },
+          { id: 'ber', x: 367, y: 252, km: '570',   time: '~7h',  name: { pl: 'Berlin',    en: 'Berlin' } },
+          { id: 'mil', x: 412, y: 353, km: '1 340', time: '~17h', name: { pl: 'Mediolan',  en: 'Milan' } },
+          { id: 'par', x: 225, y: 226, km: '1 590', time: '~19h', name: { pl: 'Paryż',     en: 'Paris' } }
+        ],
+
+        // Interaktywne demo diagnostyki dla 4. zakładki 玄 GEMBA w Hero
+        gembaDemoIdx: 0,
+gembaDemos: [
+          {
+            id: 'changeover',
+            symptom: {
+              pl: '„Przezbrojenie maszyny zjada całe popołudnie”',
+              en: '“Changeovers eat a whole afternoon of capacity”'
+            },
+            waste: { pl: 'Strata: Oczekiwanie (Muda)', en: 'Waste: Waiting (Muda)' },
+            method: 'SMED (Shingo)'
+          },
+          {
+            id: 'defect',
+            symptom: {
+              pl: '„Ten sam defekt wraca na kontroli końcowej”',
+              en: '“The same defect keeps coming back at inspection”'
+            },
+            waste: { pl: 'Strata: Defekty (Muda)', en: 'Waste: Defects (Muda)' },
+            method: '5 Whys + Poka-yoke'
+          }
+        ],
+
+        // Autentyczne zdjęcie klasycznego Volvo Amazon z lat 60.
+        classicCarImg: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Volvo_Amazon_1966.jpg/1280px-Volvo_Amazon_1966.jpg',
+
+selectedTier: 'tools',
+        form: { name: '', email: '', message: '', honey: '' },
+        formStatus: 'idle',
+        formFeedback: '',
+
+        showcases: [
+          {
+            domain: 'adremt2.pl/index2.html',
+            url: 'https://adremt2.pl/index2.html',
+            badge: {
+              pl: 'AD REM T2 · MAPA TRAS EUROPY',
+              en: 'AD REM T2 · EUROPEAN ROUTE MAP'
+            },
+            tech: 'VANILLA JS · SVG · GEOJSON',
+            tab: { pl: 'Kalkulator Tras', en: 'Route Map' }
+          },
+          {
+            domain: 'ck-adrem.pl',
+            url: 'https://ck-adrem.pl',
+            badge: {
+              pl: 'CK AD REM · KSIĘGOWOŚĆ B2B & NGO',
+              en: 'CK AD REM · B2B & NGO ACCOUNTING'
+            },
+            tech: 'BOOTSTRAP 5 · META PIXEL',
+            tab: { pl: 'Serwis B2B/NGO', en: 'B2B/NGO Site' }
+          },
+          {
+            domain: 'pmclassics.html',
+            url: 'pmclassics.html',
+            badge: {
+              pl: 'PM CLASSICS · KOLEKCJA PL / EN / NO',
+              en: 'PM CLASSICS · PL / EN / NO GARAGE'
+            },
+            tech: 'TAILWIND · ALPINE.JS · 3 WALUTY',
+            tab: { pl: 'Klasyczne Auta', en: 'Classic Cars' }
+          },
+          {
+            domain: 'lean-guide-flow.base44.app',
+            url: 'https://lean-guide-flow.base44.app',
+            badge: {
+              pl: '玄 GEMBA · DIAGNOSTYKA LEAN & TPS',
+              en: '玄 GEMBA · LEAN & TPS WORKSPACE'
+            },
+            tech: 'REACT · 47 METOD · WORKSPACE',
+            tab: { pl: '玄 GEMBA (Lean)', en: '玄 GEMBA (Lean)' }
+          }
+        ],
+
+        filters: [
+          { id: 'all', label: { pl: 'Wszystkie projekty (5)', en: 'All projects (5)' } },
+          { id: 'b2b', label: { pl: 'Strony B2B & SEO', en: 'B2B & SEO Websites' } },
+          { id: 'tools', label: { pl: 'Dodatkowe narzędzia', en: 'Custom Web Tools' } },
+          { id: 'react', label: { pl: 'Aplikacje React', en: 'React Apps' } }
+        ],
+
+        tiers: [
+          {
+            id: 'seo-landing',
+            badge: { pl: 'PAKIET SZYBKI START', en: 'FAST START TIER' },
+            timeline: { pl: 'Czas: ~2 tygodnie', en: 'Timeline: ~2 weeks' },
+            title: {
+              pl: 'Landing Page / Strona B2B z SEO',
+              en: 'B2B Landing Page & Technical SEO'
+            },
+            desc: {
+              pl: 'Szybka, nowoczesna strona ofertowa, która jasno tłumaczy Twoje usługi, buduje zaufanie i pozycjonuje firmę w Google oraz wyszukiwarkach AI.',
+              en: 'A fast, high-trust service website that clarifies your offer and ranks across Google and AI search engines.'
+            },
+            bullets: {
+              pl: [
+                'Przejrzysty podział oferty (np. dla firm B2B i instytucji)',
+                'Techniczne SEO, dane strukturalne Schema.org i optymalizacja AI (GEO)',
+                'Analityka konwersji (Meta Pixel / GA4) i szybki formularz kontaktu'
+              ],
+              en: [
+                'Clear service segmentation tailored to your target buyers',
+                'Technical SEO, Schema.org structured data & AI search readiness',
+                'Conversion analytics (Meta Pixel / GA4) & fast contact flow'
+              ]
+            },
+            example: { pl: 'Wzór: ck-adrem.pl', en: 'Ref: ck-adrem.pl' }
+          },
+          {
+            id: 'tools',
+            badge: { pl: 'NAJCZĘŚCIEJ WYBIERANY', en: 'MOST POPULAR' },
+            timeline: { pl: 'Czas: 2–3 tygodnie', en: 'Timeline: 2–3 weeks' },
+            title: {
+              pl: 'Strona B2B + Dodatkowe Narzędzia',
+              en: 'B2B Website + Custom Web Tools'
+            },
+            desc: {
+              pl: 'Strona wzbogacona o interaktywny moduł (kalkulator wyceny, mapę tras lub przelicznik walut), który angażuje klienta i generuje gotowe leady.',
+              en: 'A B2B site powered by an interactive tool (route map, quote calculator, or currency switcher) that turns visitors into qualified leads.'
+            },
+            bullets: {
+              pl: [
+                'Wszystko z pakietu Landing Page + SEO',
+                'Autorski kalkulator wyceny, mapa tras SVG lub przelicznik walut',
+                'Automatyczne przekazanie wyliczonych parametrów klienta do zapytania'
+              ],
+              en: [
+                'Everything in the B2B Landing Page + SEO tier',
+                'Custom quote calculator, SVG route map, or live currency switcher',
+                'Automatic transfer of user-selected parameters into the enquiry'
+              ]
+            },
+            example: { pl: 'Wzór: adremt2.pl / PM Classics', en: 'Ref: adremt2.pl / PM Classics' }
+          },
+          {
+            id: 'react-app',
+            badge: { pl: 'SYSTEM PREMIUM', en: 'CUSTOM SYSTEM' },
+            timeline: { pl: 'Czas: 3–4 tygodnie', en: 'Timeline: 3–4 weeks' },
+            title: {
+              pl: 'Interaktywna Strona / Aplikacja w React',
+              en: 'Interactive Platform in React'
+            },
+            desc: {
+              pl: 'Wielojęzyczna platforma lub dedykowana aplikacja w React JS z płynnymi animacjami GSAP, bazą wiedzy i modularną architekturą.',
+              en: 'A multilingual platform or modular React JS application with custom GSAP motion, diagnostic workflows, and scalable components.'
+            },
+            bullets: {
+              pl: [
+                'Architektura komponentowa w React JS + zaawansowane animacje GSAP',
+                'Interaktywny silnik diagnostyczny lub filtrowany katalog produktów',
+                'Wieloetapowy konfigurator procesu szyty na miarę'
+              ],
+              en: [
+                'Modular React JS component architecture + custom GSAP motion',
+                'Interactive diagnostic engine or filterable product catalog',
+                'Bespoke multi-step process configurator & lead workflow'
+              ]
+            },
+            example: { pl: 'Wzór: 玄 GEMBA', en: 'Ref: 玄 GEMBA' }
+          }
+        ],
+
+        copy: {
+          pl: {
+            navWork: 'Projekty (5)',
+            navEstimator: 'Pakiety i wycena',
+            navAbout: 'Podejście',
+            navContact: 'Kontakt',
+            navCta: 'Wyceń projekt',
+            eyebrow: 'WEB4BIZ.PL · NIEZALEŻNA PRAKTYKA CYFROWA (POLSKA / EUROPA)',
+            heroLine1: 'Dobra strona.',
+            heroLine2: 'Lepszy sposób',
+            heroLine3: 'na pracę.',
+            heroIntro: 'Projektuję szybkie strony B2B, dodatkowe narzędzia webowe oraz interaktywne aplikacje w React, które zdejmują tarcie z codziennej sprzedaży.',
+            heroBtnPrimary: 'Zobacz 5 projektów w akcji',
+            heroBtnSecondary: 'Wybierz pakiet dla siebie →',
+            proof: ['5 GOTOWYCH PROJEKTÓW', '10+ LAT W B2B', '5+ LAT W AGILE & LEAN', 'PL · EN · NO'],
+            workKicker: '01 / WYBRANE PROJEKTY (5 REALIZACJI)',
+            workTitle: 'Wynik ma znaczenie.',
+            workSub: 'Od wektorowych kalkulatorów tras i serwisów księgowych po katalogi klasyków i interaktywne aplikacje w React.'
+          },
+          en: {
+            navWork: 'Projects (5)',
+            navEstimator: 'Tiers & Pricing',
+            navAbout: 'Approach',
+            navContact: 'Contact',
+            navCta: 'Start a project',
+            eyebrow: 'WEB4BIZ.PL · INDEPENDENT DIGITAL PRACTICE (POLAND / EUROPE)',
+            heroLine1: 'Better websites.',
+            heroLine2: 'Better ways',
+            heroLine3: 'to work.',
+            heroIntro: 'I build fast B2B websites, custom web tools, and interactive React applications that take friction out of everyday sales.',
+            heroBtnPrimary: 'Explore 5 live projects',
+            heroBtnSecondary: 'Choose your project tier →',
+            proof: ['5 COMPLETED PROJECTS', '10+ YEARS IN B2B', '5+ YEARS IN AGILE & LEAN', 'PL · EN · NO'],
+            workKicker: '01 / SELECTED PROJECTS (5 BUILDS)',
+            workTitle: 'Built to do more.',
+            workSub: 'From zero-API European route calculators and accounting portals to classic car garages and React applications.'
+          }
+        },
+
+        get t() {
+          return this.copy[this.lang];
+        },
+
+        get activeShowcase() {
+          return this.showcases[this.showcaseIdx];
+        },
+
+        get activeCity() {
+          return this.heroCities[this.selectedCityIdx] || this.heroCities[0];
+        },
+
+        get activeTierObj() {
+          return this.tiers.find(item => item.id === this.selectedTier) || this.tiers[1];
+        },
+
+        setDirection(dir) {
+          this.direction = dir;
+          localStorage.setItem('w4b_theme', dir);
+        },
+
+        toggleLang() {
+          this.lang = this.lang === 'pl' ? 'en' : 'pl';
+          localStorage.setItem('lang', this.lang);
+        },
+
+        prefillContact() {
+          const tier = this.activeTierObj;
+          if (this.lang === 'pl') {
+            this.form.message = `Dzień dobry, interesuje mnie wariant: ${tier.title.pl} (${tier.timeline.pl}).\n\nKrótki opis mojego projektu: `;
+          } else {
+            this.form.message = `Hi, I am interested in the "${tier.title.en}" tier (${tier.timeline.en}).\n\nBrief description of my project: `;
+          }
+          document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+          setTimeout(() => {
+            document.getElementById('contact-name')?.focus({ preventScroll: true });
+          }, 420);
+        },
+
+async sendMail() {
+          if (this.form.honey) return; // blokada botów
+
+          const name = this.form.name.trim();
+          const email = this.form.email.trim();
+          const msg = this.form.message.trim();
+
+          // Walidacja odrzucająca przypadkowe znaczki / zbyt krótkie wpisy
+          if (name.length < 2 || msg.length < 10 || !/[aeiouyąęó]/i.test(msg)) {
+            this.formStatus = 'error';
+            this.formFeedback = this.lang === 'pl'
+              ? 'Proszę wpisać poprawne imię oraz pełną treść wiadomości (min. kilka słów).'
+              : 'Please enter a valid name and a meaningful project description.';
+            return;
+          }
+
+          this.formStatus = 'sending';
+          this.formFeedback = '';
+
+          try {
+            const response = await fetch('https://formsubmit.co/ajax/artur.zaluska@gmail.com', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
+              body: JSON.stringify({
+                _subject: this.lang === 'pl'
+                  ? `Nowe zapytanie (${this.activeTierObj.title.pl}) — web4biz.pl`
+                  : `New enquiry (${this.activeTierObj.title.en}) — web4biz.pl`,
+                Imię: name,
+                Email: email,
+                Pakiet: this.activeTierObj.title[this.lang],
+                Wiadomość: msg,
+                _template: 'table'
+              })
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.success !== 'false') {
+              this.formStatus = 'success';
+              this.formFeedback = this.lang === 'pl'
+                ? 'Dziękuję! Wiadomość została wysłana bezpośrednio na moją skrzynkę. Odezwę się wkrótce.'
+                : 'Thank you! Your message has been sent directly to my inbox.';
+              this.form.name = '';
+              this.form.email = '';
+              this.form.message = '';
+            } else {
+              throw new Error('FormSubmit error');
+            }
+          } catch (err) {
+            this.formStatus = 'error';
+            this.formFeedback = this.lang === 'pl'
+              ? 'Nie udało się wysłać automatycznie. Napisz bezpośrednio na: artur.zaluska@gmail.com'
+              : 'Could not send automatically. Please email me at: artur.zaluska@gmail.com';
+          }
+        },
+
+        tiltHeroBrowser(e) {
+          if (!window.matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)').matches) return;
+          const el = this.$refs.browserFrame;
+          if (!el) return;
+          const rect = el.getBoundingClientRect();
+          const x = (e.clientX - rect.left) / rect.width - 0.5;
+          const y = (e.clientY - rect.top) / rect.height - 0.5;
+          gsap.to(el, { rotateY: x * 4, rotateX: y * -4, duration: 0.35, ease: 'power2.out', overwrite: true });
+        },
+
+        resetHeroBrowser() {
+          const el = this.$refs.browserFrame;
+          if (!el) return;
+          gsap.to(el, { rotateY: 0, rotateX: 0, duration: 0.55, ease: 'power3.out', overwrite: true });
+        },
+
+        async loadAuthenticClassicPhoto() {
+          try {
+            const res = await fetch('https://en.wikipedia.org/api/rest_v1/page/summary/Volvo_Amazon');
+            if (res.ok) {
+              const data = await res.json();
+              const imgUrl = (data.originalimage && data.originalimage.source) || (data.thumbnail && data.thumbnail.source);
+              if (imgUrl) this.classicCarImg = imgUrl;
+            }
+          } catch (e) {
+            // Utrzymuje zweryfikowane zdjęcie 1966 Volvo Amazon z Wikimedia Commons
+          }
+        },
+
+        init() {
+          this.loadAuthenticClassicPhoto();
+        }
+      }
+    }
+  </script>
+</body>
+</html>

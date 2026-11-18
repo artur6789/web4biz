@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title x-text="currentCase.title[lang] + ' — Case Study | index.pl'">Case Study — web4biz.pl</title>
+  <title x-text="currentCase.title[lang] + ' — Case Study | web4biz.pl'">Case Study — web4biz.pl</title>
   <meta name="description" content="Szczegółowe Case Study projektów web4biz.pl — wyzwanie biznesowe, architektura rozwiązania, interaktywne narzędzia i rezultaty wdrożenia."/>
   <meta name="robots" content="index, follow"/>
 
@@ -830,16 +830,16 @@
 
       <!-- Main Navigation -->
       <div class="nav-wrap">
-        <a href="index.html" class="wordmark">
+        <a href="web4biz.html" class="wordmark">
           web<span class="wordmark-accent">4</span>biz<span>.pl</span>
           <span class="wordmark-sub">by archie.</span>
         </a>
 
         <nav class="nav-links" :aria-label="lang === 'pl' ? 'Główna nawigacja' : 'Main navigation'">
-          <a href="index.html#work" class="is-current" x-text="lang === 'pl' ? 'Projekty (5)' : 'Projects (5)'"></a>
-          <a href="index.html#estimator" x-text="lang === 'pl' ? 'Pakiety i wycena' : 'Tiers & Pricing'"></a>
-          <a href="index.html#about" x-text="lang === 'pl' ? 'Podejście' : 'Approach'"></a>
-          <a href="index.html#contact" x-text="lang === 'pl' ? 'Kontakt' : 'Contact'"></a>
+          <a href="web4biz.html#work" class="is-current" x-text="lang === 'pl' ? 'Projekty (5)' : 'Projects (5)'"></a>
+          <a href="web4biz.html#estimator" x-text="lang === 'pl' ? 'Pakiety i wycena' : 'Tiers & Pricing'"></a>
+          <a href="web4biz.html#about" x-text="lang === 'pl' ? 'Podejście' : 'Approach'"></a>
+          <a href="web4biz.html#contact" x-text="lang === 'pl' ? 'Kontakt' : 'Contact'"></a>
         </nav>
 
         <div class="nav-actions">
@@ -883,7 +883,7 @@
             </button>
           </div>
 
-          <a href="index.html#estimator" class="nav-cta tactile">
+          <a href="web4biz.html#estimator" class="nav-cta tactile">
             <span x-text="lang === 'pl' ? 'Wyceń projekt' : 'Start a project'"></span>
             <span aria-hidden="true">↗</span>
           </a>
@@ -892,7 +892,7 @@
 
       <!-- Back Link + Quick 5-Project Switcher -->
       <div class="masthead-top-bar">
-        <a href="index.html#work" class="back-link tactile">
+        <a href="web4biz.html#work" class="back-link tactile">
           <span aria-hidden="true">←</span>
           <span x-text="lang === 'pl' ? 'Wszystkie projekty (5)' : 'All projects (5)'"></span>
         </a>
@@ -1106,21 +1106,67 @@
             </div>
           </div>
 
-          <!-- Artwork 4: Web4Biz React SPA -->
-          <div x-show="projectId === 'archie-react'" x-cloak class="art-react-stage">
-            <div style="display:flex; justify-content:space-between; font:500 10.5px var(--mono); letter-spacing:0.1em;">
-              <span>WEB4BIZ · REACT 18 + VITE SPA</span>
-              <span>GSAP SCROLLTRIGGER + 3D SHOWCASE</span>
-            </div>
-            <div>
-              <div style="font:600 clamp(2.4rem, 5vw, 4.4rem)/0.88 var(--display); letter-spacing:-0.08em;">
-                <span x-text="lang === 'pl' ? 'Dobra strona.' : 'Better websites.'"></span><br/>
-                <i style="font-weight:400; padding-left:0.3em;" x-text="lang === 'pl' ? 'Lepszy sposób' : 'Better ways'"></i><br/>
-                <span x-text="lang === 'pl' ? 'na pracę.' : 'to work.'"></span>
+          <!-- Artwork 4: KUBATURA B2B -->
+          <div x-show="projectId === 'kubatura'" x-cloak style="height:100%; background-color:#f4f5f7; background-image:linear-gradient(rgba(24,26,31,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(24,26,31,0.045) 1px, transparent 1px); background-size:40px 40px; color:#181a1f; padding:28px 34px; display:grid; grid-template-columns:1.1fr 0.9fr; gap:28px; align-items:center;">
+            <div style="display:flex; flex-direction:column; justify-content:space-between; height:100%;">
+              <div style="display:inline-flex; align-items:center; gap:8px; font:600 10px var(--mono); letter-spacing:0.06em; color:#373c47;">
+                <i style="width:7px; height:7px; border-radius:50%; background:#059669; display:inline-block;"></i>
+                <span>KUBATURA B2B · OCP 1 000 000 PLN · PLOMBY RODO</span>
+              </div>
+
+              <div>
+                <div style="font:800 clamp(1.85rem, 3.4vw, 2.85rem)/0.98 var(--display); letter-spacing:-0.045em;">
+                  <span style="color:#ea580c;" x-text="lang === 'pl' ? 'Przeprowadzka biura w weekend.' : 'Office relocation over one weekend.'"></span><br/>
+                  <span style="color:#373c47;" x-text="lang === 'pl' ? 'Zero przestoju w pracy.' : 'Zero operational downtime.'"></span>
+                </div>
+                <p style="margin:10px 0 0; font-size:12.5px; line-height:1.55; color:#5a606e;"
+                  x-text="lang === 'pl' ? 'Piątek 17:00 → Poniedziałek 08:00. Interaktywny kalkulator kubatury (m³) i masy (kg) z przekrojem kontenera 24 m³.' : 'Friday 17:00 → Monday 08:00. Live cargo volume (m³) and payload (kg) estimator with a 24 m³ box-truck cutaway.'"></p>
+              </div>
+
+              <div style="display:flex; gap:24px; padding-top:10px; border-top:1px solid rgba(24,26,31,0.12); font:700 12px var(--mono);" class="tabular">
+                <span>24 m³ / 3.5t</span>
+                <span style="color:#ea580c;">100% RODO</span>
+                <span>24/7 SLA</span>
               </div>
             </div>
-            <div style="font:500 10.5px var(--mono); border-top:1px solid rgba(23,32,25,0.22); padding-top:12px;"
-              x-text="lang === 'pl' ? 'REUŻYWALNE KOMPONENTY REACT · KODOWANE MINIATURY SVG' : 'REUSABLE REACT COMPONENTS · CODE-RENDERED SVG ARTWORK'">
+
+            <!-- Karta przekroju kontenera 24 m³ -->
+            <div style="background:#ffffff; border:1px solid rgba(24,26,31,0.2); border-radius:10px; overflow:hidden; box-shadow:0 12px 30px rgba(24,26,31,0.08);" class="tabular">
+              <div style="padding:9px 14px; background:#181a1f; color:#f4f5f7; display:flex; justify-content:space-between; font:600 9.5px var(--mono);">
+                <span>CONTAINER · 24 m³ / 3 500 KG</span>
+                <span style="color:#fb923c;">1 KURS FLOTY</span>
+              </div>
+              <div style="padding:14px 16px 8px; background:#f8f9fb; border-bottom:1px solid rgba(24,26,31,0.1);">
+                <svg viewBox="0 0 420 145" style="width:100%; height:auto; display:block;">
+                  <line x1="10" y1="128" x2="410" y2="128" stroke="#cbd5e1" stroke-width="2"/>
+                  <path d="M300 118 H385 V82 L362 50 H300 Z" fill="#181a1f"/>
+                  <path d="M314 58 H355 L372 80 H314 Z" fill="#334155"/>
+                  <rect x="300" y="90" width="85" height="6" fill="#ea580c"/>
+                  <path d="M14 126 L42 112 H54 V118 L20 128 Z" fill="#ea580c"/>
+                  <rect x="54" y="20" width="242" height="94" rx="3" fill="#ffffff" stroke="#181a1f" stroke-width="2"/>
+                  <!-- Moduły ładunku -->
+                  <rect x="248" y="84" width="42" height="25" rx="2" fill="#181a1f"/>
+                  <rect x="200" y="84" width="42" height="25" rx="2" fill="#ea580c"/>
+                  <rect x="152" y="84" width="42" height="25" rx="2" fill="#181a1f"/>
+                  <rect x="104" y="84" width="42" height="25" rx="2" fill="#181a1f"/>
+                  <rect x="248" y="53" width="42" height="25" rx="2" fill="#ea580c"/>
+                  <rect x="200" y="53" width="42" height="25" rx="2" fill="#181a1f"/>
+                  <rect x="152" y="53" width="42" height="25" rx="2" fill="#ea580c"/>
+                  <circle cx="104" cy="121" r="13" fill="#181a1f" stroke="#f4f5f7" stroke-width="2.5"/>
+                  <circle cx="346" cy="121" r="13" fill="#181a1f" stroke="#f4f5f7" stroke-width="2.5"/>
+                </svg>
+              </div>
+              <div style="padding:12px 16px; display:grid; gap:8px; font:600 10.5px var(--mono);">
+                <div style="display:flex; justify-content:space-between;">
+                  <span>KUBATURA (m³):</span><strong style="color:#ea580c;">19.8 m³ (83%)</strong>
+                </div>
+                <div style="height:6px; border-radius:99px; background:#eaecf0; overflow:hidden;">
+                  <div style="width:83%; height:100%; background:#ea580c;"></div>
+                </div>
+                <div style="display:flex; justify-content:space-between;">
+                  <span>MASA (kg):</span><strong style="color:#059669;">1 980 kg (57% DMC)</strong>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -1285,7 +1331,7 @@
               <span aria-hidden="true">↗</span>
             </a>
 
-            <a href="index.html#estimator" class="back-link tactile" style="padding: 12px 18px;">
+            <a href="web4biz.html#estimator" class="back-link tactile" style="padding: 12px 18px;">
               <span x-text="lang === 'pl' ? 'Zamów podobne rozwiązanie →' : 'Request a similar build →'"></span>
             </a>
           </div>
@@ -1361,7 +1407,7 @@
           }
         ],
 
-        projectOrder: ['adremt2', 'ckadrem', 'pmclassics', 'archie-react', 'gemba'],
+        projectOrder: ['adremt2', 'ckadrem', 'pmclassics', 'kubatura', 'gemba'],
 
         cases: {
           'adremt2': {
@@ -1585,74 +1631,74 @@
             }
           },
 
-          'archie-react': {
-            shortName: { pl: 'Web4Biz React', en: 'Web4Biz React' },
+          'kubatura': {
+            shortName: { pl: 'KUBATURA B2B', en: 'KUBATURA B2B' },
             title: {
-              pl: 'Web4Biz — Wersja Modularna React & GSAP',
-              en: 'Web4Biz — Modular React & GSAP Architecture'
+              pl: 'KUBATURA B2B — Relokacje Biur i Archiwów',
+              en: 'KUBATURA B2B — Corporate Office & Archive Relocation'
             },
             subtitle: {
-              pl: 'Aplikacja SPA oparta na komponentach React 18, animacjach GSAP ScrollTrigger, kodowanych w SVG miniaturach oraz interaktywnym oknie 3D.',
-              en: 'A component-driven React 18 SPA featuring GSAP ScrollTrigger motion, code-rendered SVG miniatures, and an interactive 3D browser stage.'
+              pl: 'Strona B2B dla przeprowadzek biur w weekend (Piątek 17:00 → Poniedziałek 08:00) z interaktywnym kalkulatorem kubatury (m³), masy (kg) i przekrojem floty 24 m³.',
+              en: 'A B2B commercial relocation platform operating Friday 17:00 → Monday 08:00, powered by a live cargo volume (m³), payload (kg), and 24 m³ box-truck cutaway estimator.'
             },
-            tag: { pl: '04 · Aplikacje React / UI Engineering', en: '04 · React Apps / UI Engineering' },
-            pageType: { pl: 'Aplikacja wielowidokowa React (SPA)', en: 'Multi-view React application (SPA)' },
-            keyFeatures: { pl: 'Okno 3D GSAP · komponenty SVG · 3 motywy', en: '3D GSAP stage · SVG components · 3 themes' },
-            duration: { pl: '3 tygodnie', en: '3 weeks' },
-            technology: 'React 18 · Vite · GSAP · Custom CSS',
+            tag: { pl: '04 · Logistyka B2B / Dodatkowe narzędzia', en: '04 · B2B Logistics / Custom Tools' },
+            pageType: { pl: 'Serwis usługowy B2B + kalkulator kubatury SVG', en: 'B2B service site + SVG volume calculator' },
+            keyFeatures: { pl: 'Przekrój kontenera SVG · m³ i kg · plan weekendowy', en: 'SVG truck cutaway · m³ & kg · weekend SLA' },
+            duration: { pl: '2 tygodnie', en: '2 weeks' },
+            technology: 'Alpine.js · GSAP · Interactive SVG · Schema.org',
             year: '2026',
-           url: 'archie-spa.html',
+            url: 'kubatura.html',
             stats: {
               pl: [
-                ['REACT 18', 'Modularna architektura reużywalnych komponentów'],
-                ['GSAP 3D', 'Interaktywne okno podglądu reagujące na ruch kursora'],
-                ['100% KOD', 'Miniatury projektów rysowane w czystym kodzie SVG/CSS'],
-                ['WCAG', 'Pełna obsługa klawiatury i prefers-reduced-motion']
+                ['24 m³ / 3.5t', 'Interaktywny przekrój kontenera ładunkowego SVG na żywo'],
+                ['m³ + KG', 'Jednoczesny pomiar objętości i limitu wagowego DMC'],
+                ['1 MLN PLN', 'Wyeksponowana polisa OCP i plombowane pojemniki RODO'],
+                ['PT → PN', 'Harmonogram operacyjny zero-downtime dla firm']
               ],
               en: [
-                ['REACT 18', 'Modular architecture with reusable UI primitives'],
-                ['GSAP 3D', 'Pointer-reactive 3D browser preview stage'],
-                ['100% CODE', 'Project miniatures rendered in pure SVG and CSS'],
-                ['WCAG', 'Full keyboard navigation & reduced-motion support']
+                ['24 m³ / 3.5t', 'Live interactive SVG box-truck cutaway visualization'],
+                ['m³ + KG', 'Dual cargo volume and gross vehicle payload tracking'],
+                ['1M PLN', 'All-risk carrier insurance & numbered GDPR crate seals'],
+                ['FRI → MON', 'Zero-downtime weekend relocation protocol']
               ]
             },
             sections: {
               pl: [
                 {
-                  heading: 'Komponenty rysowane kodem zamiast ciężkich zrzutów ekranu',
-                  body: 'W projekcie React wszystkie wizualizacje projektów (wektorowa mapa Europy w `ProjectArtwork.jsx` oraz miniatura serwisu księgowego) są renderowane bezpośrednio w kodzie SVG i CSS. Dzięki temu zachowują idealną ostrość na ekranach Retina i nie obciążają łącza.'
+                  heading: 'Architektura zaprojektowana pod decyzję Office Managera i Dyrektora Administracyjnego',
+                  body: 'W przeprowadzkach korporacyjnych główną obawą decydenta jest przestój w pracy zespołu oraz bezpieczeństwo dokumentów i sprzętu IT. Już pierwszy ekran komunikuje twarde gwarancje: okno relokacji od piątku 17:00 do poniedziałku 8:00, polisę OCP na 1 000 000 PLN oraz numerowane plomby bezpieczeństwa RODO.'
                 },
                 {
-                  heading: 'Interaktywne okno HeroShowcase z fizyką 3D w GSAP',
-                  body: 'Główny moduł ekspozycyjny wykorzystuje bibliotekę GSAP do płynnego przechylania okna przeglądarki w trzech wymiarach (`rotateX` / `rotateY`) pod wpływem ruchu kursora oraz automatycznej rotacji slajdów z możliwością pauzy.',
+                  heading: 'Kalkulator kubatury (m³) i ładowności (kg) z przekrojem paki w SVG',
+                  body: 'W relokacjach biur ciężkie metalowe szafy z aktami i sejfy wyczerpują dopuszczalną ładowność auta (3 500 kg DMC) wcześniej, niż wypełnią całą objętość kontenera 24 m³. Narzędzie liczy oba parametry równolegle i wizualizuje zapełnienie ładowni w czasie rzeczywistym.',
                   bullets: [
-                    'Zarządzanie cyklem życia animacji przez `gsap.context()` i `ScrollTrigger`.',
-                    'Pełna dostępność z klawiatury (nawigacja strzałkami `ArrowLeft` / `ArrowRight` pomiędzy zakładkami).',
-                    'Automatyczne wyłączanie efektów przestrzennych dla użytkowników z `prefers-reduced-motion`.'
+                    'Gotowe presety jednym kliknięciem (Biuro 15 stanowisk, Piętro korporacyjne 50 stanowisk, Archiwum RODO + Serwerownia).',
+                    'Automatyczne przeliczanie liczby kursów floty 24 m³, wielkości ekipy techników oraz szacowanego kosztu relokacji.',
+                    'Przeniesienie pełnej listy wybranego wyposażenia jednym kliknięciem prosto do formularza wizji lokalnej.'
                   ]
                 },
                 {
-                  heading: 'Wspólny słownik PL/EN i spójny system tokenów CSS',
-                  body: 'Wszystkie widoki aplikacji (`App.jsx` oraz `DetailPages.jsx`) korzystają z centralnego stanu języka i motywu kolorystycznego (`--paper`, `--ink`, `--lime`), co pozwala na rozbudowę serwisu o kolejne moduły bez duplikowania kodu.'
+                  heading: 'Harmonogram godzinowy i dane strukturalne MovingCompany / FAQPage',
+                  body: 'Sekcja operacyjna rozpisuje weekend na cztery etapy aż po poniedziałkowy dyżur startowy (Day-1 Support), a wbudowany graf Schema.org (MovingCompany + FAQPage) przygotowuje serwis pod lokalne wyniki Google oraz rekomendacje AI.'
                 }
               ],
               en: [
                 {
-                  heading: 'Code-rendered SVG artwork instead of heavy static screenshots',
-                  body: 'Every project visual in `ProjectArtwork.jsx`—including the European route map and accounting hero preview—is built in live SVG and CSS, guaranteeing crisp Retina scaling and minimal payload.'
+                  heading: 'Built around the priorities of Office & Facility Managers',
+                  body: 'Corporate relocation buyers care most about zero operational downtime and IT/document security. The hero stage leads immediately with concrete guarantees: a Friday 17:00 to Monday 08:00 window, 1,000,000 PLN all-risk insurance, and numbered GDPR security seals.'
                 },
                 {
-                  heading: 'Interactive HeroShowcase stage with 3D GSAP perspective',
-                  body: 'The showcase component uses GSAP to calculate pointer coordinates and apply subtle 3D perspective tilt (`rotateX` / `rotateY`) alongside an accessible autoplay tab controller.',
+                  heading: 'Dual volume (m³) & payload (kg) calculator with live SVG cutaway',
+                  body: 'In office relocations, loaded metal filing cabinets and safes hit a truck’s 3,500 kg weight limit before filling its 24 m³ cargo bay. The estimator tracks both constraints simultaneously and animates modular cargo blocks inside the truck cutaway.',
                   bullets: [
-                    'Clean animation lifecycle management via `gsap.context()` and `ScrollTrigger`.',
-                    'Full keyboard operability (`ArrowLeft` / `ArrowRight` focus management across tabs).',
-                    'Automatic fallback for `prefers-reduced-motion` user preferences.'
+                    'One-click presets for a 15-desk office, a 50-desk corporate floor, or a GDPR archive + server room.',
+                    'Automatic calculation of required 24 m³ truck trips, crew size, and estimated fee based on floor level and freight lift access.',
+                    'Instant transfer of the itemized equipment manifest into the site survey request form.'
                   ]
                 },
                 {
-                  heading: 'Unified PL/EN state and editorial CSS token system',
-                  body: 'All views across `App.jsx` and `DetailPages.jsx` share a single reactive dictionary and CSS custom property palette (`--paper`, `--ink`, `--lime`), ensuring effortless scalability.'
+                  heading: 'Minute-by-minute weekend protocol & MovingCompany Schema.org',
+                  body: 'The execution timeline breaks down operations through Monday morning Day-1 support, backed by structured MovingCompany and FAQPage schema for search and AI visibility.'
                 }
               ]
             }
