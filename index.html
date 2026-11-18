@@ -1280,25 +1280,77 @@
 
         <!-- 4. KUBATURA B2B (Span 4) -->
         <article class="project-card span-4" x-show="activeFilter === 'all' || activeFilter === 'b2b' || activeFilter === 'tools'">
-          <a href="case-study.html?project=kubatura" class="project-art-box" style="background-color:#f4f5f7; background-image:linear-gradient(rgba(24,26,31,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(24,26,31,0.045) 1px, transparent 1px); background-size:28px 28px; color:#181a1f; padding:22px; display:flex; flex-direction:column; justify-content:space-between;">
-            <div style="display:flex; justify-content:space-between; align-items:center; font:600 10px var(--mono); letter-spacing:0.06em;">
-              <span style="display:inline-flex; align-items:center; gap:6px;">
-                <span style="padding:2px 6px; border-radius:3px; background:#ea580c; color:#ffffff; font-weight:700;">B2B</span>
+          <a href="case-study.html?project=kubatura" class="project-art-box" style="background-color:#f4f5f7; background-image:linear-gradient(rgba(24,26,31,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(24,26,31,0.045) 1px, transparent 1px); background-size:28px 28px; color:#181a1f; padding:15px 18px; display:flex; flex-direction:column; justify-content:space-between;">
+            <!-- Górny pasek marki i polisy -->
+            <div style="display:flex; justify-content:space-between; align-items:center; font:600 9.5px var(--mono); letter-spacing:0.05em;">
+              <span style="display:inline-flex; align-items:center; gap:6px; font-weight:700;">
+                <span style="padding:2px 5px; border-radius:3px; background:#ea580c; color:#ffffff;">B2B</span>
                 KUBATURA.
               </span>
-              <span style="color:#ea580c;">OCP 1 000 000 PLN</span>
+              <span style="color:#ea580c;">24 m³ / 3.5t · OCP 1M</span>
             </div>
 
-            <div>
-              <div style="font:700 24px/1.02 var(--display); letter-spacing:-0.04em;">
-                <span style="color:#ea580c;" x-text="lang === 'pl' ? 'Przeprowadzka biura w weekend.' : 'Office relocation over one weekend.'"></span><br/>
-                <span style="color:#373c47;" x-text="lang === 'pl' ? 'Zero przestoju w pracy.' : 'Zero operational downtime.'"></span>
+            <!-- Dwukolorowe hasło projektu -->
+            <div style="font:800 17.5px/1.04 var(--display); letter-spacing:-0.04em;">
+              <span style="color:#ea580c;" x-text="lang === 'pl' ? 'Przeprowadzka biura w weekend.' : 'Office relocation over one weekend.'"></span><br/>
+              <span style="color:#373c47;" x-text="lang === 'pl' ? 'Zero przestoju w pracy.' : 'Zero operational downtime.'"></span>
+            </div>
+
+            <!-- Karta z przekrojem ciężarówki 24 m³ w trakcie załadunku -->
+            <div style="background:#ffffff; border:1px solid rgba(24,26,31,0.18); border-radius:8px; padding:8px 10px 6px; box-shadow:0 8px 20px rgba(24,26,31,0.07);" class="tabular">
+              <svg viewBox="0 0 460 114" style="width:100%; height:auto; max-height:92px; display:block;" aria-hidden="true">
+                <!-- Podłoże -->
+                <line x1="6" y1="101" x2="454" y2="101" stroke="#cbd5e1" stroke-width="2"/>
+
+                <!-- Opuszczona winda hydrauliczna + wjeżdżający moduł ładunku -->
+                <path d="M10 99 L42 84 H54 V90 L16 101 Z" fill="#ea580c"/>
+                <rect x="22" y="69" width="17" height="14" rx="2" fill="#ea580c"/>
+                <line x1="25" y1="73" x2="36" y2="73" stroke="#ffffff" stroke-width="1.5"/>
+
+                <!-- Zabudowa kontenerowa 24 m3 -->
+                <rect x="54" y="8" width="272" height="82" rx="3" fill="#f8f9fb" stroke="#181a1f" stroke-width="2"/>
+
+                <!-- Siatka konstrukcyjna wewnątrz paki -->
+                <g stroke="#e2e8f0" stroke-width="1">
+                  <line x1="108" y1="8" x2="108" y2="90"/>
+                  <line x1="162" y1="8" x2="162" y2="90"/>
+                  <line x1="216" y1="8" x2="216" y2="90"/>
+                  <line x1="270" y1="8" x2="270" y2="90"/>
+                  <line x1="54" y1="35" x2="326" y2="35"/>
+                  <line x1="54" y1="63" x2="326" y2="63"/>
+                </g>
+
+                <!-- Załadowane moduły biurowe (dolny, środkowy i górny rząd) -->
+                <rect x="275" y="66" width="46" height="21" rx="2" fill="#181a1f"/>
+                <rect x="221" y="66" width="46" height="21" rx="2" fill="#ea580c"/>
+                <rect x="167" y="66" width="46" height="21" rx="2" fill="#181a1f"/>
+                <rect x="113" y="66" width="46" height="21" rx="2" fill="#181a1f"/>
+                <rect x="59" y="66" width="46" height="21" rx="2" fill="#ea580c"/>
+
+                <rect x="275" y="39" width="46" height="21" rx="2" fill="#ea580c"/>
+                <rect x="221" y="39" width="46" height="21" rx="2" fill="#181a1f"/>
+                <rect x="167" y="39" width="46" height="21" rx="2" fill="#ea580c"/>
+                <rect x="113" y="39" width="46" height="21" rx="2" fill="#181a1f"/>
+
+                <rect x="275" y="12" width="46" height="20" rx="2" fill="#181a1f"/>
+                <rect x="221" y="12" width="46" height="20" rx="2" fill="#181a1f"/>
+
+                <!-- Kabina ciężarówki -->
+                <path d="M330 90 H426 V58 L400 28 H330 Z" fill="#181a1f"/>
+                <path d="M344 36 H392 L412 56 H344 Z" fill="#334155"/>
+                <rect x="330" y="66" width="96" height="6" fill="#ea580c"/>
+
+                <!-- Koła -->
+                <circle cx="108" cy="95" r="12" fill="#181a1f" stroke="#ffffff" stroke-width="2.5"/>
+                <circle cx="108" cy="95" r="4.5" fill="#94a3b8"/>
+                <circle cx="384" cy="95" r="12" fill="#181a1f" stroke="#ffffff" stroke-width="2.5"/>
+                <circle cx="384" cy="95" r="4.5" fill="#94a3b8"/>
+              </svg>
+
+              <div style="margin-top:4px; padding-top:4px; border-top:1px solid rgba(24,26,31,0.09); display:flex; justify-content:space-between; font:600 9px var(--mono); color:#5a606e;">
+                <span>ŁADUNEK: <strong style="color:#ea580c;">19.8 m³ (83%)</strong></span>
+                <span>MASA: <strong style="color:#059669;">1 980 kg</strong> · PT 17 → PN 08</span>
               </div>
-            </div>
-
-            <div style="display:flex; justify-content:space-between; font:600 9.5px var(--mono); color:#5a606e; border-top:1px solid rgba(24,26,31,0.12); padding-top:8px;">
-              <span x-text="lang === 'pl' ? 'KALKULATOR m³ + kg · SVG 24 m³' : 'm³ + kg CALCULATOR · SVG 24 m³'"></span>
-              <span style="color:#181a1f;">PT 17 → PN 08</span>
             </div>
           </a>
 
