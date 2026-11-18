@@ -328,13 +328,13 @@
     /* ═══════════════════════════════════════════════════════════════════
        3. CASE HERO ARTWORK STAGE + INTERAKTYWNA MAPA EUROPY
        ═══════════════════════════════════════════════════════════════════ */
-    .case-hero-art {
+.case-hero-art {
       position: relative;
       display: grid;
-      height: clamp(360px, 40vw, 470px);
+      height: clamp(400px, 42vw, 490px);
       place-items: center;
       margin-top: 40px;
-      padding: clamp(14px, 3vw, 32px);
+      padding: clamp(14px, 2.5vw, 28px);
       overflow: hidden;
       border-radius: var(--card-radius);
       background: radial-gradient(ellipse at 50% 48%, #364338, #18211b 72%);
@@ -444,6 +444,15 @@
       background: #eef1ed;
       color: #1a1a1a;
     }
+.kubatura-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.48fr) minmax(0, 1.02fr);
+      height: 100%;
+      background: #eef1ed;
+      color: #181a1f;
+      overflow: hidden;
+    }
+
     .art-route-map-box {
       position: relative;
       padding: 16px 20px;
@@ -809,6 +818,7 @@
       .case-content-aside { position: static; }
       .case-hero-art { height: auto; }
       .art-route-split { grid-template-columns: 1fr; }
+      .kubatura-split { grid-template-columns: 1fr; }
       .art-route-map-box { height: 280px; }
     }
     @media (max-width: 720px) {
@@ -1106,226 +1116,179 @@
             </div>
           </div>
 
-<!-- Artwork 4: KUBATURA B2B — Interaktywny Przekrój Ciężarówki 24 m³ w trakcie załadunku -->
-          <div x-show="projectId === 'kubatura'" x-cloak
-               x-data="{
-                 kPreset: 1,
-                 kPresets: [
-                   {
-                     label: { pl: 'Biuro 15 os.', en: '15-Desk Office' },
-                     m3: '14.2 m³', volPct: 59,
-                     kg: '1 150 kg', kgPct: 33,
-                     slots: 9, trips: 1, crew: '3 os. + lider', overload: false
-                   },
-                   {
-                     label: { pl: 'Piętro 50 os.', en: '50-Desk Floor' },
-                     m3: '22.4 m³', volPct: 93,
-                     kg: '2 690 kg', kgPct: 77,
-                     slots: 14, trips: 1, crew: '5 os. + lider', overload: false
-                   },
-                   {
-                     label: { pl: 'Archiwum RODO', en: 'GDPR Archive' },
-                     m3: '16.8 m³', volPct: 70,
-                     kg: '3 320 kg', kgPct: 95,
-                     slots: 11, trips: 1, crew: '4 os. + lider', overload: true
-                   }
-                 ]
-               }"
-               style="height:100%; display:grid; grid-template-columns:1.52fr 0.98fr; background:#eef1ed; color:#181a1f;">
+<!-- Artwork 4: KUBATURA B2B — Interaktywny Symulator Ciężarówki 24 m³ -->
+          <div x-show="projectId === 'kubatura'" x-cloak class="kubatura-split">
 
-            <!-- Lewa scena: Pełnowymiarowy przekrój ciężarówki 24 m³ z opuszczoną windą i załadunkiem -->
-            <div style="position:relative; padding:16px 20px 12px; display:flex; flex-direction:column; justify-content:space-between; background:radial-gradient(circle at 52% 48%, #f8f9fb 0%, #e6e9ef 100%); overflow:hidden;">
-              <div style="display:flex; justify-content:space-between; align-items:center; font:600 10.5px var(--mono); letter-spacing:0.05em; color:#4b525e;">
+            <!-- Lewa scena: Pełnowymiarowy przekrój ciężarówki 24 m³ (kliknij sloty wewnątrz paki!) -->
+            <div style="position:relative; padding:14px 18px 10px; display:flex; flex-direction:column; justify-content:space-between; min-height:0; background:radial-gradient(circle at 52% 48%, #f8f9fb 0%, #e6e9ef 100%); overflow:hidden;">
+              <div style="display:flex; justify-content:space-between; align-items:center; font:600 10px var(--mono); letter-spacing:0.04em; color:#4b525e; flex-shrink:0;">
                 <span style="display:inline-flex; align-items:center; gap:6px;">
                   <i style="width:7px; height:7px; border-radius:50%; background:#ea580c; display:inline-block;"></i>
-                  <span>KUBATURA B2B · PRZEKRÓJ ZABUDOWY 24.0 m³</span>
+                  <span x-text="lang === 'pl' ? 'KLIKNIJ MODUŁY W KONTENERZE LUB UŻYJ KALKULATORA →' : 'CLICK CARGO SLOTS IN TRUCK OR USE SIMULATOR →'"></span>
                 </span>
-                <span style="color:#059669; font-weight:700;">● OCP 1 000 000 PLN</span>
+                <span style="color:#059669; font-weight:700;">● OCP 1M PLN</span>
               </div>
 
-              <svg viewBox="0 0 680 315" style="width:100%; height:auto; max-height:330px; display:block; margin-block:auto;" role="img"
-                :aria-label="lang === 'pl' ? 'Przekrój ciężarówki kontenerowej 24 m³ podczas załadunku biura' : '24 m³ box truck cutaway during corporate office loading'">
+              <svg viewBox="0 0 680 310" preserveAspectRatio="xMidYMid meet"
+                   style="flex:1; min-height:0; width:100%; height:100%; display:block;" role="img"
+                   :aria-label="lang === 'pl' ? 'Interaktywny przekrój ciężarówki kontenerowej 24 m³' : 'Interactive 24 m³ box truck cutaway'">
 
-                <!-- Siatka kreślarska blueprint w tle -->
+                <!-- Siatka kreślarska blueprint -->
                 <g stroke="rgba(24,26,31,0.05)" stroke-width="1">
-                  <line x1="20" y1="60" x2="660" y2="60"/>
-                  <line x1="20" y1="120" x2="660" y2="120"/>
-                  <line x1="20" y1="180" x2="660" y2="180"/>
-                  <line x1="20" y1="240" x2="660" y2="240"/>
+                  <line x1="24" y1="64" x2="654" y2="64"/>
+                  <line x1="24" y1="124" x2="654" y2="124"/>
+                  <line x1="24" y1="184" x2="654" y2="184"/>
+                  <line x1="24" y1="244" x2="654" y2="244"/>
                 </g>
 
                 <!-- Wymiarowanie CAD nad kontenerem -->
                 <g stroke="#64748b" stroke-width="1.2">
-                  <line x1="115" y1="26" x2="115" y2="54" stroke-dasharray="3 3"/>
-                  <line x1="485" y1="26" x2="485" y2="54" stroke-dasharray="3 3"/>
-                  <line x1="121" y1="36" x2="479" y2="36"/>
+                  <line x1="118" y1="24" x2="118" y2="56" stroke-dasharray="3 3"/>
+                  <line x1="484" y1="24" x2="484" y2="56" stroke-dasharray="3 3"/>
+                  <line x1="124" y1="34" x2="478" y2="34"/>
                 </g>
-                <rect x="210" y="25" width="180" height="20" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
-                <text x="300" y="39" text-anchor="middle" fill="#373c47" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700">
+                <rect x="206" y="23" width="190" height="20" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+                <text x="301" y="37" text-anchor="middle" fill="#373c47" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700">
                   4 800 mm · KONTENER 24.0 m³
                 </text>
 
-                <!-- Linia podłoża i cień pod pojazdem -->
-                <line x1="14" y1="286" x2="666" y2="286" stroke="#94a3b8" stroke-width="2"/>
-                <ellipse cx="368" cy="288" rx="280" ry="4.5" fill="rgba(24,26,31,0.14)"/>
+                <!-- Linia podłoża i cień -->
+                <line x1="18" y1="283" x2="662" y2="283" stroke="#94a3b8" stroke-width="2"/>
+                <ellipse cx="364" cy="286" rx="276" ry="4" fill="rgba(24,26,31,0.13)"/>
 
-                <!-- Opuszczona winda hydrauliczna 1.5t (lewa strona) + siłownik -->
-                <line x1="115" y1="264" x2="66" y2="269" stroke="#475569" stroke-width="4" stroke-linecap="round"/>
-                <path d="M18 284 L115 246 V255 L26 286 Z" fill="#ea580c"/>
+                <!-- Opuszczona winda hydrauliczna 1.5t + siłownik -->
+                <line x1="118" y1="262" x2="68" y2="267" stroke="#475569" stroke-width="4" stroke-linecap="round"/>
+                <path d="M24 281 L118 244 V253 L32 283 Z" fill="#ea580c"/>
 
-                <!-- Wózek transportowy z zaplombowanymi pojemnikami RODO wjeżdżający po windzie -->
-                <g transform="translate(36, 232) rotate(-20)">
-                  <rect x="0" y="34" width="44" height="5" rx="1.5" fill="#181a1f"/>
+                <!-- Wózek transportowy z zaplombowanymi pojemnikami RODO -->
+                <g transform="translate(40, 230) rotate(-20)">
+                  <rect x="0" y="34" width="42" height="5" rx="1.5" fill="#181a1f"/>
                   <circle cx="8" cy="42" r="4" fill="#181a1f"/>
-                  <circle cx="36" cy="42" r="4" fill="#181a1f"/>
-                  <!-- Dolna skrzynia RODO -->
-                  <rect x="3" y="16" width="38" height="17" rx="2" fill="#181a1f"/>
-                  <rect x="19" y="16" width="6" height="8" fill="#ea580c"/>
-                  <!-- Górna skrzynia RODO -->
-                  <rect x="3" y="-2" width="38" height="17" rx="2" fill="#ea580c"/>
-                  <line x1="8" y1="3" x2="36" y2="3" stroke="#ffffff" stroke-width="1.5"/>
+                  <circle cx="34" cy="42" r="4" fill="#181a1f"/>
+                  <rect x="3" y="16" width="36" height="17" rx="2" fill="#181a1f"/>
+                  <rect x="18" y="16" width="6" height="8" fill="#ea580c"/>
+                  <rect x="3" y="-2" width="36" height="17" rx="2" fill="#ea580c"/>
+                  <line x1="8" y1="3" x2="34" y2="3" stroke="#ffffff" stroke-width="1.5"/>
                 </g>
 
-                <!-- Rama podwozia i zabudowa kontenerowa 24 m³ -->
-                <rect x="115" y="246" width="376" height="11" fill="#181a1f"/>
-                <rect x="248" y="257" width="118" height="15" rx="3" fill="#334155"/>
-                <rect x="115" y="62" width="370" height="184" rx="5" fill="#ffffff" stroke="#181a1f" stroke-width="2.5"/>
+                <!-- Rama podwozia i zabudowa kontenerowa -->
+                <rect x="118" y="244" width="366" height="10" fill="#181a1f"/>
+                <rect x="248" y="254" width="114" height="14" rx="3" fill="#334155"/>
+                <rect x="118" y="64" width="366" height="180" rx="4" fill="#ffffff" stroke="#181a1f" stroke-width="2.5"/>
 
-                <!-- Wewnętrzna siatka konstrukcyjna i prowadnice pasów -->
+                <!-- Wewnętrzna siatka konstrukcyjna (5 kolumn x 3 rzędy) -->
                 <g stroke="#e2e8f0" stroke-width="1">
-                  <line x1="189" y1="62" x2="189" y2="246"/>
-                  <line x1="263" y1="62" x2="263" y2="246"/>
-                  <line x1="337" y1="62" x2="337" y2="246"/>
-                  <line x1="411" y1="62" x2="411" y2="246"/>
-                  <line x1="115" y1="123" x2="485" y2="123"/>
-                  <line x1="115" y1="184" x2="485" y2="184"/>
+                  <line x1="191" y1="64" x2="191" y2="244"/>
+                  <line x1="264" y1="64" x2="264" y2="244"/>
+                  <line x1="337" y1="64" x2="337" y2="244"/>
+                  <line x1="410" y1="64" x2="410" y2="244"/>
+                  <line x1="118" y1="124" x2="484" y2="124"/>
+                  <line x1="118" y1="184" x2="484" y2="184"/>
                 </g>
 
-                <!-- 15 Slotów Ładunkowych (Rząd dolny: 1-5, środkowy: 6-10, górny: 11-15) -->
-                <!-- Rząd dolny (y=191, h=48) -->
-                <g :style="{ opacity: kPresets[kPreset].slots >= 1 ? 1 : 0.12 }" style="transition:opacity 180ms ease;">
-                  <rect x="416" y="191" width="63" height="48" rx="3" fill="#181a1f"/><line x1="423" y1="199" x2="472" y2="199" stroke="#ea580c" stroke-width="2"/>
-                </g>
-                <g :style="{ opacity: kPresets[kPreset].slots >= 2 ? 1 : 0.12 }" style="transition:opacity 180ms ease;">
-                  <rect x="342" y="191" width="63" height="48" rx="3" fill="#181a1f"/><line x1="349" y1="199" x2="398" y2="199" stroke="#94a3b8" stroke-width="1.5"/>
-                </g>
-                <g :style="{ opacity: kPresets[kPreset].slots >= 3 ? 1 : 0.12 }" style="transition:opacity 180ms ease;">
-                  <rect x="268" y="191" width="63" height="48" rx="3" fill="#ea580c"/><line x1="275" y1="199" x2="324" y2="199" stroke="#ffffff" stroke-width="1.5"/>
-                </g>
-                <g :style="{ opacity: kPresets[kPreset].slots >= 4 ? 1 : 0.12 }" style="transition:opacity 180ms ease;">
-                  <rect x="194" y="191" width="63" height="48" rx="3" fill="#181a1f"/><line x1="201" y1="199" x2="250" y2="199" stroke="#94a3b8" stroke-width="1.5"/>
-                </g>
-                <g :style="{ opacity: kPresets[kPreset].slots >= 5 ? 1 : 0.12 }" style="transition:opacity 180ms ease;">
-                  <rect x="121" y="191" width="63" height="48" rx="3" fill="#181a1f"/><line x1="128" y1="199" x2="177" y2="199" stroke="#ea580c" stroke-width="2"/>
-                </g>
+                <!-- 15 Klikalnych Modułów Ładunkowych -->
+                <g style="cursor:pointer;" @click="setKubaturaTargetSlots(1)"><rect x="415" y="189" width="63" height="49" rx="3" :fill="kubaturaActiveSlots >= 1 ? '#181a1f' : '#f1f5f9'" :stroke="kubaturaActiveSlots >= 1 ? 'none' : '#cbd5e1'" stroke-dasharray="3 2" style="transition:fill 150ms ease;"/><line x1="422" y1="197" x2="471" y2="197" stroke="#ea580c" stroke-width="2" :style="{ opacity: kubaturaActiveSlots >= 1 ? 1 : 0 }"/></g>
+                <g style="cursor:pointer;" @click="setKubaturaTargetSlots(2)"><rect x="342" y="189" width="63" height="49" rx="3" :fill="kubaturaActiveSlots >= 2 ? '#181a1f' : '#f1f5f9'" :stroke="kubaturaActiveSlots >= 2 ? 'none' : '#cbd5e1'" stroke-dasharray="3 2" style="transition:fill 150ms ease;"/><line x1="349" y1="197" x2="398" y2="197" stroke="#ea580c" stroke-width="2" :style="{ opacity: kubaturaActiveSlots >= 2 ? 1 : 0 }"/></g>
+                <g style="cursor:pointer;" @click="setKubaturaTargetSlots(3)"><rect x="269" y="189" width="63" height="49" rx="3" :fill="kubaturaActiveSlots >= 3 ? '#ea580c' : '#f1f5f9'" :stroke="kubaturaActiveSlots >= 3 ? 'none' : '#cbd5e1'" stroke-dasharray="3 2" style="transition:fill 150ms ease;"/><line x1="276" y1="197" x2="325" y2="197" stroke="#ffffff" stroke-width="2" :style="{ opacity: kubaturaActiveSlots >= 3 ? 1 : 0 }"/></g>
+                <g style="cursor:pointer;" @click="setKubaturaTargetSlots(4)"><rect x="196" y="189" width="63" height="49" rx="3" :fill="kubaturaActiveSlots >= 4 ? '#181a1f' : '#f1f5f9'" :stroke="kubaturaActiveSlots >= 4 ? 'none' : '#cbd5e1'" stroke-dasharray="3 2" style="transition:fill 150ms ease;"/><line x1="203" y1="197" x2="252" y2="197" stroke="#ea580c" stroke-width="2" :style="{ opacity: kubaturaActiveSlots >= 4 ? 1 : 0 }"/></g>
+                <g style="cursor:pointer;" @click="setKubaturaTargetSlots(5)"><rect x="123" y="189" width="63" height="49" rx="3" :fill="kubaturaActiveSlots >= 5 ? '#181a1f' : '#f1f5f9'" :stroke="kubaturaActiveSlots >= 5 ? 'none' : '#cbd5e1'" stroke-dasharray="3 2" style="transition:fill 150ms ease;"/><line x1="130" y1="197" x2="179" y2="197" stroke="#ea580c" stroke-width="2" :style="{ opacity: kubaturaActiveSlots >= 5 ? 1 : 0 }"/></g>
 
-                <!-- Rząd środkowy (y=130, h=48) -->
-                <g :style="{ opacity: kPresets[kPreset].slots >= 6 ? 1 : 0.12 }" style="transition:opacity 180ms ease;">
-                  <rect x="416" y="130" width="63" height="48" rx="3" fill="#ea580c"/><line x1="423" y1="138" x2="472" y2="138" stroke="#ffffff" stroke-width="1.5"/>
-                </g>
-                <g :style="{ opacity: kPresets[kPreset].slots >= 7 ? 1 : 0.12 }" style="transition:opacity 180ms ease;">
-                  <rect x="342" y="130" width="63" height="48" rx="3" fill="#181a1f"/><line x1="349" y1="138" x2="398" y2="138" stroke="#94a3b8" stroke-width="1.5"/>
-                </g>
-                <g :style="{ opacity: kPresets[kPreset].slots >= 8 ? 1 : 0.12 }" style="transition:opacity 180ms ease;">
-                  <rect x="268" y="130" width="63" height="48" rx="3" fill="#181a1f"/><line x1="275" y1="138" x2="324" y2="138" stroke="#ea580c" stroke-width="2"/>
-                </g>
-                <g :style="{ opacity: kPresets[kPreset].slots >= 9 ? 1 : 0.12 }" style="transition:opacity 180ms ease;">
-                  <rect x="194" y="130" width="63" height="48" rx="3" fill="#ea580c"/><line x1="201" y1="138" x2="250" y2="138" stroke="#ffffff" stroke-width="1.5"/>
-                </g>
-                <g :style="{ opacity: kPresets[kPreset].slots >= 10 ? 1 : 0.12 }" style="transition:opacity 180ms ease;">
-                  <rect x="121" y="130" width="63" height="48" rx="3" :fill="kPresets[kPreset].overload ? '#dc2626' : '#181a1f'"/><line x1="128" y1="138" x2="177" y2="138" stroke="#ffffff" stroke-width="1.5"/>
-                </g>
+                <g style="cursor:pointer;" @click="setKubaturaTargetSlots(6)"><rect x="415" y="129" width="63" height="49" rx="3" :fill="kubaturaActiveSlots >= 6 ? '#ea580c' : '#f1f5f9'" :stroke="kubaturaActiveSlots >= 6 ? 'none' : '#cbd5e1'" stroke-dasharray="3 2" style="transition:fill 150ms ease;"/><line x1="422" y1="137" x2="471" y2="137" stroke="#ffffff" stroke-width="2" :style="{ opacity: kubaturaActiveSlots >= 6 ? 1 : 0 }"/></g>
+                <g style="cursor:pointer;" @click="setKubaturaTargetSlots(7)"><rect x="342" y="129" width="63" height="49" rx="3" :fill="kubaturaActiveSlots >= 7 ? '#181a1f' : '#f1f5f9'" :stroke="kubaturaActiveSlots >= 7 ? 'none' : '#cbd5e1'" stroke-dasharray="3 2" style="transition:fill 150ms ease;"/><line x1="349" y1="137" x2="398" y2="137" stroke="#ea580c" stroke-width="2" :style="{ opacity: kubaturaActiveSlots >= 7 ? 1 : 0 }"/></g>
+                <g style="cursor:pointer;" @click="setKubaturaTargetSlots(8)"><rect x="269" y="129" width="63" height="49" rx="3" :fill="kubaturaActiveSlots >= 8 ? '#181a1f' : '#f1f5f9'" :stroke="kubaturaActiveSlots >= 8 ? 'none' : '#cbd5e1'" stroke-dasharray="3 2" style="transition:fill 150ms ease;"/><line x1="276" y1="137" x2="325" y2="137" stroke="#ea580c" stroke-width="2" :style="{ opacity: kubaturaActiveSlots >= 8 ? 1 : 0 }"/></g>
+                <g style="cursor:pointer;" @click="setKubaturaTargetSlots(9)"><rect x="196" y="129" width="63" height="49" rx="3" :fill="kubaturaActiveSlots >= 9 ? '#ea580c' : '#f1f5f9'" :stroke="kubaturaActiveSlots >= 9 ? 'none' : '#cbd5e1'" stroke-dasharray="3 2" style="transition:fill 150ms ease;"/><line x1="203" y1="137" x2="252" y2="137" stroke="#ffffff" stroke-width="2" :style="{ opacity: kubaturaActiveSlots >= 9 ? 1 : 0 }"/></g>
+                <g style="cursor:pointer;" @click="setKubaturaTargetSlots(10)"><rect x="123" y="129" width="63" height="49" rx="3" :fill="kubaturaActiveSlots >= 10 ? (kubaturaOverload ? '#dc2626' : '#181a1f') : '#f1f5f9'" :stroke="kubaturaActiveSlots >= 10 ? 'none' : '#cbd5e1'" stroke-dasharray="3 2" style="transition:fill 150ms ease;"/><line x1="130" y1="137" x2="179" y2="137" stroke="#ea580c" stroke-width="2" :style="{ opacity: kubaturaActiveSlots >= 10 ? 1 : 0 }"/></g>
 
-                <!-- Rząd górny (y=69, h=48) -->
-                <g :style="{ opacity: kPresets[kPreset].slots >= 11 ? 1 : 0.12 }" style="transition:opacity 180ms ease;">
-                  <rect x="416" y="69" width="63" height="48" rx="3" :fill="kPresets[kPreset].overload ? '#dc2626' : '#181a1f'"/><line x1="423" y1="77" x2="472" y2="77" stroke="#ea580c" stroke-width="2"/>
-                </g>
-                <g :style="{ opacity: kPresets[kPreset].slots >= 12 ? 1 : 0.12 }" style="transition:opacity 180ms ease;">
-                  <rect x="342" y="69" width="63" height="48" rx="3" fill="#ea580c"/><line x1="349" y1="77" x2="398" y2="77" stroke="#ffffff" stroke-width="1.5"/>
-                </g>
-                <g :style="{ opacity: kPresets[kPreset].slots >= 13 ? 1 : 0.12 }" style="transition:opacity 180ms ease;">
-                  <rect x="268" y="69" width="63" height="48" rx="3" fill="#181a1f"/><line x1="275" y1="77" x2="324" y2="77" stroke="#94a3b8" stroke-width="1.5"/>
-                </g>
-                <g :style="{ opacity: kPresets[kPreset].slots >= 14 ? 1 : 0.12 }" style="transition:opacity 180ms ease;">
-                  <rect x="194" y="69" width="63" height="48" rx="3" fill="#181a1f"/><line x1="201" y1="77" x2="250" y2="77" stroke="#ea580c" stroke-width="2"/>
-                </g>
-                <g :style="{ opacity: kPresets[kPreset].slots >= 15 ? 1 : 0.12 }" style="transition:opacity 180ms ease;">
-                  <rect x="121" y="69" width="63" height="48" rx="3" fill="#dc2626"/>
-                </g>
+                <g style="cursor:pointer;" @click="setKubaturaTargetSlots(11)"><rect x="415" y="69" width="63" height="49" rx="3" :fill="kubaturaActiveSlots >= 11 ? (kubaturaOverload ? '#dc2626' : '#181a1f') : '#f1f5f9'" :stroke="kubaturaActiveSlots >= 11 ? 'none' : '#cbd5e1'" stroke-dasharray="3 2" style="transition:fill 150ms ease;"/><line x1="422" y1="77" x2="471" y2="77" stroke="#ea580c" stroke-width="2" :style="{ opacity: kubaturaActiveSlots >= 11 ? 1 : 0 }"/></g>
+                <g style="cursor:pointer;" @click="setKubaturaTargetSlots(12)"><rect x="342" y="69" width="63" height="49" rx="3" :fill="kubaturaActiveSlots >= 12 ? (kubaturaOverload ? '#dc2626' : '#ea580c') : '#f1f5f9'" :stroke="kubaturaActiveSlots >= 12 ? 'none' : '#cbd5e1'" stroke-dasharray="3 2" style="transition:fill 150ms ease;"/><line x1="349" y1="77" x2="398" y2="77" stroke="#ffffff" stroke-width="2" :style="{ opacity: kubaturaActiveSlots >= 12 ? 1 : 0 }"/></g>
+                <g style="cursor:pointer;" @click="setKubaturaTargetSlots(13)"><rect x="269" y="69" width="63" height="49" rx="3" :fill="kubaturaActiveSlots >= 13 ? (kubaturaOverload ? '#dc2626' : '#181a1f') : '#f1f5f9'" :stroke="kubaturaActiveSlots >= 13 ? 'none' : '#cbd5e1'" stroke-dasharray="3 2" style="transition:fill 150ms ease;"/><line x1="276" y1="77" x2="325" y2="77" stroke="#ea580c" stroke-width="2" :style="{ opacity: kubaturaActiveSlots >= 13 ? 1 : 0 }"/></g>
+                <g style="cursor:pointer;" @click="setKubaturaTargetSlots(14)"><rect x="196" y="69" width="63" height="49" rx="3" :fill="kubaturaActiveSlots >= 14 ? (kubaturaOverload ? '#dc2626' : '#181a1f') : '#f1f5f9'" :stroke="kubaturaActiveSlots >= 14 ? 'none' : '#cbd5e1'" stroke-dasharray="3 2" style="transition:fill 150ms ease;"/><line x1="203" y1="77" x2="252" y2="77" stroke="#ea580c" stroke-width="2" :style="{ opacity: kubaturaActiveSlots >= 14 ? 1 : 0 }"/></g>
+                <g style="cursor:pointer;" @click="setKubaturaTargetSlots(15)"><rect x="123" y="69" width="63" height="49" rx="3" :fill="kubaturaActiveSlots >= 15 ? (kubaturaOverload ? '#dc2626' : '#ea580c') : '#f1f5f9'" :stroke="kubaturaActiveSlots >= 15 ? 'none' : '#cbd5e1'" stroke-dasharray="3 2" style="transition:fill 150ms ease;"/><line x1="130" y1="77" x2="179" y2="77" stroke="#ffffff" stroke-width="2" :style="{ opacity: kubaturaActiveSlots >= 15 ? 1 : 0 }"/></g>
 
-                <!-- Nowoczesna Kabina Ciężarówki + Owiewka Dachowa -->
-                <path d="M490 62 C528 62 558 80 574 110 H490 Z" fill="#181a1f"/>
-                <path d="M490 110 H582 L620 166 L648 182 V257 H490 Z" fill="#181a1f"/>
-                <!-- Szyba panoramiczna i fotel kierowcy -->
-                <path d="M510 122 H572 L602 166 H510 Z" fill="#334155" stroke="#475569" stroke-width="1.5"/>
-                <path d="M524 166 V142 C524 137 531 137 533 142 L537 166 Z" fill="#1e293b"/>
-                <!-- Lusterko, pas pomarańczowy, reflektor LED -->
-                <rect x="580" y="132" width="7" height="22" rx="2" fill="#ea580c"/>
-                <rect x="490" y="198" width="158" height="9" fill="#ea580c"/>
-                <path d="M636 215 H648 V228 H632 Z" fill="#fbbf24"/>
-                <rect x="630" y="238" width="18" height="19" rx="3" fill="#0f1115"/>
+                <!-- Kabina Ciężarówki -->
+                <path d="M488 64 C530 64 562 84 580 116 H488 Z" fill="#181a1f"/>
+                <path d="M488 116 H580 L618 168 L646 182 V254 H488 Z" fill="#181a1f"/>
+                <path d="M508 126 H570 L600 168 H508 Z" fill="#334155" stroke="#475569" stroke-width="1.5"/>
+                <path d="M522 168 V144 C522 139 529 139 531 144 L535 168 Z" fill="#1e293b"/>
+                <rect x="578" y="134" width="7" height="22" rx="2" fill="#ea580c"/>
+                <rect x="488" y="198" width="158" height="8" fill="#ea580c"/>
+                <path d="M634 214 H646 V226 H630 Z" fill="#fbbf24"/>
 
-                <!-- Nadkola i szczegółowe koła -->
-                <circle cx="188" cy="264" r="24" fill="#eef1ed"/>
-                <circle cx="188" cy="264" r="21" fill="#181a1f"/>
-                <circle cx="188" cy="264" r="10" fill="#94a3b8"/>
-                <circle cx="188" cy="264" r="4" fill="#181a1f"/>
+                <!-- Koła -->
+                <circle cx="190" cy="262" r="23" fill="#eef1ed"/>
+                <circle cx="190" cy="262" r="20" fill="#181a1f"/>
+                <circle cx="190" cy="262" r="9" fill="#94a3b8"/>
+                <circle cx="190" cy="262" r="3.5" fill="#181a1f"/>
 
-                <circle cx="578" cy="264" r="24" fill="#eef1ed"/>
-                <circle cx="578" cy="264" r="21" fill="#181a1f"/>
-                <circle cx="578" cy="264" r="10" fill="#94a3b8"/>
-                <circle cx="578" cy="264" r="4" fill="#181a1f"/>
+                <circle cx="576" cy="262" r="23" fill="#eef1ed"/>
+                <circle cx="576" cy="262" r="20" fill="#181a1f"/>
+                <circle cx="576" cy="262" r="9" fill="#94a3b8"/>
+                <circle cx="576" cy="262" r="3.5" fill="#181a1f"/>
               </svg>
             </div>
 
-            <!-- Prawy panel telemetrii m³ i kg -->
-            <div style="background:#ffffff; border-left:3px solid #ea580c; padding:20px 22px; display:flex; flex-direction:column; justify-content:space-between; gap:10px;" class="tabular">
+           <!-- Prawy panel interaktywnego symulatora m³ i kg -->
+            <div style="background:#ffffff; border-left:3px solid #ea580c; padding:12px 16px; display:flex; flex-direction:column; justify-content:space-between; gap:6px; min-height:0;" class="tabular">
               <div>
-                <span style="font:600 10px var(--mono); color:#ea580c; letter-spacing:0.06em;" x-text="lang === 'pl' ? '↳ SYMULATOR ŁADUNKU 24 m³' : '↳ 24 m³ CARGO ESTIMATOR'"></span>
-                <h3 style="margin:4px 0 10px; font:700 22px/1.05 var(--display); color:#181a1f;" x-text="lang === 'pl' ? 'Sprawdź ładowność' : 'Test cargo load'"></h3>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <span style="font:600 9px var(--mono); color:#ea580c; letter-spacing:0.05em;" x-text="lang === 'pl' ? '↳ SYMULATOR ŁADUNKU 24 m³' : '↳ 24 m³ CARGO SIMULATOR'"></span>
+                  <button type="button" @click="applyKubaturaPreset('clear')" style="border:0; background:none; padding:0; font:600 9px var(--mono); color:#64748b; cursor:pointer; text-decoration:underline;" x-text="lang === 'pl' ? 'Wyzeruj ↺' : 'Reset ↺'"></button>
+                </div>
 
-                <!-- 3 klikalne presety -->
-                <div style="display:flex; flex-wrap:wrap; gap:5px;">
-                  <template x-for="(pr, pIdx) in kPresets" :key="pIdx">
-                    <button type="button" class="hero-chip"
-                      :style="kPreset === pIdx ? 'background:#ea580c; border-color:#ea580c; color:#ffffff;' : ''"
-                      @click="kPreset = pIdx"
-                      x-text="pr.label[lang]"></button>
-                  </template>
+                <!-- 3 szybkie presety -->
+                <div style="display:flex; flex-wrap:wrap; gap:4px; margin-top:5px;">
+                  <button type="button" class="hero-chip" style="padding:3px 8px; font-size:9.5px;" :style="kubaturaPreset === 'small' ? 'background:#ea580c; border-color:#ea580c; color:#fff;' : ''" @click="applyKubaturaPreset('small')" x-text="lang === 'pl' ? 'Biuro 15 os.' : '15 Desks'"></button>
+                  <button type="button" class="hero-chip" style="padding:3px 8px; font-size:9.5px;" :style="kubaturaPreset === 'corp' ? 'background:#ea580c; border-color:#ea580c; color:#fff;' : ''" @click="applyKubaturaPreset('corp')" x-text="lang === 'pl' ? 'Piętro 50 os.' : '50 Desks'"></button>
+                  <button type="button" class="hero-chip" style="padding:3px 8px; font-size:9.5px;" :style="kubaturaPreset === 'archive' ? 'background:#ea580c; border-color:#ea580c; color:#fff;' : ''" @click="applyKubaturaPreset('archive')" x-text="lang === 'pl' ? 'Archiwum RODO' : 'GDPR Archive'"></button>
                 </div>
               </div>
 
-              <!-- Paski m³ i kg -->
-              <div style="padding:11px 12px; background:#f4f5f7; border:1px solid rgba(24,26,31,0.12); border-radius:6px; display:grid; gap:9px; font:600 11px var(--mono);">
-                <div>
-                  <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
-                    <span style="color:#5a606e;">KUBATURA (m³):</span>
-                    <strong style="color:#ea580c;" x-text="kPresets[kPreset].m3 + ' (' + kPresets[kPreset].volPct + '%)'"></strong>
+              <!-- Interaktywne liczniki + / - -->
+              <div style="display:grid; gap:4px;">
+                <template x-for="kItem in kubaturaItems" :key="kItem.id">
+                  <div style="display:flex; align-items:center; justify-content:space-between; padding:4px 8px; background:#f8f9fb; border:1px solid #e2e8f0; border-radius:5px;">
+                    <div style="line-height:1.15;">
+                      <strong style="display:block; font-size:10.5px; color:#181a1f;" x-text="kItem.name[lang]"></strong>
+                      <span style="font:500 9px var(--mono); color:#64748b;" x-text="kItem.m3 + ' m³ · ' + kItem.kg + ' kg'"></span>
+                    </div>
+                    <div style="display:inline-flex; align-items:center; gap:4px;">
+                      <button type="button" @click="kubaturaPreset = 'custom'; kItem.qty = Math.max(0, kItem.qty - 1)"
+                        style="width:22px; height:22px; border-radius:4px; border:1px solid #cbd5e1; background:#ffffff; font:700 12px var(--mono); cursor:pointer; display:grid; place-items:center;">−</button>
+                      <span style="min-width:18px; text-align:center; font:700 11px var(--mono);" x-text="kItem.qty"></span>
+                      <button type="button" @click="kubaturaPreset = 'custom'; kItem.qty += 1"
+                        style="width:22px; height:22px; border-radius:4px; border:1px solid #cbd5e1; background:#ffffff; font:700 12px var(--mono); cursor:pointer; display:grid; place-items:center;">+</button>
+                    </div>
                   </div>
-                  <div style="height:7px; border-radius:99px; background:#e2e8f0; overflow:hidden;">
-                    <div :style="`width:${kPresets[kPreset].volPct}%; height:100%; background:#ea580c; transition:width 220ms ease;`"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
-                    <span style="color:#5a606e;">MASA (3 500 KG DMC):</span>
-                    <strong :style="kPresets[kPreset].overload ? 'color:#dc2626;' : 'color:#059669;'" x-text="kPresets[kPreset].kg + ' (' + kPresets[kPreset].kgPct + '%)'"></strong>
-                  </div>
-                  <div style="height:7px; border-radius:99px; background:#e2e8f0; overflow:hidden;">
-                    <div :style="`width:${kPresets[kPreset].kgPct}%; height:100%; background:${kPresets[kPreset].overload ? '#dc2626' : '#059669'}; transition:width 220ms ease;`"></div>
-                  </div>
-                </div>
-
-                <div style="padding-top:6px; border-top:1px dashed #cbd5e1; display:flex; justify-content:space-between; font-size:10.5px;">
-                  <span>FLOTA: <b x-text="kPresets[kPreset].trips + '× 24 m³'"></b></span>
-                  <span>EKIPA: <b x-text="kPresets[kPreset].crew"></b></span>
-                </div>
+                </template>
               </div>
 
-              <div style="display:flex; justify-content:space-between; align-items:center; font:600 10px var(--mono); color:#5a606e;">
-                <span>PT 17:00 → PN 08:00</span>
-                <a href="kubatura.html" style="color:#ea580c; text-decoration:underline;" x-text="lang === 'pl' ? 'Pełny kalkulator ↗' : 'Full estimator ↗'"></a>
+              <!-- Paski postępu m³ oraz kg -->
+              <div style="padding:8px 10px; background:#f4f5f7; border:1px solid rgba(24,26,31,0.12); border-radius:6px; display:grid; gap:7px; font:600 10px var(--mono);">
+                <div>
+                  <div style="display:flex; justify-content:space-between; margin-bottom:3px;">
+                    <span style="color:#5a606e;" x-text="lang === 'pl' ? 'KUBATURA:' : 'VOLUME:'"></span>
+                    <strong style="color:#ea580c;" x-text="kubaturaTotalM3.toFixed(1) + ' m³ (' + kubaturaVolPct + '%)'"></strong>
+                  </div>
+                  <div style="height:5px; border-radius:99px; background:#e2e8f0; overflow:hidden;">
+                    <div :style="`width:${Math.min(100, kubaturaVolPct)}%; height:100%; background:#ea580c; transition:width 200ms ease;`"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div style="display:flex; justify-content:space-between; margin-bottom:3px;">
+                    <span style="color:#5a606e;" x-text="lang === 'pl' ? 'MASA (3.5t DMC):' : 'PAYLOAD (3.5t):'"></span>
+                    <strong :style="kubaturaOverload ? 'color:#dc2626;' : 'color:#059669;'" x-text="kubaturaTotalKg.toLocaleString('pl-PL') + ' kg (' + kubaturaKgPct + '%)'"></strong>
+                  </div>
+                  <div style="height:5px; border-radius:99px; background:#e2e8f0; overflow:hidden;">
+                    <div :style="`width:${Math.min(100, kubaturaKgPct)}%; height:100%; background:${kubaturaOverload ? '#dc2626' : '#059669'}; transition:width 200ms ease;`"></div>
+                  </div>
+                </div>
+              </div>      
+
+                <div style="padding-top:5px; border-top:1px dashed #cbd5e1; display:flex; justify-content:space-between; align-items:center; font-size:10px;">
+                  <span><b x-text="kubaturaTrips + '× 24 m³'"></b> · <span :style="kubaturaOverload ? 'color:#dc2626; font-weight:700;' : 'color:#059669;'" x-text="kubaturaOverload ? (lang === 'pl' ? 'LIMIT WAGI!' : 'WEIGHT LIMIT!') : 'OK'"></span></span>
+                  <a href="kubatura.html" style="color:#ea580c; text-decoration:underline; font-weight:700;" x-text="lang === 'pl' ? 'Pełna strona ↗' : 'Live site ↗'"></a>
+                </div>
               </div>
             </div>
           </div>
@@ -1566,6 +1529,83 @@
             method: '5 Whys + Poka-yoke'
           }
         ],
+// Interaktywny symulator ładunku KUBATURA B2B
+        kubaturaPreset: 'corp',
+        kubaturaItems: [
+          { id: 'desk', name: { pl: 'Stanowisko IT (Biurko + 2 Monitory)', en: 'IT Workstation (Desk + Dual Monitors)' }, m3: 1.4, kg: 65, qty: 8 },
+          { id: 'cab',  name: { pl: 'Szafa aktowa RODO (pełna)', en: 'Loaded GDPR Filing Cabinet' }, m3: 1.1, kg: 145, qty: 5 },
+          { id: 'safe', name: { pl: 'Szafa RACK / Sejf ognioodporny', en: 'Server RACK / Fireproof Safe' }, m3: 1.5, kg: 320, qty: 2 }
+        ],
+        kubaturaSlots: [
+          { idx: 1,  x: 415, y: 189, orange: false }, { idx: 2,  x: 342, y: 189, orange: false }, { idx: 3,  x: 269, y: 189, orange: true  }, { idx: 4,  x: 196, y: 189, orange: false }, { idx: 5,  x: 123, y: 189, orange: false },
+          { idx: 6,  x: 415, y: 129, orange: true  }, { idx: 7,  x: 342, y: 129, orange: false }, { idx: 8,  x: 269, y: 129, orange: false }, { idx: 9,  x: 196, y: 129, orange: true  }, { idx: 10, x: 123, y: 129, orange: false },
+          { idx: 11, x: 415, y: 69,  orange: false }, { idx: 12, x: 342, y: 69,  orange: true  }, { idx: 13, x: 269, y: 69,  orange: false }, { idx: 14, x: 196, y: 69,  orange: false }, { idx: 15, x: 123, y: 69,  orange: true  }
+        ],
+
+        get kubaturaTotalM3() {
+          return this.kubaturaItems.reduce((s, i) => s + i.m3 * i.qty, 0);
+        },
+        get kubaturaTotalKg() {
+          return this.kubaturaItems.reduce((s, i) => s + i.kg * i.qty, 0);
+        },
+        get kubaturaTrips() {
+          if (this.kubaturaTotalM3 === 0 && this.kubaturaTotalKg === 0) return 1;
+          return Math.max(1, Math.ceil(this.kubaturaTotalM3 / 24), Math.ceil(this.kubaturaTotalKg / 3500));
+        },
+        get kubaturaVolPct() {
+          if (this.kubaturaTotalM3 === 0) return 0;
+          return Math.min(100, Math.round((this.kubaturaTotalM3 / (this.kubaturaTrips * 24)) * 100));
+        },
+        get kubaturaKgPct() {
+          if (this.kubaturaTotalKg === 0) return 0;
+          return Math.min(100, Math.round((this.kubaturaTotalKg / (this.kubaturaTrips * 3500)) * 100));
+        },
+        get kubaturaOverload() {
+          return this.kubaturaKgPct >= 88;
+        },
+        get kubaturaActiveSlots() {
+          const pct = Math.max(this.kubaturaVolPct, this.kubaturaKgPct);
+          if (pct === 0) return 0;
+          return Math.max(1, Math.min(15, Math.round((pct / 100) * 15)));
+        },
+        applyKubaturaPreset(type) {
+          this.kubaturaPreset = type;
+          const map = {
+            small:   { desk: 6, cab: 2, safe: 1 },
+            corp:    { desk: 8, cab: 5, safe: 2 },
+            archive: { desk: 2, cab: 12, safe: 4 },
+            clear:   { desk: 0, cab: 0, safe: 0 }
+          }[type];
+          if (!map) return;
+          this.kubaturaItems.forEach(i => { i.qty = map[i.id] ?? 0; });
+        },
+setKubaturaTargetSlots(targetIdx) {
+          this.kubaturaPreset = 'custom';
+          const level = this.kubaturaActiveSlots === targetIdx ? targetIdx - 1 : targetIdx;
+          const exactLoad = [
+            [0, 0, 0], // 0 slots
+            [0, 0, 1], // 1 slot
+            [0, 3, 0], // 2 slots
+            [0, 3, 1], // 3 slots
+            [3, 2, 0], // 4 slots
+            [1, 6, 0], // 5 slots
+            [0, 6, 2], // 6 slots
+            [3, 5, 1], // 7 slots
+            [1, 9, 1], // 8 slots
+            [4, 8, 0], // 9 slots
+            [3, 8, 2], // 10 slots
+            [2, 8, 4], // 11 slots
+            [5, 7, 3], // 12 slots
+            [8, 6, 2], // 13 slots
+            [7, 6, 4], // 14 slots
+            [9, 9, 1]  // 15 slots
+          ][Math.max(0, Math.min(15, level))];
+          this.kubaturaItems[0].qty = exactLoad[0];
+          this.kubaturaItems[1].qty = exactLoad[1];
+          this.kubaturaItems[2].qty = exactLoad[2];
+        },
+
+
 
         projectOrder: ['adremt2', 'ckadrem', 'pmclassics', 'kubatura', 'gemba'],
 
