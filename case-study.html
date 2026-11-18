@@ -1631,74 +1631,82 @@
             }
           },
 
-          'kubatura': {
-            shortName: { pl: 'KUBATURA B2B', en: 'KUBATURA B2B' },
+        'kubatura': {
+            shortName: { pl: 'KUBATURA', en: 'KUBATURA' },
             title: {
-              pl: 'KUBATURA B2B — Relokacje Biur i Archiwów',
-              en: 'KUBATURA B2B — Corporate Office & Archive Relocation'
+              pl: 'KUBATURA - Relokacje Biur i Archiwów Bez Przestoju',
+              en: 'KUBATURA - Zero-Downtime Corporate Office Relocation'
             },
             subtitle: {
-              pl: 'Strona B2B dla przeprowadzek biur w weekend (Piątek 17:00 → Poniedziałek 08:00) z interaktywnym kalkulatorem kubatury (m³), masy (kg) i przekrojem floty 24 m³.',
-              en: 'A B2B commercial relocation platform operating Friday 17:00 → Monday 08:00, powered by a live cargo volume (m³), payload (kg), and 24 m³ box-truck cutaway estimator.'
+              pl: 'Jak zamienić stresującą przeprowadzkę firmy w policzalną operację weekendową — i odsiać przypadkowe zapytania jeszcze przed wizją lokalną.',
+              en: 'Turning a high-risk corporate move into a predictable weekend operation—and qualifying B2B leads before the first site survey.'
             },
-            tag: { pl: '04 · Logistyka B2B / Dodatkowe narzędzia', en: '04 · B2B Logistics / Custom Tools' },
-            pageType: { pl: 'Serwis usługowy B2B + kalkulator kubatury SVG', en: 'B2B service site + SVG volume calculator' },
-            keyFeatures: { pl: 'Przekrój kontenera SVG · m³ i kg · plan weekendowy', en: 'SVG truck cutaway · m³ & kg · weekend SLA' },
+            tag: { pl: '04 · Logistyka B2B / Kalkulator Floty', en: '04 · B2B Logistics / Fleet Estimator' },
+            pageType: { pl: 'Platforma ofertowa B2B + estymator ładunku SVG', en: 'B2B service platform + SVG cargo estimator' },
+            keyFeatures: { pl: 'Przekrój kontenera 24 m³ · pomiar m³ i kg · protokół Pt–Pn', en: '24 m³ truck cutaway · m³ & kg tracking · Fri–Mon SLA' },
             duration: { pl: '2 tygodnie', en: '2 weeks' },
             technology: 'Alpine.js · GSAP · Interactive SVG · Schema.org',
             year: '2026',
             url: 'kubatura.html',
             stats: {
               pl: [
-                ['24 m³ / 3.5t', 'Interaktywny przekrój kontenera ładunkowego SVG na żywo'],
-                ['m³ + KG', 'Jednoczesny pomiar objętości i limitu wagowego DMC'],
-                ['1 MLN PLN', 'Wyeksponowana polisa OCP i plombowane pojemniki RODO'],
-                ['PT → PN', 'Harmonogram operacyjny zero-downtime dla firm']
+                ['24 m³ / 3.5t', 'Przekrój kontenera SVG zapełniający się na żywo'],
+                ['m³ vs KG', 'Równoległy pomiar objętości i limitu wagowego DMC'],
+                ['1 MLN PLN', 'Polisa OCP i plombowane pojemniki RODO na pierwszym ekranie'],
+                ['PT 17 → PN 08', 'Minutowy protokół relokacji z poniedziałkową asystą IT']
               ],
               en: [
                 ['24 m³ / 3.5t', 'Live interactive SVG box-truck cutaway visualization'],
-                ['m³ + KG', 'Dual cargo volume and gross vehicle payload tracking'],
-                ['1M PLN', 'All-risk carrier insurance & numbered GDPR crate seals'],
-                ['FRI → MON', 'Zero-downtime weekend relocation protocol']
+                ['m³ vs KG', 'Dual cargo volume and gross payload limit tracking'],
+                ['1M PLN', 'All-risk carrier insurance & numbered GDPR seals upfront'],
+                ['FRI 17 → MON 08', 'Minute-by-minute weekend protocol with Day-1 IT support']
               ]
             },
             sections: {
               pl: [
                 {
-                  heading: 'Architektura zaprojektowana pod decyzję Office Managera i Dyrektora Administracyjnego',
-                  body: 'W przeprowadzkach korporacyjnych główną obawą decydenta jest przestój w pracy zespołu oraz bezpieczeństwo dokumentów i sprzętu IT. Już pierwszy ekran komunikuje twarde gwarancje: okno relokacji od piątku 17:00 do poniedziałku 8:00, polisę OCP na 1 000 000 PLN oraz numerowane plomby bezpieczeństwa RODO.'
+                  heading: 'Dlaczego strony firm przeprowadzkowych przegrywają kontrakty B2B',
+                  body: 'Większość firm przeprowadzkowych wygląda w sieci identycznie: stockowe zdjęcia uśmiechniętych panów z kartonem i ogólniki o „szybkim i tanim transporcie”. Tymczasem Office Manager albo Dyrektor Administracyjny, który przenosi 60-osobowe biuro, nie szuka taniego busa. Boi się jednego scenariusza: że w poniedziałek o 8:00 zespół usiądzie przy niepodłączonych monitorach, a segregatory kadrowe i księgowe zaginą między piętrami.'
                 },
                 {
-                  heading: 'Kalkulator kubatury (m³) i ładowności (kg) z przekrojem paki w SVG',
-                  body: 'W relokacjach biur ciężkie metalowe szafy z aktami i sejfy wyczerpują dopuszczalną ładowność auta (3 500 kg DMC) wcześniej, niż wypełnią całą objętość kontenera 24 m³. Narzędzie liczy oba parametry równolegle i wizualizuje zapełnienie ładowni w czasie rzeczywistym.',
+                  heading: 'Zero-Downtime zamiast obietnic — architektura zaufania od pierwszego ekranu',
+                  body: 'Zamiast lania wody o „wieloletnim doświadczeniu”, pierwszy ekran KUBATURY stawia twarde warunki operacyjne: start w piątek o 17:00, gotowość stanowisk w poniedziałek o 8:00, polisa OCP na 1 000 000 PLN oraz numerowane plomby bezpieczeństwa na pojemnikach RODO. Komunikat rozbity na dwa kontrastowe wersy — logistyczny pomarańcz i techniczny grafit — od razu oddziela relokacje korporacyjne od przeprowadzek mieszkań.'
+                },
+                {
+                  heading: 'Fizyka ładunku w SVG: dlaczego liczymy jednocześnie m³ oraz kg',
+                  body: 'W relokacjach biurowych o liczbie kursów rzadko decyduje sama objętość mebli. Metalowe szafy aktowe wypełnione papierem, szafy serwerowe RACK i kasy pancerne wyczerpują limit ładowności auta (3 500 kg DMC) na długo przed zapełnieniem 24 m³ paki. Zbudowałem interaktywny przekrój meblowozu w SVG, który reaguje na każde kliknięcie i wizualizuje oba ograniczenia naraz.',
                   bullets: [
-                    'Gotowe presety jednym kliknięciem (Biuro 15 stanowisk, Piętro korporacyjne 50 stanowisk, Archiwum RODO + Serwerownia).',
-                    'Automatyczne przeliczanie liczby kursów floty 24 m³, wielkości ekipy techników oraz szacowanego kosztu relokacji.',
-                    'Przeniesienie pełnej listy wybranego wyposażenia jednym kliknięciem prosto do formularza wizji lokalnej.'
+                    'Presety jednym kliknięciem (Biuro 15 stanowisk, Piętro korporacyjne 50 stanowisk, Archiwum RODO + Serwerownia) pozwalają oszacować skalę operacji w 5 sekund.',
+                    'Uwzględnienie tarcia budynkowego: piętro załadunku, dostępność windy towarowej oraz dystans automatycznie korygują wielkość ekipy techników i budżet.',
+                    'Wizualizacja 15 modułów wewnątrz kontenera 4,8 m × 2,2 m × 2,3 m ostrzega zmianą koloru, gdy masa ładunku zbliża się do limitu DMC.'
                   ]
                 },
                 {
-                  heading: 'Harmonogram godzinowy i dane strukturalne MovingCompany / FAQPage',
-                  body: 'Sekcja operacyjna rozpisuje weekend na cztery etapy aż po poniedziałkowy dyżur startowy (Day-1 Support), a wbudowany graf Schema.org (MovingCompany + FAQPage) przygotowuje serwis pod lokalne wyniki Google oraz rekomendacje AI.'
+                  heading: 'Kwalifikacja leada przed telefonem i widoczność w wyszukiwarkach AI',
+                  body: 'Zwykły formularz „Zapytaj o wycenę” generuje dziesiątki telefonów o pojedynczą kanapę. Tutaj przycisk pod kalkulatorem jednym kliknięciem przenosi gotową specyfikację (kubaturę, masę, liczbę kontenerów 24 m³ oraz pełną listę pozycji) prosto do formularza wizji lokalnej. Całość uzupełnia godzinowy harmonogram weekendowy z poniedziałkowym dyżurem Day-1 Support oraz graf Schema.org (MovingCompany + FAQPage) pod lokalne wyniki Google i odpowiedzi AI.'
                 }
               ],
               en: [
                 {
-                  heading: 'Built around the priorities of Office & Facility Managers',
-                  body: 'Corporate relocation buyers care most about zero operational downtime and IT/document security. The hero stage leads immediately with concrete guarantees: a Friday 17:00 to Monday 08:00 window, 1,000,000 PLN all-risk insurance, and numbered GDPR security seals.'
+                  heading: 'Why standard moving websites lose corporate contracts',
+                  body: 'Most moving company websites look identical: stock photos of smiling guys holding cardboard boxes and vague promises of “fast, affordable transport.” An Office or Facility Manager relocating a 60-person floor is not shopping for a cheap van. They are losing sleep over one risk: Monday at 8:00 AM arriving with unpatched workstations and misplaced HR or tax files.'
                 },
                 {
-                  heading: 'Dual volume (m³) & payload (kg) calculator with live SVG cutaway',
-                  body: 'In office relocations, loaded metal filing cabinets and safes hit a truck’s 3,500 kg weight limit before filling its 24 m³ cargo bay. The estimator tracks both constraints simultaneously and animates modular cargo blocks inside the truck cutaway.',
+                  heading: 'Operational guarantees over fluff — engineering trust above the fold',
+                  body: 'Instead of generic claims about “years of experience,” KUBATURA leads with hard operational SLAs: Friday 17:00 kickoff, Monday 08:00 desk readiness, 1,000,000 PLN all-risk carrier insurance, and numbered security seals on HDPE archive crates. Split dual-tone typography in safety orange and industrial graphite immediately signals commercial engineering rather than residential moving.'
+                },
+                {
+                  heading: 'Cargo physics in SVG: why the estimator tracks both m³ and kg',
+                  body: 'In office relocations, furniture volume is rarely the real bottleneck. Loaded steel filing cabinets, server RACKs, and fireproof safes hit a box truck’s 3,500 kg gross payload limit long before filling its 24 m³ cargo bay. I built a live SVG container cutaway that calculates both constraints simultaneously and animates load distribution in real time.',
                   bullets: [
-                    'One-click presets for a 15-desk office, a 50-desk corporate floor, or a GDPR archive + server room.',
-                    'Automatic calculation of required 24 m³ truck trips, crew size, and estimated fee based on floor level and freight lift access.',
-                    'Instant transfer of the itemized equipment manifest into the site survey request form.'
+                    'One-click presets (15-Desk Office, 50-Desk Corporate Floor, GDPR Archive + Server Room) benchmark project scale in five seconds.',
+                    'Building friction inputs—floor level, freight elevator access, and route distance—dynamically adjust crew headcount and fee estimates.',
+                    'Fifteen modular cargo blocks inside the 4.8m × 2.2m × 2.3m bay shift color to flag payload overload before a truck is ever dispatched.'
                   ]
                 },
                 {
-                  heading: 'Minute-by-minute weekend protocol & MovingCompany Schema.org',
-                  body: 'The execution timeline breaks down operations through Monday morning Day-1 support, backed by structured MovingCompany and FAQPage schema for search and AI visibility.'
+                  heading: 'Pre-qualifying leads before the phone rings + AI search readiness',
+                  body: 'A blank “Request a Quote” form invites residential tyre-kickers. KUBATURA’s estimator transfers the itemized manifest—total volume, weight, required 24 m³ trips, and equipment list—straight into the site survey brief with a single click. Paired with a minute-by-minute weekend timeline (including Monday morning Day-1 floor support) and MovingCompany + FAQPage Schema.org markup, the site converts high-intent B2B buyers.'
                 }
               ]
             }
