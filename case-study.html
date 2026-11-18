@@ -1106,66 +1106,226 @@
             </div>
           </div>
 
-          <!-- Artwork 4: KUBATURA B2B -->
-          <div x-show="projectId === 'kubatura'" x-cloak style="height:100%; background-color:#f4f5f7; background-image:linear-gradient(rgba(24,26,31,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(24,26,31,0.045) 1px, transparent 1px); background-size:40px 40px; color:#181a1f; padding:28px 34px; display:grid; grid-template-columns:1.1fr 0.9fr; gap:28px; align-items:center;">
-            <div style="display:flex; flex-direction:column; justify-content:space-between; height:100%;">
-              <div style="display:inline-flex; align-items:center; gap:8px; font:600 10px var(--mono); letter-spacing:0.06em; color:#373c47;">
-                <i style="width:7px; height:7px; border-radius:50%; background:#059669; display:inline-block;"></i>
-                <span>KUBATURA B2B · OCP 1 000 000 PLN · PLOMBY RODO</span>
+<!-- Artwork 4: KUBATURA B2B — Interaktywny Przekrój Ciężarówki 24 m³ w trakcie załadunku -->
+          <div x-show="projectId === 'kubatura'" x-cloak
+               x-data="{
+                 kPreset: 1,
+                 kPresets: [
+                   {
+                     label: { pl: 'Biuro 15 os.', en: '15-Desk Office' },
+                     m3: '14.2 m³', volPct: 59,
+                     kg: '1 150 kg', kgPct: 33,
+                     slots: 9, trips: 1, crew: '3 os. + lider', overload: false
+                   },
+                   {
+                     label: { pl: 'Piętro 50 os.', en: '50-Desk Floor' },
+                     m3: '22.4 m³', volPct: 93,
+                     kg: '2 690 kg', kgPct: 77,
+                     slots: 14, trips: 1, crew: '5 os. + lider', overload: false
+                   },
+                   {
+                     label: { pl: 'Archiwum RODO', en: 'GDPR Archive' },
+                     m3: '16.8 m³', volPct: 70,
+                     kg: '3 320 kg', kgPct: 95,
+                     slots: 11, trips: 1, crew: '4 os. + lider', overload: true
+                   }
+                 ]
+               }"
+               style="height:100%; display:grid; grid-template-columns:1.52fr 0.98fr; background:#eef1ed; color:#181a1f;">
+
+            <!-- Lewa scena: Pełnowymiarowy przekrój ciężarówki 24 m³ z opuszczoną windą i załadunkiem -->
+            <div style="position:relative; padding:16px 20px 12px; display:flex; flex-direction:column; justify-content:space-between; background:radial-gradient(circle at 52% 48%, #f8f9fb 0%, #e6e9ef 100%); overflow:hidden;">
+              <div style="display:flex; justify-content:space-between; align-items:center; font:600 10.5px var(--mono); letter-spacing:0.05em; color:#4b525e;">
+                <span style="display:inline-flex; align-items:center; gap:6px;">
+                  <i style="width:7px; height:7px; border-radius:50%; background:#ea580c; display:inline-block;"></i>
+                  <span>KUBATURA B2B · PRZEKRÓJ ZABUDOWY 24.0 m³</span>
+                </span>
+                <span style="color:#059669; font-weight:700;">● OCP 1 000 000 PLN</span>
               </div>
 
-              <div>
-                <div style="font:800 clamp(1.85rem, 3.4vw, 2.85rem)/0.98 var(--display); letter-spacing:-0.045em;">
-                  <span style="color:#ea580c;" x-text="lang === 'pl' ? 'Przeprowadzka biura w weekend.' : 'Office relocation over one weekend.'"></span><br/>
-                  <span style="color:#373c47;" x-text="lang === 'pl' ? 'Zero przestoju w pracy.' : 'Zero operational downtime.'"></span>
-                </div>
-                <p style="margin:10px 0 0; font-size:12.5px; line-height:1.55; color:#5a606e;"
-                  x-text="lang === 'pl' ? 'Piątek 17:00 → Poniedziałek 08:00. Interaktywny kalkulator kubatury (m³) i masy (kg) z przekrojem kontenera 24 m³.' : 'Friday 17:00 → Monday 08:00. Live cargo volume (m³) and payload (kg) estimator with a 24 m³ box-truck cutaway.'"></p>
-              </div>
+              <svg viewBox="0 0 680 315" style="width:100%; height:auto; max-height:330px; display:block; margin-block:auto;" role="img"
+                :aria-label="lang === 'pl' ? 'Przekrój ciężarówki kontenerowej 24 m³ podczas załadunku biura' : '24 m³ box truck cutaway during corporate office loading'">
 
-              <div style="display:flex; gap:24px; padding-top:10px; border-top:1px solid rgba(24,26,31,0.12); font:700 12px var(--mono);" class="tabular">
-                <span>24 m³ / 3.5t</span>
-                <span style="color:#ea580c;">100% RODO</span>
-                <span>24/7 SLA</span>
-              </div>
+                <!-- Siatka kreślarska blueprint w tle -->
+                <g stroke="rgba(24,26,31,0.05)" stroke-width="1">
+                  <line x1="20" y1="60" x2="660" y2="60"/>
+                  <line x1="20" y1="120" x2="660" y2="120"/>
+                  <line x1="20" y1="180" x2="660" y2="180"/>
+                  <line x1="20" y1="240" x2="660" y2="240"/>
+                </g>
+
+                <!-- Wymiarowanie CAD nad kontenerem -->
+                <g stroke="#64748b" stroke-width="1.2">
+                  <line x1="115" y1="26" x2="115" y2="54" stroke-dasharray="3 3"/>
+                  <line x1="485" y1="26" x2="485" y2="54" stroke-dasharray="3 3"/>
+                  <line x1="121" y1="36" x2="479" y2="36"/>
+                </g>
+                <rect x="210" y="25" width="180" height="20" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+                <text x="300" y="39" text-anchor="middle" fill="#373c47" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700">
+                  4 800 mm · KONTENER 24.0 m³
+                </text>
+
+                <!-- Linia podłoża i cień pod pojazdem -->
+                <line x1="14" y1="286" x2="666" y2="286" stroke="#94a3b8" stroke-width="2"/>
+                <ellipse cx="368" cy="288" rx="280" ry="4.5" fill="rgba(24,26,31,0.14)"/>
+
+                <!-- Opuszczona winda hydrauliczna 1.5t (lewa strona) + siłownik -->
+                <line x1="115" y1="264" x2="66" y2="269" stroke="#475569" stroke-width="4" stroke-linecap="round"/>
+                <path d="M18 284 L115 246 V255 L26 286 Z" fill="#ea580c"/>
+
+                <!-- Wózek transportowy z zaplombowanymi pojemnikami RODO wjeżdżający po windzie -->
+                <g transform="translate(36, 232) rotate(-20)">
+                  <rect x="0" y="34" width="44" height="5" rx="1.5" fill="#181a1f"/>
+                  <circle cx="8" cy="42" r="4" fill="#181a1f"/>
+                  <circle cx="36" cy="42" r="4" fill="#181a1f"/>
+                  <!-- Dolna skrzynia RODO -->
+                  <rect x="3" y="16" width="38" height="17" rx="2" fill="#181a1f"/>
+                  <rect x="19" y="16" width="6" height="8" fill="#ea580c"/>
+                  <!-- Górna skrzynia RODO -->
+                  <rect x="3" y="-2" width="38" height="17" rx="2" fill="#ea580c"/>
+                  <line x1="8" y1="3" x2="36" y2="3" stroke="#ffffff" stroke-width="1.5"/>
+                </g>
+
+                <!-- Rama podwozia i zabudowa kontenerowa 24 m³ -->
+                <rect x="115" y="246" width="376" height="11" fill="#181a1f"/>
+                <rect x="248" y="257" width="118" height="15" rx="3" fill="#334155"/>
+                <rect x="115" y="62" width="370" height="184" rx="5" fill="#ffffff" stroke="#181a1f" stroke-width="2.5"/>
+
+                <!-- Wewnętrzna siatka konstrukcyjna i prowadnice pasów -->
+                <g stroke="#e2e8f0" stroke-width="1">
+                  <line x1="189" y1="62" x2="189" y2="246"/>
+                  <line x1="263" y1="62" x2="263" y2="246"/>
+                  <line x1="337" y1="62" x2="337" y2="246"/>
+                  <line x1="411" y1="62" x2="411" y2="246"/>
+                  <line x1="115" y1="123" x2="485" y2="123"/>
+                  <line x1="115" y1="184" x2="485" y2="184"/>
+                </g>
+
+                <!-- 15 Slotów Ładunkowych (Rząd dolny: 1-5, środkowy: 6-10, górny: 11-15) -->
+                <!-- Rząd dolny (y=191, h=48) -->
+                <g :style="{ opacity: kPresets[kPreset].slots >= 1 ? 1 : 0.12 }" style="transition:opacity 180ms ease;">
+                  <rect x="416" y="191" width="63" height="48" rx="3" fill="#181a1f"/><line x1="423" y1="199" x2="472" y2="199" stroke="#ea580c" stroke-width="2"/>
+                </g>
+                <g :style="{ opacity: kPresets[kPreset].slots >= 2 ? 1 : 0.12 }" style="transition:opacity 180ms ease;">
+                  <rect x="342" y="191" width="63" height="48" rx="3" fill="#181a1f"/><line x1="349" y1="199" x2="398" y2="199" stroke="#94a3b8" stroke-width="1.5"/>
+                </g>
+                <g :style="{ opacity: kPresets[kPreset].slots >= 3 ? 1 : 0.12 }" style="transition:opacity 180ms ease;">
+                  <rect x="268" y="191" width="63" height="48" rx="3" fill="#ea580c"/><line x1="275" y1="199" x2="324" y2="199" stroke="#ffffff" stroke-width="1.5"/>
+                </g>
+                <g :style="{ opacity: kPresets[kPreset].slots >= 4 ? 1 : 0.12 }" style="transition:opacity 180ms ease;">
+                  <rect x="194" y="191" width="63" height="48" rx="3" fill="#181a1f"/><line x1="201" y1="199" x2="250" y2="199" stroke="#94a3b8" stroke-width="1.5"/>
+                </g>
+                <g :style="{ opacity: kPresets[kPreset].slots >= 5 ? 1 : 0.12 }" style="transition:opacity 180ms ease;">
+                  <rect x="121" y="191" width="63" height="48" rx="3" fill="#181a1f"/><line x1="128" y1="199" x2="177" y2="199" stroke="#ea580c" stroke-width="2"/>
+                </g>
+
+                <!-- Rząd środkowy (y=130, h=48) -->
+                <g :style="{ opacity: kPresets[kPreset].slots >= 6 ? 1 : 0.12 }" style="transition:opacity 180ms ease;">
+                  <rect x="416" y="130" width="63" height="48" rx="3" fill="#ea580c"/><line x1="423" y1="138" x2="472" y2="138" stroke="#ffffff" stroke-width="1.5"/>
+                </g>
+                <g :style="{ opacity: kPresets[kPreset].slots >= 7 ? 1 : 0.12 }" style="transition:opacity 180ms ease;">
+                  <rect x="342" y="130" width="63" height="48" rx="3" fill="#181a1f"/><line x1="349" y1="138" x2="398" y2="138" stroke="#94a3b8" stroke-width="1.5"/>
+                </g>
+                <g :style="{ opacity: kPresets[kPreset].slots >= 8 ? 1 : 0.12 }" style="transition:opacity 180ms ease;">
+                  <rect x="268" y="130" width="63" height="48" rx="3" fill="#181a1f"/><line x1="275" y1="138" x2="324" y2="138" stroke="#ea580c" stroke-width="2"/>
+                </g>
+                <g :style="{ opacity: kPresets[kPreset].slots >= 9 ? 1 : 0.12 }" style="transition:opacity 180ms ease;">
+                  <rect x="194" y="130" width="63" height="48" rx="3" fill="#ea580c"/><line x1="201" y1="138" x2="250" y2="138" stroke="#ffffff" stroke-width="1.5"/>
+                </g>
+                <g :style="{ opacity: kPresets[kPreset].slots >= 10 ? 1 : 0.12 }" style="transition:opacity 180ms ease;">
+                  <rect x="121" y="130" width="63" height="48" rx="3" :fill="kPresets[kPreset].overload ? '#dc2626' : '#181a1f'"/><line x1="128" y1="138" x2="177" y2="138" stroke="#ffffff" stroke-width="1.5"/>
+                </g>
+
+                <!-- Rząd górny (y=69, h=48) -->
+                <g :style="{ opacity: kPresets[kPreset].slots >= 11 ? 1 : 0.12 }" style="transition:opacity 180ms ease;">
+                  <rect x="416" y="69" width="63" height="48" rx="3" :fill="kPresets[kPreset].overload ? '#dc2626' : '#181a1f'"/><line x1="423" y1="77" x2="472" y2="77" stroke="#ea580c" stroke-width="2"/>
+                </g>
+                <g :style="{ opacity: kPresets[kPreset].slots >= 12 ? 1 : 0.12 }" style="transition:opacity 180ms ease;">
+                  <rect x="342" y="69" width="63" height="48" rx="3" fill="#ea580c"/><line x1="349" y1="77" x2="398" y2="77" stroke="#ffffff" stroke-width="1.5"/>
+                </g>
+                <g :style="{ opacity: kPresets[kPreset].slots >= 13 ? 1 : 0.12 }" style="transition:opacity 180ms ease;">
+                  <rect x="268" y="69" width="63" height="48" rx="3" fill="#181a1f"/><line x1="275" y1="77" x2="324" y2="77" stroke="#94a3b8" stroke-width="1.5"/>
+                </g>
+                <g :style="{ opacity: kPresets[kPreset].slots >= 14 ? 1 : 0.12 }" style="transition:opacity 180ms ease;">
+                  <rect x="194" y="69" width="63" height="48" rx="3" fill="#181a1f"/><line x1="201" y1="77" x2="250" y2="77" stroke="#ea580c" stroke-width="2"/>
+                </g>
+                <g :style="{ opacity: kPresets[kPreset].slots >= 15 ? 1 : 0.12 }" style="transition:opacity 180ms ease;">
+                  <rect x="121" y="69" width="63" height="48" rx="3" fill="#dc2626"/>
+                </g>
+
+                <!-- Nowoczesna Kabina Ciężarówki + Owiewka Dachowa -->
+                <path d="M490 62 C528 62 558 80 574 110 H490 Z" fill="#181a1f"/>
+                <path d="M490 110 H582 L620 166 L648 182 V257 H490 Z" fill="#181a1f"/>
+                <!-- Szyba panoramiczna i fotel kierowcy -->
+                <path d="M510 122 H572 L602 166 H510 Z" fill="#334155" stroke="#475569" stroke-width="1.5"/>
+                <path d="M524 166 V142 C524 137 531 137 533 142 L537 166 Z" fill="#1e293b"/>
+                <!-- Lusterko, pas pomarańczowy, reflektor LED -->
+                <rect x="580" y="132" width="7" height="22" rx="2" fill="#ea580c"/>
+                <rect x="490" y="198" width="158" height="9" fill="#ea580c"/>
+                <path d="M636 215 H648 V228 H632 Z" fill="#fbbf24"/>
+                <rect x="630" y="238" width="18" height="19" rx="3" fill="#0f1115"/>
+
+                <!-- Nadkola i szczegółowe koła -->
+                <circle cx="188" cy="264" r="24" fill="#eef1ed"/>
+                <circle cx="188" cy="264" r="21" fill="#181a1f"/>
+                <circle cx="188" cy="264" r="10" fill="#94a3b8"/>
+                <circle cx="188" cy="264" r="4" fill="#181a1f"/>
+
+                <circle cx="578" cy="264" r="24" fill="#eef1ed"/>
+                <circle cx="578" cy="264" r="21" fill="#181a1f"/>
+                <circle cx="578" cy="264" r="10" fill="#94a3b8"/>
+                <circle cx="578" cy="264" r="4" fill="#181a1f"/>
+              </svg>
             </div>
 
-            <!-- Karta przekroju kontenera 24 m³ -->
-            <div style="background:#ffffff; border:1px solid rgba(24,26,31,0.2); border-radius:10px; overflow:hidden; box-shadow:0 12px 30px rgba(24,26,31,0.08);" class="tabular">
-              <div style="padding:9px 14px; background:#181a1f; color:#f4f5f7; display:flex; justify-content:space-between; font:600 9.5px var(--mono);">
-                <span>CONTAINER · 24 m³ / 3 500 KG</span>
-                <span style="color:#fb923c;">1 KURS FLOTY</span>
+            <!-- Prawy panel telemetrii m³ i kg -->
+            <div style="background:#ffffff; border-left:3px solid #ea580c; padding:20px 22px; display:flex; flex-direction:column; justify-content:space-between; gap:10px;" class="tabular">
+              <div>
+                <span style="font:600 10px var(--mono); color:#ea580c; letter-spacing:0.06em;" x-text="lang === 'pl' ? '↳ SYMULATOR ŁADUNKU 24 m³' : '↳ 24 m³ CARGO ESTIMATOR'"></span>
+                <h3 style="margin:4px 0 10px; font:700 22px/1.05 var(--display); color:#181a1f;" x-text="lang === 'pl' ? 'Sprawdź ładowność' : 'Test cargo load'"></h3>
+
+                <!-- 3 klikalne presety -->
+                <div style="display:flex; flex-wrap:wrap; gap:5px;">
+                  <template x-for="(pr, pIdx) in kPresets" :key="pIdx">
+                    <button type="button" class="hero-chip"
+                      :style="kPreset === pIdx ? 'background:#ea580c; border-color:#ea580c; color:#ffffff;' : ''"
+                      @click="kPreset = pIdx"
+                      x-text="pr.label[lang]"></button>
+                  </template>
+                </div>
               </div>
-              <div style="padding:14px 16px 8px; background:#f8f9fb; border-bottom:1px solid rgba(24,26,31,0.1);">
-                <svg viewBox="0 0 420 145" style="width:100%; height:auto; display:block;">
-                  <line x1="10" y1="128" x2="410" y2="128" stroke="#cbd5e1" stroke-width="2"/>
-                  <path d="M300 118 H385 V82 L362 50 H300 Z" fill="#181a1f"/>
-                  <path d="M314 58 H355 L372 80 H314 Z" fill="#334155"/>
-                  <rect x="300" y="90" width="85" height="6" fill="#ea580c"/>
-                  <path d="M14 126 L42 112 H54 V118 L20 128 Z" fill="#ea580c"/>
-                  <rect x="54" y="20" width="242" height="94" rx="3" fill="#ffffff" stroke="#181a1f" stroke-width="2"/>
-                  <!-- Moduły ładunku -->
-                  <rect x="248" y="84" width="42" height="25" rx="2" fill="#181a1f"/>
-                  <rect x="200" y="84" width="42" height="25" rx="2" fill="#ea580c"/>
-                  <rect x="152" y="84" width="42" height="25" rx="2" fill="#181a1f"/>
-                  <rect x="104" y="84" width="42" height="25" rx="2" fill="#181a1f"/>
-                  <rect x="248" y="53" width="42" height="25" rx="2" fill="#ea580c"/>
-                  <rect x="200" y="53" width="42" height="25" rx="2" fill="#181a1f"/>
-                  <rect x="152" y="53" width="42" height="25" rx="2" fill="#ea580c"/>
-                  <circle cx="104" cy="121" r="13" fill="#181a1f" stroke="#f4f5f7" stroke-width="2.5"/>
-                  <circle cx="346" cy="121" r="13" fill="#181a1f" stroke="#f4f5f7" stroke-width="2.5"/>
-                </svg>
+
+              <!-- Paski m³ i kg -->
+              <div style="padding:11px 12px; background:#f4f5f7; border:1px solid rgba(24,26,31,0.12); border-radius:6px; display:grid; gap:9px; font:600 11px var(--mono);">
+                <div>
+                  <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+                    <span style="color:#5a606e;">KUBATURA (m³):</span>
+                    <strong style="color:#ea580c;" x-text="kPresets[kPreset].m3 + ' (' + kPresets[kPreset].volPct + '%)'"></strong>
+                  </div>
+                  <div style="height:7px; border-radius:99px; background:#e2e8f0; overflow:hidden;">
+                    <div :style="`width:${kPresets[kPreset].volPct}%; height:100%; background:#ea580c; transition:width 220ms ease;`"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+                    <span style="color:#5a606e;">MASA (3 500 KG DMC):</span>
+                    <strong :style="kPresets[kPreset].overload ? 'color:#dc2626;' : 'color:#059669;'" x-text="kPresets[kPreset].kg + ' (' + kPresets[kPreset].kgPct + '%)'"></strong>
+                  </div>
+                  <div style="height:7px; border-radius:99px; background:#e2e8f0; overflow:hidden;">
+                    <div :style="`width:${kPresets[kPreset].kgPct}%; height:100%; background:${kPresets[kPreset].overload ? '#dc2626' : '#059669'}; transition:width 220ms ease;`"></div>
+                  </div>
+                </div>
+
+                <div style="padding-top:6px; border-top:1px dashed #cbd5e1; display:flex; justify-content:space-between; font-size:10.5px;">
+                  <span>FLOTA: <b x-text="kPresets[kPreset].trips + '× 24 m³'"></b></span>
+                  <span>EKIPA: <b x-text="kPresets[kPreset].crew"></b></span>
+                </div>
               </div>
-              <div style="padding:12px 16px; display:grid; gap:8px; font:600 10.5px var(--mono);">
-                <div style="display:flex; justify-content:space-between;">
-                  <span>KUBATURA (m³):</span><strong style="color:#ea580c;">19.8 m³ (83%)</strong>
-                </div>
-                <div style="height:6px; border-radius:99px; background:#eaecf0; overflow:hidden;">
-                  <div style="width:83%; height:100%; background:#ea580c;"></div>
-                </div>
-                <div style="display:flex; justify-content:space-between;">
-                  <span>MASA (kg):</span><strong style="color:#059669;">1 980 kg (57% DMC)</strong>
-                </div>
+
+              <div style="display:flex; justify-content:space-between; align-items:center; font:600 10px var(--mono); color:#5a606e;">
+                <span>PT 17:00 → PN 08:00</span>
+                <a href="kubatura.html" style="color:#ea580c; text-decoration:underline;" x-text="lang === 'pl' ? 'Pełny kalkulator ↗' : 'Full estimator ↗'"></a>
               </div>
             </div>
           </div>
@@ -1643,7 +1803,7 @@
             },
             tag: { pl: '04 · Logistyka B2B / Kalkulator Floty', en: '04 · B2B Logistics / Fleet Estimator' },
             pageType: { pl: 'Platforma ofertowa B2B + estymator ładunku SVG', en: 'B2B service platform + SVG cargo estimator' },
-            keyFeatures: { pl: 'Przekrój kontenera 24 m³ · pomiar m³ i kg · protokół Pt–Pn', en: '24 m³ truck cutaway · m³ & kg tracking · Fri–Mon SLA' },
+            keyFeatures: { pl: 'Przekrój kontenera 24 m³ · pomiar m³ i kg', en: '24 m³ truck cutaway · m³ & kg tracking' },
             duration: { pl: '2 tygodnie', en: '2 weeks' },
             technology: 'Alpine.js · GSAP · Interactive SVG · Schema.org',
             year: '2026',
