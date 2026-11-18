@@ -1,0 +1,1800 @@
+<!DOCTYPE html>
+<html lang="pl" x-data="caseStudyApp()" :data-theme="direction" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title x-text="currentCase.title[lang] + ' — Case Study | web4biz.pl'">Case Study — web4biz.pl</title>
+  <meta name="description" content="Szczegółowe Case Study projektów web4biz.pl — wyzwanie biznesowe, architektura rozwiązania, interaktywne narzędzia i rezultaty wdrożenia."/>
+  <meta name="robots" content="index, follow"/>
+
+  <!-- Google Fonts: Space Grotesk + DM Sans + JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Space+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet"/>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════════════
+       1. DESIGN TOKENS — 3 MOTYWY (STAŁA GEOMETRIA WE WSZYSTKICH MOTYWACH)
+       ═══════════════════════════════════════════════════════════════════ */
+    :root,
+    [data-theme="editorial"] {
+      --bg: #f4f2e9;
+      --bg-alt: #e9e7dc;
+      --surface: #faf9f4;
+      --ink: #172019;
+      --muted: #5e6459;
+      --line: #d8d7cd;
+      --accent: #d8fa52;
+      --accent-ink: #172019;
+      --signal: #477331;
+      --hero-bg: #d8fa52;
+      --hero-ink: #172019;
+      --hero-muted: #34422a;
+      --card-radius: 8px;
+      --btn-radius: 6px;
+      --ease-out-quart: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-out-snappy: cubic-bezier(0.215, 0.61, 0.355, 1);
+      --display: 'Space Grotesk', sans-serif;
+      --sans: 'DM Sans', sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+    }
+
+    /* Widok 03 (Półksiężyc): Forest & Brass Executive Hybrid */
+    [data-theme="forest"] {
+      --bg: #141a16;
+      --bg-alt: #1a221d;
+      --surface: #1e2721;
+      --ink: #f0f2e9;
+      --muted: #aeb8ab;
+      --line: rgba(240, 242, 233, 0.13);
+      --accent: #d8fa52;
+      --accent-ink: #141a16;
+      --signal: #c5a059;
+      --hero-bg: #18211b;
+      --hero-ink: #f0f2e9;
+      --hero-muted: #c2cbbd;
+    }
+
+    /* Widok 02 (Księżyc): 21st.dev Obsidian & Cyan */
+    [data-theme="bento"] {
+      --bg: #07090b;
+      --bg-alt: #0c0f14;
+      --surface: #11151c;
+      --ink: #f4f6f8;
+      --muted: #94a3b8;
+      --line: rgba(255, 255, 255, 0.09);
+      --accent: #06b6d4;
+      --accent-ink: #061014;
+      --signal: #22d3ee;
+      --hero-bg: #07090b;
+      --hero-ink: #f4f6f8;
+      --hero-muted: #94a3b8;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    [x-cloak] { display: none !important; }
+    html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-synthesis: none;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background-color 240ms var(--ease-out-quart), color 240ms var(--ease-out-quart);
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; color: inherit; }
+    ::selection { background: var(--accent); color: var(--accent-ink); }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+    .page-wrap { width: min(1340px, calc(100% - 64px)); margin-inline: auto; }
+    .section-pad { padding-block: 96px; }
+    .tabular { font-variant-numeric: tabular-nums; }
+
+    /* Reading Progress Bar */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--signal);
+      z-index: 100;
+      transform-origin: left;
+      transition: transform 80ms linear;
+    }
+    [data-theme="bento"] .progress-bar,
+    [data-theme="forest"] .progress-bar {
+      background: var(--accent);
+    }
+
+    .tactile {
+      transition: transform 110ms var(--ease-out-snappy),
+                  background-color 160ms var(--ease-out-snappy),
+                  border-color 160ms var(--ease-out-snappy),
+                  color 160ms var(--ease-out-snappy);
+    }
+    .tactile:active { transform: scale(0.96); }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       2. NAWIGACJA + CASE STUDY MASTHEAD
+       ═══════════════════════════════════════════════════════════════════ */
+    .case-masthead {
+      position: relative;
+      background: var(--hero-bg);
+      color: var(--hero-ink);
+      padding: 20px 0 0;
+      isolation: isolate;
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+    }
+    .case-masthead::before {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      content: '';
+      opacity: 0.14;
+      background-image:
+        linear-gradient(currentColor 1px, transparent 1px),
+        linear-gradient(90deg, currentColor 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: linear-gradient(115deg, rgba(0,0,0,0.45) 0%, transparent 68%);
+      -webkit-mask-image: linear-gradient(115deg, rgba(0,0,0,0.45) 0%, transparent 68%);
+    }
+
+    .nav-wrap {
+      height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid color-mix(in srgb, var(--hero-ink) 16%, transparent);
+      margin-bottom: 42px;
+    }
+    .wordmark {
+      font: 700 24px/1 var(--display);
+      letter-spacing: -0.07em;
+      display: inline-flex;
+      align-items: baseline;
+      gap: 2px;
+    }
+    .wordmark-accent { color: var(--signal); }
+    [data-theme="bento"] .wordmark-accent,
+    [data-theme="forest"] .wordmark-accent { color: var(--accent); }
+    .wordmark-sub {
+      font: 500 10px var(--mono);
+      letter-spacing: 0.08em;
+      opacity: 0.65;
+      margin-left: 10px;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .nav-links a { position: relative; padding-bottom: 4px; }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 1.5px;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 200ms var(--ease-out-quart);
+    }
+    .nav-links a:hover::after,
+    .nav-links a.is-current::after { transform: scaleX(1); transform-origin: left; }
+
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .lang-btn {
+      height: 38px;
+      min-width: 44px;
+      padding: 0 13px;
+      border-radius: var(--btn-radius);
+      border: 1px solid color-mix(in srgb, var(--hero-ink) 22%, transparent);
+      background: transparent;
+      font: 600 11px var(--mono);
+      cursor: pointer;
+    }
+    .lang-btn:hover { background: var(--hero-ink); color: var(--hero-bg); }
+
+    .theme-dock {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      padding: 3px;
+      border-radius: var(--btn-radius);
+      border: 1px solid color-mix(in srgb, var(--hero-ink) 22%, transparent);
+      background: color-mix(in srgb, var(--hero-ink) 6%, transparent);
+    }
+    .theme-icon-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: calc(var(--btn-radius) - 2px);
+      border: 0;
+      background: transparent;
+      color: var(--hero-ink);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      opacity: 0.62;
+    }
+    .theme-icon-btn:hover { opacity: 1; }
+    .theme-icon-btn.is-active {
+      opacity: 1;
+      background: var(--hero-ink);
+      color: var(--hero-bg);
+    }
+    [data-theme="bento"] .theme-icon-btn.is-active,
+    [data-theme="forest"] .theme-icon-btn.is-active {
+      background: var(--accent);
+      color: var(--accent-ink);
+    }
+    .theme-icon-btn svg { width: 16px; height: 16px; }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 18px;
+      border-radius: var(--btn-radius);
+      background: var(--hero-ink);
+      color: var(--hero-bg);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    [data-theme="bento"] .nav-cta,
+    [data-theme="forest"] .nav-cta {
+      background: var(--accent);
+      color: var(--accent-ink);
+    }
+
+    /* Back Link & Quick Project Switcher */
+    .masthead-top-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .project-switcher {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .switch-pill {
+      padding: 6px 12px;
+      border-radius: var(--btn-radius);
+      border: 1px solid color-mix(in srgb, var(--hero-ink) 22%, transparent);
+      background: transparent;
+      color: var(--hero-ink);
+      font: 500 10.5px var(--mono);
+      cursor: pointer;
+    }
+    .switch-pill.is-active,
+    .switch-pill:hover {
+      background: var(--hero-ink);
+      color: var(--hero-bg);
+      border-color: var(--hero-ink);
+    }
+    [data-theme="bento"] .switch-pill.is-active,
+    [data-theme="forest"] .switch-pill.is-active {
+      background: var(--accent);
+      color: var(--accent-ink);
+      border-color: var(--accent);
+    }
+
+    .case-kicker {
+      margin: 0;
+      font: 500 11px/1.4 var(--mono);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--signal);
+    }
+    [data-theme="bento"] .case-kicker,
+    [data-theme="forest"] .case-kicker { color: var(--accent); }
+
+    .case-title {
+      max-width: 1000px;
+      margin: 18px 0 18px;
+      font: 600 clamp(2.8rem, 6.4vw, 5.8rem)/0.92 var(--display);
+      letter-spacing: -0.08em;
+    }
+    .case-subtitle {
+      max-width: 680px;
+      margin: 0;
+      color: var(--hero-muted);
+      font-size: 18px;
+      line-height: 1.65;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       3. CASE HERO ARTWORK STAGE + INTERAKTYWNA MAPA EUROPY
+       ═══════════════════════════════════════════════════════════════════ */
+    .case-hero-art {
+      position: relative;
+      display: grid;
+      height: clamp(360px, 40vw, 470px);
+      place-items: center;
+      margin-top: 40px;
+      padding: clamp(14px, 3vw, 32px);
+      overflow: hidden;
+      border-radius: var(--card-radius);
+      background: radial-gradient(ellipse at 50% 48%, #364338, #18211b 72%);
+      isolation: isolate;
+    }
+    [data-theme="bento"] .case-hero-art {
+      background: radial-gradient(ellipse at 50% 48%, #16222f, #090d12 75%);
+      border: 1px solid var(--line);
+    }
+    .case-art-frame {
+      width: min(100%, 1060px);
+      height: 100%;
+      border-radius: calc(var(--card-radius) / 1.2);
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.38);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      position: relative;
+    }
+
+    /* Interaktywna Mapa Europy SVG (AD REM T2) */
+    .route-map-graphic { display: block; width: 100%; height: 100%; user-select: none; }
+    .route-map-land { fill: #dfe6dc; }
+    .route-map-land-secondary { fill: #d4ddd1; }
+    .route-map-borders {
+      fill: none;
+      stroke: #bcc8ba;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .route-map-poland {
+      fill: rgba(217, 4, 41, 0.14);
+      stroke: #d90429;
+      stroke-width: 2.5;
+      stroke-linejoin: round;
+    }
+    .route-corridor-idle {
+      stroke: rgba(23, 32, 25, 0.16);
+      stroke-width: 1.5;
+      stroke-dasharray: 4 4;
+    }
+    @keyframes routeFlow {
+      to { stroke-dashoffset: -28; }
+    }
+    .route-corridor-active {
+      stroke: #d90429;
+      stroke-width: 3.5;
+      stroke-dasharray: 8 6;
+      stroke-linecap: round;
+      animation: routeFlow 0.9s linear infinite;
+    }
+    @keyframes radarPulse {
+      0% { transform: scale(0.85); opacity: 0.85; }
+      100% { transform: scale(2.2); opacity: 0; }
+    }
+    .map-pulse-ring {
+      fill: none;
+      stroke: #d90429;
+      stroke-width: 2.5;
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: radarPulse 1.8s ease-out infinite;
+      pointer-events: none;
+    }
+    .map-hub-group { cursor: pointer; }
+    .map-hub-dot {
+      fill: #ffffff;
+      stroke: #172019;
+      stroke-width: 3;
+      transition: transform 150ms ease, fill 150ms ease, stroke 150ms ease;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+    .map-hub-group:hover .map-hub-dot,
+    .map-hub-group.is-selected .map-hub-dot {
+      fill: #d90429;
+      stroke: #ffffff;
+      transform: scale(1.3);
+    }
+    .map-hub-name {
+      fill: #2c352e;
+      stroke: #eef1ed;
+      stroke-width: 3px;
+      paint-order: stroke;
+      font: 600 11.5px var(--mono);
+      transition: fill 150ms ease;
+    }
+    .map-hub-group:hover .map-hub-name,
+    .map-hub-group.is-selected .map-hub-name {
+      fill: #d90429;
+      font-weight: 700;
+    }
+    .route-map-start { fill: #d90429; stroke: #fff; stroke-width: 4; }
+    .route-map-label {
+      fill: #172019;
+      stroke: #ffffff;
+      stroke-width: 4px;
+      paint-order: stroke;
+      font: 700 13px var(--sans);
+      letter-spacing: 0.02em;
+    }
+
+    .art-route-split {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      height: 100%;
+      background: #eef1ed;
+      color: #1a1a1a;
+    }
+    .art-route-map-box {
+      position: relative;
+      padding: 16px 20px;
+      overflow: hidden;
+      background: radial-gradient(circle at 55% 45%, #f5f7f4 0%, #e7ece5 100%);
+    }
+    .art-micro-header {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font: 600 10.5px var(--mono);
+      letter-spacing: 0.05em;
+      color: #4b5249;
+    }
+    .art-route-panel {
+      background: #ffffff;
+      border-left: 3px solid #d90429;
+      padding: 20px 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    /* Pigułki miast i przełącznik floty w kalkulatorze AD REM T2 */
+    .hero-chip {
+      appearance: none;
+      -webkit-appearance: none;
+      padding: 5px 9px;
+      border-radius: 4px;
+      border: 1px solid #d5d7d0;
+      background: #f4f5f2;
+      color: #374151;
+      font: 600 10px var(--mono);
+      cursor: pointer;
+      transition: all 130ms ease;
+    }
+    .hero-chip:hover { border-color: #172019; color: #172019; }
+    .hero-chip.is-active {
+      background: #d90429;
+      border-color: #d90429;
+      color: #ffffff;
+    }
+
+    .fleet-switch {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      padding: 3px;
+      background: #f1f2ee;
+      border: 1px solid #dcded8;
+      border-radius: 5px;
+    }
+    .fleet-btn {
+      appearance: none;
+      -webkit-appearance: none;
+      border: 0;
+      padding: 5px 8px;
+      border-radius: 3px;
+      background: transparent;
+      color: #555b53;
+      font: 600 9.5px var(--mono);
+      cursor: pointer;
+      transition: all 130ms ease;
+    }
+    .fleet-btn.is-active {
+      background: #172019;
+      color: #ffffff;
+    }
+
+    .gemba-chip {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 100%;
+      padding: 8px 11px;
+      border-radius: 3px;
+      border: 1px solid #dfdcd2;
+      background: #fcfbf8;
+      color: #475053;
+      font: 500 11.5px/1.35 var(--sans);
+      text-align: left;
+      cursor: pointer;
+      transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease, box-shadow 140ms ease;
+    }
+    .gemba-chip:hover { border-color: #b8432e; }
+    .gemba-chip.is-active {
+      border-color: #b8432e;
+      background: #fdf3f1;
+      color: #161e21;
+      box-shadow: inset 3px 0 0 #b8432e;
+    }
+
+    .ck-mini-preview {
+      height: 100%;
+      padding: 56px 36px 24px;
+      background: linear-gradient(135deg, #fde8d8 0%, #ffe0e6 100%);
+      color: #1a1a1a;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .ck-mini-nav {
+      position: absolute;
+      inset: 0 0 auto;
+      height: 42px;
+      padding: 0 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(26,26,26,0.09);
+      font: 500 10.5px var(--mono);
+      letter-spacing: 0.05em;
+    }
+
+    .pm-mini-preview {
+      height: 100%;
+      position: relative;
+      background: #121312;
+      color: #f4f4f5;
+      padding: 32px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      isolation: isolate;
+      overflow: hidden;
+    }
+    .pm-mini-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 58%;
+      z-index: -2;
+      filter: saturate(0.84) contrast(1.05);
+    }
+    .pm-mini-shade {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        linear-gradient(90deg, rgba(11, 11, 12, 0.86) 0%, rgba(11, 11, 12, 0.45) 65%, rgba(11, 11, 12, 0.2) 100%),
+        linear-gradient(0deg, rgba(11, 11, 12, 0.72) 0%, transparent 55%);
+    }
+
+    .art-react-stage {
+      height: 100%;
+      background: #d8fa52;
+      color: #172019;
+      padding: 32px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* 4-Column Meta Grid */
+    .case-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 24px;
+      padding: 28px 0 34px;
+    }
+    .case-meta-grid > div {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .case-meta-grid span {
+      color: var(--signal);
+      font: 500 10px var(--mono);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    [data-theme="bento"] .case-meta-grid span,
+    [data-theme="forest"] .case-meta-grid span { color: var(--accent); }
+    .case-meta-grid strong {
+      max-width: 260px;
+      font-size: 13.5px;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       4. STATS BAR & 2-COLUMN EDITORIAL CONTENT
+       ═══════════════════════════════════════════════════════════════════ */
+    .case-stats-section {
+      background: var(--bg-alt);
+      border-bottom: 1px solid var(--line);
+    }
+    .case-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .case-stat {
+      min-height: 132px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 8px;
+      padding: 20px 24px;
+      border-left: 1px solid var(--line);
+    }
+    .case-stat:last-child { border-right: 1px solid var(--line); }
+    .case-stat strong {
+      font: 600 clamp(1.5rem, 2.8vw, 2.4rem)/1 var(--display);
+      letter-spacing: -0.06em;
+    }
+    .case-stat span {
+      max-width: 210px;
+      color: var(--muted);
+      font-size: 11.5px;
+      line-height: 1.5;
+    }
+
+    .case-content-layout {
+      display: grid;
+      grid-template-columns: 0.65fr 1.35fr;
+      gap: 8vw;
+      align-items: start;
+    }
+    .case-content-aside {
+      position: sticky;
+      top: 36px;
+    }
+    .case-content-aside ol {
+      display: grid;
+      gap: 14px;
+      margin: 22px 0 28px;
+      padding: 0;
+      list-style: none;
+    }
+    .case-content-aside li a {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.45;
+      transition: color 150ms ease;
+    }
+    .case-content-aside li a:hover { color: var(--ink); }
+    .case-content-aside li span {
+      color: var(--signal);
+      font: 500 10.5px var(--mono);
+    }
+    [data-theme="bento"] .case-content-aside li span,
+    [data-theme="forest"] .case-content-aside li span { color: var(--accent); }
+    .case-aside-note {
+      max-width: 220px;
+      color: var(--muted);
+      font: 500 9.5px/1.7 var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .case-prose > section {
+      position: relative;
+      padding: 0 0 44px 56px;
+      margin-bottom: 44px;
+      border-bottom: 1px solid var(--line);
+    }
+    .case-section-number {
+      position: absolute;
+      top: 6px;
+      left: 0;
+      color: var(--signal);
+      font: 500 11px var(--mono);
+    }
+    [data-theme="bento"] .case-section-number,
+    [data-theme="forest"] .case-section-number { color: var(--accent); }
+    .case-prose h2 {
+      max-width: 700px;
+      margin: 0 0 16px;
+      font: 600 clamp(1.7rem, 2.8vw, 2.5rem)/1.06 var(--display);
+      letter-spacing: -0.055em;
+    }
+    .case-prose p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14.5px;
+      line-height: 1.82;
+    }
+    .case-prose ul {
+      display: grid;
+      gap: 11px;
+      margin: 20px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .case-prose li {
+      position: relative;
+      padding-left: 22px;
+      color: var(--ink);
+      font-size: 13.5px;
+      line-height: 1.7;
+    }
+    .case-prose li::before {
+      position: absolute;
+      left: 0;
+      color: var(--signal);
+      content: '↗';
+      font-family: var(--mono);
+    }
+    [data-theme="bento"] .case-prose li::before,
+    [data-theme="forest"] .case-prose li::before { color: var(--accent); }
+
+    .btn-live {
+      min-height: 52px;
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      padding: 0 26px;
+      border-radius: var(--btn-radius);
+      background: var(--ink);
+      color: var(--bg);
+      font-size: 13px;
+      font-weight: 700;
+    }
+    [data-theme="bento"] .btn-live,
+    [data-theme="forest"] .btn-live {
+      background: var(--accent);
+      color: var(--accent-ink);
+    }
+
+    /* Next Project Full-Width Banner */
+    .case-next {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding: 64px max(32px, calc((100% - 1340px) / 2));
+      background: var(--surface);
+      color: var(--ink);
+      border-top: 1px solid var(--line);
+      cursor: pointer;
+      transition: background-color 200ms var(--ease-out-quart);
+    }
+    .case-next:hover { background: var(--bg-alt); }
+    .case-next > span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--signal);
+      font: 500 10.5px var(--mono);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    [data-theme="bento"] .case-next > span,
+    [data-theme="forest"] .case-next > span { color: var(--accent); }
+    .case-next > strong {
+      font: 500 clamp(2.1rem, 4.6vw, 4.4rem)/0.98 var(--display);
+      letter-spacing: -0.07em;
+    }
+
+    @media (max-width: 960px) {
+      .case-meta-grid, .case-stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .case-stat { border-bottom: 1px solid var(--line); }
+      .case-content-layout { grid-template-columns: 1fr; gap: 40px; }
+      .case-content-aside { position: static; }
+      .case-hero-art { height: auto; }
+      .art-route-split { grid-template-columns: 1fr; }
+      .art-route-map-box { height: 280px; }
+    }
+    @media (max-width: 720px) {
+      .page-wrap { width: calc(100% - 32px); }
+      .nav-links, .wordmark-sub { display: none; }
+      .case-prose > section { padding-left: 34px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Reading Progress Bar -->
+  <div class="progress-bar" :style="`transform: scaleX(${scrollProgress})`" aria-hidden="true"></div>
+
+  <!-- ═══ CASE STUDY MASTHEAD + HEADER ═══ -->
+  <header class="case-masthead" id="top">
+    <div class="page-wrap">
+
+      <!-- Main Navigation -->
+      <div class="nav-wrap">
+        <a href="web4biz.html" class="wordmark">
+          web<span class="wordmark-accent">4</span>biz<span>.pl</span>
+          <span class="wordmark-sub">by archie.</span>
+        </a>
+
+        <nav class="nav-links" :aria-label="lang === 'pl' ? 'Główna nawigacja' : 'Main navigation'">
+          <a href="web4biz.html#work" class="is-current" x-text="lang === 'pl' ? 'Projekty (5)' : 'Projects (5)'"></a>
+          <a href="web4biz.html#estimator" x-text="lang === 'pl' ? 'Pakiety i wycena' : 'Tiers & Pricing'"></a>
+          <a href="web4biz.html#about" x-text="lang === 'pl' ? 'Podejście' : 'Approach'"></a>
+          <a href="web4biz.html#contact" x-text="lang === 'pl' ? 'Kontakt' : 'Contact'"></a>
+        </nav>
+
+        <div class="nav-actions">
+          <!-- Language Switcher PL / EN -->
+          <button type="button" class="lang-btn tactile" @click="toggleLang()"
+            :aria-label="lang === 'pl' ? 'Switch to English' : 'Zmień język na polski'"
+            x-text="lang === 'pl' ? 'EN' : 'PL'"></button>
+
+          <!-- 3-Theme Switcher: Słoneczko (01) / Półksiężyc (03) / Księżyc (02) -->
+          <div class="theme-dock" role="group" :aria-label="lang === 'pl' ? 'Wybierz motyw kolorystyczny' : 'Choose color theme'">
+            <button type="button" class="theme-icon-btn tactile"
+              :class="direction === 'editorial' ? 'is-active' : ''"
+              @click="setDirection('editorial')"
+              :title="lang === 'pl' ? 'Widok 01: Jasny (Lime & Paper)' : 'View 01: Light (Lime & Paper)'"
+              aria-label="Widok 01">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                <circle cx="10" cy="10" r="3.6"/>
+                <path d="M10 2v2.2M10 15.8V18M18 10h-2.2M4.2 10H2M15.66 4.34l-1.56 1.56M5.9 14.1l-1.56 1.56M15.66 15.66l-1.56-1.56M5.9 5.9 4.34 4.34"/>
+              </svg>
+            </button>
+
+            <button type="button" class="theme-icon-btn tactile"
+              :class="direction === 'forest' ? 'is-active' : ''"
+              @click="setDirection('forest')"
+              :title="lang === 'pl' ? 'Widok 03: Półmrok (Forest & Brass)' : 'View 03: Dusk (Forest & Brass)'"
+              aria-label="Widok 03">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="10" cy="10" r="6.5"/>
+                <path d="M10 3.5a6.5 6.5 0 0 1 0 13V3.5Z" fill="currentColor"/>
+              </svg>
+            </button>
+
+            <button type="button" class="theme-icon-btn tactile"
+              :class="direction === 'bento' ? 'is-active' : ''"
+              @click="setDirection('bento')"
+              :title="lang === 'pl' ? 'Widok 02: Nocny (Obsidian & Cyan)' : 'View 02: Night (Obsidian & Cyan)'"
+              aria-label="Widok 02">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16.8 12.4A6.8 6.8 0 0 1 7.6 3.2a6.9 6.9 0 1 0 9.2 9.2Z"/>
+              </svg>
+            </button>
+          </div>
+
+          <a href="web4biz.html#estimator" class="nav-cta tactile">
+            <span x-text="lang === 'pl' ? 'Wyceń projekt' : 'Start a project'"></span>
+            <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Back Link + Quick 5-Project Switcher -->
+      <div class="masthead-top-bar">
+        <a href="web4biz.html#work" class="back-link tactile">
+          <span aria-hidden="true">←</span>
+          <span x-text="lang === 'pl' ? 'Wszystkie projekty (5)' : 'All projects (5)'"></span>
+        </a>
+
+        <div class="project-switcher" role="tablist" :aria-label="lang === 'pl' ? 'Przełącz Case Study' : 'Switch Case Study'">
+          <template x-for="(id, idx) in projectOrder" :key="id">
+            <button type="button" class="switch-pill tactile"
+              :class="projectId === id ? 'is-active' : ''"
+              @click="selectProject(id)"
+              x-text="'0' + (idx + 1) + ' · ' + cases[id].shortName[lang]"></button>
+          </template>
+        </div>
+      </div>
+
+      <!-- Kicker, H1 Title & Subtitle -->
+      <p class="case-kicker">
+        <span x-text="currentCase.tag[lang]"></span>
+        <span style="opacity:0.7;" x-text="' / ' + currentCase.year"></span>
+      </p>
+      <h1 class="case-title" x-text="currentCase.title[lang]"></h1>
+      <p class="case-subtitle" x-text="currentCase.subtitle[lang]"></p>
+
+      <!-- CASE HERO ARTWORK STAGE -->
+      <div class="case-hero-art" role="img" :aria-label="currentCase.title[lang]">
+        <div class="case-art-frame">
+
+          <!-- ═══ Artwork 1: AD REM T2 — INTERAKTYWNA MAPA 8 HUBÓW EUROPY + KALKULATOR FLOTY ═══ -->
+          <div x-show="projectId === 'adremt2'" class="art-route-split">
+            <div class="art-route-map-box">
+              <div class="art-micro-header">
+                <span style="display:inline-flex; align-items:center; gap:6px;">
+                  <i style="width:7px; height:7px; border-radius:50%; background:#d90429; display:inline-block;"></i>
+                  <span x-text="lang === 'pl' ? 'INTERAKTYWNA MAPA TRAS — KLIKNIJ LUB NAJEDŹ NA MIASTO' : 'INTERACTIVE ROUTE MAP — HOVER OR CLICK ANY CITY'"></span>
+                </span>
+                <span style="color:#d90429; font-weight:700;" x-text="lang === 'pl' ? '◉ WARSZAWA (BAZA)' : '◉ WARSAW (HUB)'"></span>
+              </div>
+
+              <svg class="route-map-graphic" viewBox="0 0 900 520" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:32px 0 0; height:calc(100% - 32px);">
+                <!-- Kontury Europy + Granice Państw -->
+                <path class="route-map-land" d="m101 76 41-25 34 8 24-23 39 12 28 31 34-8 30 18 27-9 30 21 41-12 30 22 43-5 24 23 43-2 23 29 40 14 13 32-19 25-35 7-5 30-28 15-12 34-34 12-15 32-39 6-20 27-37-4-20-26-31-5-18-24-36-2-19-24-31-4-13-24-32-14-10-25-32-13-15-28-35-9-9-28-31-6-12-24 20-26Z"/>
+                <path class="route-map-land route-map-land-secondary" d="m73 256 38 7 28 27-10 34-33 20-30-21-9-34Zm209 172 31-22 35 9 8 22-27 21-34-7Zm286 24 32-18 25 10-12 25-31 8Zm-75-436 34-13 30 15-13 25-32-4Z"/>
+                <g class="route-map-borders">
+                  <path d="m199 79 21 48 39 22 25-19 34 26-9 47 28 26-10 37-31 17 2 41-32 19-17 42"/>
+                  <path d="m263 79 20 52 38 25 37-12 26 29-8 37 34 22-9 34-36 17 1 43-28 22"/>
+                  <path d="m344 91 11 42 39 23 19 39-22 30 27 25-7 39 28 26-17 39"/>
+                  <path d="m419 103 20 39 34 16 15 38-18 33 25 27-6 39 31 18"/>
+                  <path d="m493 105 18 46 36 13 15 40-20 26 26 27-12 40 26 20"/>
+                  <path d="m568 126 23 37 36 11 15 31-16 33 27 31-16 37"/>
+                  <path d="m134 167 44 14 21 31-14 34 20 27-7 33m-83-16 49 9 27 30 42 9 20 29"/>
+                </g>
+                <path class="route-map-poland" d="m480 193 30-14 34 8 18 25 31 7 7 33-17 25 5 31-26 20-31-8-20 13-27-15-17-25-24-8-5-27 18-20Z"/>
+
+                <!-- Siatka wszystkich 8 korytarzy drogowych z Warszawy (534, 235) -->
+                <g>
+                  <line class="route-corridor-idle" x1="534" y1="235" x2="295" y2="235"/>
+                  <line class="route-corridor-idle" x1="534" y1="235" x2="418" y2="222"/>
+                  <line class="route-corridor-idle" x1="534" y1="235" x2="375" y2="365"/>
+                  <line class="route-corridor-idle" x1="534" y1="235" x2="245" y2="285"/>
+                  <line class="route-corridor-idle" x1="534" y1="235" x2="468" y2="318"/>
+                  <line class="route-corridor-idle" x1="534" y1="235" x2="438" y2="270"/>
+                  <line class="route-corridor-idle" x1="534" y1="235" x2="485" y2="120"/>
+                  <line class="route-corridor-idle" x1="534" y1="235" x2="155" y2="395"/>
+                </g>
+
+                <!-- Aktywna animowana linia trasy z Warszawy do wybranego miasta -->
+                <line class="route-corridor-active" x1="534" y1="235" :x2="activeCity.x" :y2="activeCity.y"/>
+
+                <!-- Pulsujący pierścień wokół wybranego miasta docelowego -->
+                <circle class="map-pulse-ring" :cx="activeCity.x" :cy="activeCity.y" r="11"/>
+
+                <!-- 8 Klikalnych Hubów Europejskich z podpisami bezpośrednio na mapie -->
+                <!-- 0: Rotterdam -->
+                <g class="map-hub-group" :class="selectedCityIdx === 0 ? 'is-selected' : ''" @click="selectedCityIdx = 0" @mouseenter="selectedCityIdx = 0">
+                  <circle class="map-hub-dot" cx="295" cy="235" r="7"/>
+                  <text class="map-hub-name" x="283" y="223" text-anchor="end">Rotterdam</text>
+                </g>
+                <!-- 1: Berlin -->
+                <g class="map-hub-group" :class="selectedCityIdx === 1 ? 'is-selected' : ''" @click="selectedCityIdx = 1" @mouseenter="selectedCityIdx = 1">
+                  <circle class="map-hub-dot" cx="418" cy="222" r="7"/>
+                  <text class="map-hub-name" x="418" y="207" text-anchor="middle">Berlin</text>
+                </g>
+                <!-- 2: Mediolan -->
+                <g class="map-hub-group" :class="selectedCityIdx === 2 ? 'is-selected' : ''" @click="selectedCityIdx = 2" @mouseenter="selectedCityIdx = 2">
+                  <circle class="map-hub-dot" cx="375" cy="365" r="7"/>
+                  <text class="map-hub-name" x="375" y="386" text-anchor="middle" x-text="lang === 'pl' ? 'Mediolan' : 'Milan'"></text>
+                </g>
+                <!-- 3: Paryż -->
+                <g class="map-hub-group" :class="selectedCityIdx === 3 ? 'is-selected' : ''" @click="selectedCityIdx = 3" @mouseenter="selectedCityIdx = 3">
+                  <circle class="map-hub-dot" cx="245" cy="285" r="7"/>
+                  <text class="map-hub-name" x="233" y="290" text-anchor="end" x-text="lang === 'pl' ? 'Paryż' : 'Paris'"></text>
+                </g>
+                <!-- 4: Wiedeń -->
+                <g class="map-hub-group" :class="selectedCityIdx === 4 ? 'is-selected' : ''" @click="selectedCityIdx = 4" @mouseenter="selectedCityIdx = 4">
+                  <circle class="map-hub-dot" cx="468" cy="318" r="7"/>
+                  <text class="map-hub-name" x="480" y="323" text-anchor="start" x-text="lang === 'pl' ? 'Wiedeń' : 'Vienna'"></text>
+                </g>
+                <!-- 5: Praga -->
+                <g class="map-hub-group" :class="selectedCityIdx === 5 ? 'is-selected' : ''" @click="selectedCityIdx = 5" @mouseenter="selectedCityIdx = 5">
+                  <circle class="map-hub-dot" cx="438" cy="270" r="7"/>
+                  <text class="map-hub-name" x="426" y="274" text-anchor="end" x-text="lang === 'pl' ? 'Praga' : 'Prague'"></text>
+                </g>
+                <!-- 6: Sztokholm -->
+                <g class="map-hub-group" :class="selectedCityIdx === 6 ? 'is-selected' : ''" @click="selectedCityIdx = 6" @mouseenter="selectedCityIdx = 6">
+                  <circle class="map-hub-dot" cx="485" cy="120" r="7"/>
+                  <text class="map-hub-name" x="485" y="105" text-anchor="middle" x-text="lang === 'pl' ? 'Sztokholm' : 'Stockholm'"></text>
+                </g>
+                <!-- 7: Madryt -->
+                <g class="map-hub-group" :class="selectedCityIdx === 7 ? 'is-selected' : ''" @click="selectedCityIdx = 7" @mouseenter="selectedCityIdx = 7">
+                  <circle class="map-hub-dot" cx="155" cy="395" r="7"/>
+                  <text class="map-hub-name" x="155" y="415" text-anchor="middle" x-text="lang === 'pl' ? 'Madryt' : 'Madrid'"></text>
+                </g>
+
+                <!-- Plakietka dystansu na środku aktywnej trasy -->
+                <g :transform="`translate(${(534 + activeCity.x) / 2}, ${(235 + activeCity.y) / 2 - 10})`" style="pointer-events:none;">
+                  <rect x="-42" y="-12" width="84" height="22" rx="4" fill="#172019" stroke="#ffffff" stroke-width="1.5"/>
+                  <text x="0" y="3" text-anchor="middle" fill="#d8fa52" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" x-text="activeCity.km + ' km'"></text>
+                </g>
+
+                <!-- Punkt Bazowy: Warszawa -->
+                <circle class="map-pulse-ring" cx="534" cy="235" r="10"/>
+                <circle class="route-map-start" cx="534" cy="235" r="10"/>
+                <text class="route-map-label" x="550" y="240" x-text="lang === 'pl' ? 'WARSZAWA' : 'WARSAW'"></text>
+              </svg>
+            </div>
+
+            <!-- Prawy Panel Kalkulatora Tras i Floty -->
+            <div class="art-route-panel">
+              <div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                  <span style="font:600 10px var(--mono); color:#d90429;" x-text="lang === 'pl' ? '↳ KALKULATOR TRASY I FLOTY' : '↳ ROUTE & FLEET CALCULATOR'"></span>
+                  <span style="font:600 9.5px var(--mono); color:#555b53;" x-text="activeCity.country"></span>
+                </div>
+                <h3 style="margin:0 0 8px; font:700 22px/1.05 var(--display); color:#172019;" x-text="lang === 'pl' ? 'Dokąd jedziemy?' : 'Where to next?'"></h3>
+
+                <!-- Przełącznik typu floty: Bus Express vs FTL 24t -->
+                <div class="fleet-switch" style="margin-bottom:10px;">
+                  <button type="button" class="fleet-btn" :class="fleetType === 'bus' ? 'is-active' : ''" @click="fleetType = 'bus'"
+                    x-text="lang === 'pl' ? '⚡ Bus Express (do 1.5t)' : '⚡ Express Van (1.5t)'"></button>
+                  <button type="button" class="fleet-btn" :class="fleetType === 'ftl' ? 'is-active' : ''" @click="fleetType = 'ftl'"
+                    x-text="lang === 'pl' ? '🚛 Naczepa FTL (24t)' : '🚛 FTL Semi-Truck (24t)'"></button>
+                </div>
+
+                <!-- Siatka 8 przycisków miast -->
+                <div style="display:flex; flex-wrap:wrap; gap:4px;">
+                  <template x-for="(city, cIdx) in heroCities" :key="city.id">
+                    <button type="button" class="hero-chip"
+                      :class="selectedCityIdx === cIdx ? 'is-active' : ''"
+                      @click="selectedCityIdx = cIdx"
+                      x-text="city.name[lang]"></button>
+                  </template>
+                </div>
+              </div>
+
+              <!-- Wynik Kalkulacji Na Żywo -->
+              <div class="tabular" style="padding:10px 12px; background:#f8f9f7; border:1px solid #e1e4de; border-radius:5px; font:600 11.5px/1.45 var(--mono); color:#172019;">
+                <div style="display:flex; justify-content:space-between; color:#555b53; font-size:9.5px; margin-bottom:3px;">
+                  <span x-text="lang === 'pl' ? 'WYBRANA RELACJA:' : 'SELECTED CORRIDOR:'"></span>
+                  <span x-text="fleetType === 'bus' ? 'DOOR-TO-DOOR EXPRESS' : 'FTL 13.6M STANDARD'"></span>
+                </div>
+                <div style="font-size:13px; font-weight:700;">
+                  <span x-text="(lang === 'pl' ? 'Warszawa → ' : 'Warsaw → ') + activeCity.name[lang]"></span>
+                </div>
+                <div style="display:flex; justify-content:space-between; margin-top:4px; padding-top:4px; border-top:1px dashed #d5d8d2;">
+                  <span><b style="color:#d90429;" x-text="activeCity.km + ' km'"></b> <small style="color:#555b53;" x-text="'(' + activeCity.highway + ')'"></small></span>
+                  <span style="color:#172019;" x-text="(lang === 'pl' ? 'Czas: ' : 'ETA: ') + (fleetType === 'bus' ? activeCity.busTime : activeCity.ftlTime)"></span>
+                </div>
+              </div>
+
+              <div style="display:flex; justify-content:space-between; align-items:center; font:600 10px var(--mono); color:#5a5a5a;">
+                <span x-text="lang === 'pl' ? '◷ Dyspozytor 24/7 · 0 PLN API' : '◷ 24/7 Dispatcher · 0 EUR API'"></span>
+                <a href="https://adremt2.pl/index2.html" target="_blank" rel="noopener" style="color:#d90429; text-decoration:underline;" x-text="lang === 'pl' ? 'Pełna mapa ↗' : 'Full map ↗'"></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Artwork 2: CK AD REM Accounting -->
+          <div x-show="projectId === 'ckadrem'" x-cloak class="ck-mini-preview">
+            <div class="ck-mini-nav">
+              <span x-text="lang === 'pl' ? 'Ad Rem · CENTRUM KSIĘGOWE' : 'Ad Rem · ACCOUNTING CENTRE'"></span>
+              <span style="color:#5a5a5a;" x-text="lang === 'pl' ? 'O FIRMIE · USŁUGI B2B · OFERTA NGO · CENNIK' : 'ABOUT · B2B SERVICES · NGO OFFER · PRICING'"></span>
+            </div>
+            <p style="margin:0 0 10px; font:600 10.5px var(--mono); color:#d90429; letter-spacing:0.08em;" x-text="lang === 'pl' ? '● AD REM / DO RZECZY · 22 LATA DOŚWIADCZENIA' : '● AD REM / TO THE POINT · 22 YEARS IN WARSAW'"></p>
+            <h3 style="margin:0 0 12px; font:700 clamp(1.8rem, 3.6vw, 3rem)/1.02 var(--display); letter-spacing:-0.05em; max-width:560px;">
+              <span x-text="lang === 'pl' ? 'Księgowość, która pozwala Ci ' : 'Accounting that lets you '"></span>
+              <span style="color:#d90429;" x-text="lang === 'pl' ? 'spać spokojnie.' : 'sleep well.'"></span>
+            </h3>
+            <p style="margin:0 0 20px; font-size:13px; color:#4a4a4a; max-width:500px; line-height:1.55;" x-text="lang === 'pl' ? 'Rodzinne biuro rachunkowe w Warszawie — osobne, czytelne ścieżki dla spółek prawa handlowego, jednoosobowych firm (KPiR) oraz fundacji i stowarzyszeń.' : 'Warsaw accounting practice featuring distinct conversion paths for LLCs, sole proprietors, and foundations/associations (NGOs).'"></p>
+            <div style="display:flex; gap:10px;">
+              <span style="padding:9px 18px; border-radius:var(--btn-radius); background:#d90429; color:#fff; font:700 11px var(--sans);" x-text="lang === 'pl' ? 'Umów konsultację' : 'Book consultation'"></span>
+              <span style="padding:9px 18px; border-radius:var(--btn-radius); border:1px solid #d90429; color:#d90429; font:700 11px var(--sans);" x-text="lang === 'pl' ? 'Oferta dla NGO →' : 'NGO Offer →'"></span>
+            </div>
+          </div>
+
+          <!-- Artwork 3: PM Classics -->
+          <div x-show="projectId === 'pmclassics'" x-cloak class="pm-mini-preview">
+            <img :src="classicCarImg" alt="1966 Volvo Amazon 122S Classic Car" class="pm-mini-bg"/>
+            <div class="pm-mini-shade"></div>
+            <div style="display:flex; justify-content:space-between; font:500 10.5px var(--mono); letter-spacing:0.1em; color:#dfbd78;">
+              <span x-text="lang === 'pl' ? 'PM CLASSICS · 1966 VOLVO AMAZON 122S' : 'PM CLASSICS · 1966 VOLVO AMAZON 122S'"></span>
+              <span>PL · EN · NO | EUR · PLN · NOK</span>
+            </div>
+            <div>
+              <span style="font:500 10.5px var(--mono); letter-spacing:0.12em; color:#e4e4e7;" x-text="lang === 'pl' ? 'SZTUKA RENOWACJI KLASYKÓW' : 'THE ART OF CLASSIC RESTORATION'"></span>
+              <h3 style="margin:8px 0 16px; font:600 clamp(2.2rem, 4.4vw, 3.8rem)/0.94 var(--display); letter-spacing:-0.05em;">
+                <span x-text="lang === 'pl' ? 'Drugie życie ' : 'Second '"></span>
+                <i style="color:#dfbd78; font-weight:400;" x-text="lang === 'pl' ? 'klasyków.' : 'chapters.'"></i>
+              </h3>
+              <span style="display:inline-block; padding:8px 16px; background:#c5a059; color:#0b0b0c; font:700 11px var(--mono); border-radius:var(--btn-radius);"
+                x-text="lang === 'pl' ? 'WIRTUALNY GARAŻ + 3-KROKOWY BRIEF RENOWACJI →' : 'VIRTUAL GARAGE + 3-STEP RESTORATION BRIEF →'">
+              </span>
+            </div>
+          </div>
+
+          <!-- Artwork 4: Web4Biz React SPA -->
+          <div x-show="projectId === 'archie-react'" x-cloak class="art-react-stage">
+            <div style="display:flex; justify-content:space-between; font:500 10.5px var(--mono); letter-spacing:0.1em;">
+              <span>WEB4BIZ · REACT 18 + VITE SPA</span>
+              <span>GSAP SCROLLTRIGGER + 3D SHOWCASE</span>
+            </div>
+            <div>
+              <div style="font:600 clamp(2.4rem, 5vw, 4.4rem)/0.88 var(--display); letter-spacing:-0.08em;">
+                <span x-text="lang === 'pl' ? 'Dobra strona.' : 'Better websites.'"></span><br/>
+                <i style="font-weight:400; padding-left:0.3em;" x-text="lang === 'pl' ? 'Lepszy sposób' : 'Better ways'"></i><br/>
+                <span x-text="lang === 'pl' ? 'na pracę.' : 'to work.'"></span>
+              </div>
+            </div>
+            <div style="font:500 10.5px var(--mono); border-top:1px solid rgba(23,32,25,0.22); padding-top:12px;"
+              x-text="lang === 'pl' ? 'REUŻYWALNE KOMPONENTY REACT · KODOWANE MINIATURY SVG' : 'REUSABLE REACT COMPONENTS · CODE-RENDERED SVG ARTWORK'">
+            </div>
+          </div>
+
+          <!-- Artwork 5: 玄 GEMBA — Authentic App UI -->
+          <div x-show="projectId === 'gemba'" x-cloak style="height:100%; position:relative; background-color:#f9f8f3; background-image:linear-gradient(#ebe8df 1px, transparent 1px), linear-gradient(90deg, #ebe8df 1px, transparent 1px); background-size:44px 44px; color:#161e21; overflow:hidden;">
+
+            <div style="height:calc(100% - 42px); display:grid; grid-template-columns:1.05fr 0.95fr; gap:24px; padding:24px 32px 18px; align-items:center;">
+
+              <div style="display:flex; flex-direction:column; justify-content:space-between; height:100%;">
+                <div style="display:inline-flex; align-items:center; gap:8px; font:600 10px var(--mono); letter-spacing:0.12em; color:#5b6568;">
+                  <i style="width:7px; height:7px; background:#b8432e; display:inline-block;"></i>
+                  <span>LEAN THINKING · TPS · SIX SIGMA</span>
+                </div>
+
+                <div style="margin:6px 0;">
+                  <div style="font:700 clamp(1.9rem, 3.6vw, 3.1rem)/0.96 var(--display); letter-spacing:-0.05em; color:#161e21;">
+                    <span x-text="lang === 'pl' ? 'Opisz problem.' : 'Describe the problem.'"></span><br/>
+                    <span style="color:#b8432e;" x-text="lang === 'pl' ? 'Otrzymaj metodę.' : 'Get the method.'"></span>
+                  </div>
+                  <p style="margin:10px 0 0; font:400 12px/1.5 var(--sans); color:#5b6568; max-width:410px;"
+                    x-text="lang === 'pl' ? 'Zapisz, co szwankuje w pracy. Gemba nazywa stojące za tym marnotrawstwo, dobiera narzędzie Lean lub Six Sigma i prowadzi Cię krok po kroku.' : 'Write down what is going wrong at work. Gemba names the waste behind it, chooses the Lean or Six Sigma tool that fits, and walks you through the steps.'">
+                  </p>
+                </div>
+
+                <div style="display:flex; gap:32px; padding-top:10px; border-top:1px solid #dfdcd2;" class="tabular">
+                  <div>
+                    <strong style="font:700 18px/1 var(--display); color:#161e21; display:block;">47</strong>
+                    <span style="font:500 9px var(--mono); color:#6e777a; letter-spacing:0.06em;" x-text="lang === 'pl' ? 'METOD' : 'METHODS'"></span>
+                  </div>
+                  <div>
+                    <strong style="font:700 18px/1 var(--display); color:#161e21; display:block;">70+</strong>
+                    <span style="font:500 9px var(--mono); color:#6e777a; letter-spacing:0.06em;" x-text="lang === 'pl' ? 'POJĘĆ' : 'TERMS'"></span>
+                  </div>
+                  <div>
+                    <strong style="font:700 18px/1 var(--display); color:#161e21; display:block;">5</strong>
+                    <span style="font:500 9px var(--mono); color:#6e777a; letter-spacing:0.06em;" x-text="lang === 'pl' ? 'FAZ PLANU' : 'PHASES PER PLAN'"></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Prawa kolumna: Interaktywne białe okno diagnostyczne GEMBA -->
+              <div style="background:#ffffff; border:1px solid #dfdcd2; padding:16px 18px; box-shadow:0 8px 24px rgba(22,30,33,0.05); display:flex; flex-direction:column; gap:9px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; font:600 9.5px var(--mono); letter-spacing:0.1em; color:#5b6568;">
+                  <span x-text="lang === 'pl' ? 'OPISZ PROBLEM / KLIKNIJ OBJAW' : 'DESCRIBE THE PROBLEM / TRY ONE'"></span>
+                  <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="padding:3px 7px; border:1px solid #dfdcd2; color:#161e21;">🎙 DICTATE</span>
+                    <span style="color:#b8432e; font-weight:700;">01</span>
+                  </div>
+                </div>
+
+                <template x-for="(g, gIdx) in gembaDemos" :key="g.id">
+                  <button type="button" class="gemba-chip"
+                    :class="gembaDemoIdx === gIdx ? 'is-active' : ''"
+                    @click="gembaDemoIdx = gIdx"
+                    x-text="g.symptom[lang]"></button>
+                </template>
+
+                <div style="padding-top:10px; border-top:1px solid #ece9e0; display:flex; justify-content:space-between; align-items:center; gap:8px; font:600 10px var(--mono); white-space:nowrap;">
+                  <span style="color:#5b6568;" x-text="gembaDemos[gembaDemoIdx].waste[lang]"></span>
+                  <span style="color:#b8432e;" x-text="'→ ' + gembaDemos[gembaDemoIdx].method"></span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Dolny pasek: Ciemny moduł Glossary (#151C1F) zakotwiczony na stałe na samym dole -->
+            <div style="position:absolute; left:0; right:0; bottom:0; height:42px; background:#151c1f; color:#ffffff; padding:0 32px; display:flex; justify-content:space-between; align-items:center; border-top:1px solid #dfdcd2;">
+              <span style="font:500 9.5px var(--mono); letter-spacing:0.12em; color:#9ba3a7;" x-text="lang === 'pl' ? 'SŁOWNIK TPS / LEAN:' : 'GLOSSARY · SHOP FLOOR:'"></span>
+              <div style="display:flex; gap:24px; font-size:11px;">
+                <span><b style="color:#b8432e; font-weight:500; margin-right:5px;">改善</b>Kaizen</span>
+                <span><b style="color:#b8432e; font-weight:500; margin-right:5px;">無駄</b>Muda</span>
+                <span><b style="color:#b8432e; font-weight:500; margin-right:5px;">自働化</b>Jidoka</span>
+                <span><b style="color:#b8432e; font-weight:500; margin-right:5px;">平準化</b>Heijunka</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 4-Column Meta Grid -->
+      <div class="case-meta-grid tabular">
+        <div>
+          <span x-text="lang === 'pl' ? 'Typ projektu' : 'Project type'"></span>
+          <strong x-text="currentCase.pageType[lang]"></strong>
+        </div>
+        <div>
+          <span x-text="lang === 'pl' ? 'Kluczowe funkcje' : 'Key features'"></span>
+          <strong x-text="currentCase.keyFeatures[lang]"></strong>
+        </div>
+        <div>
+          <span x-text="lang === 'pl' ? 'Czas realizacji' : 'Timeline'"></span>
+          <strong x-text="currentCase.duration[lang]"></strong>
+        </div>
+        <div>
+          <span x-text="lang === 'pl' ? 'Technologie' : 'Technology'"></span>
+          <strong x-text="currentCase.technology"></strong>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ═══ STATS BAR (4 METRYKI PROJEKTU) ═══ -->
+    <section class="case-stats-section tabular">
+      <div class="page-wrap case-stats-grid">
+        <template x-for="st in currentCase.stats[lang]" :key="st[0]">
+          <div class="case-stat">
+            <strong x-text="st[0]"></strong>
+            <span x-text="st[1]"></span>
+          </div>
+        </template>
+      </div>
+    </section>
+
+    <!-- ═══ EDITORIAL CASE STUDY CONTENT ═══ -->
+    <section class="section-pad">
+      <div class="page-wrap case-content-layout">
+
+        <!-- Sticky Table of Contents Aside -->
+        <aside class="case-content-aside">
+          <p class="case-kicker" x-text="lang === 'pl' ? 'STRUKTURA CASE STUDY' : 'CASE STUDY STRUCTURE'"></p>
+          <ol>
+            <template x-for="(sec, idx) in currentCase.sections[lang]" :key="sec.heading">
+              <li>
+                <a :href="'#case-section-' + (idx + 1)">
+                  <span x-text="'0' + (idx + 1)"></span>
+                  <strong style="font-weight:500;" x-text="sec.heading"></strong>
+                </a>
+              </li>
+            </template>
+          </ol>
+          <p class="case-aside-note" x-text="lang === 'pl' ? 'KLUCZOWA FUNKCJA / ŚCIEŻKA KONWERSJI UŻYTKOWNIKA' : 'KEY INTERACTION / USER CONVERSION JOURNEY'"></p>
+        </aside>
+
+        <!-- Main Prose Column -->
+        <div class="case-prose">
+          <template x-for="(sec, idx) in currentCase.sections[lang]" :key="sec.heading">
+            <section :id="'case-section-' + (idx + 1)">
+              <span class="case-section-number" x-text="'0' + (idx + 1)"></span>
+              <h2 x-text="sec.heading"></h2>
+              <p x-text="sec.body"></p>
+              <template x-if="sec.bullets && sec.bullets.length">
+                <ul>
+                  <template x-for="b in sec.bullets" :key="b">
+                    <li x-text="b"></li>
+                  </template>
+                </ul>
+              </template>
+            </section>
+          </template>
+
+          <div style="display:flex; flex-wrap:wrap; align-items:center; gap:16px; padding-top:8px;">
+            <a :href="currentCase.url"
+               :target="currentCase.url.startsWith('http') ? '_blank' : '_self'"
+               :rel="currentCase.url.startsWith('http') ? 'noopener noreferrer' : ''"
+               class="btn-live tactile">
+              <span x-text="lang === 'pl' ? 'Otwórz działający projekt' : 'Visit live project'"></span>
+              <span aria-hidden="true">↗</span>
+            </a>
+
+            <a href="web4biz.html#estimator" class="back-link tactile" style="padding: 12px 18px;">
+              <span x-text="lang === 'pl' ? 'Zamów podobne rozwiązanie →' : 'Request a similar build →'"></span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══ NEXT PROJECT BANNER ═══ -->
+    <a :href="'case-study.html?project=' + nextProjectId"
+       @click.prevent="selectProject(nextProjectId); window.scrollTo({top: 0, behavior: 'smooth'})"
+       class="case-next">
+      <span>
+        <b x-text="lang === 'pl' ? 'KOLEJNY PROJEKT CASE STUDY' : 'NEXT PROJECT CASE STUDY'"></b>
+        <i style="font-style:normal;" aria-hidden="true">↗</i>
+      </span>
+      <strong x-text="cases[nextProjectId].title[lang]"></strong>
+    </a>
+
+  </main>
+
+  <footer style="background:var(--bg-alt); color:var(--ink); border-top:1px solid var(--line); padding:32px 0; font:500 11px var(--mono);">
+    <div class="page-wrap" style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px;">
+      <span><strong>web4biz.pl</strong> · Independent Digital Practice by Archie</span>
+      <span style="color:#899188;" x-text="lang === 'pl' ? '© 2026 Archie. Wszelkie prawa zastrzeżone.' : '© 2026 Archie. All rights reserved.'"></span>
+      <a href="#top" x-text="lang === 'pl' ? '↑ Na górę' : '↑ Back to top'"></a>
+    </div>
+  </footer>
+
+  <script>
+    function caseStudyApp() {
+      return {
+        direction: localStorage.getItem('w4b_theme') || 'editorial',
+        lang: localStorage.getItem('lang') === 'en' ? 'en' : 'pl',
+        scrollProgress: 0,
+        projectId: 'adremt2',
+        classicCarImg: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Volvo_Amazon_1966.jpg/1280px-Volvo_Amazon_1966.jpg',
+
+        // 8 Interaktywnych Hubów Europejskich dla mapy AD REM T2
+        selectedCityIdx: 0,
+        fleetType: 'bus',
+        heroCities: [
+          { id: 'rtm', x: 295, y: 235, km: '1 180', busTime: '12h 30m', ftlTime: '16h 00m', highway: 'A2 · A1',     country: 'NL · HOLANDIA', name: { pl: 'Rotterdam', en: 'Rotterdam' } },
+          { id: 'ber', x: 418, y: 222, km: '570',   busTime: '6h 15m',  ftlTime: '8h 00m',  highway: 'A2 · A12',    country: 'DE · NIEMCY',   name: { pl: 'Berlin',    en: 'Berlin' } },
+          { id: 'mil', x: 375, y: 365, km: '1 340', busTime: '14h 00m', ftlTime: '18h 30m', highway: 'A1 · A2 · A4',country: 'IT · WŁOCHY',   name: { pl: 'Mediolan',  en: 'Milan' } },
+          { id: 'par', x: 245, y: 285, km: '1 590', busTime: '16h 30m', ftlTime: '21h 00m', highway: 'A2 · A4',     country: 'FR · FRANCJA',  name: { pl: 'Paryż',     en: 'Paris' } },
+          { id: 'vie', x: 468, y: 318, km: '670',   busTime: '7h 15m',  ftlTime: '9h 30m',  highway: 'S8 · A1 · D1',country: 'AT · AUSTRIA',  name: { pl: 'Wiedeń',    en: 'Vienna' } },
+          { id: 'prg', x: 438, y: 270, km: '680',   busTime: '7h 30m',  ftlTime: '9h 45m',  highway: 'S8 · D11',    country: 'CZ · CZECHY',   name: { pl: 'Praga',     en: 'Prague' } },
+          { id: 'sto', x: 485, y: 120, km: '1 290', busTime: '15h (prom)', ftlTime: '18h (prom)', highway: 'S7 · E4', country: 'SE · SZWECJA',  name: { pl: 'Sztokholm', en: 'Stockholm' } },
+          { id: 'mad', x: 155, y: 395, km: '2 860', busTime: '28h (2 kier.)', ftlTime: '42h 00m', highway: 'A2 · A10 · AP-1', country: 'ES · HISZPANIA', name: { pl: 'Madryt', en: 'Madrid' } }
+        ],
+
+        // Interaktywne demo diagnostyki dla 玄 GEMBA
+        gembaDemoIdx: 0,
+        gembaDemos: [
+          {
+            id: 'changeover',
+            symptom: {
+              pl: '„Przezbrojenie maszyny zjada całe popołudnie”',
+              en: '“Changeovers eat a whole afternoon of capacity”'
+            },
+            waste: { pl: 'Strata: Oczekiwanie (Muda)', en: 'Waste: Waiting (Muda)' },
+            method: 'SMED (Shingo)'
+          },
+          {
+            id: 'defect',
+            symptom: {
+              pl: '„Ten sam defekt wraca na kontroli końcowej”',
+              en: '“The same defect keeps coming back at inspection”'
+            },
+            waste: { pl: 'Strata: Defekty (Muda)', en: 'Waste: Defects (Muda)' },
+            method: '5 Whys + Poka-yoke'
+          }
+        ],
+
+        projectOrder: ['adremt2', 'ckadrem', 'pmclassics', 'archie-react', 'gemba'],
+
+        cases: {
+          'adremt2': {
+            shortName: { pl: 'AD REM T2', en: 'AD REM T2' },
+            title: {
+              pl: 'Transport, logistyka i spedycja (AD REM T2)',
+              en: 'Transport, Logistics & Freight Forwarding (AD REM T2)'
+            },
+            subtitle: {
+              pl: 'Strona transportowa B2B, która prowadzi klienta od wyboru miasta na mapie Europy do sprecyzowanego zapytania o przewóz.',
+              en: 'A B2B transport platform taking visitors from selecting a city on the European map to a pre-populated freight enquiry.'
+            },
+            tag: { pl: '01 · Transport / TSL', en: '01 · Transport / Logistics' },
+            pageType: { pl: 'Strona usługowa B2B + kalkulator trasy', en: 'B2B service site + route calculator' },
+            keyFeatures: { pl: 'Mapa Europy SVG · wybór trasy · szybka wycena', en: 'SVG Europe map · route selection · quote flow' },
+            duration: { pl: '3 tygodnie', en: '3 weeks' },
+            technology: 'Vanilla JS · SVG · GeoJSON',
+            year: '2026',
+            url: 'https://adremt2.pl/index2.html',
+            stats: {
+              pl: [
+                ['3', 'Obszary usług transportowych i spedycyjnych'],
+                ['MAPA SVG', 'Wybór miasta i kalkulacja trasy z Warszawy'],
+                ['0 PLN', 'Stałych kosztów zewnętrznych API mapowych'],
+                ['24/7', 'Bezpośredni kontakt z dyspozytorem']
+              ],
+              en: [
+                ['3', 'Core transport & forwarding service pillars'],
+                ['SVG MAP', 'Interactive city & route selection from Warsaw'],
+                ['0 EUR', 'Recurring third-party map API fees'],
+                ['24/7', 'Direct dispatcher contact workflow']
+              ]
+            },
+            sections: {
+              pl: [
+                {
+                  heading: 'Usługi widoczne i uporządkowane od pierwszego ekranu',
+                  body: 'Strona porządkuje transport ekspresowy, spedycję drogową i logistykę kontraktową jako odrębne, łatwe do porównania ścieżki wejścia. Każda prowadzi prosto do parametrów potrzebnych przed zleceniem przewozu.'
+                },
+                {
+                  heading: 'Mapa Europy SVG jako interaktywne narzędzie wyboru trasy',
+                  body: 'Zamiast zaczynać od pustego formularza kontaktowego, klient wskazuje miasto docelowe na interaktywnej mapie Europy powyżej, sprawdza szacowany dystans oraz czas przejazdu (Bus Express lub FTL 24t) z bazy w Warszawie i jednym kliknięciem przechodzi do wyceny wybranej relacji.',
+                  bullets: [
+                    'Autorski silnik wektorowy SVG + GeoJSON działający natychmiast w przeglądarce bez opłat za Google Maps API.',
+                    'Automatyczne przeniesienie wybranej trasy do formularza zapytania ofertowego.',
+                    'Czytelna prezentacja transportu krajowego i międzynarodowego door-to-door.'
+                  ]
+                },
+                {
+                  heading: 'Odpowiedzi na kluczowe pytania spedycyjne przed kontaktem',
+                  body: 'Sekcje o flocie, ubezpieczeniu OCP, monitoringu GPS oraz całodobowym kontakcie z dyspozytorem budują zaufanie decydenta B2B i skracają czas potrzebny na sfinalizowanie zlecenia.'
+                }
+              ],
+              en: [
+                {
+                  heading: 'Services structured clearly from the first viewport',
+                  body: 'The platform organizes express transport, road freight forwarding, and contract logistics into distinct, easy-to-compare entry points, guiding dispatchers and B2B buyers directly to operational details.'
+                },
+                {
+                  heading: 'An interactive SVG Europe map built around route selection',
+                  body: 'Instead of facing a blank contact form, visitors pick a destination city on the interactive European map above, preview the road distance and transit ETA from the Warsaw hub, and proceed to an enquiry pre-populated with their route.',
+                  bullets: [
+                    'Custom SVG + GeoJSON vector engine running client-side with zero recurring Google Maps API costs.',
+                    'Seamless transfer of selected route parameters into the freight quote form.',
+                    'Clear breakdown of domestic and international door-to-door transport.'
+                  ]
+                },
+                {
+                  heading: 'Answering critical logistics questions before first contact',
+                  body: 'Dedicated sections covering fleet capabilities, carrier liability insurance (OCP), GPS tracking, and 24/7 dispatcher availability establish immediate operational trust.'
+                }
+              ]
+            }
+          },
+
+          'ckadrem': {
+            shortName: { pl: 'CK Ad Rem', en: 'CK Ad Rem' },
+            title: {
+              pl: 'Ad Rem Centrum Księgowe',
+              en: 'Ad Rem Accounting Centre'
+            },
+            subtitle: {
+              pl: 'Serwis korporacyjny porządkujący obsługę spółek, przedsiębiorców (KPiR) oraz fundacji i stowarzyszeń (NGO).',
+              en: 'A corporate service website separating business accounting from the dedicated offer for foundations and associations (NGOs).'
+            },
+            tag: { pl: '02 · Finanse / Usługi B2B', en: '02 · Finance / B2B Services' },
+            pageType: { pl: 'Serwis usługowy z segmentacją oferty', en: 'Service website with segmented funnels' },
+            keyFeatures: { pl: 'Ścieżki B2B i NGO · KPiR i ZUS · Meta Pixel', en: 'B2B & NGO paths · bookkeeping · Meta Pixel' },
+            duration: { pl: '4 tygodnie', en: '4 weeks' },
+            technology: 'Bootstrap 5 · Meta Pixel · SEO',
+            year: '2024–2025',
+            url: 'https://ck-adrem.pl',
+            stats: {
+              pl: [
+                ['22 LATA', 'Doświadczenia rynkowego biura w Warszawie'],
+                ['B2B + NGO', 'Osobna oferta dla firm oraz fundacji i stowarzyszeń'],
+                ['KPiR / ZUS', 'Konkretna lista zadań przekazywanych biuru'],
+                ['PIXEL', 'Analityka konwersji i pomiar interakcji']
+              ],
+              en: [
+                ['22 YEARS', 'Of established accounting heritage in Warsaw'],
+                ['B2B + NGO', 'Separate pathways for businesses and non-profits'],
+                ['LEDGER / ZUS', 'Task-oriented breakdown of accounting services'],
+                ['PIXEL', 'Full Meta Pixel conversion tracking integration']
+              ]
+            },
+            sections: {
+              pl: [
+                {
+                  heading: 'Dwie wyraźne ścieżki przez ofertę: Biznes oraz NGO',
+                  body: 'Układ strony od samego początku rozróżnia obsługę firm (spółki prawa handlowego, jednoosobowe działalności) od specjalistycznej księgowości dla fundacji i stowarzyszeń. Dzięki temu każdy klient trafia od razu do właściwej sekcji.'
+                },
+                {
+                  heading: 'Lista usług opisana językiem konkretnych zadań',
+                  body: 'Zamiast ogólników strona precyzyjnie nazywa sprawy, które przedsiębiorca może powierzyć biuru — od wsparcia przy rejestracji działalności po pełne księgi, KPiR oraz bieżące rozliczenia ZUS i kadry.',
+                  bullets: [
+                    'Pomoc przy zakładaniu działalności gospodarczej i wyborze formy opodatkowania.',
+                    'Prowadzenie KPiR, pełnej księgowości spółek oraz ewidencji VAT.',
+                    'Kompleksowa obsługa kadr, płac i rozliczeń ZUS.',
+                    'Dedykowany moduł dla organizacji pozarządowych (dotacje, granty, sprawozdania).'
+                  ]
+                },
+                {
+                  heading: 'Wezwania do działania przy właściwej usłudze i pomiar Meta Pixel',
+                  body: 'Punkty kontaktu towarzyszą bezpośrednio opisom poszczególnych usług, a wdrożenie analityki Meta Pixel oraz optymalizacja kanoniczna wspierają pozyskiwanie klientów z kampanii.'
+                }
+              ],
+              en: [
+                {
+                  heading: 'Two distinct pathways through the service offer: Business & NGO',
+                  body: 'The information architecture separates corporate and sole-proprietor bookkeeping from specialized accounting for foundations and associations, eliminating decision friction.'
+                },
+                {
+                  heading: 'Services framed as concrete tasks handed over to experts',
+                  body: 'Rather than vague slogans, the website names the exact responsibilities clients can delegate — from company registration to tax books, payroll, and ZUS filings.',
+                  bullets: [
+                    'Guided support when registering a new business and selecting tax models.',
+                    'Full corporate accounting, revenue-and-expense ledgers (KPiR), and VAT records.',
+                    'End-to-end payroll, HR administration, and ZUS compliance.',
+                    'Dedicated non-profit & NGO accounting (grants, subsidies, statutory reporting).'
+                  ]
+                },
+                {
+                  heading: 'Contextual calls to action paired with Meta Pixel analytics',
+                  body: 'Consultation triggers sit directly beside relevant service descriptions, backed by Meta Pixel event tracking to measure campaign conversion efficiency.'
+                }
+              ]
+            }
+          },
+
+          'pmclassics': {
+            shortName: { pl: 'PM Classics', en: 'PM Classics' },
+            title: {
+              pl: 'PM Classics — Renowacja i Kolekcja Klasyków',
+              en: 'PM Classics — Classic Vehicle Restoration & Garage'
+            },
+            subtitle: {
+              pl: 'Wielojęzyczna platforma łącząca wirtualny garaż klasyków, przelicznik trzech walut (EUR/PLN/NOK) i 3-etapowy brief renowacji.',
+              en: 'A trilingual platform combining a filterable virtual garage, three-currency live pricing (EUR/PLN/NOK), and a 3-step restoration brief.'
+            },
+            tag: { pl: '03 · Klasyki / Dodatkowe narzędzia', en: '03 · Classic Automotive / Custom Tools' },
+            pageType: { pl: 'Katalog pojazdów + konfigurator briefu', en: 'Vehicle inventory + project brief configurator' },
+            keyFeatures: { pl: 'Wirtualny garaż · 3 waluty · brief 3-krokowy', en: 'Virtual garage · 3 currencies · 3-step brief' },
+            duration: { pl: '3 tygodnie', en: '3 weeks' },
+            technology: 'Tailwind CSS · Alpine.js · REST API',
+            year: '2026',
+            url: 'pmclassics.html',
+            stats: {
+              pl: [
+                ['PL · EN · NO', 'Natychmiastowe przełączanie 3 języków'],
+                ['3 WALUTY', 'Dynamiczny przelicznik EUR · PLN · NOK'],
+                ['GARAŻ', 'Filtrowany stock aut i motocykli z lat 60./70.'],
+                ['3 KROKI', 'Interaktywny brief wyceny i renowacji']
+              ],
+              en: [
+                ['PL · EN · NO', 'Instant switching across 3 native languages'],
+                ['3 CURRENCIES', 'Live price conversion in EUR · PLN · NOK'],
+                ['GARAGE', 'Filterable 1960s/70s car & motorcycle stock'],
+                ['3 STEPS', 'Interactive restoration & sourcing brief']
+              ]
+            },
+            sections: {
+              pl: [
+                {
+                  heading: 'Katalog pojazdów zaprojektowany jak wirtualny garaż kolekcjonera',
+                  body: 'Prezentacja klasyków (Volvo Amazon, Opel Manta, Simca, DAF, Moto Guzzi, Lambretta) łączy autentyczne fotografie z filtrami statusu (dostępny od ręki / w trakcie renowacji). Klient jednym kliknięciem przechodzi od wybranego egzemplarza prosto do rozmowy o nim.'
+                },
+                {
+                  heading: 'Przelicznik walut i wielojęzyczność bez przeładowania strony',
+                  body: 'Ponieważ marka obsługuje kolekcjonerów z Polski, Europy Zachodniej i Norwegii, zmiana języka (PL/EN/NO) oraz waluty (EUR/PLN/NOK) odbywa się błyskawicznie w pamięci przeglądarki.',
+                  bullets: [
+                    'Pełna lokalizacja na język polski, angielski i norweski (Bokmål) z zapisem w localStorage.',
+                    'Dynamiczne przeliczanie cen całego garażu między EUR, PLN i NOK ze stabilną typografią (tabular-nums).',
+                    'Automatyczne pobieranie fotografii klasycznych modeli przez Wikipedia REST API.'
+                  ]
+                },
+                {
+                  heading: '3-krokowy brief prowadzący przez projekt renowacji lub importu',
+                  body: 'Zamiast zwykłego pola tekstowego zastosowano interaktywny konfigurator: klient wybiera cel (zakup ze stocku / poszukiwanie w Europie / renowacja), typ pojazdu oraz budżet, co dostarcza właścicielowi warsztatu kompletny kontekst przed pierwszą rozmową.'
+                }
+              ],
+              en: [
+                {
+                  heading: 'An inventory that works like a collector’s virtual garage',
+                  body: 'Showcasing characterful 1960s and 70s European classics (Volvo Amazon, Opel Manta, Simca, DAF, Moto Guzzi, Lambretta) with instant category and build-status filters lets buyers move directly from a specific vehicle into an enquiry.'
+                },
+                {
+                  heading: 'Multi-currency pricing and localization without page reloads',
+                  body: 'Built for Polish, Western European, and Norwegian collectors, language (PL/EN/NO) and currency (EUR/PLN/NOK) switching happens instantaneously client-side.',
+                  bullets: [
+                    'Complete Polish, English, and Norwegian localization persisted in localStorage.',
+                    'Live conversion across EUR, PLN, and NOK using tabular numerals for zero layout shift.',
+                    'Dynamic vehicle photography resolution via Wikipedia REST API.'
+                  ]
+                },
+                {
+                  heading: 'A 3-step brief guiding restoration and sourcing enquiries',
+                  body: 'The interactive configurator captures the service type, vehicle category, and target budget before submission, ensuring every incoming lead contains actionable workshop context.'
+                }
+              ]
+            }
+          },
+
+          'archie-react': {
+            shortName: { pl: 'Web4Biz React', en: 'Web4Biz React' },
+            title: {
+              pl: 'Web4Biz — Wersja Modularna React & GSAP',
+              en: 'Web4Biz — Modular React & GSAP Architecture'
+            },
+            subtitle: {
+              pl: 'Aplikacja SPA oparta na komponentach React 18, animacjach GSAP ScrollTrigger, kodowanych w SVG miniaturach oraz interaktywnym oknie 3D.',
+              en: 'A component-driven React 18 SPA featuring GSAP ScrollTrigger motion, code-rendered SVG miniatures, and an interactive 3D browser stage.'
+            },
+            tag: { pl: '04 · Aplikacje React / UI Engineering', en: '04 · React Apps / UI Engineering' },
+            pageType: { pl: 'Aplikacja wielowidokowa React (SPA)', en: 'Multi-view React application (SPA)' },
+            keyFeatures: { pl: 'Okno 3D GSAP · komponenty SVG · 3 motywy', en: '3D GSAP stage · SVG components · 3 themes' },
+            duration: { pl: '3 tygodnie', en: '3 weeks' },
+            technology: 'React 18 · Vite · GSAP · Custom CSS',
+            year: '2026',
+           url: 'archie-spa.html',
+            stats: {
+              pl: [
+                ['REACT 18', 'Modularna architektura reużywalnych komponentów'],
+                ['GSAP 3D', 'Interaktywne okno podglądu reagujące na ruch kursora'],
+                ['100% KOD', 'Miniatury projektów rysowane w czystym kodzie SVG/CSS'],
+                ['WCAG', 'Pełna obsługa klawiatury i prefers-reduced-motion']
+              ],
+              en: [
+                ['REACT 18', 'Modular architecture with reusable UI primitives'],
+                ['GSAP 3D', 'Pointer-reactive 3D browser preview stage'],
+                ['100% CODE', 'Project miniatures rendered in pure SVG and CSS'],
+                ['WCAG', 'Full keyboard navigation & reduced-motion support']
+              ]
+            },
+            sections: {
+              pl: [
+                {
+                  heading: 'Komponenty rysowane kodem zamiast ciężkich zrzutów ekranu',
+                  body: 'W projekcie React wszystkie wizualizacje projektów (wektorowa mapa Europy w `ProjectArtwork.jsx` oraz miniatura serwisu księgowego) są renderowane bezpośrednio w kodzie SVG i CSS. Dzięki temu zachowują idealną ostrość na ekranach Retina i nie obciążają łącza.'
+                },
+                {
+                  heading: 'Interaktywne okno HeroShowcase z fizyką 3D w GSAP',
+                  body: 'Główny moduł ekspozycyjny wykorzystuje bibliotekę GSAP do płynnego przechylania okna przeglądarki w trzech wymiarach (`rotateX` / `rotateY`) pod wpływem ruchu kursora oraz automatycznej rotacji slajdów z możliwością pauzy.',
+                  bullets: [
+                    'Zarządzanie cyklem życia animacji przez `gsap.context()` i `ScrollTrigger`.',
+                    'Pełna dostępność z klawiatury (nawigacja strzałkami `ArrowLeft` / `ArrowRight` pomiędzy zakładkami).',
+                    'Automatyczne wyłączanie efektów przestrzennych dla użytkowników z `prefers-reduced-motion`.'
+                  ]
+                },
+                {
+                  heading: 'Wspólny słownik PL/EN i spójny system tokenów CSS',
+                  body: 'Wszystkie widoki aplikacji (`App.jsx` oraz `DetailPages.jsx`) korzystają z centralnego stanu języka i motywu kolorystycznego (`--paper`, `--ink`, `--lime`), co pozwala na rozbudowę serwisu o kolejne moduły bez duplikowania kodu.'
+                }
+              ],
+              en: [
+                {
+                  heading: 'Code-rendered SVG artwork instead of heavy static screenshots',
+                  body: 'Every project visual in `ProjectArtwork.jsx`—including the European route map and accounting hero preview—is built in live SVG and CSS, guaranteeing crisp Retina scaling and minimal payload.'
+                },
+                {
+                  heading: 'Interactive HeroShowcase stage with 3D GSAP perspective',
+                  body: 'The showcase component uses GSAP to calculate pointer coordinates and apply subtle 3D perspective tilt (`rotateX` / `rotateY`) alongside an accessible autoplay tab controller.',
+                  bullets: [
+                    'Clean animation lifecycle management via `gsap.context()` and `ScrollTrigger`.',
+                    'Full keyboard operability (`ArrowLeft` / `ArrowRight` focus management across tabs).',
+                    'Automatic fallback for `prefers-reduced-motion` user preferences.'
+                  ]
+                },
+                {
+                  heading: 'Unified PL/EN state and editorial CSS token system',
+                  body: 'All views across `App.jsx` and `DetailPages.jsx` share a single reactive dictionary and CSS custom property palette (`--paper`, `--ink`, `--lime`), ensuring effortless scalability.'
+                }
+              ]
+            }
+          },
+
+          'gemba': {
+            shortName: { pl: '玄 GEMBA', en: '玄 GEMBA' },
+            title: {
+              pl: '玄 GEMBA — Diagnostyka Lean, TPS & Six Sigma',
+              en: '玄 GEMBA — Lean, TPS & Six Sigma Diagnostic Workspace'
+            },
+            subtitle: {
+              pl: 'Aplikacja webowa, która tłumaczy opis problemu z codziennej pracy na straty procesowe (Muda, Mura, Muri), dobiera właściwą z 34 metod Lean i prowadzi przez 5-fazowy plan usprawnień.',
+              en: 'An interactive web workspace that translates plain-language workplace problems into process waste, selects the right tool from 34 Lean/Six Sigma methods, and guides execution across 5 phases.'
+            },
+            tag: { pl: '05 · Dodatkowe narzędzia / Lean & Six Sigma', en: '05 · Custom Web Tools / Lean & Six Sigma' },
+            pageType: { pl: 'Aplikacja diagnostyczna + Workspace procesowy', en: 'Diagnostic web app + process workspace' },
+            keyFeatures: { pl: 'Diagnoza problemu · 47 metod · 70+ pojęć · Workspace', en: 'Problem diagnosis · 47 methods · 70+ terms · Workspace' },
+            duration: { pl: '3 tygodnie', en: '3 weeks' },
+            technology: 'React · Tailwind CSS · Lean / TPS Engine',
+            year: '2026',
+            url: 'https://lean-guide-flow.base44.app',
+            stats: {
+              pl: [
+                ['47 METOD', 'Skatalogowane narzędzia Lean, TPS i Six Sigma (VSM, SMED, 5S, DMAIC)'],
+                ['70+ POJĘĆ', 'Praktyczny słownik japońskich terminów produkcyjnych i procesowych'],
+                ['5 FAZ', 'Ustrukturyzowany plan wdrożenia i kontroli dla każdego problemu'],
+                ['0 ŻARGONU', 'Diagnoza na podstawie naturalnego opisu objawów z miejsca pracy']
+              ],
+              en: [
+                ['47 METHODS', 'Curated Lean, TPS & Six Sigma toolkit (VSM, SMED, 5S, DMAIC)'],
+                ['70+ TERMS', 'Plain-language dictionary of Japanese shop-floor concepts'],
+                ['5 PHASES', 'Structured observation, data, countermeasure & check roadmap'],
+                ['NO JARGON', 'Diagnoses operational issues from plain-English descriptions']
+              ]
+            },
+            sections: {
+              pl: [
+                {
+                  heading: 'Odwrócenie najczęstszego błędu: najpierw diagnoza problemu, potem narzędzie',
+                  body: 'Większość inicjatyw Lean kończy się niepowodzeniem, ponieważ zespół wybiera modne narzędzie zanim dobrze zrozumie źródło problemu. 玄 GEMBA odwraca ten proces: użytkownik opisuje własnymi słowami, co szwankuje na stanowisku pracy lub w procesie, a system sam identyfikuje rodzaj marnotrawstwa (Muda), zmienności (Mura) lub przeciążenia (Muri).'
+                },
+                {
+                  heading: 'Cztery zintegrowane moduły: Diagnose, Toolkit, Glossary i Workspace',
+                  body: 'Aplikacja łączy interaktywną diagnostykę z kompletną bazą wiedzy Systemu Produkcyjnego Toyoty (TPS) oraz Six Sigma, pozwalając przejść od zgłoszenia problemu do trwałego standardu w jednym miejscu.',
+                  bullets: [
+                    'Diagnose: Tłumaczenie symptomów i częstotliwości występowania problemu na konkretne przyczyny i rekomendowaną metodę.',
+                    'Toolkit (47 metod): Precyzyjny katalog metod (m.in. Value Stream Mapping, 5 Whys, SMED, Kanban, DMAIC, 5S) z określeniem czasu wdrożenia i zastosowania.',
+                    'Glossary (70+ pojęć): Przejrzysty słownik terminów japońskich (Kaizen, Muda, Jidoka, Heijunka, Poka-yoke, Andon) napisany prostym, praktycznym językiem.',
+                    'Workspace (5 faz planu): Interaktywna przestrzeń robocza prowadząca krok po kroku przez obserwację, zbieranie danych, wdrożenie środka zaradczego i weryfikację.'
+                  ]
+                },
+                {
+                  heading: 'Przełożenie praktyki Lean Green Belt na użyteczny produkt cyfrowy',
+                  body: 'Projekt stanowi bezpośrednie połączenie moich kompetencji procesowych (Lean Green Belt, Agile Delivery Lead) z inżynierią frontendową — pokazuje, jak złożoną metodykę operacyjną można zamknąć w intuicyjnym narzędziu webowym, które oszczędza czas liderów i zespołów.'
+                }
+              ],
+              en: [
+                {
+                  heading: 'Reversing why Lean fails: understand the problem before picking the tool',
+                  body: 'Process improvement fails when teams pick a trendy tool before diagnosing the root issue. 玄 GEMBA starts the other way around: users describe the symptom, frequency, and location in plain language, and the engine translates it into underlying waste (Muda), unevenness (Mura), or overburden (Muri).'
+                },
+                {
+                  heading: 'Four cohesive modules: Diagnose, Toolkit, Glossary, and Workspace',
+                  body: 'The platform bridges interactive root-cause diagnosis with a structured Toyota Production System (TPS) and Six Sigma reference library.',
+                  bullets: [
+                    'Diagnose: Matches plain-language workplace complaints to the specific method that addresses the root cause.',
+                    'Toolkit (47 methods): Actionable guides for VSM, 5 Whys, SMED, Kanban, DMAIC, and 5S with clear timeframes and category filters.',
+                    'Glossary (70+ terms): Shop-floor Japanese terminology (Kaizen, Muda, Jidoka, Heijunka, Poka-yoke) explained without academic fluff.',
+                    'Workspace (5 phases per plan): A step-by-step checklist covering observation, data collection, countermeasures, and standard verification.'
+                  ]
+                },
+                {
+                  heading: 'Turning Lean Green Belt domain expertise into software',
+                  body: 'Built at the intersection of operational consulting (Lean Green Belt, Agile Delivery) and frontend engineering, 玄 GEMBA demonstrates how complex B2B methodologies can be transformed into self-serve digital products.'
+                }
+              ]
+            }
+          }
+        },
+
+        get currentCase() {
+          return this.cases[this.projectId] || this.cases['adremt2'];
+        },
+
+        get activeCity() {
+          return this.heroCities[this.selectedCityIdx] || this.heroCities[0];
+        },
+
+        get nextProjectId() {
+          const idx = this.projectOrder.indexOf(this.projectId);
+          return this.projectOrder[(idx + 1) % this.projectOrder.length];
+        },
+
+        selectProject(id) {
+          if (this.cases[id]) {
+            this.projectId = id;
+            const url = new URL(window.location);
+            url.searchParams.set('project', id);
+            window.history.replaceState({}, '', url);
+          }
+        },
+
+        setDirection(dir) {
+          this.direction = dir;
+          localStorage.setItem('w4b_theme', dir);
+        },
+
+        toggleLang() {
+          this.lang = this.lang === 'pl' ? 'en' : 'pl';
+          localStorage.setItem('lang', this.lang);
+        },
+
+        async loadAuthenticClassicPhoto() {
+          try {
+            const res = await fetch('https://en.wikipedia.org/api/rest_v1/page/summary/Volvo_Amazon');
+            if (res.ok) {
+              const data = await res.json();
+              const imgUrl = (data.originalimage && data.originalimage.source) || (data.thumbnail && data.thumbnail.source);
+              if (imgUrl) this.classicCarImg = imgUrl;
+            }
+          } catch (e) {
+            // Keeps verified Wikimedia Commons 1966 Volvo Amazon fallback
+          }
+        },
+
+        init() {
+          const params = new URLSearchParams(window.location.search);
+          const requested = params.get('project');
+          if (requested && this.cases[requested]) {
+            this.projectId = requested;
+          }
+
+          window.addEventListener('scroll', () => {
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            this.scrollProgress = docHeight > 0 ? Math.min(1, Math.max(0, window.scrollY / docHeight)) : 0;
+          }, { passive: true });
+
+          this.loadAuthenticClassicPhoto();
+        }
+      }
+    }
+  </script>
+</body>
+</html>
