@@ -164,6 +164,19 @@
     .page-wrap { width: min(1340px, calc(100% - 64px)); margin-inline: auto; }
     .section-pad { padding-block: 84px; }
     .tabular { font-variant-numeric: tabular-nums; }
+    [aria-hidden="true"] { font-family: var(--mono); }
+    .ico-ext {
+      width: 0.92em;
+      height: 0.92em;
+      display: inline-block;
+      vertical-align: -0.08em;
+      flex-shrink: 0;
+    }
+    .icon-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
 
     .tactile {
       transition: transform 110ms var(--ease-out-snappy),
@@ -345,6 +358,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 8px;
     }
     .mobile-drawer a:hover {
       background: color-mix(in srgb, var(--ink) 7%, transparent);
@@ -842,7 +856,7 @@
 
           <a href="index.html#estimator" class="nav-cta tactile">
             <span x-text="lang === 'pl' ? 'Wyceń projekt' : 'Start a project'">Wyceń projekt</span>
-            <span aria-hidden="true">↗</span>
+            <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
           </a>
 
           <!-- Przycisk menu na urządzeniach mobilnych (<= 720px) -->
@@ -881,7 +895,7 @@
         </a>
         <a href="index.html#estimator" class="mobile-drawer-cta tactile" @click="mobileMenuOpen = false">
           <span x-text="lang === 'pl' ? 'Wyceń projekt' : 'Start a project'">Wyceń projekt</span>
-          <span aria-hidden="true">↗</span>
+          <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
         </a>
       </nav>
 
@@ -989,7 +1003,7 @@
               </a>
               <a href="https://adremt2.pl/index2.html" target="_blank" rel="noopener noreferrer" class="btn-card-secondary tactile">
                 <span x-text="lang === 'pl' ? 'Otwórz stronę' : 'Open live site'">Otwórz stronę</span>
-                <span aria-hidden="true">↗</span>
+                <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
               </a>
             </div>
           </div>
@@ -1036,7 +1050,7 @@
               </a>
               <a href="https://ck-adrem.pl" target="_blank" rel="noopener noreferrer" class="btn-card-secondary tactile">
                 <span x-text="lang === 'pl' ? 'Otwórz stronę' : 'Open live site'">Otwórz stronę</span>
-                <span aria-hidden="true">↗</span>
+                <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
               </a>
             </div>
           </div>
@@ -1084,7 +1098,7 @@
               </a>
               <a href="pmclassics.html" class="btn-card-secondary tactile">
                 <span x-text="lang === 'pl' ? 'Otwórz stronę' : 'Open live site'">Otwórz stronę</span>
-                <span aria-hidden="true">↗</span>
+                <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
               </a>
             </div>
           </div>
@@ -1167,7 +1181,7 @@
               </a>
               <a href="kubatura.html" class="btn-card-secondary tactile">
                 <span x-text="lang === 'pl' ? 'Otwórz stronę' : 'Open live site'">Otwórz stronę</span>
-                <span aria-hidden="true">↗</span>
+                <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
               </a>
             </div>
           </div>
@@ -1238,7 +1252,7 @@
               </a>
               <a href="https://lean-guide-flow.base44.app" target="_blank" rel="noopener noreferrer" class="btn-card-secondary tactile">
                 <span x-text="lang === 'pl' ? 'Otwórz aplikację' : 'Open live app'">Otwórz aplikację</span>
-                <span aria-hidden="true">↗</span>
+                <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
               </a>
             </div>
           </div>
@@ -1276,8 +1290,8 @@
     <div class="page-wrap" style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px;">
       <span><strong>web4biz.pl</strong> · Independent Digital Practice by Archie</span>
       <div style="display:flex; flex-wrap:wrap; align-items:center; gap:16px;">
-        <a href="https://www.linkedin.com/in/artur-zaluska/" target="_blank" rel="noopener noreferrer" style="opacity:0.85;">LinkedIn ↗</a>
-        <a href="https://www.instagram.com/agilearchie/" target="_blank" rel="noopener noreferrer" style="opacity:0.85;">Instagram ↗</a>
+        <a href="https://www.linkedin.com/in/artur-zaluska/" target="_blank" rel="noopener noreferrer" class="icon-link" style="opacity:0.85;"><span>LinkedIn</span><svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg></a>
+        <a href="https://www.instagram.com/agilearchie/" target="_blank" rel="noopener noreferrer" class="icon-link" style="opacity:0.85;"><span>Instagram</span><svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg></a>
         <span style="color:#899188;">© 2026 Archie.</span>
         <a href="#top" x-text="lang === 'pl' ? '↑ Na górę' : '↑ Back to top'">↑ Na górę</a>
       </div>
