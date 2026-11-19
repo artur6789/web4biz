@@ -173,6 +173,19 @@
     .page-wrap { width: min(1340px, calc(100% - 64px)); margin-inline: auto; }
     .section-pad { padding-block: 108px; }
     .tabular { font-variant-numeric: tabular-nums; }
+    [aria-hidden="true"] { font-family: var(--mono); }
+    .ico-ext {
+      width: 0.92em;
+      height: 0.92em;
+      display: inline-block;
+      vertical-align: -0.08em;
+      flex-shrink: 0;
+    }
+    .icon-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
 
     .tactile {
       transition: transform 110ms var(--ease-out-snappy),
@@ -353,6 +366,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 8px;
     }
     .mobile-drawer a:hover {
       background: color-mix(in srgb, var(--ink) 7%, transparent);
@@ -713,7 +727,7 @@
       letter-spacing: 0.05em;
     }
 
-.pm-mini-preview {
+    .pm-mini-preview {
       height: 100%;
       position: relative;
       background:
@@ -727,6 +741,46 @@
       isolation: isolate;
       overflow: hidden;
     }
+    .pm-curr-group {
+      display: inline-flex;
+      gap: 3px;
+      padding: 2px;
+      border-radius: 5px;
+      border: 1px solid rgba(223, 189, 120, 0.28);
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .pm-curr-btn {
+      appearance: none;
+      -webkit-appearance: none;
+      border: 0;
+      padding: 3px 7px;
+      border-radius: 3px;
+      background: transparent;
+      color: #c8c4b8;
+      font: 600 9.5px var(--mono);
+      cursor: pointer;
+      transition: background-color 140ms ease, color 140ms ease;
+    }
+    .pm-curr-btn.is-active {
+      background: #c5a059;
+      color: #0b0b0c;
+    }
+    .pm-garage-list {
+      display: grid;
+      gap: 7px;
+      margin: 10px 0;
+    }
+    .pm-garage-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 9px 12px;
+      border-radius: 5px;
+      border: 1px solid rgba(223, 189, 120, 0.18);
+      background: rgba(255, 255, 255, 0.035);
+    }
+
     /* ═══════════════════════════════════════════════════════════════════
        5. SIATKA 5 PROJEKTÓW I FILTRY
        ═══════════════════════════════════════════════════════════════════ */
@@ -923,6 +977,7 @@
     }
     .tier-bullets li i {
       font-style: normal;
+      font-family: var(--mono);
       color: var(--signal);
       font-weight: 700;
     }
@@ -1081,42 +1136,89 @@
       .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
       .proof-row { gap: 10px 18px; margin-top: 28px; }
 
-      /* Okno podglądu 3D w Hero */
-      .showcase-stage { height: auto; min-height: 290px; }
+      /* Okno podglądu 3D w Hero — zakładki nad oknem i stała, równa wysokość 445px */
+      .hero-showcase { display: flex; flex-direction: column; }
+      .showcase-tabs {
+        order: -1;
+        margin-top: 0;
+        margin-bottom: 12px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+      }
+      .showcase-tab { padding: 8px 8px; font-size: 11px; min-height: 38px; }
+      .showcase-stage { height: 445px; }
       .showcase-browser-bar { padding: 0 10px; }
       .showcase-address { max-width: 185px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
       .showcase-footer-bar { height: auto; padding: 10px 14px; gap: 8px; flex-wrap: wrap; font-size: 10px; }
       .showcase-footer-bar > span { display: none; }
-      .showcase-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-      .showcase-tab { padding: 8px 8px; font-size: 11px; min-height: 38px; }
 
-      /* Podglądy projektów w Hero i w kartach */
-      .art-route-split,
-      .hero-kubatura-split { grid-template-columns: 1fr; }
-      .art-route-map-box { min-height: 240px; }
-      .art-route-panel { border-left: 0; border-top: 3px solid #d90429; padding: 14px; }
-      .hero-kubatura-panel { border-left: 0; border-top: 3px solid #ea580c; padding: 14px; }
+      /* Podglądy projektów w Hero — wszystkie wypełniają dokładnie 100% sceny (445px) */
+      .showcase-stage .art-route-split,
+      .showcase-stage .hero-kubatura-split {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+      .showcase-stage .art-route-map-box {
+        flex: 1 1 0;
+        min-height: 175px;
+      }
+      .showcase-stage .art-route-panel {
+        flex: 0 0 auto;
+        border-left: 0;
+        border-top: 3px solid #d90429;
+        padding: 13px 14px;
+        gap: 6px;
+      }
+      .showcase-stage .hero-kubatura-truck {
+        flex: 1 1 0;
+        padding: 12px 14px 8px;
+      }
+      .showcase-stage .hero-kubatura-panel {
+        flex: 0 0 auto;
+        border-left: 0;
+        border-top: 3px solid #ea580c;
+        padding: 12px 14px;
+        gap: 6px;
+      }
+      .showcase-stage .pm-mini-preview {
+        height: 100%;
+        padding: 20px 18px;
+      }
+      .showcase-stage .gemba-stage-wrap {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+      .gemba-stage-grid {
+        flex: 1 1 0;
+        height: auto !important;
+        grid-template-columns: 1fr !important;
+        padding: 14px 16px 10px !important;
+        gap: 10px !important;
+        align-content: space-between;
+      }
+      .gemba-stage-grid h3 { font-size: 24px !important; margin-bottom: 4px !important; }
+      .gemba-stage-grid p { display: none; }
+      .gemba-glossary-bar {
+        position: static !important;
+        flex-shrink: 0;
+        height: auto !important;
+        padding: 9px 16px !important;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .gemba-glossary-bar > div { flex-wrap: wrap; gap: 10px !important; }
+
+      /* Podglądy projektów w kartach poniżej (#work) */
+      .project-card .art-route-split { grid-template-columns: 1fr; }
+      .project-card .art-route-map-box { min-height: 235px; }
       .project-card .art-route-panel { display: none; }
       .ck-mini-preview { padding: 48px 18px 20px; }
       .ck-mini-nav { padding: 0 14px; font-size: 9.5px; }
       .ck-mini-nav span:last-child { display: none; }
-      .pm-mini-preview { padding: 18px; min-height: 250px; }
-
-      /* GEMBA w Hero */
-      .gemba-stage-grid {
-        height: auto !important;
-        grid-template-columns: 1fr !important;
-        padding: 16px 16px 14px !important;
-        gap: 14px !important;
-      }
-      .gemba-glossary-bar {
-        position: static !important;
-        height: auto !important;
-        padding: 10px 16px !important;
-        flex-wrap: wrap;
-        gap: 8px;
-      }
-      .gemba-glossary-bar > div { flex-wrap: wrap; gap: 10px !important; }
+      .project-card .pm-mini-preview { padding: 18px; min-height: 245px; }
 
       /* Filtry, karty projektów, pakiety i kontakt */
       .filter-group { margin-left: 0; width: 100%; }
@@ -1194,7 +1296,7 @@
 
           <a href="#estimator" class="nav-cta tactile">
             <span x-text="t.navCta">Wyceń projekt</span>
-            <span aria-hidden="true">↗</span>
+            <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
           </a>
 
           <!-- Przycisk menu na urządzeniach mobilnych (<= 720px) -->
@@ -1217,7 +1319,7 @@
            :aria-label="lang === 'pl' ? 'Menu mobilne' : 'Mobile navigation'">
         <a href="projects.html" @click="mobileMenuOpen = false">
           <span x-text="navProjectsLabel">Projekty (5)</span>
-          <span aria-hidden="true">↗</span>
+          <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
         </a>
         <a href="#estimator" @click="mobileMenuOpen = false">
           <span x-text="t.navEstimator">Pakiety i wycena</span>
@@ -1233,7 +1335,7 @@
         </a>
         <a href="#estimator" class="mobile-drawer-cta tactile" @click="mobileMenuOpen = false">
           <span x-text="t.navCta">Wyceń projekt</span>
-          <span aria-hidden="true">↗</span>
+          <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
         </a>
       </nav>
 
@@ -1456,26 +1558,46 @@
                 </div>
               </div>
 
-<!-- Stage 2: PM Classics Preview -->
-              <div x-show="showcaseIdx === 2" x-cloak class="pm-mini-preview" style="padding:28px 30px;">
-                <div style="display:flex; justify-content:space-between; align-items:center; font:500 10.5px var(--mono); letter-spacing:0.08em; color:#dfbd78;">
+              <!-- Stage 2: PM Classics Preview (czysta typografia + interaktywny przelicznik 3 walut) -->
+              <div x-show="showcaseIdx === 2" x-cloak class="pm-mini-preview" style="padding:20px 24px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; font:500 10.5px var(--mono); letter-spacing:0.08em; color:#dfbd78;">
                   <span>PM CLASSICS</span>
-                  <span>PL · EN · NO | EUR · PLN · NOK</span>
+                  <div class="pm-curr-group" role="group" :aria-label="lang === 'pl' ? 'Wybierz walutę' : 'Select currency'">
+                    <button type="button" class="pm-curr-btn" :class="heroPmCurrency === 'EUR' ? 'is-active' : ''" @click="heroPmCurrency = 'EUR'">EUR</button>
+                    <button type="button" class="pm-curr-btn" :class="heroPmCurrency === 'PLN' ? 'is-active' : ''" @click="heroPmCurrency = 'PLN'">PLN</button>
+                    <button type="button" class="pm-curr-btn" :class="heroPmCurrency === 'NOK' ? 'is-active' : ''" @click="heroPmCurrency = 'NOK'">NOK</button>
+                  </div>
                 </div>
+
                 <div>
-                  <div style="font:500 10.5px var(--mono); letter-spacing:0.12em; opacity:0.88;"
+                  <div style="font:500 9.5px var(--mono); letter-spacing:0.12em; opacity:0.85;"
                     x-text="lang === 'pl' ? 'SZTUKA RENOWACJI' : 'THE ART OF RESTORATION'">SZTUKA RENOWACJI</div>
-                  <h3 style="margin:8px 0 0; font:600 36px/0.95 var(--display); letter-spacing:-0.05em;">
+                  <h3 style="margin:5px 0 0; font:600 28px/0.96 var(--display); letter-spacing:-0.05em;">
                     <span x-text="lang === 'pl' ? 'Drugie życie ' : 'Second '">Drugie życie </span>
                     <i style="color:#dfbd78; font-weight:400;" x-text="lang === 'pl' ? 'klasyków.' : 'chapters.'">klasyków.</i>
                   </h3>
                 </div>
-                <div style="font:500 10.5px var(--mono); letter-spacing:0.08em; color:#e4e4e7;"
-                  x-text="lang === 'pl' ? 'WIRTUALNY GARAŻ' : 'VIRTUAL GARAGE'">WIRTUALNY GARAŻ</div>
+
+                <div class="pm-garage-list tabular">
+                  <template x-for="car in heroPmCars" :key="car.id">
+                    <div class="pm-garage-row">
+                      <div style="min-width:0;">
+                        <strong style="display:block; font:600 12.5px/1.2 var(--display); color:#f4f4f5;" x-text="car.model"></strong>
+                        <span style="font:500 9.5px var(--mono); color:#a1a1aa;" x-text="car.status[lang]"></span>
+                      </div>
+                      <strong style="font:700 12px var(--mono); color:#dfbd78; white-space:nowrap;" x-text="formatPmPrice(car.eur)"></strong>
+                    </div>
+                  </template>
+                </div>
+
+                <div style="display:flex; justify-content:space-between; align-items:center; font:500 9.5px var(--mono); letter-spacing:0.08em; color:#a1a1aa;">
+                  <span x-text="lang === 'pl' ? 'WIRTUALNY GARAŻ · 3 WALUTY' : 'VIRTUAL GARAGE · 3 CURRENCIES'">WIRTUALNY GARAŻ · 3 WALUTY</span>
+                  <span>PL · EN · NO</span>
+                </div>
               </div>
 
               <!-- Stage 3: 玄 GEMBA Preview -->
-              <div x-show="showcaseIdx === 3" x-cloak style="height:100%; position:relative; background-color:#f9f8f3; background-image:linear-gradient(#ebe8df 1px, transparent 1px), linear-gradient(90deg, #ebe8df 1px, transparent 1px); background-size:36px 36px; color:#161e21; overflow:hidden;">
+              <div x-show="showcaseIdx === 3" x-cloak class="gemba-stage-wrap" style="height:100%; position:relative; background-color:#f9f8f3; background-image:linear-gradient(#ebe8df 1px, transparent 1px), linear-gradient(90deg, #ebe8df 1px, transparent 1px); background-size:36px 36px; color:#161e21; overflow:hidden;">
                 <div class="gemba-stage-grid" style="height:calc(100% - 38px); padding:20px 26px 14px; display:grid; grid-template-columns:1fr 1.15fr; gap:20px; align-items:center;">
                   <div style="display:flex; flex-direction:column; justify-content:space-between; height:100%;">
                     <div style="display:inline-flex; align-items:center; gap:7px; font:600 10px var(--mono); letter-spacing:0.1em; color:#5b6568;">
@@ -1537,8 +1659,7 @@
               <a :href="activeShowcase.url"
                  :target="activeShowcase.external ? '_blank' : '_self'"
                  :rel="activeShowcase.external ? 'noopener noreferrer' : ''"
-                 style="color:#172019; font-weight:700;"
-                 x-text="lang === 'pl' ? 'OTWÓRZ ↗' : 'LIVE ↗'">OTWÓRZ ↗</a>
+                 class="icon-link" style="color:#172019; font-weight:700;"><span x-text="lang === 'pl' ? 'OTWÓRZ' : 'LIVE'">OTWÓRZ</span><svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg></a>
             </div>
           </div>
 
@@ -1579,7 +1700,7 @@
       <div class="filter-bar">
         <a href="projects.html" class="filter-pill filter-cta tactile">
           <span x-text="lang === 'pl' ? 'Wszystkie projekty' : 'All projects'">Wszystkie projekty</span>
-          <span aria-hidden="true">↗</span>
+          <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
         </a>
 
         <div class="filter-group" role="group" :aria-label="lang === 'pl' ? 'Filtruj projekty' : 'Filter projects'">
@@ -1645,9 +1766,7 @@
             </div>
             <div class="project-footer">
               <a href="case-study.html?project=adremt2" class="tactile" x-text="lang === 'pl' ? 'Case study →' : 'Case study →'">Case study →</a>
-              <a href="https://adremt2.pl/index2.html" target="_blank" rel="noopener noreferrer" style="color:var(--signal);">
-                <span x-text="lang === 'pl' ? 'Otwórz projekt ↗' : 'Open live site ↗'">Otwórz projekt ↗</span>
-              </a>
+              <a href="https://adremt2.pl/index2.html" target="_blank" rel="noopener noreferrer" class="icon-link" style="color:var(--signal);"><span x-text="lang === 'pl' ? 'Otwórz projekt' : 'Open live site'">Otwórz projekt</span><svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg></a>
             </div>
           </div>
         </article>
@@ -1679,9 +1798,7 @@
             </div>
             <div class="project-footer">
               <a href="case-study.html?project=ckadrem" class="tactile" x-text="lang === 'pl' ? 'Case study →' : 'Case study →'">Case study →</a>
-              <a href="https://ck-adrem.pl" target="_blank" rel="noopener noreferrer" style="color:var(--signal);">
-                <span x-text="lang === 'pl' ? 'Otwórz projekt ↗' : 'Open live site ↗'">Otwórz projekt ↗</span>
-              </a>
+              <a href="https://ck-adrem.pl" target="_blank" rel="noopener noreferrer" class="icon-link" style="color:var(--signal);"><span x-text="lang === 'pl' ? 'Otwórz projekt' : 'Open live site'">Otwórz projekt</span><svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg></a>
             </div>
           </div>
         </article>
@@ -1717,9 +1834,7 @@
             </div>
             <div class="project-footer">
               <a href="case-study.html?project=pmclassics" class="tactile" x-text="lang === 'pl' ? 'Case study →' : 'Case study →'">Case study →</a>
-              <a href="pmclassics.html" style="color:var(--signal);">
-                <span x-text="lang === 'pl' ? 'Otwórz projekt ↗' : 'Open live site ↗'">Otwórz projekt ↗</span>
-              </a>
+              <a href="pmclassics.html" class="icon-link" style="color:var(--signal);"><span x-text="lang === 'pl' ? 'Otwórz projekt' : 'Open live site'">Otwórz projekt</span><svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg></a>
             </div>
           </div>
         </article>
@@ -1793,9 +1908,7 @@
             </div>
             <div class="project-footer">
               <a href="case-study.html?project=kubatura" class="tactile" x-text="lang === 'pl' ? 'Case study →' : 'Case study →'">Case study →</a>
-              <a href="kubatura.html" style="color:var(--signal);">
-                <span x-text="lang === 'pl' ? 'Otwórz projekt ↗' : 'Open live site ↗'">Otwórz projekt ↗</span>
-              </a>
+              <a href="kubatura.html" class="icon-link" style="color:var(--signal);"><span x-text="lang === 'pl' ? 'Otwórz projekt' : 'Open live site'">Otwórz projekt</span><svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg></a>
             </div>
           </div>
         </article>
@@ -1854,9 +1967,7 @@
             </div>
             <div class="project-footer">
               <a href="case-study.html?project=gemba" class="tactile" x-text="lang === 'pl' ? 'Case study →' : 'Case study →'">Case study →</a>
-              <a href="https://lean-guide-flow.base44.app" target="_blank" rel="noopener noreferrer" style="color:var(--signal);">
-                <span x-text="lang === 'pl' ? 'Otwórz aplikację ↗' : 'Open live app ↗'">Otwórz aplikację ↗</span>
-              </a>
+              <a href="https://lean-guide-flow.base44.app" target="_blank" rel="noopener noreferrer" class="icon-link" style="color:var(--signal);"><span x-text="lang === 'pl' ? 'Otwórz aplikację' : 'Open live app'">Otwórz aplikację</span><svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg></a>
             </div>
           </div>
         </article>
@@ -1921,7 +2032,8 @@
         </div>
 
         <button type="button" class="btn-primary tactile" @click="prefillContact()">
-          <span x-text="lang === 'pl' ? 'Przejdź do wyceny tego wariantu ↓' : 'Continue with this tier ↓'">Przejdź do wyceny tego wariantu ↓</span>
+          <span x-text="lang === 'pl' ? 'Przejdź do wyceny tego wariantu' : 'Continue with this tier'">Przejdź do wyceny tego wariantu</span>
+          <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2v8M2.5 6.5L6 10l3.5-3.5"/></svg>
         </button>
       </div>
 
@@ -1974,7 +2086,7 @@
                 <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77Z"/>
               </svg>
               <span>LinkedIn</span>
-              <span aria-hidden="true">↗</span>
+              <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
             </a>
 
             <a href="https://www.instagram.com/agilearchie/" target="_blank" rel="noopener noreferrer" class="social-link-btn tactile">
@@ -1984,7 +2096,7 @@
                 <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
               </svg>
               <span>Instagram</span>
-              <span aria-hidden="true">↗</span>
+              <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
             </a>
           </div>
 
@@ -2018,9 +2130,9 @@
           <span x-text="formStatus === 'sending'
             ? (lang === 'pl' ? 'Wysyłanie wiadomości...' : 'Sending message...')
             : formStatus === 'success'
-              ? (lang === 'pl' ? 'Wiadomość wysłana ✓' : 'Message sent ✓')
-              : (lang === 'pl' ? 'Wyślij wiadomość →' : 'Send message →')">Wyślij wiadomość →</span>
-          <span aria-hidden="true" x-text="formStatus === 'success' ? '✓' : '→'">→</span>
+              ? (lang === 'pl' ? 'Wiadomość wysłana' : 'Message sent')
+              : (lang === 'pl' ? 'Wyślij wiadomość' : 'Send message')">Wyślij wiadomość</span>
+          <span aria-hidden="true" style="font-family:var(--mono);" x-text="formStatus === 'success' ? '✓' : '→'">→</span>
         </button>
 
         <!-- Komunikat po wysyłce lub błędzie walidacji -->
@@ -2038,8 +2150,8 @@
     <div class="page-wrap" style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px;">
       <span><strong>web4biz.pl</strong> · Independent Digital Practice by Archie</span>
       <div style="display:flex; flex-wrap:wrap; align-items:center; gap:16px;">
-        <a href="https://www.linkedin.com/in/artur-zaluska/" target="_blank" rel="noopener noreferrer" style="opacity:0.85;">LinkedIn ↗</a>
-        <a href="https://www.instagram.com/agilearchie/" target="_blank" rel="noopener noreferrer" style="opacity:0.85;">Instagram ↗</a>
+        <a href="https://www.linkedin.com/in/artur-zaluska/" target="_blank" rel="noopener noreferrer" class="icon-link" style="opacity:0.85;"><span>LinkedIn</span><svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg></a>
+        <a href="https://www.instagram.com/agilearchie/" target="_blank" rel="noopener noreferrer" class="icon-link" style="opacity:0.85;"><span>Instagram</span><svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg></a>
         <span style="color:#899188;" x-text="lang === 'pl' ? '© 2026 Archie.' : '© 2026 Archie.'">© 2026 Archie.</span>
         <a href="#top" x-text="lang === 'pl' ? '↑ Na górę' : '↑ Back to top'">↑ Na górę</a>
       </div>
@@ -2123,7 +2235,13 @@
           }
         ],
 
-
+        // Interaktywny przelicznik 3 walut dla 3. zakładki PM Classics w Hero
+        heroPmCurrency: 'EUR',
+        heroPmRates: { EUR: 1, PLN: 4.30, NOK: 11.70 },
+        heroPmCars: [
+          { id: 'volvo', model: '1966 Volvo 122S', eur: 16500, status: { pl: 'Dostępny od ręki · Kolekcja', en: 'In stock · Collection' } },
+          { id: 'manta', model: '1973 Opel Manta A', eur: 19800, status: { pl: 'Po renowacji · 1.9 SR', en: 'Restored · 1.9 SR' } }
+        ],
 
         selectedTier: 'tools',
         form: { name: '', email: '', message: '', honey: '' },
@@ -2334,6 +2452,12 @@
         toggleLang() {
           this.lang = this.lang === 'pl' ? 'en' : 'pl';
           localStorage.setItem('lang', this.lang);
+        },
+
+        formatPmPrice(eur) {
+          const rate = this.heroPmRates[this.heroPmCurrency] || 1;
+          const val = Math.round(eur * rate);
+          return val.toLocaleString('pl-PL') + ' ' + this.heroPmCurrency;
         },
 
         onShowcaseKeydown(e, idx) {
