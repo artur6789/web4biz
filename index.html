@@ -19,7 +19,7 @@
 
   <style>
     /* ═══════════════════════════════════════════════════════════════════
-       1. DESIGN TOKENS - 3 MOTYWY (STAŁA GEOMETRIA WE WSZYSTKICH MOTYWACH)
+       1. DESIGN TOKENS - 3 MOTYWY (UJEDNOLICONY SYSTEM PRZYCISKÓW)
        ═══════════════════════════════════════════════════════════════════ */
     :root,
     [data-theme="editorial"] {
@@ -35,6 +35,9 @@
       --hero-bg: #d8fa52;
       --hero-ink: #172019;
       --hero-muted: #34422a;
+      /* Kolor przewodni wszystkich przycisków w motywie Słoneczko */
+      --btn-bg: #172019;
+      --btn-ink: #d8fa52;
       --card-radius: 8px;
       --btn-radius: 6px;
       --ease-out-quart: cubic-bezier(0.22, 1, 0.36, 1);
@@ -58,6 +61,9 @@
       --hero-bg: #18211b;
       --hero-ink: #f0f2e9;
       --hero-muted: #c2cbbd;
+      /* Kolor przewodni wszystkich przycisków w motywie Półksiężyc */
+      --btn-bg: #d8fa52;
+      --btn-ink: #141a16;
     }
 
     /* Widok 02 (Księżyc): 21st.dev Obsidian & Cyan */
@@ -74,6 +80,9 @@
       --hero-bg: #07090b;
       --hero-ink: #f4f6f8;
       --hero-muted: #94a3b8;
+      /* Kolor przewodni wszystkich przycisków w motywie Księżyc */
+      --btn-bg: #06b6d4;
+      --btn-ink: #061014;
     }
 
     *, *::before, *::after { box-sizing: border-box; }
@@ -93,7 +102,7 @@
     a { color: inherit; text-decoration: none; }
     button, input, textarea { font-family: inherit; color: inherit; }
     ::selection { background: var(--accent); color: var(--accent-ink); }
-    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    :focus-visible { outline: 2px solid var(--btn-bg); outline-offset: 3px; }
 
     .page-wrap { width: min(1340px, calc(100% - 64px)); margin-inline: auto; }
     .section-pad { padding-block: 108px; }
@@ -104,6 +113,7 @@
                   background-color 160ms var(--ease-out-snappy),
                   border-color 160ms var(--ease-out-snappy),
                   color 160ms var(--ease-out-snappy),
+                  filter 160ms var(--ease-out-snappy),
                   box-shadow 180ms var(--ease-out-quart);
     }
     .tactile:active { transform: scale(0.96); }
@@ -191,7 +201,11 @@
       font: 600 11px var(--mono);
       cursor: pointer;
     }
-    .lang-btn:hover { background: var(--hero-ink); color: var(--hero-bg); }
+    .lang-btn:hover {
+      background: var(--btn-bg);
+      color: var(--btn-ink);
+      border-color: var(--btn-bg);
+    }
 
     .theme-dock {
       display: inline-flex;
@@ -217,14 +231,9 @@
     .theme-icon-btn:hover { opacity: 1; }
     .theme-icon-btn.is-active {
       opacity: 1;
-      background: var(--hero-ink);
-      color: var(--hero-bg);
+      background: var(--btn-bg);
+      color: var(--btn-ink);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
-    }
-    [data-theme="bento"] .theme-icon-btn.is-active,
-    [data-theme="forest"] .theme-icon-btn.is-active {
-      background: var(--accent);
-      color: var(--accent-ink);
     }
     .theme-icon-btn svg { width: 16px; height: 16px; }
 
@@ -234,15 +243,14 @@
       gap: 8px;
       padding: 11px 18px;
       border-radius: var(--btn-radius);
-      background: var(--hero-ink);
-      color: var(--hero-bg);
+      border: 1px solid var(--btn-bg);
+      background: var(--btn-bg);
+      color: var(--btn-ink);
       font-size: 12px;
       font-weight: 700;
     }
-    [data-theme="bento"] .nav-cta,
-    [data-theme="forest"] .nav-cta {
-      background: var(--accent);
-      color: var(--accent-ink);
+    @media (hover: hover) and (pointer: fine) {
+      .nav-cta:hover { filter: brightness(0.94); }
     }
 
     /* ═══════════════════════════════════════════════════════════════════
@@ -294,6 +302,8 @@
       line-height: 1.62;
     }
     .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+
+    /* Ujednolicony przycisk główny (Hero, Pakiety, Kontakt) */
     .btn-primary {
       min-height: 50px;
       display: inline-flex;
@@ -301,18 +311,17 @@
       gap: 12px;
       padding: 0 24px;
       border-radius: var(--btn-radius);
-      border: 0;
-      background: var(--hero-ink);
-      color: var(--hero-bg);
+      border: 1px solid var(--btn-bg);
+      background: var(--btn-bg);
+      color: var(--btn-ink);
       font-size: 13px;
       font-weight: 700;
       cursor: pointer;
     }
-    [data-theme="bento"] .btn-primary,
-    [data-theme="forest"] .btn-primary {
-      background: var(--accent);
-      color: var(--accent-ink);
+    @media (hover: hover) and (pointer: fine) {
+      .btn-primary:hover { filter: brightness(0.94); }
     }
+
     .btn-secondary {
       min-height: 50px;
       display: inline-flex;
@@ -321,9 +330,17 @@
       padding: 0 20px;
       border-radius: var(--btn-radius);
       border: 1px solid color-mix(in srgb, var(--hero-ink) 28%, transparent);
+      background: transparent;
       font-size: 13px;
       font-weight: 600;
     }
+    @media (hover: hover) and (pointer: fine) {
+      .btn-secondary:hover {
+        border-color: var(--hero-ink);
+        background: color-mix(in srgb, var(--hero-ink) 7%, transparent);
+      }
+    }
+
     .proof-row {
       display: flex;
       flex-wrap: wrap;
@@ -381,6 +398,8 @@
       font: 600 11px var(--mono);
       color: #172019;
     }
+
+    /* Zakładki w sekcji Hero (wzór zachowania dla wszystkich przycisków przełączających) */
     .showcase-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
     .showcase-tab {
       flex: 1 1 auto;
@@ -398,16 +417,17 @@
       justify-content: center;
       gap: 7px;
     }
-    .showcase-tab.is-active {
-      background: var(--hero-ink);
-      color: var(--hero-bg);
-      border-color: var(--hero-ink);
+    @media (hover: hover) and (pointer: fine) {
+      .showcase-tab:not(.is-active):hover {
+        border-color: color-mix(in srgb, var(--hero-ink) 55%, transparent);
+        background: color-mix(in srgb, var(--surface) 88%, transparent);
+      }
     }
-    [data-theme="bento"] .showcase-tab.is-active,
-    [data-theme="forest"] .showcase-tab.is-active {
-      background: var(--accent);
-      color: var(--accent-ink);
-      border-color: var(--accent);
+    .showcase-tab.is-active {
+      background: var(--btn-bg);
+      color: var(--btn-ink);
+      border-color: var(--btn-bg);
+      font-weight: 700;
     }
 
     /* ═══════════════════════════════════════════════════════════════════
@@ -502,7 +522,7 @@
       color: #ffffff;
     }
 
-.gemba-chip {
+    .gemba-chip {
       appearance: none;
       -webkit-appearance: none;
       width: 100%;
@@ -581,7 +601,7 @@
     }
 
     /* ═══════════════════════════════════════════════════════════════════
-       5. SIATKA 5 PROJEKTÓW I 3-PAKOWY KONFIGURATOR OFERTY
+       5. SIATKA 5 PROJEKTÓW I FILTRY (1:1 JAK ZAKŁADKI W HERO)
        ═══════════════════════════════════════════════════════════════════ */
     .section-kicker {
       margin: 0;
@@ -598,27 +618,61 @@
       letter-spacing: -0.07em;
     }
 
-    .filter-bar { display: flex; flex-wrap: wrap; gap: 8px; margin: 32px 0 24px; }
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 32px 0 24px;
+    }
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-left: auto;
+    }
+
+    /* Przyciski filtrów — identyczna wysokość, powierzchnia i reakcja jak w Hero */
     .filter-pill {
-      min-height: 36px;
-      padding: 0 15px;
+      min-height: 42px;
+      padding: 0 16px;
       border-radius: var(--btn-radius);
-      border: 1px solid var(--line);
-      background: transparent;
-      color: var(--muted);
-      font: 500 11px var(--mono);
+      border: 1px solid color-mix(in srgb, var(--ink) 20%, transparent);
+      background: color-mix(in srgb, var(--surface) 75%, transparent);
+      color: var(--ink);
+      font: 500 11.5px var(--mono);
       cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
     }
-    .filter-pill.is-active, .filter-pill:hover {
-      background: var(--ink);
-      color: var(--bg);
-      border-color: var(--ink);
+    @media (hover: hover) and (pointer: fine) {
+      .filter-pill:not(.is-active):not(.filter-cta):hover {
+        border-color: color-mix(in srgb, var(--ink) 50%, transparent);
+        background: var(--surface);
+      }
     }
-    [data-theme="bento"] .filter-pill.is-active,
-    [data-theme="forest"] .filter-pill.is-active {
-      background: var(--accent);
-      color: var(--accent-ink);
-      border-color: var(--accent);
+    /* Stan wciśnięty / aktywny filtra — ten sam kolor przewodni co w Hero */
+    .filter-pill.is-active {
+      background: var(--btn-bg);
+      color: var(--btn-ink);
+      border-color: var(--btn-bg);
+      font-weight: 700;
+    }
+    /* Przycisk „Wszystkie projekty ↗” — zawsze kolor przewodni wybranego motywu */
+    .filter-pill.filter-cta {
+      background: var(--btn-bg);
+      color: var(--btn-ink);
+      border-color: var(--btn-bg);
+      font-weight: 700;
+      padding: 0 18px;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .filter-pill.filter-cta:hover {
+        filter: brightness(0.94);
+      }
     }
 
     .project-grid {
@@ -708,13 +762,12 @@
       cursor: pointer;
     }
     .tier-card.is-active {
-      border-color: var(--ink);
+      border-color: var(--btn-bg);
       box-shadow: 0 16px 34px rgba(0, 0, 0, 0.1);
       background: color-mix(in srgb, var(--accent) 16%, var(--surface));
     }
     [data-theme="bento"] .tier-card.is-active,
     [data-theme="forest"] .tier-card.is-active {
-      border-color: var(--accent);
       background: color-mix(in srgb, var(--accent) 11%, var(--surface));
     }
     .tier-badge {
@@ -727,13 +780,8 @@
       background: color-mix(in srgb, var(--ink) 8%, transparent);
     }
     .tier-card.is-active .tier-badge {
-      background: var(--ink);
-      color: var(--bg);
-    }
-    [data-theme="bento"] .tier-card.is-active .tier-badge,
-    [data-theme="forest"] .tier-card.is-active .tier-badge {
-      background: var(--accent);
-      color: var(--accent-ink);
+      background: var(--btn-bg);
+      color: var(--btn-ink);
     }
     .tier-bullets {
       list-style: none;
@@ -799,7 +847,7 @@
       box-shadow: 0 1px 0 var(--hero-ink);
     }
 
-   .hero-grid > *,
+    .hero-grid > *,
     .contact-grid > *,
     .project-grid > * {
       min-width: 0;
@@ -867,7 +915,8 @@
       }
       .gemba-glossary-bar > div { flex-wrap: wrap; gap: 10px !important; }
 
-      /* Karty projektów, pakiety i kontakt */
+      /* Filtry, karty projektów, pakiety i kontakt */
+      .filter-group { margin-left: 0; width: 100%; }
       .project-card, .span-7, .span-5, .span-4 { grid-column: span 12; }
       .project-art-box { height: auto; min-height: 245px; }
       .project-body { padding: 18px; }
@@ -893,7 +942,7 @@
         </a>
 
         <nav class="nav-links" :aria-label="lang === 'pl' ? 'Główna nawigacja' : 'Main navigation'">
-          <a href="#work" x-text="t.navWork"></a>
+          <a href="projects.html" x-text="t.navWork"></a>
           <a href="#estimator" x-text="t.navEstimator"></a>
           <a href="#about" x-text="t.navAbout"></a>
           <a href="#contact" x-text="t.navContact"></a>
@@ -992,7 +1041,7 @@
 
             <div class="showcase-stage">
 
-              <!-- Stage 0: AD REM T2 Route Map SVG (Pełna mapa Europy z granicami i klikalnymi punktami) -->
+              <!-- Stage 0: AD REM T2 Route Map SVG -->
               <div x-show="showcaseIdx === 0" class="art-route-split">
                 <div class="art-route-map-box">
                   <div class="art-micro-header">
@@ -1105,10 +1154,8 @@
                 </div>
               </div>
 
-<!-- Stage 3: 玄 GEMBA Preview (Czarny pasek Glossary zawsze na samym dole) -->
+              <!-- Stage 3: 玄 GEMBA Preview -->
               <div x-show="showcaseIdx === 3" x-cloak style="height:100%; position:relative; background-color:#f9f8f3; background-image:linear-gradient(#ebe8df 1px, transparent 1px), linear-gradient(90deg, #ebe8df 1px, transparent 1px); background-size:36px 36px; color:#161e21; overflow:hidden;">
-                
-                <!-- Górna część robocza (wypełnia przestrzeń nad czarnym paskiem) -->
                 <div class="gemba-stage-grid" style="height:calc(100% - 38px); padding:20px 26px 14px; display:grid; grid-template-columns:1fr 1.15fr; gap:20px; align-items:center;">
                   <div style="display:flex; flex-direction:column; justify-content:space-between; height:100%;">
                     <div style="display:inline-flex; align-items:center; gap:7px; font:600 10px var(--mono); letter-spacing:0.1em; color:#5b6568;">
@@ -1142,15 +1189,15 @@
                         @click="gembaDemoIdx = gIdx"
                         x-text="g.symptom[lang]"></button>
                     </template>
-                    <div style="padding-top:8px; border-top:1px solid #ece9e0; display:flex; justify-content:space-between; align-items:center; gap:8px; font:600 9.5px var(--mono); flex-wrap:wrap;">
+                    <div style="padding-top:8px; border-top:1px solid #ece9e0; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:6px; font:600 9.5px var(--mono);">
                       <span style="color:#5b6568;" x-text="gembaDemos[gembaDemoIdx].waste[lang]"></span>
                       <span style="color:#b8432e;" x-text="'→ ' + gembaDemos[gembaDemoIdx].method"></span>
                     </div>
                   </div>
                 </div>
 
-                <!-- Dolny pasek Glossary na stałe zakotwiczony do samego dołu (bottom: 0) -->
-                  <div class="gemba-glossary-bar" style="position:absolute; left:0; right:0; bottom:0; height:38px; background:#151c1f; color:#ffffff; padding:0 26px; display:flex; justify-content:space-between; align-items:center; font:500 10.5px var(--sans); border-top:1px solid #dfdcd2;">
+                <!-- Dolny pasek Glossary -->
+                <div class="gemba-glossary-bar" style="position:absolute; left:0; right:0; bottom:0; height:38px; background:#151c1f; color:#ffffff; padding:0 26px; display:flex; justify-content:space-between; align-items:center; font:500 10.5px var(--sans); border-top:1px solid #dfdcd2;">
                   <span style="font:500 9.5px var(--mono); color:#9ba3a7; letter-spacing:0.1em;">GLOSSARY · TPS</span>
                   <div style="display:flex; gap:18px;">
                     <span><b style="color:#b8432e; font-weight:500; margin-right:4px;">改善</b>Kaizen</span>
@@ -1159,7 +1206,6 @@
                     <span><b style="color:#b8432e; font-weight:500; margin-right:4px;">平準化</b>Heijunka</span>
                   </div>
                 </div>
-
               </div>
 
             </div>
@@ -1201,14 +1247,22 @@
         <p style="max-width:360px; margin:0; color:var(--muted); font-size:14px; line-height:1.6;" x-text="t.workSub"></p>
       </div>
 
-      <!-- Category Filters -->
-      <div class="filter-bar" role="group">
-        <template x-for="f in filters" :key="f.id">
-          <button type="button" class="filter-pill tactile"
-            :class="activeFilter === f.id ? 'is-active' : ''"
-            @click="activeFilter = f.id"
-            x-text="f.label[lang]"></button>
-        </template>
+      <!-- Link do katalogu (po lewej) + Filtry kategorii reagujące 1:1 jak zakładki w Hero (po prawej) -->
+      <div class="filter-bar">
+        <a href="projects.html" class="filter-pill filter-cta tactile">
+          <span x-text="lang === 'pl' ? 'Wszystkie projekty' : 'All projects'"></span>
+          <span aria-hidden="true">↗</span>
+        </a>
+
+        <div class="filter-group" role="group" :aria-label="lang === 'pl' ? 'Filtruj projekty' : 'Filter projects'">
+          <template x-for="f in filters" :key="f.id">
+            <button type="button" class="filter-pill tactile"
+              :class="activeFilter === f.id ? 'is-active' : ''"
+              :aria-pressed="activeFilter === f.id"
+              @click="activeFilter = activeFilter === f.id ? 'all' : f.id"
+              x-text="f.label[lang]"></button>
+          </template>
+        </div>
       </div>
 
       <!-- 12-Column Asymmetric Grid with all 5 builds -->
@@ -1347,7 +1401,6 @@
         <!-- 4. KUBATURA B2B (Span 4) -->
         <article class="project-card span-4" x-show="activeFilter === 'all' || activeFilter === 'b2b' || activeFilter === 'tools'">
           <a href="case-study.html?project=kubatura" class="project-art-box" style="background-color:#f4f5f7; background-image:linear-gradient(rgba(24,26,31,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(24,26,31,0.045) 1px, transparent 1px); background-size:28px 28px; color:#181a1f; padding:15px 18px; display:flex; flex-direction:column; justify-content:space-between;">
-            <!-- Górny pasek marki i polisy -->
             <div style="display:flex; justify-content:space-between; align-items:center; font:600 9.5px var(--mono); letter-spacing:0.05em;">
               <span style="display:inline-flex; align-items:center; gap:6px; font-weight:700;">
                 <span style="padding:2px 5px; border-radius:3px; background:#ea580c; color:#ffffff;">B2B</span>
@@ -1356,27 +1409,18 @@
               <span style="color:#ea580c;">24 m³ / 3.5t · OCP 1M</span>
             </div>
 
-            <!-- Dwukolorowe hasło projektu -->
             <div style="font:800 17.5px/1.04 var(--display); letter-spacing:-0.04em;">
               <span style="color:#ea580c;" x-text="lang === 'pl' ? 'Przeprowadzka biura w weekend.' : 'Office relocation over one weekend.'"></span><br/>
               <span style="color:#373c47;" x-text="lang === 'pl' ? 'Zero przestoju w pracy.' : 'Zero operational downtime.'"></span>
             </div>
 
-            <!-- Karta z przekrojem ciężarówki 24 m³ w trakcie załadunku -->
             <div style="background:#ffffff; border:1px solid rgba(24,26,31,0.18); border-radius:8px; padding:8px 10px 6px; box-shadow:0 8px 20px rgba(24,26,31,0.07);" class="tabular">
               <svg viewBox="0 0 460 114" style="width:100%; height:auto; max-height:92px; display:block;" aria-hidden="true">
-                <!-- Podłoże -->
                 <line x1="6" y1="101" x2="454" y2="101" stroke="#cbd5e1" stroke-width="2"/>
-
-                <!-- Opuszczona winda hydrauliczna + wjeżdżający moduł ładunku -->
                 <path d="M10 99 L42 84 H54 V90 L16 101 Z" fill="#ea580c"/>
                 <rect x="22" y="69" width="17" height="14" rx="2" fill="#ea580c"/>
                 <line x1="25" y1="73" x2="36" y2="73" stroke="#ffffff" stroke-width="1.5"/>
-
-                <!-- Zabudowa kontenerowa 24 m3 -->
                 <rect x="54" y="8" width="272" height="82" rx="3" fill="#f8f9fb" stroke="#181a1f" stroke-width="2"/>
-
-                <!-- Siatka konstrukcyjna wewnątrz paki -->
                 <g stroke="#e2e8f0" stroke-width="1">
                   <line x1="108" y1="8" x2="108" y2="90"/>
                   <line x1="162" y1="8" x2="162" y2="90"/>
@@ -1385,28 +1429,20 @@
                   <line x1="54" y1="35" x2="326" y2="35"/>
                   <line x1="54" y1="63" x2="326" y2="63"/>
                 </g>
-
-                <!-- Załadowane moduły biurowe (dolny, środkowy i górny rząd) -->
                 <rect x="275" y="66" width="46" height="21" rx="2" fill="#181a1f"/>
                 <rect x="221" y="66" width="46" height="21" rx="2" fill="#ea580c"/>
                 <rect x="167" y="66" width="46" height="21" rx="2" fill="#181a1f"/>
                 <rect x="113" y="66" width="46" height="21" rx="2" fill="#181a1f"/>
                 <rect x="59" y="66" width="46" height="21" rx="2" fill="#ea580c"/>
-
                 <rect x="275" y="39" width="46" height="21" rx="2" fill="#ea580c"/>
                 <rect x="221" y="39" width="46" height="21" rx="2" fill="#181a1f"/>
                 <rect x="167" y="39" width="46" height="21" rx="2" fill="#ea580c"/>
                 <rect x="113" y="39" width="46" height="21" rx="2" fill="#181a1f"/>
-
                 <rect x="275" y="12" width="46" height="20" rx="2" fill="#181a1f"/>
                 <rect x="221" y="12" width="46" height="20" rx="2" fill="#181a1f"/>
-
-                <!-- Kabina ciężarówki -->
                 <path d="M330 90 H426 V58 L400 28 H330 Z" fill="#181a1f"/>
                 <path d="M344 36 H392 L412 56 H344 Z" fill="#334155"/>
                 <rect x="330" y="66" width="96" height="6" fill="#ea580c"/>
-
-                <!-- Koła -->
                 <circle cx="108" cy="95" r="12" fill="#181a1f" stroke="#ffffff" stroke-width="2.5"/>
                 <circle cx="108" cy="95" r="4.5" fill="#94a3b8"/>
                 <circle cx="384" cy="95" r="12" fill="#181a1f" stroke="#ffffff" stroke-width="2.5"/>
@@ -1441,7 +1477,6 @@
         <!-- 5. 玄 GEMBA - LEAN PROBLEM-SOLVING WORKSPACE (Span 4) -->
         <article class="project-card span-4" x-show="activeFilter === 'all' || activeFilter === 'tools' || activeFilter === 'react'">
           <a href="case-study.html?project=gemba" class="project-art-box" style="background-color:#f9f8f3; background-image:linear-gradient(#ebe8df 1px, transparent 1px), linear-gradient(90deg, #ebe8df 1px, transparent 1px); background-size:36px 36px; color:#161e21; padding:0; display:flex; flex-direction:column; justify-content:space-between; position:relative; overflow:hidden; border-bottom:0; background-clip:padding-box;">
-            <!-- Górna część: Jasny papier techniczny z ceglanym akcentem #B8432E -->
             <div style="padding:20px 22px 14px; display:flex; flex-direction:column; justify-content:space-between; flex:1;">
               <div style="display:flex; justify-content:space-between; align-items:center; font:500 10px var(--mono); letter-spacing:0.1em; color:#5b6568;">
                 <span style="display:inline-flex; align-items:center; gap:7px;">
@@ -1458,7 +1493,6 @@
                 </div>
               </div>
 
-              <!-- Metryki 34 / 70+ / 5 jak w aplikacji -->
               <div style="display:flex; gap:24px; padding-top:10px; border-top:1px solid #e2dfd5;" class="tabular">
                 <div>
                   <strong style="font:700 13px/1 var(--display); color:#161e21; display:block;">47</strong>
@@ -1475,7 +1509,6 @@
               </div>
             </div>
 
-            <!-- Dolny pasek: Ciemny moduł Glossary (#151C1F) z Kanji w kolorze #B8432E -->
             <div style="background:#151c1f; color:#ffffff; padding:10px 22px; display:grid; grid-template-columns:repeat(4, auto); justify-content:space-between; align-items:center; font:500 10px var(--sans); border-top:1px solid #dfdcd2; margin-bottom:-1px;">
               <span><b style="color:#b8432e; font-weight:500; margin-right:3px;">改善</b>Kaizen</span>
               <span><b style="color:#b8432e; font-weight:500; margin-right:3px;">無駄</b>Muda</span>
@@ -1513,7 +1546,7 @@
       <div style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:24px;">
         <div>
           <p class="section-kicker" x-text="lang === 'pl' ? '02 / WYBIERZ WARIANT DLA SWOJEJ FIRMY' : '02 / CHOOSE YOUR PROJECT TIER'"></p>
-          <h2 class="section-title" x-text="lang === 'pl' ? 'Trzy proste pakiety projektowe' : 'Three clear ways to build'"></h2>
+          <h2 class="section-title" x-text="lang === 'pl' ? 'Trzy proste pakiety projektowe.' : 'Three clear ways to build.'"></h2>
         </div>
         <p style="max-width:400px; margin:0; color:var(--muted); font-size:14px; line-height:1.6;"
           x-text="lang === 'pl' ? 'Kliknij wariant dopasowany do Twojego celu biznesowego - poniżej zobaczysz czas realizacji i jednym kliknięciem przeniesiesz go do formularza.' : 'Select the tier that matches your business goal to see estimated delivery time and transfer it to the contact form in one click.'"></p>
@@ -1599,9 +1632,9 @@
           <span style="display:block;" x-text="lang === 'pl' ? 'usprawnić?' : 'work better?'"></span>
         </h2>
         <p style="max-width:400px; font-size:15px; line-height:1.65; color:var(--hero-muted); margin-bottom:28px;" x-text="lang === 'pl' ? 'Opowiedz, co blokuje sprzedaż lub zajmuje za dużo czasu. Wrócę z konkretnym pomysłem i wyceną.' : 'Tell me what is slowing down your sales or operations. I will come back with a concrete idea and quote.'"></p>
-       </div>
+      </div>
 
-<form @submit.prevent="sendMail()" style="display:flex; flex-direction:column; gap:20px; padding-top:16px;">
+      <form @submit.prevent="sendMail()" style="display:flex; flex-direction:column; gap:20px; padding-top:16px;">
         <!-- Ukryte pole antyspamowe (Honeypot) -->
         <input type="text" x-model="form.honey" style="display:none;" tabindex="-1" autocomplete="off"/>
 
@@ -1667,7 +1700,7 @@
 
         // Interaktywne demo diagnostyki dla 4. zakładki 玄 GEMBA w Hero
         gembaDemoIdx: 0,
-gembaDemos: [
+        gembaDemos: [
           {
             id: 'changeover',
             symptom: {
@@ -1691,7 +1724,7 @@ gembaDemos: [
         // Autentyczne zdjęcie klasycznego Volvo Amazon z lat 60.
         classicCarImg: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Volvo_Amazon_1966.jpg/1280px-Volvo_Amazon_1966.jpg',
 
-selectedTier: 'tools',
+        selectedTier: 'tools',
         form: { name: '', email: '', message: '', honey: '' },
         formStatus: 'idle',
         formFeedback: '',
@@ -1740,7 +1773,6 @@ selectedTier: 'tools',
         ],
 
         filters: [
-          { id: 'all', label: { pl: 'Wszystkie projekty (5)', en: 'All projects (5)' } },
           { id: 'b2b', label: { pl: 'Strony B2B & SEO', en: 'B2B & SEO Websites' } },
           { id: 'tools', label: { pl: 'Dodatkowe narzędzia', en: 'Custom Web Tools' } },
           { id: 'react', label: { pl: 'Aplikacje React', en: 'React Apps' } }
@@ -1773,7 +1805,7 @@ selectedTier: 'tools',
             },
             example: { pl: 'Wzór: ck-adrem.pl', en: 'Ref: ck-adrem.pl' }
           },
-         {
+          {
             id: 'tools',
             badge: { pl: 'NAJCZĘŚCIEJ WYBIERANY', en: 'MOST POPULAR' },
             timeline: { pl: 'Czas: 2–3 tygodnie', en: 'Timeline: 2–3 weeks' },
@@ -1843,7 +1875,7 @@ selectedTier: 'tools',
             heroBtnSecondary: 'Wybierz pakiet dla siebie →',
             proof: ['10+ LAT W B2B', '5+ LAT W AGILE & LEAN', 'PL · EN · IT'],
             workKicker: '01 / WYBRANE PROJEKTY',
-            workTitle: 'Wynik ma znaczenie',
+            workTitle: 'Wynik ma znaczenie.',
             workSub: 'Od wektorowych kalkulatorów tras i serwisów księgowych po katalogi klasyków i interaktywne aplikacje w React.'
           },
           en: {
@@ -1861,7 +1893,7 @@ selectedTier: 'tools',
             heroBtnSecondary: 'Choose your project tier →',
             proof: ['10+ YEARS IN B2B', '5+ YEARS IN AGILE & LEAN', 'PL · EN · IT'],
             workKicker: '01 / SELECTED PROJECTS',
-            workTitle: 'Built to do more',
+            workTitle: 'Built to do more.',
             workSub: 'From zero-API European route calculators and accounting portals to classic car garages and React applications.'
           }
         },
@@ -1905,7 +1937,7 @@ selectedTier: 'tools',
           }, 420);
         },
 
-async sendMail() {
+        async sendMail() {
           if (this.form.honey) return; // blokada botów
 
           const name = this.form.name.trim();
