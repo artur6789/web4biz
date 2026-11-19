@@ -799,16 +799,82 @@
       box-shadow: 0 1px 0 var(--hero-ink);
     }
 
+   .hero-grid > *,
+    .contact-grid > *,
+    .project-grid > * {
+      min-width: 0;
+    }
+
     @media (max-width: 1024px) {
       .hero-grid, .contact-grid, .tier-grid { grid-template-columns: 1fr; }
       .span-7, .span-5, .span-4 { grid-column: span 6; }
     }
+
     @media (max-width: 720px) {
-      .page-wrap { width: calc(100% - 32px); }
-      .nav-links, .wordmark-sub { display: none; }
-      .project-card, .span-7, .span-5, .span-4 { grid-column: span 12; }
+      .page-wrap { width: calc(100% - 28px); }
+      .section-pad { padding-block: 64px; }
+      .hero-section { padding: 12px 0 56px; }
+
+      /* Nawigacja — mieści się na 360px bez zawijania */
+      .nav-wrap { height: 64px; margin-bottom: 32px; gap: 8px; }
+      .wordmark { font-size: 20px; }
+      .nav-links, .wordmark-sub, .nav-cta { display: none; }
+      .nav-actions { gap: 6px; }
+      .lang-btn { height: 34px; min-width: 38px; padding: 0 9px; }
+      .theme-icon-btn { width: 28px; height: 28px; }
+
+      /* Hero & Typografia */
+      .hero-grid { gap: 32px; }
+      .hero-title { font-size: clamp(2.45rem, 11.5vw, 3.3rem); line-height: 0.94; }
+      .hero-title .line-italic { padding-left: 0.14em; }
+      .hero-intro { font-size: 15px; margin-bottom: 22px; }
+      .hero-actions { flex-direction: column; align-items: stretch; gap: 10px; }
+      .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+      .proof-row { gap: 10px 18px; margin-top: 28px; }
+
+      /* Okno podglądu 3D w Hero */
+      .showcase-stage { height: auto; min-height: 290px; }
+      .showcase-browser-bar { padding: 0 10px; }
+      .showcase-address { max-width: 185px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .showcase-footer-bar { height: auto; padding: 10px 14px; gap: 8px; flex-wrap: wrap; font-size: 10px; }
+      .showcase-footer-bar > span { display: none; }
+      .showcase-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+      .showcase-tab { padding: 8px 8px; font-size: 11px; min-height: 38px; }
+
+      /* Podglądy projektów w Hero i w kartach */
       .art-route-split { grid-template-columns: 1fr; }
-      .art-route-panel { display: none; }
+      .art-route-map-box { min-height: 240px; }
+      .art-route-panel { border-left: 0; border-top: 3px solid #d90429; padding: 14px; }
+      .project-card .art-route-panel { display: none; }
+      .ck-mini-preview { padding: 48px 18px 20px; }
+      .ck-mini-nav { padding: 0 14px; font-size: 9.5px; }
+      .ck-mini-nav span:last-child { display: none; }
+      .pm-mini-preview { padding: 18px; min-height: 250px; }
+
+      /* GEMBA w Hero — 1 kolumna + brak nakładania paska Glossary */
+      .gemba-stage-grid {
+        height: auto !important;
+        grid-template-columns: 1fr !important;
+        padding: 16px 16px 14px !important;
+        gap: 14px !important;
+      }
+      .gemba-glossary-bar {
+        position: static !important;
+        height: auto !important;
+        padding: 10px 16px !important;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .gemba-glossary-bar > div { flex-wrap: wrap; gap: 10px !important; }
+
+      /* Karty projektów, pakiety i kontakt */
+      .project-card, .span-7, .span-5, .span-4 { grid-column: span 12; }
+      .project-art-box { height: auto; min-height: 245px; }
+      .project-body { padding: 18px; }
+      .tier-card { padding: 22px 18px; }
+      .tier-summary-bar { padding: 18px; }
+      .contact-grid { gap: 36px; }
+      .contact-heading { font-size: clamp(2.5rem, 12vw, 3.4rem) !important; }
     }
   </style>
 </head>
@@ -1043,7 +1109,7 @@
               <div x-show="showcaseIdx === 3" x-cloak style="height:100%; position:relative; background-color:#f9f8f3; background-image:linear-gradient(#ebe8df 1px, transparent 1px), linear-gradient(90deg, #ebe8df 1px, transparent 1px); background-size:36px 36px; color:#161e21; overflow:hidden;">
                 
                 <!-- Górna część robocza (wypełnia przestrzeń nad czarnym paskiem) -->
-                <div style="height:calc(100% - 38px); padding:20px 26px 14px; display:grid; grid-template-columns:1fr 1.15fr; gap:20px; align-items:center;">
+                <div class="gemba-stage-grid" style="height:calc(100% - 38px); padding:20px 26px 14px; display:grid; grid-template-columns:1fr 1.15fr; gap:20px; align-items:center;">
                   <div style="display:flex; flex-direction:column; justify-content:space-between; height:100%;">
                     <div style="display:inline-flex; align-items:center; gap:7px; font:600 10px var(--mono); letter-spacing:0.1em; color:#5b6568;">
                       <i style="width:7px; height:7px; background:#b8432e; display:inline-block;"></i>
@@ -1076,7 +1142,7 @@
                         @click="gembaDemoIdx = gIdx"
                         x-text="g.symptom[lang]"></button>
                     </template>
-                    <div style="padding-top:8px; border-top:1px solid #ece9e0; display:flex; justify-content:space-between; align-items:center; gap:8px; font:600 9.5px var(--mono); white-space:nowrap;">
+                    <div style="padding-top:8px; border-top:1px solid #ece9e0; display:flex; justify-content:space-between; align-items:center; gap:8px; font:600 9.5px var(--mono); flex-wrap:wrap;">
                       <span style="color:#5b6568;" x-text="gembaDemos[gembaDemoIdx].waste[lang]"></span>
                       <span style="color:#b8432e;" x-text="'→ ' + gembaDemos[gembaDemoIdx].method"></span>
                     </div>
@@ -1084,7 +1150,7 @@
                 </div>
 
                 <!-- Dolny pasek Glossary na stałe zakotwiczony do samego dołu (bottom: 0) -->
-                <div style="position:absolute; left:0; right:0; bottom:0; height:38px; background:#151c1f; color:#ffffff; padding:0 26px; display:flex; justify-content:space-between; align-items:center; font:500 10.5px var(--sans); border-top:1px solid #dfdcd2;">
+                  <div class="gemba-glossary-bar" style="position:absolute; left:0; right:0; bottom:0; height:38px; background:#151c1f; color:#ffffff; padding:0 26px; display:flex; justify-content:space-between; align-items:center; font:500 10.5px var(--sans); border-top:1px solid #dfdcd2;">
                   <span style="font:500 9.5px var(--mono); color:#9ba3a7; letter-spacing:0.1em;">GLOSSARY · TPS</span>
                   <div style="display:flex; gap:18px;">
                     <span><b style="color:#b8432e; font-weight:500; margin-right:4px;">改善</b>Kaizen</span>
@@ -1505,7 +1571,7 @@
 
   <!-- ═══ SECTION 03: ABOUT / PODEJŚCIE ═══ -->
   <section class="section-pad" id="about" style="background:var(--surface); color:var(--ink); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
-    <div class="page-wrap" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:48px; align-items:start;">
+    <div class="page-wrap" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap:48px; align-items:start;">
       <div>
         <p class="section-kicker" x-text="lang === 'pl' ? '03 / PODEJŚCIE' : '03 / THE APPROACH'"></p>
         <h2 class="section-title" style="color:var(--ink); margin-top:14px;" x-text="lang === 'pl' ? 'Najpierw rozumiem pracę. Potem projektuję narzędzie.' : 'Understand the work first. Then design the tool.'"></h2>
@@ -1527,7 +1593,7 @@
     <div class="page-wrap contact-grid">
       <div>
         <p class="section-kicker" x-text="lang === 'pl' ? '04 / NASTĘPNY KROK' : '04 / NEXT STEP'"></p>
-        <h2 style="margin:18px 0; font:600 clamp(3.4rem, 7vw, 6.8rem)/0.86 var(--display); letter-spacing:-0.09em;">
+        <h2 class="contact-heading" style="margin:18px 0; font:600 clamp(3.4rem, 7vw, 6.8rem)/0.86 var(--display); letter-spacing:-0.09em;">
           <span style="display:block;" x-text="lang === 'pl' ? 'Co dziś' : 'What can'"></span>
           <span style="display:block;" x-text="lang === 'pl' ? 'możemy' : 'we make'"></span>
           <span style="display:block;" x-text="lang === 'pl' ? 'usprawnić?' : 'work better?'"></span>
