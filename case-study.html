@@ -16,7 +16,7 @@
 
   <style>
     /* ═══════════════════════════════════════════════════════════════════
-       1. DESIGN TOKENS - 3 MOTYWY (STAŁA GEOMETRIA WE WSZYSTKICH MOTYWACH)
+       1. DESIGN TOKENS - 3 MOTYWY (UJEDNOLICONY SYSTEM PRZYCISKÓW)
        ═══════════════════════════════════════════════════════════════════ */
     :root,
     [data-theme="editorial"] {
@@ -32,6 +32,9 @@
       --hero-bg: #d8fa52;
       --hero-ink: #172019;
       --hero-muted: #34422a;
+      /* Kolor przewodni wszystkich przycisków w motywie Słoneczko */
+      --btn-bg: #172019;
+      --btn-ink: #d8fa52;
       --card-radius: 8px;
       --btn-radius: 6px;
       --ease-out-quart: cubic-bezier(0.22, 1, 0.36, 1);
@@ -55,6 +58,9 @@
       --hero-bg: #18211b;
       --hero-ink: #f0f2e9;
       --hero-muted: #c2cbbd;
+      /* Kolor przewodni wszystkich przycisków w motywie Półksiężyc */
+      --btn-bg: #d8fa52;
+      --btn-ink: #141a16;
     }
 
     /* Widok 02 (Księżyc): 21st.dev Obsidian & Cyan */
@@ -71,6 +77,9 @@
       --hero-bg: #07090b;
       --hero-ink: #f4f6f8;
       --hero-muted: #94a3b8;
+      /* Kolor przewodni wszystkich przycisków w motywie Księżyc */
+      --btn-bg: #06b6d4;
+      --btn-ink: #061014;
     }
 
     *, *::before, *::after { box-sizing: border-box; }
@@ -90,7 +99,7 @@
     a { color: inherit; text-decoration: none; }
     button { font-family: inherit; color: inherit; }
     ::selection { background: var(--accent); color: var(--accent-ink); }
-    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    :focus-visible { outline: 2px solid var(--btn-bg); outline-offset: 3px; }
 
     .page-wrap { width: min(1340px, calc(100% - 64px)); margin-inline: auto; }
     .section-pad { padding-block: 96px; }
@@ -117,7 +126,8 @@
       transition: transform 110ms var(--ease-out-snappy),
                   background-color 160ms var(--ease-out-snappy),
                   border-color 160ms var(--ease-out-snappy),
-                  color 160ms var(--ease-out-snappy);
+                  color 160ms var(--ease-out-snappy),
+                  filter 160ms var(--ease-out-snappy);
     }
     .tactile:active { transform: scale(0.96); }
 
@@ -132,6 +142,7 @@
       isolation: isolate;
       border-bottom: 1px solid var(--line);
       overflow: hidden;
+      transition: background-color 240ms var(--ease-out-quart), color 240ms var(--ease-out-quart);
     }
     .case-masthead::before {
       position: absolute;
@@ -205,7 +216,11 @@
       font: 600 11px var(--mono);
       cursor: pointer;
     }
-    .lang-btn:hover { background: var(--hero-ink); color: var(--hero-bg); }
+    .lang-btn:hover {
+      background: var(--btn-bg);
+      color: var(--btn-ink);
+      border-color: var(--btn-bg);
+    }
 
     .theme-dock {
       display: inline-flex;
@@ -231,13 +246,9 @@
     .theme-icon-btn:hover { opacity: 1; }
     .theme-icon-btn.is-active {
       opacity: 1;
-      background: var(--hero-ink);
-      color: var(--hero-bg);
-    }
-    [data-theme="bento"] .theme-icon-btn.is-active,
-    [data-theme="forest"] .theme-icon-btn.is-active {
-      background: var(--accent);
-      color: var(--accent-ink);
+      background: var(--btn-bg);
+      color: var(--btn-ink);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
     }
     .theme-icon-btn svg { width: 16px; height: 16px; }
 
@@ -247,18 +258,17 @@
       gap: 8px;
       padding: 11px 18px;
       border-radius: var(--btn-radius);
-      background: var(--hero-ink);
-      color: var(--hero-bg);
+      border: 1px solid var(--btn-bg);
+      background: var(--btn-bg);
+      color: var(--btn-ink);
       font-size: 12px;
       font-weight: 700;
     }
-    [data-theme="bento"] .nav-cta,
-    [data-theme="forest"] .nav-cta {
-      background: var(--accent);
-      color: var(--accent-ink);
+    @media (hover: hover) and (pointer: fine) {
+      .nav-cta:hover { filter: brightness(0.94); }
     }
 
-    /* Back Link & Quick Project Switcher */
+    /* Back Link & Quick Project Switcher (1:1 jak zakładki w Hero) */
     .masthead-top-bar {
       display: flex;
       flex-wrap: wrap;
@@ -271,34 +281,41 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-size: 12px;
-      font-weight: 700;
+      font: 600 12px var(--mono);
+      opacity: 0.85;
     }
+    .back-link:hover { opacity: 1; }
+
     .project-switcher {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
+      gap: 8px;
     }
     .switch-pill {
-      padding: 6px 12px;
+      min-height: 38px;
+      padding: 0 14px;
       border-radius: var(--btn-radius);
-      border: 1px solid color-mix(in srgb, var(--hero-ink) 22%, transparent);
-      background: transparent;
+      border: 1px solid color-mix(in srgb, var(--hero-ink) 25%, transparent);
+      background: color-mix(in srgb, var(--surface) 60%, transparent);
       color: var(--hero-ink);
-      font: 500 10.5px var(--mono);
+      font: 500 11px var(--mono);
       cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
     }
-    .switch-pill.is-active,
-    .switch-pill:hover {
-      background: var(--hero-ink);
-      color: var(--hero-bg);
-      border-color: var(--hero-ink);
+    @media (hover: hover) and (pointer: fine) {
+      .switch-pill:not(.is-active):hover {
+        border-color: color-mix(in srgb, var(--hero-ink) 55%, transparent);
+        background: color-mix(in srgb, var(--surface) 88%, transparent);
+      }
     }
-    [data-theme="bento"] .switch-pill.is-active,
-    [data-theme="forest"] .switch-pill.is-active {
-      background: var(--accent);
-      color: var(--accent-ink);
-      border-color: var(--accent);
+    .switch-pill.is-active {
+      background: var(--btn-bg);
+      color: var(--btn-ink);
+      border-color: var(--btn-bg);
+      font-weight: 700;
     }
 
     .case-kicker {
@@ -326,9 +343,9 @@
     }
 
     /* ═══════════════════════════════════════════════════════════════════
-       3. CASE HERO ARTWORK STAGE + INTERAKTYWNA MAPA EUROPY
+       3. CASE HERO ARTWORK STAGE + INTERAKTYWNA MAPA & KUBATURA
        ═══════════════════════════════════════════════════════════════════ */
-.case-hero-art {
+    .case-hero-art {
       position: relative;
       display: grid;
       height: clamp(400px, 42vw, 490px);
@@ -444,7 +461,7 @@
       background: #eef1ed;
       color: #1a1a1a;
     }
-.kubatura-split {
+    .kubatura-split {
       display: grid;
       grid-template-columns: minmax(0, 1.48fr) minmax(0, 1.02fr);
       height: 100%;
@@ -479,7 +496,6 @@
       gap: 8px;
     }
 
-    /* Pigułki miast i przełącznik floty w kalkulatorze AD REM T2 */
     .hero-chip {
       appearance: none;
       -webkit-appearance: none;
@@ -599,16 +615,6 @@
       background:
         linear-gradient(90deg, rgba(11, 11, 12, 0.86) 0%, rgba(11, 11, 12, 0.45) 65%, rgba(11, 11, 12, 0.2) 100%),
         linear-gradient(0deg, rgba(11, 11, 12, 0.72) 0%, transparent 55%);
-    }
-
-    .art-react-stage {
-      height: 100%;
-      background: #d8fa52;
-      color: #172019;
-      padding: 32px 36px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
     }
 
     /* 4-Column Meta Grid */
@@ -764,22 +770,42 @@
     [data-theme="bento"] .case-prose li::before,
     [data-theme="forest"] .case-prose li::before { color: var(--accent); }
 
+    /* Ujednolicone przyciski CTA na dole Case Study */
     .btn-live {
-      min-height: 52px;
+      min-height: 50px;
       display: inline-flex;
       align-items: center;
-      gap: 14px;
-      padding: 0 26px;
+      gap: 12px;
+      padding: 0 24px;
       border-radius: var(--btn-radius);
-      background: var(--ink);
-      color: var(--bg);
+      border: 1px solid var(--btn-bg);
+      background: var(--btn-bg);
+      color: var(--btn-ink);
       font-size: 13px;
       font-weight: 700;
     }
-    [data-theme="bento"] .btn-live,
-    [data-theme="forest"] .btn-live {
-      background: var(--accent);
-      color: var(--accent-ink);
+    @media (hover: hover) and (pointer: fine) {
+      .btn-live:hover { filter: brightness(0.94); }
+    }
+
+    .btn-case-secondary {
+      min-height: 50px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 20px;
+      border-radius: var(--btn-radius);
+      border: 1px solid color-mix(in srgb, var(--ink) 24%, transparent);
+      background: transparent;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 600;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .btn-case-secondary:hover {
+        border-color: var(--ink);
+        background: color-mix(in srgb, var(--ink) 6%, transparent);
+      }
     }
 
     /* Next Project Full-Width Banner */
@@ -811,7 +837,10 @@
       letter-spacing: -0.07em;
     }
 
-  @media (max-width: 960px) {
+    /* ═══════════════════════════════════════════════════════════════════
+       5. RESPONSYWNOŚĆ (TABLET + MOBILE 360px+)
+       ═══════════════════════════════════════════════════════════════════ */
+    @media (max-width: 960px) {
       .case-meta-grid, .case-stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .case-stat { border-bottom: 1px solid var(--line); }
       .case-stat:nth-child(2n) { border-right: 1px solid var(--line); }
@@ -852,8 +881,8 @@
 
       /* Nagłówek i przełącznik projektów */
       .masthead-top-bar { margin-bottom: 24px; gap: 12px; }
-      .project-switcher { width: 100%; }
-      .switch-pill { padding: 6px 10px; font-size: 10px; }
+      .project-switcher { width: 100%; gap: 6px; }
+      .switch-pill { min-height: 36px; padding: 0 11px; font-size: 10px; }
       .case-title { font-size: clamp(2rem, 9.5vw, 2.8rem); line-height: 0.98; letter-spacing: -0.06em; }
       .case-subtitle { font-size: 15px; }
 
@@ -871,7 +900,7 @@
       .case-stat { min-height: auto; padding: 16px; border-right: 1px solid var(--line); }
       .case-prose > section { padding: 0 0 32px 0; margin-bottom: 32px; }
       .case-section-number { position: static; display: block; margin-bottom: 6px; }
-      .btn-live { width: 100%; justify-content: center; }
+      .btn-live, .btn-case-secondary { width: 100%; justify-content: center; }
       .case-next { padding: 40px 14px; }
     }
   </style>
@@ -894,7 +923,7 @@
         </a>
 
         <nav class="nav-links" :aria-label="lang === 'pl' ? 'Główna nawigacja' : 'Main navigation'">
-          <a href="index.html#work" class="is-current" x-text="lang === 'pl' ? 'Projekty (5)' : 'Projects (5)'"></a>
+          <a href="projects.html" class="is-current" x-text="lang === 'pl' ? 'Projekty (5)' : 'Projects (5)'"></a>
           <a href="index.html#estimator" x-text="lang === 'pl' ? 'Pakiety i wycena' : 'Tiers & Pricing'"></a>
           <a href="index.html#about" x-text="lang === 'pl' ? 'Podejście' : 'Approach'"></a>
           <a href="index.html#contact" x-text="lang === 'pl' ? 'Kontakt' : 'Contact'"></a>
@@ -950,7 +979,7 @@
 
       <!-- Back Link + Quick 5-Project Switcher -->
       <div class="masthead-top-bar">
-        <a href="index.html#work" class="back-link tactile">
+        <a href="projects.html" class="back-link tactile">
           <span aria-hidden="true">←</span>
           <span x-text="lang === 'pl' ? 'Wszystkie projekty (5)' : 'All projects (5)'"></span>
         </a>
@@ -959,6 +988,7 @@
           <template x-for="(id, idx) in projectOrder" :key="id">
             <button type="button" class="switch-pill tactile"
               :class="projectId === id ? 'is-active' : ''"
+              :aria-pressed="projectId === id"
               @click="selectProject(id)"
               x-text="'0' + (idx + 1) + ' · ' + cases[id].shortName[lang]"></button>
           </template>
@@ -989,7 +1019,6 @@
               </div>
 
               <svg class="route-map-graphic" viewBox="0 0 900 520" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:32px 0 0; height:calc(100% - 32px);">
-                <!-- Kontury Europy + Granice Państw -->
                 <path class="route-map-land" d="m101 76 41-25 34 8 24-23 39 12 28 31 34-8 30 18 27-9 30 21 41-12 30 22 43-5 24 23 43-2 23 29 40 14 13 32-19 25-35 7-5 30-28 15-12 34-34 12-15 32-39 6-20 27-37-4-20-26-31-5-18-24-36-2-19-24-31-4-13-24-32-14-10-25-32-13-15-28-35-9-9-28-31-6-12-24 20-26Z"/>
                 <path class="route-map-land route-map-land-secondary" d="m73 256 38 7 28 27-10 34-33 20-30-21-9-34Zm209 172 31-22 35 9 8 22-27 21-34-7Zm286 24 32-18 25 10-12 25-31 8Zm-75-436 34-13 30 15-13 25-32-4Z"/>
                 <g class="route-map-borders">
@@ -1003,7 +1032,6 @@
                 </g>
                 <path class="route-map-poland" d="m480 193 30-14 34 8 18 25 31 7 7 33-17 25 5 31-26 20-31-8-20 13-27-15-17-25-24-8-5-27 18-20Z"/>
 
-                <!-- Siatka wszystkich 8 korytarzy drogowych z Warszawy (534, 235) -->
                 <g>
                   <line class="route-corridor-idle" x1="534" y1="235" x2="295" y2="235"/>
                   <line class="route-corridor-idle" x1="534" y1="235" x2="418" y2="222"/>
@@ -1015,68 +1043,53 @@
                   <line class="route-corridor-idle" x1="534" y1="235" x2="155" y2="395"/>
                 </g>
 
-                <!-- Aktywna animowana linia trasy z Warszawy do wybranego miasta -->
                 <line class="route-corridor-active" x1="534" y1="235" :x2="activeCity.x" :y2="activeCity.y"/>
-
-                <!-- Pulsujący pierścień wokół wybranego miasta docelowego -->
                 <circle class="map-pulse-ring" :cx="activeCity.x" :cy="activeCity.y" r="11"/>
 
-                <!-- 8 Klikalnych Hubów Europejskich z podpisami bezpośrednio na mapie -->
-                <!-- 0: Rotterdam -->
                 <g class="map-hub-group" :class="selectedCityIdx === 0 ? 'is-selected' : ''" @click="selectedCityIdx = 0" @mouseenter="selectedCityIdx = 0">
                   <circle class="map-hub-dot" cx="295" cy="235" r="7"/>
                   <text class="map-hub-name" x="283" y="223" text-anchor="end">Rotterdam</text>
                 </g>
-                <!-- 1: Berlin -->
                 <g class="map-hub-group" :class="selectedCityIdx === 1 ? 'is-selected' : ''" @click="selectedCityIdx = 1" @mouseenter="selectedCityIdx = 1">
                   <circle class="map-hub-dot" cx="418" cy="222" r="7"/>
                   <text class="map-hub-name" x="418" y="207" text-anchor="middle">Berlin</text>
                 </g>
-                <!-- 2: Mediolan -->
                 <g class="map-hub-group" :class="selectedCityIdx === 2 ? 'is-selected' : ''" @click="selectedCityIdx = 2" @mouseenter="selectedCityIdx = 2">
                   <circle class="map-hub-dot" cx="375" cy="365" r="7"/>
                   <text class="map-hub-name" x="375" y="386" text-anchor="middle" x-text="lang === 'pl' ? 'Mediolan' : 'Milan'"></text>
                 </g>
-                <!-- 3: Paryż -->
                 <g class="map-hub-group" :class="selectedCityIdx === 3 ? 'is-selected' : ''" @click="selectedCityIdx = 3" @mouseenter="selectedCityIdx = 3">
                   <circle class="map-hub-dot" cx="245" cy="285" r="7"/>
                   <text class="map-hub-name" x="233" y="290" text-anchor="end" x-text="lang === 'pl' ? 'Paryż' : 'Paris'"></text>
                 </g>
-                <!-- 4: Wiedeń -->
                 <g class="map-hub-group" :class="selectedCityIdx === 4 ? 'is-selected' : ''" @click="selectedCityIdx = 4" @mouseenter="selectedCityIdx = 4">
                   <circle class="map-hub-dot" cx="468" cy="318" r="7"/>
                   <text class="map-hub-name" x="480" y="323" text-anchor="start" x-text="lang === 'pl' ? 'Wiedeń' : 'Vienna'"></text>
                 </g>
-                <!-- 5: Praga -->
                 <g class="map-hub-group" :class="selectedCityIdx === 5 ? 'is-selected' : ''" @click="selectedCityIdx = 5" @mouseenter="selectedCityIdx = 5">
                   <circle class="map-hub-dot" cx="438" cy="270" r="7"/>
                   <text class="map-hub-name" x="426" y="274" text-anchor="end" x-text="lang === 'pl' ? 'Praga' : 'Prague'"></text>
                 </g>
-                <!-- 6: Sztokholm -->
                 <g class="map-hub-group" :class="selectedCityIdx === 6 ? 'is-selected' : ''" @click="selectedCityIdx = 6" @mouseenter="selectedCityIdx = 6">
                   <circle class="map-hub-dot" cx="485" cy="120" r="7"/>
                   <text class="map-hub-name" x="485" y="105" text-anchor="middle" x-text="lang === 'pl' ? 'Sztokholm' : 'Stockholm'"></text>
                 </g>
-                <!-- 7: Madryt -->
                 <g class="map-hub-group" :class="selectedCityIdx === 7 ? 'is-selected' : ''" @click="selectedCityIdx = 7" @mouseenter="selectedCityIdx = 7">
                   <circle class="map-hub-dot" cx="155" cy="395" r="7"/>
                   <text class="map-hub-name" x="155" y="415" text-anchor="middle" x-text="lang === 'pl' ? 'Madryt' : 'Madrid'"></text>
                 </g>
 
-                <!-- Plakietka dystansu na środku aktywnej trasy -->
                 <g :transform="`translate(${(534 + activeCity.x) / 2}, ${(235 + activeCity.y) / 2 - 10})`" style="pointer-events:none;">
                   <rect x="-42" y="-12" width="84" height="22" rx="4" fill="#172019" stroke="#ffffff" stroke-width="1.5"/>
                   <text x="0" y="3" text-anchor="middle" fill="#d8fa52" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" x-text="activeCity.km + ' km'"></text>
                 </g>
 
-                <!-- Punkt Bazowy: Warszawa -->
                 <circle class="map-pulse-ring" cx="534" cy="235" r="10"/>
                 <circle class="route-map-start" cx="534" cy="235" r="10"/>
                 <text class="route-map-label" x="550" y="240" x-text="lang === 'pl' ? 'WARSZAWA' : 'WARSAW'"></text>
               </svg>
             </div>
 
-            <!-- Prawy Panel Kalkulatora Tras i Floty -->
             <div class="art-route-panel">
               <div>
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
@@ -1085,7 +1098,6 @@
                 </div>
                 <h3 style="margin:0 0 8px; font:700 22px/1.05 var(--display); color:#172019;" x-text="lang === 'pl' ? 'Dokąd jedziemy?' : 'Where to next?'"></h3>
 
-                <!-- Przełącznik typu floty: Bus Express vs FTL 24t -->
                 <div class="fleet-switch" style="margin-bottom:10px;">
                   <button type="button" class="fleet-btn" :class="fleetType === 'bus' ? 'is-active' : ''" @click="fleetType = 'bus'"
                     x-text="lang === 'pl' ? '⚡ Bus Express (do 1.5t)' : '⚡ Express Van (1.5t)'"></button>
@@ -1093,7 +1105,6 @@
                     x-text="lang === 'pl' ? '🚛 Naczepa FTL (24t)' : '🚛 FTL Semi-Truck (24t)'"></button>
                 </div>
 
-                <!-- Siatka 8 przycisków miast -->
                 <div style="display:flex; flex-wrap:wrap; gap:4px;">
                   <template x-for="(city, cIdx) in heroCities" :key="city.id">
                     <button type="button" class="hero-chip"
@@ -1104,7 +1115,6 @@
                 </div>
               </div>
 
-              <!-- Wynik Kalkulacji Na Żywo -->
               <div class="tabular" style="padding:10px 12px; background:#f8f9f7; border:1px solid #e1e4de; border-radius:5px; font:600 11.5px/1.45 var(--mono); color:#172019;">
                 <div style="display:flex; justify-content:space-between; color:#555b53; font-size:9.5px; margin-bottom:3px;">
                   <span x-text="lang === 'pl' ? 'WYBRANA RELACJA:' : 'SELECTED CORRIDOR:'"></span>
@@ -1121,7 +1131,7 @@
 
               <div style="display:flex; justify-content:space-between; align-items:center; font:600 10px var(--mono); color:#5a5a5a;">
                 <span x-text="lang === 'pl' ? '◷ Dyspozytor 24/7 · 0 PLN API' : '◷ 24/7 Dispatcher · 0 EUR API'"></span>
-                <a href="https://adremt2.pl/index2.html" target="_blank" rel="noopener" style="color:#d90429; text-decoration:underline;" x-text="lang === 'pl' ? 'Pełna mapa ↗' : 'Full map ↗'"></a>
+                <a href="https://adremt2.pl/index2.html" target="_blank" rel="noopener noreferrer" style="color:#d90429; text-decoration:underline;" x-text="lang === 'pl' ? 'Pełna mapa ↗' : 'Full map ↗'"></a>
               </div>
             </div>
           </div>
@@ -1164,10 +1174,10 @@
             </div>
           </div>
 
-<!-- Artwork 4: KUBATURA B2B - Interaktywny Symulator Ciężarówki 24 m³ -->
+          <!-- Artwork 4: KUBATURA B2B - Interaktywny Symulator Ciężarówki 24 m³ -->
           <div x-show="projectId === 'kubatura'" x-cloak class="kubatura-split">
 
-            <!-- Lewa scena: Pełnowymiarowy przekrój ciężarówki 24 m³ (kliknij sloty wewnątrz paki!) -->
+            <!-- Lewa scena: Pełnowymiarowy przekrój ciężarówki 24 m³ -->
             <div style="position:relative; padding:14px 18px 10px; display:flex; flex-direction:column; justify-content:space-between; min-height:0; background:radial-gradient(circle at 52% 48%, #f8f9fb 0%, #e6e9ef 100%); overflow:hidden;">
               <div style="display:flex; justify-content:space-between; align-items:center; font:600 10px var(--mono); letter-spacing:0.04em; color:#4b525e; flex-shrink:0;">
                 <span style="display:inline-flex; align-items:center; gap:6px;">
@@ -1181,7 +1191,6 @@
                    style="flex:1; min-height:0; width:100%; height:100%; display:block;" role="img"
                    :aria-label="lang === 'pl' ? 'Interaktywny przekrój ciężarówki kontenerowej 24 m³' : 'Interactive 24 m³ box truck cutaway'">
 
-                <!-- Siatka kreślarska blueprint -->
                 <g stroke="rgba(24,26,31,0.05)" stroke-width="1">
                   <line x1="24" y1="64" x2="654" y2="64"/>
                   <line x1="24" y1="124" x2="654" y2="124"/>
@@ -1189,7 +1198,6 @@
                   <line x1="24" y1="244" x2="654" y2="244"/>
                 </g>
 
-                <!-- Wymiarowanie CAD nad kontenerem -->
                 <g stroke="#64748b" stroke-width="1.2">
                   <line x1="118" y1="24" x2="118" y2="56" stroke-dasharray="3 3"/>
                   <line x1="484" y1="24" x2="484" y2="56" stroke-dasharray="3 3"/>
@@ -1200,15 +1208,12 @@
                   4 800 mm · KONTENER 24.0 m³
                 </text>
 
-                <!-- Linia podłoża i cień -->
                 <line x1="18" y1="283" x2="662" y2="283" stroke="#94a3b8" stroke-width="2"/>
                 <ellipse cx="364" cy="286" rx="276" ry="4" fill="rgba(24,26,31,0.13)"/>
 
-                <!-- Opuszczona winda hydrauliczna 1.5t + siłownik -->
                 <line x1="118" y1="262" x2="68" y2="267" stroke="#475569" stroke-width="4" stroke-linecap="round"/>
                 <path d="M24 281 L118 244 V253 L32 283 Z" fill="#ea580c"/>
 
-                <!-- Wózek transportowy z zaplombowanymi pojemnikami RODO -->
                 <g transform="translate(40, 230) rotate(-20)">
                   <rect x="0" y="34" width="42" height="5" rx="1.5" fill="#181a1f"/>
                   <circle cx="8" cy="42" r="4" fill="#181a1f"/>
@@ -1219,12 +1224,10 @@
                   <line x1="8" y1="3" x2="34" y2="3" stroke="#ffffff" stroke-width="1.5"/>
                 </g>
 
-                <!-- Rama podwozia i zabudowa kontenerowa -->
                 <rect x="118" y="244" width="366" height="10" fill="#181a1f"/>
                 <rect x="248" y="254" width="114" height="14" rx="3" fill="#334155"/>
                 <rect x="118" y="64" width="366" height="180" rx="4" fill="#ffffff" stroke="#181a1f" stroke-width="2.5"/>
 
-                <!-- Wewnętrzna siatka konstrukcyjna (5 kolumn x 3 rzędy) -->
                 <g stroke="#e2e8f0" stroke-width="1">
                   <line x1="191" y1="64" x2="191" y2="244"/>
                   <line x1="264" y1="64" x2="264" y2="244"/>
@@ -1275,8 +1278,8 @@
               </svg>
             </div>
 
-           <!-- Prawy panel interaktywnego symulatora m³ i kg -->
-           <div class="kubatura-panel tabular" style="background:#ffffff; border-left:3px solid #ea580c; padding:12px 16px; display:flex; flex-direction:column; justify-content:space-between; gap:6px; min-height:0;">
+            <!-- Prawy panel interaktywnego symulatora m³ i kg -->
+            <div class="kubatura-panel tabular" style="background:#ffffff; border-left:3px solid #ea580c; padding:12px 16px; display:flex; flex-direction:column; justify-content:space-between; gap:6px; min-height:0;">
               <div>
                 <div style="display:flex; justify-content:space-between; align-items:center;">
                   <span style="font:600 9px var(--mono); color:#ea580c; letter-spacing:0.05em;" x-text="lang === 'pl' ? '↳ SYMULATOR ŁADUNKU 24 m³' : '↳ 24 m³ CARGO SIMULATOR'"></span>
@@ -1331,15 +1334,15 @@
                     <div :style="`width:${Math.min(100, kubaturaKgPct)}%; height:100%; background:${kubaturaOverload ? '#dc2626' : '#059669'}; transition:width 200ms ease;`"></div>
                   </div>
                 </div>
-              </div>      
-
-             </div>
+              </div>
             </div>
+          </div>
 
           <!-- Artwork 5: 玄 GEMBA - Authentic App UI -->
           <div x-show="projectId === 'gemba'" x-cloak style="height:100%; position:relative; background-color:#f9f8f3; background-image:linear-gradient(#ebe8df 1px, transparent 1px), linear-gradient(90deg, #ebe8df 1px, transparent 1px); background-size:44px 44px; color:#161e21; overflow:hidden;">
 
             <div class="gemba-case-grid" style="height:calc(100% - 42px); display:grid; grid-template-columns:1.05fr 0.95fr; gap:24px; padding:24px 32px 18px; align-items:center;">
+
               <div style="display:flex; flex-direction:column; justify-content:space-between; height:100%;">
                 <div style="display:inline-flex; align-items:center; gap:8px; font:600 10px var(--mono); letter-spacing:0.12em; color:#5b6568;">
                   <i style="width:7px; height:7px; background:#b8432e; display:inline-block;"></i>
@@ -1389,7 +1392,7 @@
                     x-text="g.symptom[lang]"></button>
                 </template>
 
-                <div style="padding-top:10px; border-top:1px solid #ece9e0; display:flex; justify-content:space-between; align-items:center; gap:8px; font:600 10px var(--mono); flex-wrap:wrap;">
+                <div style="padding-top:10px; border-top:1px solid #ece9e0; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:6px; font:600 10px var(--mono);">
                   <span style="color:#5b6568;" x-text="gembaDemos[gembaDemoIdx].waste[lang]"></span>
                   <span style="color:#b8432e;" x-text="'→ ' + gembaDemos[gembaDemoIdx].method"></span>
                 </div>
@@ -1397,7 +1400,7 @@
 
             </div>
 
-            <!-- Dolny pasek: Ciemny moduł Glossary (#151C1F) zakotwiczony na stałe na samym dole -->
+            <!-- Dolny pasek: Ciemny moduł Glossary (#151C1F) -->
             <div class="gemba-case-glossary" style="position:absolute; left:0; right:0; bottom:0; height:42px; background:#151c1f; color:#ffffff; padding:0 32px; display:flex; justify-content:space-between; align-items:center; border-top:1px solid #dfdcd2;">
               <span style="font:500 9.5px var(--mono); letter-spacing:0.12em; color:#9ba3a7;" x-text="lang === 'pl' ? 'SŁOWNIK TPS / LEAN:' : 'GLOSSARY · SHOP FLOOR:'"></span>
               <div style="display:flex; gap:24px; font-size:11px;">
@@ -1487,7 +1490,7 @@
             </section>
           </template>
 
-          <div style="display:flex; flex-wrap:wrap; align-items:center; gap:16px; padding-top:8px;">
+          <div style="display:flex; flex-wrap:wrap; align-items:center; gap:14px; padding-top:8px;">
             <a :href="currentCase.url"
                :target="currentCase.url.startsWith('http') ? '_blank' : '_self'"
                :rel="currentCase.url.startsWith('http') ? 'noopener noreferrer' : ''"
@@ -1496,8 +1499,9 @@
               <span aria-hidden="true">↗</span>
             </a>
 
-            <a href="index.html#estimator" class="back-link tactile" style="padding: 12px 18px;">
-              <span x-text="lang === 'pl' ? 'Zamów podobne rozwiązanie →' : 'Request a similar build →'"></span>
+            <a href="index.html#estimator" class="btn-case-secondary tactile">
+              <span x-text="lang === 'pl' ? 'Zamów podobne rozwiązanie' : 'Request a similar build'"></span>
+              <span aria-hidden="true">→</span>
             </a>
           </div>
         </div>
@@ -1571,17 +1575,13 @@
             method: '5 Whys + Poka-yoke'
           }
         ],
-// Interaktywny symulator ładunku KUBATURA B2B
+
+        // Interaktywny symulator ładunku KUBATURA B2B
         kubaturaPreset: 'corp',
         kubaturaItems: [
           { id: 'desk', name: { pl: 'Stanowisko IT (Biurko + 2 Monitory)', en: 'IT Workstation (Desk + Dual Monitors)' }, m3: 1.4, kg: 65, qty: 8 },
           { id: 'cab',  name: { pl: 'Szafa aktowa RODO (pełna)', en: 'Loaded GDPR Filing Cabinet' }, m3: 1.1, kg: 145, qty: 5 },
           { id: 'safe', name: { pl: 'Szafa RACK / Sejf ognioodporny', en: 'Server RACK / Fireproof Safe' }, m3: 1.5, kg: 320, qty: 2 }
-        ],
-        kubaturaSlots: [
-          { idx: 1,  x: 415, y: 189, orange: false }, { idx: 2,  x: 342, y: 189, orange: false }, { idx: 3,  x: 269, y: 189, orange: true  }, { idx: 4,  x: 196, y: 189, orange: false }, { idx: 5,  x: 123, y: 189, orange: false },
-          { idx: 6,  x: 415, y: 129, orange: true  }, { idx: 7,  x: 342, y: 129, orange: false }, { idx: 8,  x: 269, y: 129, orange: false }, { idx: 9,  x: 196, y: 129, orange: true  }, { idx: 10, x: 123, y: 129, orange: false },
-          { idx: 11, x: 415, y: 69,  orange: false }, { idx: 12, x: 342, y: 69,  orange: true  }, { idx: 13, x: 269, y: 69,  orange: false }, { idx: 14, x: 196, y: 69,  orange: false }, { idx: 15, x: 123, y: 69,  orange: true  }
         ],
 
         get kubaturaTotalM3() {
@@ -1621,7 +1621,7 @@
           if (!map) return;
           this.kubaturaItems.forEach(i => { i.qty = map[i.id] ?? 0; });
         },
-setKubaturaTargetSlots(targetIdx) {
+        setKubaturaTargetSlots(targetIdx) {
           this.kubaturaPreset = 'custom';
           const level = this.kubaturaActiveSlots === targetIdx ? targetIdx - 1 : targetIdx;
           const exactLoad = [
@@ -1646,8 +1646,6 @@ setKubaturaTargetSlots(targetIdx) {
           this.kubaturaItems[1].qty = exactLoad[1];
           this.kubaturaItems[2].qty = exactLoad[2];
         },
-
-
 
         projectOrder: ['adremt2', 'ckadrem', 'pmclassics', 'kubatura', 'gemba'],
 
@@ -1873,7 +1871,7 @@ setKubaturaTargetSlots(targetIdx) {
             }
           },
 
-        'kubatura': {
+          'kubatura': {
             shortName: { pl: 'KUBATURA', en: 'KUBATURA' },
             title: {
               pl: 'KUBATURA - Relokacje Biur i Archiwów Bez Przestoju',
@@ -1961,8 +1959,8 @@ setKubaturaTargetSlots(targetIdx) {
               en: '玄 GEMBA - Lean, TPS & Six Sigma Diagnostic Workspace'
             },
             subtitle: {
-              pl: 'Aplikacja webowa, która tłumaczy opis problemu z codziennej pracy na straty procesowe (Muda, Mura, Muri), dobiera właściwą z 34 metod Lean i prowadzi przez 5-fazowy plan usprawnień.',
-              en: 'An interactive web workspace that translates plain-language workplace problems into process waste, selects the right tool from 34 Lean/Six Sigma methods, and guides execution across 5 phases.'
+              pl: 'Aplikacja webowa, która tłumaczy opis problemu z codziennej pracy na straty procesowe (Muda, Mura, Muri), dobiera właściwą z 47 metod Lean i prowadzi przez 5-fazowy plan usprawnień.',
+              en: 'An interactive web workspace that translates plain-language workplace problems into process waste, selects the right tool from 47 Lean/Six Sigma methods, and guides execution across 5 phases.'
             },
             tag: { pl: '05 · Dodatkowe narzędzia / Lean & Six Sigma', en: '05 · Custom Web Tools / Lean & Six Sigma' },
             pageType: { pl: 'Aplikacja diagnostyczna + Workspace procesowy', en: 'Diagnostic web app + process workspace' },
