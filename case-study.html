@@ -811,20 +811,68 @@
       letter-spacing: -0.07em;
     }
 
-    @media (max-width: 960px) {
+  @media (max-width: 960px) {
       .case-meta-grid, .case-stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .case-stat { border-bottom: 1px solid var(--line); }
-      .case-content-layout { grid-template-columns: 1fr; gap: 40px; }
+      .case-stat:nth-child(2n) { border-right: 1px solid var(--line); }
+      .case-content-layout { grid-template-columns: 1fr; gap: 36px; }
       .case-content-aside { position: static; }
-      .case-hero-art { height: auto; }
-      .art-route-split { grid-template-columns: 1fr; }
-      .kubatura-split { grid-template-columns: 1fr; }
-      .art-route-map-box { height: 280px; }
+      .case-hero-art { height: auto; padding: 12px; }
+      .art-route-split, .kubatura-split { grid-template-columns: 1fr; }
+      .art-route-map-box { height: 260px; }
+      .art-route-panel { border-left: 0; border-top: 3px solid #d90429; padding: 16px; }
+      .kubatura-panel { border-left: 0 !important; border-top: 3px solid #ea580c; }
+      .gemba-case-grid {
+        height: auto !important;
+        grid-template-columns: 1fr !important;
+        padding: 18px 18px 16px !important;
+        gap: 16px !important;
+      }
+      .gemba-case-glossary {
+        position: static !important;
+        height: auto !important;
+        padding: 10px 18px !important;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .gemba-case-glossary > div { flex-wrap: wrap; gap: 12px !important; }
     }
+
     @media (max-width: 720px) {
-      .page-wrap { width: calc(100% - 32px); }
-      .nav-links, .wordmark-sub { display: none; }
-      .case-prose > section { padding-left: 34px; }
+      .page-wrap { width: calc(100% - 28px); }
+      .section-pad { padding-block: 60px; }
+
+      /* Nawigacja dopasowana do 360px */
+      .nav-wrap { height: 64px; margin-bottom: 24px; gap: 8px; }
+      .wordmark { font-size: 20px; }
+      .nav-links, .wordmark-sub, .nav-cta { display: none; }
+      .nav-actions { gap: 6px; }
+      .lang-btn { height: 34px; min-width: 38px; padding: 0 9px; }
+      .theme-icon-btn { width: 28px; height: 28px; }
+
+      /* Nagłówek i przełącznik projektów */
+      .masthead-top-bar { margin-bottom: 24px; gap: 12px; }
+      .project-switcher { width: 100%; }
+      .switch-pill { padding: 6px 10px; font-size: 10px; }
+      .case-title { font-size: clamp(2rem, 9.5vw, 2.8rem); line-height: 0.98; letter-spacing: -0.06em; }
+      .case-subtitle { font-size: 15px; }
+
+      /* Podglądy projektów na wąskim ekranie */
+      .case-hero-art { margin-top: 24px; padding: 8px; }
+      .art-micro-header { flex-wrap: wrap; gap: 4px; font-size: 9px; }
+      .ck-mini-preview { padding: 50px 18px 20px; min-height: 290px; }
+      .ck-mini-nav { padding: 0 16px; font-size: 9.5px; }
+      .ck-mini-nav span:last-child { display: none; }
+      .pm-mini-preview { padding: 20px 18px; min-height: 300px; }
+
+      /* Metadane, statystyki i treść */
+      .case-meta-grid { grid-template-columns: 1fr 1fr; gap: 16px; padding: 20px 0 24px; }
+      .case-stats-grid { grid-template-columns: 1fr; }
+      .case-stat { min-height: auto; padding: 16px; border-right: 1px solid var(--line); }
+      .case-prose > section { padding: 0 0 32px 0; margin-bottom: 32px; }
+      .case-section-number { position: static; display: block; margin-bottom: 6px; }
+      .btn-live { width: 100%; justify-content: center; }
+      .case-next { padding: 40px 14px; }
     }
   </style>
 </head>
@@ -1228,7 +1276,7 @@
             </div>
 
            <!-- Prawy panel interaktywnego symulatora m³ i kg -->
-            <div style="background:#ffffff; border-left:3px solid #ea580c; padding:12px 16px; display:flex; flex-direction:column; justify-content:space-between; gap:6px; min-height:0;" class="tabular">
+           <div class="kubatura-panel tabular" style="background:#ffffff; border-left:3px solid #ea580c; padding:12px 16px; display:flex; flex-direction:column; justify-content:space-between; gap:6px; min-height:0;">
               <div>
                 <div style="display:flex; justify-content:space-between; align-items:center;">
                   <span style="font:600 9px var(--mono); color:#ea580c; letter-spacing:0.05em;" x-text="lang === 'pl' ? '↳ SYMULATOR ŁADUNKU 24 m³' : '↳ 24 m³ CARGO SIMULATOR'"></span>
@@ -1285,18 +1333,13 @@
                 </div>
               </div>      
 
-                <div style="padding-top:5px; border-top:1px dashed #cbd5e1; display:flex; justify-content:space-between; align-items:center; font-size:10px;">
-                  <span><b x-text="kubaturaTrips + '× 24 m³'"></b> · <span :style="kubaturaOverload ? 'color:#dc2626; font-weight:700;' : 'color:#059669;'" x-text="kubaturaOverload ? (lang === 'pl' ? 'LIMIT WAGI!' : 'WEIGHT LIMIT!') : 'OK'"></span></span>
-                  <a href="kubatura.html" style="color:#ea580c; text-decoration:underline; font-weight:700;" x-text="lang === 'pl' ? 'Pełna strona ↗' : 'Live site ↗'"></a>
-                </div>
-              </div>
+             </div>
             </div>
 
           <!-- Artwork 5: 玄 GEMBA - Authentic App UI -->
           <div x-show="projectId === 'gemba'" x-cloak style="height:100%; position:relative; background-color:#f9f8f3; background-image:linear-gradient(#ebe8df 1px, transparent 1px), linear-gradient(90deg, #ebe8df 1px, transparent 1px); background-size:44px 44px; color:#161e21; overflow:hidden;">
 
-            <div style="height:calc(100% - 42px); display:grid; grid-template-columns:1.05fr 0.95fr; gap:24px; padding:24px 32px 18px; align-items:center;">
-
+            <div class="gemba-case-grid" style="height:calc(100% - 42px); display:grid; grid-template-columns:1.05fr 0.95fr; gap:24px; padding:24px 32px 18px; align-items:center;">
               <div style="display:flex; flex-direction:column; justify-content:space-between; height:100%;">
                 <div style="display:inline-flex; align-items:center; gap:8px; font:600 10px var(--mono); letter-spacing:0.12em; color:#5b6568;">
                   <i style="width:7px; height:7px; background:#b8432e; display:inline-block;"></i>
@@ -1346,7 +1389,7 @@
                     x-text="g.symptom[lang]"></button>
                 </template>
 
-                <div style="padding-top:10px; border-top:1px solid #ece9e0; display:flex; justify-content:space-between; align-items:center; gap:8px; font:600 10px var(--mono); white-space:nowrap;">
+                <div style="padding-top:10px; border-top:1px solid #ece9e0; display:flex; justify-content:space-between; align-items:center; gap:8px; font:600 10px var(--mono); flex-wrap:wrap;">
                   <span style="color:#5b6568;" x-text="gembaDemos[gembaDemoIdx].waste[lang]"></span>
                   <span style="color:#b8432e;" x-text="'→ ' + gembaDemos[gembaDemoIdx].method"></span>
                 </div>
@@ -1355,7 +1398,7 @@
             </div>
 
             <!-- Dolny pasek: Ciemny moduł Glossary (#151C1F) zakotwiczony na stałe na samym dole -->
-            <div style="position:absolute; left:0; right:0; bottom:0; height:42px; background:#151c1f; color:#ffffff; padding:0 32px; display:flex; justify-content:space-between; align-items:center; border-top:1px solid #dfdcd2;">
+            <div class="gemba-case-glossary" style="position:absolute; left:0; right:0; bottom:0; height:42px; background:#151c1f; color:#ffffff; padding:0 32px; display:flex; justify-content:space-between; align-items:center; border-top:1px solid #dfdcd2;">
               <span style="font:500 9.5px var(--mono); letter-spacing:0.12em; color:#9ba3a7;" x-text="lang === 'pl' ? 'SŁOWNIK TPS / LEAN:' : 'GLOSSARY · SHOP FLOOR:'"></span>
               <div style="display:flex; gap:24px; font-size:11px;">
                 <span><b style="color:#b8432e; font-weight:500; margin-right:5px;">改善</b>Kaizen</span>
