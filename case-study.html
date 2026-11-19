@@ -166,6 +166,19 @@
     .page-wrap { width: min(1340px, calc(100% - 64px)); margin-inline: auto; }
     .section-pad { padding-block: 96px; }
     .tabular { font-variant-numeric: tabular-nums; }
+    [aria-hidden="true"] { font-family: var(--mono); }
+    .ico-ext {
+      width: 0.92em;
+      height: 0.92em;
+      display: inline-block;
+      vertical-align: -0.08em;
+      flex-shrink: 0;
+    }
+    .icon-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
 
     /* Reading Progress Bar */
     .progress-bar {
@@ -364,6 +377,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 8px;
     }
     .mobile-drawer a:hover {
       background: color-mix(in srgb, var(--ink) 7%, transparent);
@@ -857,7 +871,7 @@
       position: absolute;
       left: 0;
       color: var(--signal);
-      content: '↗';
+      content: '→';
       font-family: var(--mono);
     }
     [data-theme="bento"] .case-prose li::before,
@@ -1064,7 +1078,7 @@
 
           <a href="index.html#estimator" class="nav-cta tactile">
             <span x-text="lang === 'pl' ? 'Wyceń projekt' : 'Start a project'">Wyceń projekt</span>
-            <span aria-hidden="true">↗</span>
+            <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
           </a>
 
           <!-- Przycisk menu na urządzeniach mobilnych (<= 720px) -->
@@ -1091,7 +1105,7 @@
         </a>
         <a href="projects.html" @click="mobileMenuOpen = false">
           <span x-text="navProjectsLabel">Projekty (5)</span>
-          <span aria-hidden="true">↗</span>
+          <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
         </a>
         <a href="index.html#estimator" @click="mobileMenuOpen = false">
           <span x-text="lang === 'pl' ? 'Pakiety i wycena' : 'Tiers & Pricing'">Pakiety i wycena</span>
@@ -1107,7 +1121,7 @@
         </a>
         <a href="index.html#estimator" class="mobile-drawer-cta tactile" @click="mobileMenuOpen = false">
           <span x-text="lang === 'pl' ? 'Wyceń projekt' : 'Start a project'">Wyceń projekt</span>
-          <span aria-hidden="true">↗</span>
+          <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
         </a>
       </nav>
 
@@ -1237,9 +1251,9 @@
 
                 <div class="fleet-switch" style="margin-bottom:10px;">
                   <button type="button" class="fleet-btn" :class="fleetType === 'bus' ? 'is-active' : ''" @click="fleetType = 'bus'"
-                    x-text="lang === 'pl' ? '⚡ Bus Express (do 1.5t)' : '⚡ Express Van (1.5t)'"></button>
+                    x-text="lang === 'pl' ? 'BUS EXPRESS (1.5t)' : 'EXPRESS VAN (1.5t)'"></button>
                   <button type="button" class="fleet-btn" :class="fleetType === 'ftl' ? 'is-active' : ''" @click="fleetType = 'ftl'"
-                    x-text="lang === 'pl' ? '🚛 Naczepa FTL (24t)' : '🚛 FTL Semi-Truck (24t)'"></button>
+                    x-text="lang === 'pl' ? 'NACZEPA FTL (24t)' : 'FTL SEMI-TRUCK (24t)'"></button>
                 </div>
 
                 <div style="display:flex; flex-wrap:wrap; gap:4px;">
@@ -1268,7 +1282,7 @@
 
               <div style="display:flex; justify-content:space-between; align-items:center; font:600 10px var(--mono); color:#5a5a5a;">
                 <span x-text="lang === 'pl' ? '◷ Dyspozytor 24/7 · 0 PLN API' : '◷ 24/7 Dispatcher · 0 EUR API'"></span>
-                <a href="https://adremt2.pl/index2.html" target="_blank" rel="noopener noreferrer" style="color:#d90429; text-decoration:underline;" x-text="lang === 'pl' ? 'Pełna mapa ↗' : 'Full map ↗'"></a>
+                <a href="https://adremt2.pl/index2.html" target="_blank" rel="noopener noreferrer" class="icon-link" style="color:#d90429; text-decoration:underline;"><span x-text="lang === 'pl' ? 'Pełna mapa' : 'Full map'">Pełna mapa</span><svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg></a>
               </div>
             </div>
           </div>
@@ -1519,7 +1533,7 @@
                 <div style="display:flex; justify-content:space-between; align-items:center; font:600 9.5px var(--mono); letter-spacing:0.1em; color:#5b6568;">
                   <span x-text="lang === 'pl' ? 'OPISZ PROBLEM / KLIKNIJ OBJAW' : 'DESCRIBE THE PROBLEM / TRY ONE'"></span>
                   <div style="display:flex; align-items:center; gap:10px;">
-                    <span style="padding:3px 7px; border:1px solid #dfdcd2; color:#161e21;">🎙 DICTATE</span>
+                    <span style="padding:3px 7px; border:1px solid #dfdcd2; color:#161e21;">VOICE INPUT</span>
                     <span style="color:#b8432e; font-weight:700;">01</span>
                   </div>
                 </div>
@@ -1635,7 +1649,7 @@
                :rel="currentCase.url.startsWith('http') ? 'noopener noreferrer' : ''"
                class="btn-live tactile">
               <span x-text="lang === 'pl' ? 'Otwórz działający projekt' : 'Visit live project'">Otwórz działający projekt</span>
-              <span aria-hidden="true">↗</span>
+              <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
             </a>
 
             <a href="index.html#estimator" class="btn-case-secondary tactile">
@@ -1654,7 +1668,7 @@
        class="case-next">
       <span>
         <b x-text="lang === 'pl' ? 'KOLEJNY PROJEKT CASE STUDY' : 'NEXT PROJECT CASE STUDY'">KOLEJNY PROJEKT CASE STUDY</b>
-        <i style="font-style:normal;" aria-hidden="true">↗</i>
+        <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
       </span>
       <strong x-text="cases[nextProjectId].title[lang]">Ad Rem Centrum Księgowe</strong>
     </a>
@@ -1665,8 +1679,8 @@
     <div class="page-wrap" style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px;">
       <span><strong>web4biz.pl</strong> · Independent Digital Practice by Archie</span>
       <div style="display:flex; flex-wrap:wrap; align-items:center; gap:16px;">
-        <a href="https://www.linkedin.com/in/artur-zaluska/" target="_blank" rel="noopener noreferrer" style="opacity:0.85;">LinkedIn ↗</a>
-        <a href="https://www.instagram.com/agilearchie/" target="_blank" rel="noopener noreferrer" style="opacity:0.85;">Instagram ↗</a>
+        <a href="https://www.linkedin.com/in/artur-zaluska/" target="_blank" rel="noopener noreferrer" class="icon-link" style="opacity:0.85;"><span>LinkedIn</span><svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg></a>
+        <a href="https://www.instagram.com/agilearchie/" target="_blank" rel="noopener noreferrer" class="icon-link" style="opacity:0.85;"><span>Instagram</span><svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg></a>
         <span style="color:#899188;">© 2026 Archie.</span>
         <a href="#top" x-text="lang === 'pl' ? '↑ Na górę' : '↑ Back to top'">↑ Na górę</a>
       </div>
