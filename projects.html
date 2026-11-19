@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pl" x-data="projectsPageApp()" :data-theme="direction" class="scroll-smooth">
+<html lang="pl" :lang="lang" x-data="projectsPageApp()" :data-theme="direction" @keydown.escape.window="mobileMenuOpen = false" class="scroll-smooth">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <!-- Natychmiastowe ustawienie motywu przed pierwszym rysowaniem strony -->
+  <!-- Natychmiastowe ustawienie motywu przed pierwszym rysowaniem strony (zero mignięcia tła) -->
   <script>
     (function () {
       try {
@@ -20,17 +20,59 @@
       });
     })();
   </script>
+
   <title x-text="lang === 'pl' ? 'Projekty &amp; Realizacje - web4biz.pl | Archie' : 'Projects &amp; Builds - web4biz.pl | Archie'">Projekty &amp; Realizacje - web4biz.pl | Archie</title>
   <meta name="description" content="Pełna lista zrealizowanych stron B2B, interaktywnych kalkulatorów (SVG/GeoJSON), wielojęzycznych platform oraz aplikacji webowych - web4biz.pl."/>
   <meta name="robots" content="index, follow"/>
   <link rel="canonical" href="https://web4biz.pl/projects.html"/>
 
-  <!-- Google Fonts: Space Grotesk + DM Sans + JetBrains Mono -->
+  <!-- Inline SVG Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23172019'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='800' font-size='26' fill='%23d8fa52'%3Ew4b%3C/text%3E%3C/svg%3E"/>
+
+  <!-- OpenGraph & Social Preview -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://web4biz.pl/projects.html"/>
+  <meta property="og:title" content="Projekty &amp; Realizacje - web4biz.pl | Archie"/>
+  <meta property="og:description" content="Pełny katalog stron B2B, kalkulatorów wycen SVG/GeoJSON, wielojęzycznych platform oraz aplikacji webowych z opisami Case Study."/>
+  <meta property="og:locale" content="pl_PL"/>
+  <meta property="og:locale:alternate" content="en_US"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Projekty &amp; Realizacje - web4biz.pl"/>
+  <meta name="twitter:description" content="Zobacz realizacje B2B, interaktywne narzędzia webowe i aplikacje z pełnym opisem Case Study."/>
+
+  <!-- Dane strukturalne Schema.org (CollectionPage + ItemList pod SEO i AI/GEO) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Projekty i Realizacje - web4biz.pl",
+    "url": "https://web4biz.pl/projects.html",
+    "description": "Pełna lista stron B2B, interaktywnych kalkulatorów oraz aplikacji webowych zaprojektowanych w web4biz.pl.",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "web4biz.pl",
+      "url": "https://web4biz.pl/"
+    },
+    "mainEntity": {
+      "@type": "ItemList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "AD REM T2 - Transport, logistyka i spedycja", "url": "https://web4biz.pl/case-study.html?project=adremt2" },
+        { "@type": "ListItem", "position": 2, "name": "Ad Rem Centrum Księgowe", "url": "https://web4biz.pl/case-study.html?project=ckadrem" },
+        { "@type": "ListItem", "position": 3, "name": "PM Classics", "url": "https://web4biz.pl/case-study.html?project=pmclassics" },
+        { "@type": "ListItem", "position": 4, "name": "KUBATURA - Relokacje Biur i Archiwów", "url": "https://web4biz.pl/case-study.html?project=kubatura" },
+        { "@type": "ListItem", "position": 5, "name": "玄 GEMBA - Diagnostyka Lean & Six Sigma", "url": "https://web4biz.pl/case-study.html?project=gemba" }
+      ]
+    }
+  }
+  </script>
+
+  <!-- Google Fonts: Space Grotesk + DM Sans + JetBrains Mono (display=block eliminuje przeskok fontów) -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Space+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=block" rel="stylesheet"/>
 
-  <!-- Alpine.js -->
+  <!-- Wspólne dane projektów + Alpine.js -->
+  <script src="projects-data.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
   <style>
@@ -51,7 +93,6 @@
       --hero-bg: #d8fa52;
       --hero-ink: #172019;
       --hero-muted: #34422a;
-      /* Kolor przewodni wszystkich przycisków w motywie Słoneczko */
       --btn-bg: #172019;
       --btn-ink: #d8fa52;
       --card-radius: 8px;
@@ -77,7 +118,6 @@
       --hero-bg: #18211b;
       --hero-ink: #f0f2e9;
       --hero-muted: #c2cbbd;
-      /* Kolor przewodni wszystkich przycisków w motywie Półksiężyc */
       --btn-bg: #d8fa52;
       --btn-ink: #141a16;
     }
@@ -96,12 +136,11 @@
       --hero-bg: #07090b;
       --hero-ink: #f4f6f8;
       --hero-muted: #94a3b8;
-      /* Kolor przewodni wszystkich przycisków w motywie Księżyc */
       --btn-bg: #06b6d4;
       --btn-ink: #061014;
     }
 
-*, *::before, *::after { box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; }
     [x-cloak] { display: none !important; }
     html.is-loading,
     html.is-loading * { transition: none !important; }
@@ -137,7 +176,7 @@
     .tactile:active { transform: scale(0.96); }
 
     /* ═══════════════════════════════════════════════════════════════════
-       2. MASTHEAD + NAWIGACJA
+       2. MASTHEAD + NAWIGACJA + MOBILE DRAWER
        ═══════════════════════════════════════════════════════════════════ */
     .archive-masthead {
       position: relative;
@@ -169,6 +208,7 @@
       justify-content: space-between;
       border-bottom: 1px solid color-mix(in srgb, var(--hero-ink) 16%, transparent);
       margin-bottom: 44px;
+      position: relative;
     }
     .wordmark {
       font: 700 24px/1 var(--display);
@@ -272,6 +312,51 @@
       .nav-cta:hover { filter: brightness(0.94); }
     }
 
+    /* Przycisk i panel nawigacji mobilnej */
+    .mobile-menu-btn {
+      display: none;
+      width: 34px;
+      height: 34px;
+      border-radius: var(--btn-radius);
+      border: 1px solid color-mix(in srgb, var(--hero-ink) 26%, transparent);
+      background: transparent;
+      color: var(--hero-ink);
+      place-items: center;
+      cursor: pointer;
+      padding: 0;
+    }
+    .mobile-menu-btn svg { width: 18px; height: 18px; }
+    .mobile-drawer {
+      margin: -14px 0 24px;
+      padding: 14px;
+      border-radius: var(--card-radius);
+      border: 1px solid color-mix(in srgb, var(--hero-ink) 20%, transparent);
+      background: color-mix(in srgb, var(--surface) 92%, var(--hero-bg));
+      color: var(--ink);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
+    }
+    .mobile-drawer a {
+      padding: 11px 14px;
+      border-radius: var(--btn-radius);
+      font: 600 13.5px var(--sans);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .mobile-drawer a:hover {
+      background: color-mix(in srgb, var(--ink) 7%, transparent);
+    }
+    .mobile-drawer .mobile-drawer-cta {
+      margin-top: 6px;
+      background: var(--btn-bg);
+      color: var(--btn-ink);
+      justify-content: center;
+      font-weight: 700;
+    }
+
     .back-link {
       display: inline-flex;
       align-items: center;
@@ -342,7 +427,6 @@
     }
     .filter-bar { display: flex; flex-wrap: wrap; gap: 8px; }
 
-    /* Przyciski filtrów - identyczna wysokość, powierzchnia i reakcja jak w Hero */
     .filter-pill {
       min-height: 42px;
       padding: 0 16px;
@@ -377,7 +461,7 @@
       text-transform: uppercase;
     }
 
-    /* Stos równych, dużych kart - jedna pod drugą */
+    /* Stos równych, dużych kart - min-height: 380px chroni przyciski przed ucinaniem */
     .projects-stack {
       display: flex;
       flex-direction: column;
@@ -387,7 +471,7 @@
     .project-row-card {
       display: grid;
       grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-      height: 380px;
+      min-height: 380px;
       border: 1px solid var(--line);
       border-radius: var(--card-radius);
       background: var(--surface);
@@ -411,6 +495,7 @@
     .row-art-box {
       display: block;
       height: 100%;
+      min-height: 380px;
       position: relative;
       overflow: hidden;
       border-right: 1px solid var(--line);
@@ -518,7 +603,7 @@
     }
 
     /* ═══════════════════════════════════════════════════════════════════
-       4. MINIATURY PROJEKTÓW (SPÓJNE Z index.html)
+       4. MINIATURY PROJEKTÓW (SPÓJNE Z index.html — CZYSTA KARTA PM CLASSICS)
        ═══════════════════════════════════════════════════════════════════ */
     .route-map-graphic { display: block; width: 100%; height: 100%; }
     .route-map-land { fill: #e1e7de; }
@@ -598,37 +683,20 @@
       letter-spacing: 0.05em;
     }
 
+    /* Czysty, ciemny gradient ze złotym światłem — identyczny z index.html */
     .pm-mini-preview {
       height: 100%;
       position: relative;
-      background: #121312;
+      background:
+        radial-gradient(ellipse at 85% 20%, rgba(197, 160, 89, 0.14) 0%, transparent 55%),
+        linear-gradient(145deg, #151615 0%, #0c0d0c 100%);
       color: #f4f4f5;
-      padding: 28px 32px;
+      padding: 30px 34px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       isolation: isolate;
       overflow: hidden;
-    }
-    .pm-mini-bg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 58%;
-      z-index: -2;
-      filter: saturate(0.82) contrast(1.05);
-      transition: transform 500ms var(--ease-out-quart);
-    }
-    .project-row-card:hover .pm-mini-bg { transform: scale(1.04); }
-    .pm-mini-shade {
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      background:
-        linear-gradient(90deg, rgba(11, 11, 12, 0.86) 0%, rgba(11, 11, 12, 0.45) 65%, rgba(11, 11, 12, 0.2) 100%),
-        linear-gradient(0deg, rgba(11, 11, 12, 0.72) 0%, transparent 55%);
     }
 
     /* ═══════════════════════════════════════════════════════════════════
@@ -671,10 +739,11 @@
     @media (max-width: 960px) {
       .project-row-card {
         grid-template-columns: 1fr;
-        height: auto;
+        min-height: auto;
       }
       .row-art-box {
         height: 290px;
+        min-height: 290px;
         border-right: 0;
         border-bottom: 1px solid var(--line);
       }
@@ -689,6 +758,7 @@
       .nav-wrap { height: 64px; margin-bottom: 24px; gap: 8px; }
       .wordmark { font-size: 20px; }
       .nav-links, .wordmark-sub, .nav-cta { display: none; }
+      .mobile-menu-btn { display: grid; }
       .nav-actions { gap: 6px; }
       .lang-btn { height: 34px; min-width: 38px; padding: 0 9px; }
       .theme-icon-btn { width: 28px; height: 28px; }
@@ -703,7 +773,7 @@
       .ck-mini-preview { padding: 52px 20px 24px; min-height: 250px; }
       .ck-mini-nav { padding: 0 16px; font-size: 9.5px; }
       .ck-mini-nav span:last-child { display: none; }
-      .pm-mini-preview { padding: 20px; min-height: 250px; }
+      .pm-mini-preview { padding: 22px 20px; min-height: 250px; }
 
       .row-body { padding: 20px 18px; }
       .row-actions { flex-direction: column; align-items: stretch; }
@@ -714,7 +784,7 @@
 
 <body>
 
-  <!-- ═══ MASTHEAD + NAWIGACJA ═══ -->
+  <!-- ═══ MASTHEAD + NAWIGACJA + MOBILE DRAWER ═══ -->
   <section class="archive-masthead" id="top">
     <div class="page-wrap">
 
@@ -725,16 +795,16 @@
         </a>
 
         <nav class="nav-links" :aria-label="lang === 'pl' ? 'Główna nawigacja' : 'Main navigation'">
-          <a href="projects.html" class="is-current" x-text="lang === 'pl' ? 'Projekty (5)' : 'Projects (5)'"></a>
-          <a href="index.html#estimator" x-text="lang === 'pl' ? 'Pakiety i wycena' : 'Tiers & Pricing'"></a>
-          <a href="index.html#about" x-text="lang === 'pl' ? 'Podejście' : 'Approach'"></a>
-          <a href="index.html#contact" x-text="lang === 'pl' ? 'Kontakt' : 'Contact'"></a>
+          <a href="projects.html" class="is-current" x-text="navProjectsLabel">Projekty (5)</a>
+          <a href="index.html#estimator" x-text="lang === 'pl' ? 'Pakiety i wycena' : 'Tiers & Pricing'">Pakiety i wycena</a>
+          <a href="index.html#about" x-text="lang === 'pl' ? 'Podejście' : 'Approach'">Podejście</a>
+          <a href="index.html#contact" x-text="lang === 'pl' ? 'Kontakt' : 'Contact'">Kontakt</a>
         </nav>
 
         <div class="nav-actions">
           <button type="button" class="lang-btn tactile" @click="toggleLang()"
             :aria-label="lang === 'pl' ? 'Switch to English' : 'Zmień język na polski'"
-            x-text="lang === 'pl' ? 'EN' : 'PL'"></button>
+            x-text="lang === 'pl' ? 'EN' : 'PL'">EN</button>
 
           <div class="theme-dock" role="group" :aria-label="lang === 'pl' ? 'Wybierz motyw kolorystyczny' : 'Choose color theme'">
             <button type="button" class="theme-icon-btn tactile"
@@ -771,31 +841,69 @@
           </div>
 
           <a href="index.html#estimator" class="nav-cta tactile">
-            <span x-text="lang === 'pl' ? 'Wyceń projekt' : 'Start a project'"></span>
+            <span x-text="lang === 'pl' ? 'Wyceń projekt' : 'Start a project'">Wyceń projekt</span>
             <span aria-hidden="true">↗</span>
           </a>
+
+          <!-- Przycisk menu na urządzeniach mobilnych (<= 720px) -->
+          <button type="button" class="mobile-menu-btn tactile"
+            @click="mobileMenuOpen = !mobileMenuOpen"
+            :aria-expanded="mobileMenuOpen"
+            :aria-label="lang === 'pl' ? 'Otwórz menu nawigacji' : 'Toggle navigation menu'">
+            <svg x-show="!mobileMenuOpen" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+              <path d="M3 5.5h14M3 10h14M3 14.5h14"/>
+            </svg>
+            <svg x-show="mobileMenuOpen" x-cloak viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+              <path d="M4.5 4.5l11 11M15.5 4.5l-11 11"/>
+            </svg>
+          </button>
         </div>
       </header>
 
+      <!-- Panel Nawigacji Mobilnej (Drawer) -->
+      <nav class="mobile-drawer" x-show="mobileMenuOpen" x-cloak
+           :aria-label="lang === 'pl' ? 'Menu mobilne' : 'Mobile navigation'">
+        <a href="index.html" @click="mobileMenuOpen = false">
+          <span x-text="lang === 'pl' ? 'Strona główna' : 'Homepage'">Strona główna</span>
+          <span aria-hidden="true">←</span>
+        </a>
+        <a href="index.html#estimator" @click="mobileMenuOpen = false">
+          <span x-text="lang === 'pl' ? 'Pakiety i wycena' : 'Tiers & Pricing'">Pakiety i wycena</span>
+          <span aria-hidden="true">→</span>
+        </a>
+        <a href="index.html#about" @click="mobileMenuOpen = false">
+          <span x-text="lang === 'pl' ? 'Podejście' : 'Approach'">Podejście</span>
+          <span aria-hidden="true">→</span>
+        </a>
+        <a href="index.html#contact" @click="mobileMenuOpen = false">
+          <span x-text="lang === 'pl' ? 'Kontakt' : 'Contact'">Kontakt</span>
+          <span aria-hidden="true">→</span>
+        </a>
+        <a href="index.html#estimator" class="mobile-drawer-cta tactile" @click="mobileMenuOpen = false">
+          <span x-text="lang === 'pl' ? 'Wyceń projekt' : 'Start a project'">Wyceń projekt</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+      </nav>
+
       <a href="index.html" class="back-link tactile">
         <span aria-hidden="true">←</span>
-        <span x-text="lang === 'pl' ? 'Powrót na stronę główną' : 'Back to homepage'"></span>
+        <span x-text="lang === 'pl' ? 'Powrót na stronę główną' : 'Back to homepage'">Powrót na stronę główną</span>
       </a>
 
       <div class="masthead-row">
         <div>
           <p class="eyebrow">
             <span class="eyebrow-dot"></span>
-            <span x-text="lang === 'pl' ? 'KATALOG REALIZACJI · WEB4BIZ.PL' : 'PROJECT ARCHIVE · WEB4BIZ.PL'"></span>
+            <span x-text="lang === 'pl' ? 'KATALOG REALIZACJI · WEB4BIZ.PL' : 'PROJECT ARCHIVE · WEB4BIZ.PL'">KATALOG REALIZACJI · WEB4BIZ.PL</span>
           </p>
           <h1 class="archive-title">
-            <span x-text="lang === 'pl' ? 'Wszystkie ' : 'All '"></span>
-            <i x-text="lang === 'pl' ? 'projekty.' : 'projects.'"></i>
+            <span x-text="lang === 'pl' ? 'Wszystkie ' : 'All '">Wszystkie </span>
+            <i x-text="lang === 'pl' ? 'projekty.' : 'projects.'">projekty.</i>
           </h1>
         </div>
         <p class="archive-lead" x-text="lang === 'pl'
           ? 'Pełne zestawienie stron B2B, interaktywnych kalkulatorów oraz aplikacji webowych. Każdy projekt możesz otworzyć na żywo lub przeanalizować od kuchni w Case Study.'
-          : 'Complete archive of B2B websites, interactive estimators, and custom web applications. Launch every live build or explore the architecture behind it in the Case Study.'"></p>
+          : 'Complete archive of B2B websites, interactive estimators, and custom web applications. Launch every live build or explore the architecture behind it in the Case Study.'">Pełne zestawienie stron B2B, interaktywnych kalkulatorów oraz aplikacji webowych. Każdy projekt możesz otworzyć na żywo lub przeanalizować od kuchni w Case Study.</p>
       </div>
 
     </div>
@@ -805,10 +913,10 @@
   <main class="section-pad">
     <div class="page-wrap">
 
-      <!-- Filtry kategorii -->
+      <!-- Filtry kategorii + dynamiczny licznik pasujących projektów -->
       <div class="filter-row">
         <div class="filter-bar" role="group" :aria-label="lang === 'pl' ? 'Filtruj projekty' : 'Filter projects'">
-          <template x-for="f in filters" :key="f.id">
+          <template x-for="f in filterTabs" :key="f.id">
             <button type="button" class="filter-pill tactile"
               :class="activeFilter === f.id ? 'is-active' : ''"
               :aria-pressed="activeFilter === f.id"
@@ -816,20 +924,20 @@
               x-text="f.label[lang]"></button>
           </template>
         </div>
-        <span class="results-meta tabular" x-text="lang === 'pl' ? 'ZREALIZOWANE: 05 PROJEKTÓW' : 'SHIPPED: 05 PROJECTS'"></span>
+        <span class="results-meta tabular" x-text="resultsCounterLabel">ZREALIZOWANE: 05 PROJEKTÓW</span>
       </div>
 
       <!-- Stos projektów - jednakowe rozmiary, jeden pod drugim -->
       <div class="projects-stack">
 
         <!-- ═══ 01. AD REM T2 ═══ -->
-        <article class="project-row-card" x-show="activeFilter === 'all' || activeFilter === 'tools' || activeFilter === 'b2b'">
+        <article class="project-row-card" x-show="matchesFilter('adremt2')">
           <a href="case-study.html?project=adremt2" class="row-art-box">
             <div class="art-route-split">
               <div class="art-route-map-box">
                 <div class="art-micro-header">
-                  <span x-text="lang === 'pl' ? 'EUROPA / KIERUNKI' : 'EUROPE / ROUTES'"></span>
-                  <span style="color:#d90429;" x-text="lang === 'pl' ? '◉ WARSZAWA / BAZA' : '◉ WARSAW / HUB'"></span>
+                  <span x-text="lang === 'pl' ? 'EUROPA / KIERUNKI' : 'EUROPE / ROUTES'">EUROPA / KIERUNKI</span>
+                  <span style="color:#d90429;" x-text="lang === 'pl' ? '◉ WARSZAWA / BAZA' : '◉ WARSAW / HUB'">◉ WARSZAWA / BAZA</span>
                 </div>
                 <svg class="route-map-graphic" viewBox="0 0 900 520" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:30px 0 0; height:calc(100% - 30px);">
                   <path class="route-map-land" d="m101 76 41-25 34 8 24-23 39 12 28 31 34-8 30 18 27-9 30 21 41-12 30 22 43-5 24 23 43-2 23 29 40 14 13 32-19 25-35 7-5 30-28 15-12 34-34 12-15 32-39 6-20 27-37-4-20-26-31-5-18-24-36-2-19-24-31-4-13-24-32-14-10-25-32-13-15-28-35-9-9-28-31-6-12-24 20-26Z"/>
@@ -849,14 +957,14 @@
                     <circle cx="412" cy="353" r="6"/><circle cx="225" cy="226" r="6"/><circle cx="319" cy="238" r="6"/>
                   </g>
                   <circle class="route-map-start" cx="534" cy="235" r="10"/>
-                  <text class="route-map-label" x="550" y="240" x-text="lang === 'pl' ? 'WARSZAWA' : 'WARSAW'"></text>
+                  <text class="route-map-label" x="550" y="240" x-text="lang === 'pl' ? 'WARSZAWA' : 'WARSAW'">WARSZAWA</text>
                 </svg>
               </div>
               <div class="art-route-panel">
-                <span style="font:600 10px var(--mono); color:#d90429;" x-text="lang === 'pl' ? '↳ PODGLĄD RELACJI' : '↳ ROUTE PREVIEW'"></span>
-                <h4 style="margin:0; font:700 20px/1.05 var(--display);" x-text="lang === 'pl' ? 'Dokąd jedziemy?' : 'Choose destination'"></h4>
-                <p x-text="lang === 'pl' ? 'Wybierz miasto docelowe na mapie Europy i przejdź do wyceny trasy z Warszawy.' : 'Pick a destination city on the Europe map to estimate road distance from Warsaw.'"></p>
-                <span style="font:600 10px var(--mono); color:#555b53;" x-text="lang === 'pl' ? '◷ Dyspozytor 24/7 · 0 PLN API' : '◷ 24/7 Dispatcher · Zero API Cost'"></span>
+                <span style="font:600 10px var(--mono); color:#d90429;" x-text="lang === 'pl' ? '↳ PODGLĄD RELACJI' : '↳ ROUTE PREVIEW'">↳ PODGLĄD RELACJI</span>
+                <h4 style="margin:0; font:700 20px/1.05 var(--display);" x-text="lang === 'pl' ? 'Dokąd jedziemy?' : 'Choose destination'">Dokąd jedziemy?</h4>
+                <p x-text="lang === 'pl' ? 'Wybierz miasto docelowe na mapie Europy i przejdź do wyceny trasy z Warszawy.' : 'Pick a destination city on the Europe map to estimate road distance from Warsaw.'">Wybierz miasto docelowe na mapie Europy i przejdź do wyceny trasy z Warszawy.</p>
+                <span style="font:600 10px var(--mono); color:#555b53;" x-text="lang === 'pl' ? '◷ Dyspozytor 24/7 · 0 PLN API' : '◷ 24/7 Dispatcher · Zero API Cost'">◷ Dyspozytor 24/7 · 0 PLN API</span>
               </div>
             </div>
           </a>
@@ -864,23 +972,23 @@
           <div class="row-body">
             <div>
               <div class="row-top-meta tabular">
-                <span class="row-index" x-text="lang === 'pl' ? '01 / TRANSPORT & TSL' : '01 / B2B LOGISTICS'"></span>
+                <span class="row-index" x-text="lang === 'pl' ? '01 / TRANSPORT & TSL' : '01 / B2B LOGISTICS'">01 / TRANSPORT &amp; TSL</span>
                 <span class="row-year">2026</span>
               </div>
               <div class="project-tags">
                 <span>Vanilla JS · SVG · GeoJSON</span>
-                <span x-text="lang === 'pl' ? 'Kalkulator Tras' : 'Route Calculator'"></span>
+                <span x-text="lang === 'pl' ? 'Kalkulator Tras' : 'Route Calculator'">Kalkulator Tras</span>
               </div>
-              <h2 x-text="lang === 'pl' ? 'AD REM T2 - Transport, logistyka i spedycja' : 'AD REM T2 - Transport, Logistics &amp; Freight'"></h2>
-              <p x-text="lang === 'pl' ? 'Interaktywna mapa Europy pozwala wskazać miasto, sprawdzić dystans drogowy z Warszawy i wysłać sprecyzowane zapytanie do dyspozytora - bez płatnych API mapowych.' : 'Interactive European vector map lets visitors pick a destination, calculate road distance from Warsaw, and send a pre-populated freight enquiry with zero recurring map API costs.'"></p>
+              <h2 x-text="lang === 'pl' ? 'AD REM T2 - Transport, logistyka i spedycja' : 'AD REM T2 - Transport, Logistics & Freight'">AD REM T2 - Transport, logistyka i spedycja</h2>
+              <p x-text="lang === 'pl' ? 'Interaktywna mapa Europy pozwala wskazać miasto, sprawdzić dystans drogowy z Warszawy i wysłać sprecyzowane zapytanie do dyspozytora - bez płatnych API mapowych.' : 'Interactive European vector map lets visitors pick a destination, calculate road distance from Warsaw, and send a pre-populated freight enquiry with zero recurring map API costs.'">Interaktywna mapa Europy pozwala wskazać miasto, sprawdzić dystans drogowy z Warszawy i wysłać sprecyzowane zapytanie do dyspozytora - bez płatnych API mapowych.</p>
             </div>
             <div class="row-actions">
               <a href="case-study.html?project=adremt2" class="btn-card-primary tactile">
-                <span x-text="lang === 'pl' ? 'Czytaj Case Study' : 'Read Case Study'"></span>
+                <span x-text="lang === 'pl' ? 'Czytaj Case Study' : 'Read Case Study'">Czytaj Case Study</span>
                 <span aria-hidden="true">→</span>
               </a>
               <a href="https://adremt2.pl/index2.html" target="_blank" rel="noopener noreferrer" class="btn-card-secondary tactile">
-                <span x-text="lang === 'pl' ? 'Otwórz stronę' : 'Open live site'"></span>
+                <span x-text="lang === 'pl' ? 'Otwórz stronę' : 'Open live site'">Otwórz stronę</span>
                 <span aria-hidden="true">↗</span>
               </a>
             </div>
@@ -888,22 +996,22 @@
         </article>
 
         <!-- ═══ 02. CK AD REM ═══ -->
-        <article class="project-row-card" x-show="activeFilter === 'all' || activeFilter === 'b2b'">
+        <article class="project-row-card" x-show="matchesFilter('ckadrem')">
           <a href="case-study.html?project=ckadrem" class="row-art-box">
             <div class="ck-mini-preview">
               <div class="ck-mini-nav">
-                <span x-text="lang === 'pl' ? 'Ad Rem · CENTRUM KSIĘGOWE' : 'Ad Rem · ACCOUNTING CENTRE'"></span>
-                <span x-text="lang === 'pl' ? '22 LATA · WARSZAWA' : '22 YEARS · WARSAW'"></span>
+                <span x-text="lang === 'pl' ? 'Ad Rem · CENTRUM KSIĘGOWE' : 'Ad Rem · ACCOUNTING CENTRE'">Ad Rem · CENTRUM KSIĘGOWE</span>
+                <span x-text="lang === 'pl' ? '22 LATA · WARSZAWA' : '22 YEARS · WARSAW'">22 LATA · WARSZAWA</span>
               </div>
-              <p style="margin:0 0 10px; font:600 10.5px var(--mono); color:#d90429; letter-spacing:0.08em;" x-text="lang === 'pl' ? '● AD REM / DO RZECZY · B2B &amp; NGO' : '● AD REM / TO THE POINT · B2B &amp; NGO'"></p>
+              <p style="margin:0 0 10px; font:600 10.5px var(--mono); color:#d90429; letter-spacing:0.08em;" x-text="lang === 'pl' ? '● AD REM / DO RZECZY · B2B & NGO' : '● AD REM / TO THE POINT · B2B & NGO'">● AD REM / DO RZECZY · B2B &amp; NGO</p>
               <h4 style="margin:0 0 12px; font:700 32px/1.02 var(--display); letter-spacing:-0.05em; max-width:440px;">
-                <span x-text="lang === 'pl' ? 'Księgowość, która pozwala Ci ' : 'Accounting that lets you '"></span>
-                <span style="color:#d90429;" x-text="lang === 'pl' ? 'spać spokojnie.' : 'sleep well.'"></span>
+                <span x-text="lang === 'pl' ? 'Księgowość, która pozwala Ci ' : 'Accounting that lets you '">Księgowość, która pozwala Ci </span>
+                <span style="color:#d90429;" x-text="lang === 'pl' ? 'spać spokojnie.' : 'sleep well.'">spać spokojnie.</span>
               </h4>
-              <p style="margin:0 0 18px; font-size:13px; color:#4a4a4a; max-width:410px; line-height:1.55;" x-text="lang === 'pl' ? 'Osobne ścieżki konwersji dla spółek prawa handlowego, JDG (KPiR) oraz fundacji i stowarzyszeń.' : 'Dedicated conversion paths for LLCs, sole proprietors, and foundations/associations (NGOs).'"></p>
+              <p style="margin:0 0 18px; font-size:13px; color:#4a4a4a; max-width:410px; line-height:1.55;" x-text="lang === 'pl' ? 'Osobne ścieżki konwersji dla spółek prawa handlowego, JDG (KPiR) oraz fundacji i stowarzyszeń.' : 'Dedicated conversion paths for LLCs, sole proprietors, and foundations/associations (NGOs).'">Osobne ścieżki konwersji dla spółek prawa handlowego, JDG (KPiR) oraz fundacji i stowarzyszeń.</p>
               <div style="display:flex; gap:10px;">
-                <span style="padding:8px 16px; border-radius:var(--btn-radius); background:#d90429; color:#fff; font:700 11px var(--sans);" x-text="lang === 'pl' ? 'Umów konsultację' : 'Book consultation'"></span>
-                <span style="padding:8px 16px; border-radius:var(--btn-radius); border:1px solid #d90429; color:#d90429; font:700 11px var(--sans);" x-text="lang === 'pl' ? 'Oferta NGO →' : 'NGO Offer →'"></span>
+                <span style="padding:8px 16px; border-radius:var(--btn-radius); background:#d90429; color:#fff; font:700 11px var(--sans);" x-text="lang === 'pl' ? 'Umów konsultację' : 'Book consultation'">Umów konsultację</span>
+                <span style="padding:8px 16px; border-radius:var(--btn-radius); border:1px solid #d90429; color:#d90429; font:700 11px var(--sans);" x-text="lang === 'pl' ? 'Oferta NGO →' : 'NGO Offer →'">Oferta NGO →</span>
               </div>
             </div>
           </a>
@@ -911,56 +1019,54 @@
           <div class="row-body">
             <div>
               <div class="row-top-meta tabular">
-                <span class="row-index" x-text="lang === 'pl' ? '02 / FINANSE & KSIĘGOWOŚĆ' : '02 / FINANCE & ACCOUNTING'"></span>
+                <span class="row-index" x-text="lang === 'pl' ? '02 / FINANSE & KSIĘGOWOŚĆ' : '02 / FINANCE & ACCOUNTING'">02 / FINANSE &amp; KSIĘGOWOŚĆ</span>
                 <span class="row-year">2025</span>
               </div>
               <div class="project-tags">
                 <span>Bootstrap 5 · Meta Pixel</span>
-                <span x-text="lang === 'pl' ? 'Segmentacja B2B / NGO' : 'B2B / NGO Funnels'"></span>
+                <span x-text="lang === 'pl' ? 'Segmentacja B2B / NGO' : 'B2B / NGO Funnels'">Segmentacja B2B / NGO</span>
               </div>
-              <h2 x-text="lang === 'pl' ? 'Ad Rem Centrum Księgowe' : 'Ad Rem Accounting Centre'"></h2>
-              <p x-text="lang === 'pl' ? 'Serwis korporacyjny porządkujący pełną księgowość, KPiR, kadry i ZUS z wyraźnym rozdzieleniem oferty dla firm oraz organizacji pozarządowych (NGO).' : 'Corporate website structuring full bookkeeping, tax ledgers, and ZUS filings with dedicated conversion paths for businesses and non-profit organizations.'"></p>
+              <h2 x-text="lang === 'pl' ? 'Ad Rem Centrum Księgowe' : 'Ad Rem Accounting Centre'">Ad Rem Centrum Księgowe</h2>
+              <p x-text="lang === 'pl' ? 'Serwis korporacyjny porządkujący pełną księgowość, KPiR, kadry i ZUS z wyraźnym rozdzieleniem oferty dla firm oraz organizacji pozarządowych (NGO).' : 'Corporate website structuring full bookkeeping, tax ledgers, and ZUS filings with dedicated conversion paths for businesses and non-profit organizations.'">Serwis korporacyjny porządkujący pełną księgowość, KPiR, kadry i ZUS z wyraźnym rozdzieleniem oferty dla firm oraz organizacji pozarządowych (NGO).</p>
             </div>
             <div class="row-actions">
               <a href="case-study.html?project=ckadrem" class="btn-card-primary tactile">
-                <span x-text="lang === 'pl' ? 'Czytaj Case Study' : 'Read Case Study'"></span>
+                <span x-text="lang === 'pl' ? 'Czytaj Case Study' : 'Read Case Study'">Czytaj Case Study</span>
                 <span aria-hidden="true">→</span>
               </a>
               <a href="https://ck-adrem.pl" target="_blank" rel="noopener noreferrer" class="btn-card-secondary tactile">
-                <span x-text="lang === 'pl' ? 'Otwórz stronę' : 'Open live site'"></span>
+                <span x-text="lang === 'pl' ? 'Otwórz stronę' : 'Open live site'">Otwórz stronę</span>
                 <span aria-hidden="true">↗</span>
               </a>
             </div>
           </div>
         </article>
 
-        <!-- ═══ 03. PM CLASSICS ═══ -->
-        <article class="project-row-card" x-show="activeFilter === 'all' || activeFilter === 'tools'">
+        <!-- ═══ 03. PM CLASSICS (CZYSTA CIEMNA KARTA BEZ OBRAZKA Z WIKIPEDII) ═══ -->
+        <article class="project-row-card" x-show="matchesFilter('pmclassics')">
           <a href="case-study.html?project=pmclassics" class="row-art-box">
             <div class="pm-mini-preview">
-              <img :src="classicCarImg" alt="1966 Volvo Amazon 122S Classic" class="pm-mini-bg" loading="lazy"/>
-              <div class="pm-mini-shade"></div>
-              <div style="display:flex; justify-content:space-between; font:500 10.5px var(--mono); letter-spacing:0.08em; color:#dfbd78;">
-                <span>PM CLASSICS · 1966 VOLVO AMAZON</span>
+              <div style="display:flex; justify-content:space-between; align-items:center; font:500 10.5px var(--mono); letter-spacing:0.08em; color:#dfbd78;">
+                <span>PM CLASSICS</span>
                 <span>PL · EN · NO | EUR · PLN · NOK</span>
               </div>
               <div>
                 <div style="font:500 10.5px var(--mono); letter-spacing:0.12em; opacity:0.88;"
-                  x-text="lang === 'pl' ? 'SZTUKA RENOWACJI KLASYKÓW' : 'THE ART OF CLASSIC RESTORATION'"></div>
-                <div style="margin:6px 0 14px; font:600 36px/0.94 var(--display); letter-spacing:-0.05em;">
-                  <span x-text="lang === 'pl' ? 'Drugie życie ' : 'Second '"></span>
-                  <i style="color:#dfbd78; font-weight:400;" x-text="lang === 'pl' ? 'klasyków.' : 'chapters.'"></i>
+                  x-text="lang === 'pl' ? 'SZTUKA RENOWACJI' : 'THE ART OF RESTORATION'">SZTUKA RENOWACJI</div>
+                <div style="margin:8px 0 0; font:600 38px/0.94 var(--display); letter-spacing:-0.05em;">
+                  <span x-text="lang === 'pl' ? 'Drugie życie ' : 'Second '">Drugie życie </span>
+                  <i style="color:#dfbd78; font-weight:400;" x-text="lang === 'pl' ? 'klasyków.' : 'chapters.'">klasyków.</i>
                 </div>
-                <span style="display:inline-block; padding:8px 14px; background:#c5a059; color:#0b0b0c; font:700 10.5px var(--mono); border-radius:var(--btn-radius);"
-                  x-text="lang === 'pl' ? 'WIRTUALNY GARAŻ · 3 WALUTY →' : 'VIRTUAL GARAGE · 3 CURRENCIES →'"></span>
               </div>
+              <div style="font:500 10.5px var(--mono); letter-spacing:0.08em; color:#e4e4e7;"
+                x-text="lang === 'pl' ? 'WIRTUALNY GARAŻ · 3 WALUTY' : 'VIRTUAL GARAGE · 3 CURRENCIES'">WIRTUALNY GARAŻ · 3 WALUTY</div>
             </div>
           </a>
 
           <div class="row-body">
             <div>
               <div class="row-top-meta tabular">
-                <span class="row-index" x-text="lang === 'pl' ? '03 / AUTOMOTIVE & RENOWACJA' : '03 / CLASSIC AUTOMOTIVE'"></span>
+                <span class="row-index" x-text="lang === 'pl' ? '03 / AUTOMOTIVE & RENOWACJA' : '03 / CLASSIC AUTOMOTIVE'">03 / AUTOMOTIVE &amp; RENOWACJA</span>
                 <span class="row-year">2026</span>
               </div>
               <div class="project-tags">
@@ -969,15 +1075,15 @@
                 <span>EUR · PLN · NOK</span>
               </div>
               <h2>PM Classics</h2>
-              <p x-text="lang === 'pl' ? 'Wielojęzyczna platforma renowacji klasyków z filtrowanym wirtualnym garażem, przelicznikiem trzech walut w czasie rzeczywistym i 3-etapowym briefem.' : 'Trilingual classic vehicle restoration platform with a filterable virtual garage, live 3-currency switcher (EUR/PLN/NOK), and a 3-step restoration brief.'"></p>
+              <p x-text="lang === 'pl' ? 'Wielojęzyczna platforma renowacji klasyków z filtrowanym wirtualnym garażem, przelicznikiem trzech walut w czasie rzeczywistym i 3-etapowym briefem.' : 'Trilingual classic vehicle restoration platform with a filterable virtual garage, live 3-currency switcher (EUR/PLN/NOK), and a 3-step restoration brief.'">Wielojęzyczna platforma renowacji klasyków z filtrowanym wirtualnym garażem, przelicznikiem trzech walut w czasie rzeczywistym i 3-etapowym briefem.</p>
             </div>
             <div class="row-actions">
               <a href="case-study.html?project=pmclassics" class="btn-card-primary tactile">
-                <span x-text="lang === 'pl' ? 'Czytaj Case Study' : 'Read Case Study'"></span>
+                <span x-text="lang === 'pl' ? 'Czytaj Case Study' : 'Read Case Study'">Czytaj Case Study</span>
                 <span aria-hidden="true">→</span>
               </a>
               <a href="pmclassics.html" class="btn-card-secondary tactile">
-                <span x-text="lang === 'pl' ? 'Otwórz stronę' : 'Open live site'"></span>
+                <span x-text="lang === 'pl' ? 'Otwórz stronę' : 'Open live site'">Otwórz stronę</span>
                 <span aria-hidden="true">↗</span>
               </a>
             </div>
@@ -985,7 +1091,7 @@
         </article>
 
         <!-- ═══ 04. KUBATURA B2B ═══ -->
-        <article class="project-row-card" x-show="activeFilter === 'all' || activeFilter === 'b2b' || activeFilter === 'tools'">
+        <article class="project-row-card" x-show="matchesFilter('kubatura')">
           <a href="case-study.html?project=kubatura" class="row-art-box" style="background-color:#f4f5f7; background-image:linear-gradient(rgba(24,26,31,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(24,26,31,0.045) 1px, transparent 1px); background-size:28px 28px; color:#181a1f; padding:22px 26px; display:flex; flex-direction:column; justify-content:space-between;">
             <div style="display:flex; justify-content:space-between; align-items:center; font:600 10px var(--mono); letter-spacing:0.05em;">
               <span style="display:inline-flex; align-items:center; gap:6px; font-weight:700;">
@@ -996,8 +1102,8 @@
             </div>
 
             <div style="font:800 24px/1.02 var(--display); letter-spacing:-0.04em;">
-              <span style="color:#ea580c;" x-text="lang === 'pl' ? 'Przeprowadzka biura w weekend.' : 'Office relocation over one weekend.'"></span><br/>
-              <span style="color:#373c47;" x-text="lang === 'pl' ? 'Zero przestoju w pracy.' : 'Zero operational downtime.'"></span>
+              <span style="color:#ea580c;" x-text="lang === 'pl' ? 'Przeprowadzka biura w weekend.' : 'Office relocation over one weekend.'">Przeprowadzka biura w weekend.</span><br/>
+              <span style="color:#373c47;" x-text="lang === 'pl' ? 'Zero przestoju w pracy.' : 'Zero operational downtime.'">Zero przestoju w pracy.</span>
             </div>
 
             <div style="background:#ffffff; border:1px solid rgba(24,26,31,0.18); border-radius:8px; padding:12px 14px 9px; box-shadow:0 8px 22px rgba(24,26,31,0.08);" class="tabular">
@@ -1044,23 +1150,23 @@
           <div class="row-body">
             <div>
               <div class="row-top-meta tabular">
-                <span class="row-index" x-text="lang === 'pl' ? '04 / RELOKACJE B2B' : '04 / B2B RELOCATION'"></span>
+                <span class="row-index" x-text="lang === 'pl' ? '04 / RELOKACJE B2B' : '04 / B2B RELOCATION'">04 / RELOKACJE B2B</span>
                 <span class="row-year">2026</span>
               </div>
               <div class="project-tags">
-                <span>Alpine.js · GSAP · SVG</span>
-                <span x-text="lang === 'pl' ? 'Kalkulator m³ / kg' : 'm³ / kg Estimator'"></span>
+                <span>Alpine.js · SVG · Schema.org</span>
+                <span x-text="lang === 'pl' ? 'Kalkulator m³ / kg' : 'm³ / kg Estimator'">Kalkulator m³ / kg</span>
               </div>
-              <h2 x-text="lang === 'pl' ? 'KUBATURA - Relokacje Biur i Archiwów' : 'KUBATURA - Corporate Office Relocation'"></h2>
-              <p x-text="lang === 'pl' ? 'Platforma B2B dla weekendowych relokacji biur (Piątek 17:00 → Poniedziałek 08:00) z interaktywnym kalkulatorem kubatury (m³), masy (kg) oraz przekrojem kontenera 24 m³.' : 'Weekend B2B office relocation platform (Friday 17:00 → Monday 08:00) featuring a live cargo volume (m³), payload (kg), and 24 m³ box-truck cutaway estimator.'"></p>
+              <h2 x-text="lang === 'pl' ? 'KUBATURA - Relokacje Biur i Archiwów' : 'KUBATURA - Corporate Office Relocation'">KUBATURA - Relokacje Biur i Archiwów</h2>
+              <p x-text="lang === 'pl' ? 'Platforma B2B dla weekendowych relokacji biur (Piątek 17:00 → Poniedziałek 08:00) z interaktywnym kalkulatorem kubatury (m³), masy (kg) oraz przekrojem kontenera 24 m³.' : 'Weekend B2B office relocation platform (Friday 17:00 → Monday 08:00) featuring a live cargo volume (m³), payload (kg), and 24 m³ box-truck cutaway estimator.'">Platforma B2B dla weekendowych relokacji biur (Piątek 17:00 → Poniedziałek 08:00) z interaktywnym kalkulatorem kubatury (m³), masy (kg) oraz przekrojem kontenera 24 m³.</p>
             </div>
             <div class="row-actions">
               <a href="case-study.html?project=kubatura" class="btn-card-primary tactile">
-                <span x-text="lang === 'pl' ? 'Czytaj Case Study' : 'Read Case Study'"></span>
+                <span x-text="lang === 'pl' ? 'Czytaj Case Study' : 'Read Case Study'">Czytaj Case Study</span>
                 <span aria-hidden="true">→</span>
               </a>
               <a href="kubatura.html" class="btn-card-secondary tactile">
-                <span x-text="lang === 'pl' ? 'Otwórz stronę' : 'Open live site'"></span>
+                <span x-text="lang === 'pl' ? 'Otwórz stronę' : 'Open live site'">Otwórz stronę</span>
                 <span aria-hidden="true">↗</span>
               </a>
             </div>
@@ -1068,7 +1174,7 @@
         </article>
 
         <!-- ═══ 05. 玄 GEMBA ═══ -->
-        <article class="project-row-card" x-show="activeFilter === 'all' || activeFilter === 'tools' || activeFilter === 'react'">
+        <article class="project-row-card" x-show="matchesFilter('gemba')">
           <a href="case-study.html?project=gemba" class="row-art-box" style="background-color:#f9f8f3; background-image:linear-gradient(#ebe8df 1px, transparent 1px), linear-gradient(90deg, #ebe8df 1px, transparent 1px); background-size:36px 36px; color:#161e21; display:flex; flex-direction:column; justify-content:space-between;">
             <div style="padding:26px 32px 20px; display:flex; flex-direction:column; justify-content:space-between; flex:1;">
               <div style="display:flex; justify-content:space-between; align-items:center; font:600 10.5px var(--mono); letter-spacing:0.1em; color:#5b6568;">
@@ -1081,25 +1187,25 @@
 
               <div style="margin:14px 0;">
                 <div style="font:700 34px/0.96 var(--display); letter-spacing:-0.05em; color:#161e21;">
-                  <span x-text="lang === 'pl' ? 'Opisz problem.' : 'Describe the problem.'"></span><br/>
-                  <span style="color:#b8432e;" x-text="lang === 'pl' ? 'Otrzymaj metodę.' : 'Get the method.'"></span>
+                  <span x-text="lang === 'pl' ? 'Opisz problem.' : 'Describe the problem.'">Opisz problem.</span><br/>
+                  <span style="color:#b8432e;" x-text="lang === 'pl' ? 'Otrzymaj metodę.' : 'Get the method.'">Otrzymaj metodę.</span>
                 </div>
                 <p style="margin:10px 0 0; font-size:12.5px; line-height:1.5; color:#5b6568; max-width:420px;"
-                  x-text="lang === 'pl' ? 'Naturalny opis problemu procesowego tłumaczony na straty Muda/Mura/Muri, konkretne narzędzie Lean oraz 5-fazowy plan działania.' : 'Plain-language operational issues translated into Muda/Mura/Muri waste, matched to a Lean/Six Sigma method and a 5-phase execution plan.'"></p>
+                  x-text="lang === 'pl' ? 'Naturalny opis problemu procesowego tłumaczony na straty Muda/Mura/Muri, konkretne narzędzie Lean oraz 5-fazowy plan działania.' : 'Plain-language operational issues translated into Muda/Mura/Muri waste, matched to a Lean/Six Sigma method and a 5-phase execution plan.'">Naturalny opis problemu procesowego tłumaczony na straty Muda/Mura/Muri, konkretne narzędzie Lean oraz 5-fazowy plan działania.</p>
               </div>
 
               <div style="display:flex; gap:32px; padding-top:12px; border-top:1px solid #e2dfd5;" class="tabular">
                 <div>
                   <strong style="font:700 18px/1 var(--display); color:#161e21; display:block;">47</strong>
-                  <span style="font:500 9px var(--mono); color:#6e777a; letter-spacing:0.06em;" x-text="lang === 'pl' ? 'METOD' : 'METHODS'"></span>
+                  <span style="font:500 9px var(--mono); color:#6e777a; letter-spacing:0.06em;" x-text="lang === 'pl' ? 'METOD' : 'METHODS'">METOD</span>
                 </div>
                 <div>
                   <strong style="font:700 18px/1 var(--display); color:#161e21; display:block;">70+</strong>
-                  <span style="font:500 9px var(--mono); color:#6e777a; letter-spacing:0.06em;" x-text="lang === 'pl' ? 'POJĘĆ' : 'TERMS'"></span>
+                  <span style="font:500 9px var(--mono); color:#6e777a; letter-spacing:0.06em;" x-text="lang === 'pl' ? 'POJĘĆ' : 'TERMS'">POJĘĆ</span>
                 </div>
                 <div>
                   <strong style="font:700 18px/1 var(--display); color:#161e21; display:block;">5</strong>
-                  <span style="font:500 9px var(--mono); color:#6e777a; letter-spacing:0.06em;" x-text="lang === 'pl' ? 'FAZ PLANU' : 'PHASES PER PLAN'"></span>
+                  <span style="font:500 9px var(--mono); color:#6e777a; letter-spacing:0.06em;" x-text="lang === 'pl' ? 'FAZ PLANU' : 'PHASES PER PLAN'">FAZ PLANU</span>
                 </div>
               </div>
             </div>
@@ -1115,23 +1221,23 @@
           <div class="row-body">
             <div>
               <div class="row-top-meta tabular">
-                <span class="row-index" x-text="lang === 'pl' ? '05 / APLIKACJA DIAGNOSTYCZNA' : '05 / DIAGNOSTIC WEB APP'"></span>
+                <span class="row-index" x-text="lang === 'pl' ? '05 / APLIKACJA DIAGNOSTYCZNA' : '05 / DIAGNOSTIC WEB APP'">05 / APLIKACJA DIAGNOSTYCZNA</span>
                 <span class="row-year">2026</span>
               </div>
               <div class="project-tags">
                 <span>React · Tailwind CSS</span>
                 <span>Lean · TPS · Six Sigma</span>
               </div>
-              <h2 x-text="lang === 'pl' ? '玄 GEMBA - Diagnostyka Lean &amp; Six Sigma' : '玄 GEMBA - Lean &amp; Six Sigma Workspace'"></h2>
-              <p x-text="lang === 'pl' ? 'Aplikacja webowa tłumacząca codzienne problemy w pracy na straty procesowe (Muda, Mura, Muri), dobierająca właściwą z 47 metod Lean i prowadząca przez 5-fazowy plan wdrożenia.' : 'Diagnostic web app translating workplace problems into process waste, matching them to 47 Lean/Six Sigma methods and guiding execution through a 5-phase workspace.'"></p>
+              <h2 x-text="lang === 'pl' ? '玄 GEMBA - Diagnostyka Lean & Six Sigma' : '玄 GEMBA - Lean & Six Sigma Workspace'">玄 GEMBA - Diagnostyka Lean &amp; Six Sigma</h2>
+              <p x-text="lang === 'pl' ? 'Aplikacja webowa tłumacząca codzienne problemy w pracy na straty procesowe (Muda, Mura, Muri), dobierająca właściwą z 47 metod Lean i prowadząca przez 5-fazowy plan wdrożenia.' : 'Diagnostic web app translating workplace problems into process waste, matching them to 47 Lean/Six Sigma methods and guiding execution through a 5-phase workspace.'">Aplikacja webowa tłumacząca codzienne problemy w pracy na straty procesowe (Muda, Mura, Muri), dobierająca właściwą z 47 metod Lean i prowadząca przez 5-fazowy plan wdrożenia.</p>
             </div>
             <div class="row-actions">
               <a href="case-study.html?project=gemba" class="btn-card-primary tactile">
-                <span x-text="lang === 'pl' ? 'Czytaj Case Study' : 'Read Case Study'"></span>
+                <span x-text="lang === 'pl' ? 'Czytaj Case Study' : 'Read Case Study'">Czytaj Case Study</span>
                 <span aria-hidden="true">→</span>
               </a>
               <a href="https://lean-guide-flow.base44.app" target="_blank" rel="noopener noreferrer" class="btn-card-secondary tactile">
-                <span x-text="lang === 'pl' ? 'Otwórz aplikację' : 'Open live app'"></span>
+                <span x-text="lang === 'pl' ? 'Otwórz aplikację' : 'Open live app'">Otwórz aplikację</span>
                 <span aria-hidden="true">↗</span>
               </a>
             </div>
@@ -1140,7 +1246,8 @@
 
         <!-- ═══════════════════════════════════════════════════════════════
              MIEJSCE NA KOLEJNE PROJEKTY (06, 07, 08...)
-             Skopiuj dowolną kartę .project-row-card powyżej i wklej tutaj.
+             Skopiuj dowolną kartę .project-row-card powyżej, dodaj obiekt do
+             projects-data.js, a liczniki i filtry zaktualizują się same.
              ═══════════════════════════════════════════════════════════════ -->
 
       </div>
@@ -1153,13 +1260,13 @@
       <div>
         <p class="eyebrow" style="margin-bottom:10px;">
           <span class="eyebrow-dot"></span>
-          <span x-text="lang === 'pl' ? 'KOLEJNY PROJEKT MOŻE BYĆ TWÓJ' : 'READY FOR YOUR BUILD?'"></span>
+          <span x-text="lang === 'pl' ? 'KOLEJNY PROJEKT MOŻE BYĆ TWÓJ' : 'READY FOR YOUR BUILD?'">KOLEJNY PROJEKT MOŻE BYĆ TWÓJ</span>
         </p>
         <h2 style="margin:0; font:600 clamp(1.9rem, 3.6vw, 3.1rem)/1.02 var(--display); letter-spacing:-0.06em;"
-          x-text="lang === 'pl' ? 'Porozmawiajmy o narzędziu dla Twojej firmy.' : 'Let’s build a tool tailored to your business.'"></h2>
+          x-text="lang === 'pl' ? 'Porozmawiajmy o narzędziu dla Twojej firmy.' : 'Let’s build a tool tailored to your business.'">Porozmawiajmy o narzędziu dla Twojej firmy.</h2>
       </div>
       <a href="index.html#estimator" class="btn-primary tactile">
-        <span x-text="lang === 'pl' ? 'Wybierz pakiet i wyceń projekt' : 'Choose a tier &amp; get a quote'"></span>
+        <span x-text="lang === 'pl' ? 'Wybierz pakiet i wyceń projekt' : 'Choose a tier & get a quote'">Wybierz pakiet i wyceń projekt</span>
         <span aria-hidden="true">→</span>
       </a>
     </div>
@@ -1168,25 +1275,79 @@
   <footer style="background:var(--bg-alt); color:var(--ink); border-top:1px solid var(--line); padding:32px 0; font:500 11px var(--mono);">
     <div class="page-wrap" style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px;">
       <span><strong>web4biz.pl</strong> · Independent Digital Practice by Archie</span>
-      <span style="color:#899188;" x-text="lang === 'pl' ? '© 2026 Archie. Wszelkie prawa zastrzeżone.' : '© 2026 Archie. All rights reserved.'"></span>
-      <a href="#top" x-text="lang === 'pl' ? '↑ Na górę' : '↑ Back to top'"></a>
+      <div style="display:flex; flex-wrap:wrap; align-items:center; gap:16px;">
+        <a href="https://www.linkedin.com/in/artur-zaluska/" target="_blank" rel="noopener noreferrer" style="opacity:0.85;">LinkedIn ↗</a>
+        <a href="https://www.instagram.com/agilearchie/" target="_blank" rel="noopener noreferrer" style="opacity:0.85;">Instagram ↗</a>
+        <span style="color:#899188;">© 2026 Archie.</span>
+        <a href="#top" x-text="lang === 'pl' ? '↑ Na górę' : '↑ Back to top'">↑ Na górę</a>
+      </div>
     </div>
   </footer>
 
   <script>
     function projectsPageApp() {
+      const shared = window.WEB4BIZ_DATA || {};
+      const sharedProjects = shared.projects || [
+        { id: 'adremt2', categories: ['b2b', 'tools'] },
+        { id: 'ckadrem', categories: ['b2b'] },
+        { id: 'pmclassics', categories: ['tools'] },
+        { id: 'kubatura', categories: ['b2b', 'tools'] },
+        { id: 'gemba', categories: ['tools', 'react'] }
+      ];
+      const baseFilters = shared.filters || [
+        { id: 'b2b',   label: { pl: 'Strony B2B & SEO',    en: 'B2B & SEO Websites' } },
+        { id: 'tools', label: { pl: 'Dodatkowe narzędzia', en: 'Custom Web Tools' } },
+        { id: 'react', label: { pl: 'Aplikacje React',     en: 'React Apps' } }
+      ];
+
       return {
         direction: localStorage.getItem('w4b_theme') || 'editorial',
         lang: localStorage.getItem('lang') === 'en' ? 'en' : 'pl',
+        mobileMenuOpen: false,
         activeFilter: 'all',
-        classicCarImg: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Volvo_Amazon_1966.jpg/1280px-Volvo_Amazon_1966.jpg',
+        projectsList: sharedProjects,
+        baseFilters: baseFilters,
 
-        filters: [
-          { id: 'all', label: { pl: 'Wszystkie projekty (5)', en: 'All projects (5)' } },
-          { id: 'b2b', label: { pl: 'Strony B2B & SEO', en: 'B2B & SEO Websites' } },
-          { id: 'tools', label: { pl: 'Dodatkowe narzędzia', en: 'Custom Web Tools' } },
-          { id: 'react', label: { pl: 'Aplikacje React', en: 'React Apps' } }
-        ],
+        get projectsCount() {
+          return this.projectsList.length;
+        },
+
+        get navProjectsLabel() {
+          return this.lang === 'pl' ? `Projekty (${this.projectsCount})` : `Projects (${this.projectsCount})`;
+        },
+
+        get filterTabs() {
+          return [
+            {
+              id: 'all',
+              label: {
+                pl: `Wszystkie projekty (${this.projectsCount})`,
+                en: `All projects (${this.projectsCount})`
+              }
+            },
+            ...this.baseFilters
+          ];
+        },
+
+        matchesFilter(projectId) {
+          if (this.activeFilter === 'all') return true;
+          const item = this.projectsList.find(p => p.id === projectId);
+          return item ? item.categories.includes(this.activeFilter) : true;
+        },
+
+        get visibleCount() {
+          if (this.activeFilter === 'all') return this.projectsCount;
+          return this.projectsList.filter(p => p.categories.includes(this.activeFilter)).length;
+        },
+
+        get resultsCounterLabel() {
+          const total = String(this.projectsCount).padStart(2, '0');
+          const shown = String(this.visibleCount).padStart(2, '0');
+          if (this.activeFilter === 'all') {
+            return this.lang === 'pl' ? `ZREALIZOWANE: ${total} PROJEKTÓW` : `SHIPPED: ${total} PROJECTS`;
+          }
+          return this.lang === 'pl' ? `WIDOCZNE: ${shown} / ${total}` : `SHOWING: ${shown} / ${total}`;
+        },
 
         setDirection(dir) {
           this.direction = dir;
@@ -1196,23 +1357,6 @@
         toggleLang() {
           this.lang = this.lang === 'pl' ? 'en' : 'pl';
           localStorage.setItem('lang', this.lang);
-        },
-
-        async loadAuthenticClassicPhoto() {
-          try {
-            const res = await fetch('https://en.wikipedia.org/api/rest_v1/page/summary/Volvo_Amazon');
-            if (res.ok) {
-              const data = await res.json();
-              const imgUrl = (data.originalimage && data.originalimage.source) || (data.thumbnail && data.thumbnail.source);
-              if (imgUrl) this.classicCarImg = imgUrl;
-            }
-          } catch (e) {
-            // Utrzymuje zweryfikowane zdjęcie 1966 Volvo Amazon z Wikimedia Commons
-          }
-        },
-
-        init() {
-          this.loadAuthenticClassicPhoto();
         }
       };
     }
