@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pl" x-data="caseStudyApp()" :data-theme="direction" class="scroll-smooth">
+<html lang="pl" :lang="lang" x-data="caseStudyApp()" :data-theme="direction" @keydown.escape.window="mobileMenuOpen = false" class="scroll-smooth">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <!-- Natychmiastowe ustawienie motywu przed pierwszym rysowaniem strony -->
+  <!-- Natychmiastowe ustawienie motywu przed pierwszym rysowaniem strony (zero mignięcia tła) -->
   <script>
     (function () {
       try {
@@ -20,15 +20,61 @@
       });
     })();
   </script>
+
   <title x-text="currentCase.title[lang] + ' - Case Study | web4biz.pl'">Case Study - web4biz.pl</title>
   <meta name="description" content="Szczegółowe Case Study projektów web4biz.pl - wyzwanie biznesowe, architektura rozwiązania, interaktywne narzędzia i rezultaty wdrożenia."/>
   <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://web4biz.pl/case-study.html"/>
 
-  <!-- Google Fonts: Space Grotesk + DM Sans + JetBrains Mono -->
+  <!-- Inline SVG Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23172019'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='800' font-size='26' fill='%23d8fa52'%3Ew4b%3C/text%3E%3C/svg%3E"/>
+
+  <!-- OpenGraph & Social Preview -->
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://web4biz.pl/case-study.html"/>
+  <meta property="og:title" content="Case Study - web4biz.pl | Archie"/>
+  <meta property="og:description" content="Analiza projektów B2B, interaktywnych kalkulatorów SVG/GeoJSON i aplikacji webowych zrealizowanych w web4biz.pl."/>
+  <meta property="og:locale" content="pl_PL"/>
+  <meta property="og:locale:alternate" content="en_US"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Case Study - web4biz.pl"/>
+  <meta name="twitter:description" content="Wyzwanie biznesowe, architektura i działające dema interaktywnych projektów web4biz.pl."/>
+
+  <!-- Dane strukturalne Schema.org (WebPage + BreadcrumbList pod SEO i AI/GEO) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "name": "Case Study - web4biz.pl",
+        "url": "https://web4biz.pl/case-study.html",
+        "description": "Szczegółowe Case Study projektów B2B, kalkulatorów wycen i aplikacji webowych web4biz.pl.",
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "web4biz.pl",
+          "url": "https://web4biz.pl/"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "web4biz.pl", "item": "https://web4biz.pl/" },
+          { "@type": "ListItem", "position": 2, "name": "Projekty", "item": "https://web4biz.pl/projects.html" },
+          { "@type": "ListItem", "position": 3, "name": "Case Study", "item": "https://web4biz.pl/case-study.html" }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- Google Fonts: Space Grotesk + DM Sans + JetBrains Mono (display=block eliminuje przeskok fontów) -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Space+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=block" rel="stylesheet"/>
 
+  <!-- Wspólne źródło danych projektów + Alpine.js -->
+  <script src="projects-data.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
   <style>
@@ -49,7 +95,6 @@
       --hero-bg: #d8fa52;
       --hero-ink: #172019;
       --hero-muted: #34422a;
-      /* Kolor przewodni wszystkich przycisków w motywie Słoneczko */
       --btn-bg: #172019;
       --btn-ink: #d8fa52;
       --card-radius: 8px;
@@ -75,7 +120,6 @@
       --hero-bg: #18211b;
       --hero-ink: #f0f2e9;
       --hero-muted: #c2cbbd;
-      /* Kolor przewodni wszystkich przycisków w motywie Półksiężyc */
       --btn-bg: #d8fa52;
       --btn-ink: #141a16;
     }
@@ -94,12 +138,11 @@
       --hero-bg: #07090b;
       --hero-ink: #f4f6f8;
       --hero-muted: #94a3b8;
-      /* Kolor przewodni wszystkich przycisków w motywie Księżyc */
       --btn-bg: #06b6d4;
       --btn-ink: #061014;
     }
 
-*, *::before, *::after { box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; }
     [x-cloak] { display: none !important; }
     html.is-loading,
     html.is-loading * { transition: none !important; }
@@ -151,7 +194,7 @@
     .tactile:active { transform: scale(0.96); }
 
     /* ═══════════════════════════════════════════════════════════════════
-       2. NAWIGACJA + CASE STUDY MASTHEAD
+       2. NAWIGACJA + MOBILE DRAWER + CASE STUDY MASTHEAD
        ═══════════════════════════════════════════════════════════════════ */
     .case-masthead {
       position: relative;
@@ -184,6 +227,7 @@
       justify-content: space-between;
       border-bottom: 1px solid color-mix(in srgb, var(--hero-ink) 16%, transparent);
       margin-bottom: 42px;
+      position: relative;
     }
     .wordmark {
       font: 700 24px/1 var(--display);
@@ -285,6 +329,51 @@
     }
     @media (hover: hover) and (pointer: fine) {
       .nav-cta:hover { filter: brightness(0.94); }
+    }
+
+    /* Przycisk i panel nawigacji mobilnej */
+    .mobile-menu-btn {
+      display: none;
+      width: 34px;
+      height: 34px;
+      border-radius: var(--btn-radius);
+      border: 1px solid color-mix(in srgb, var(--hero-ink) 26%, transparent);
+      background: transparent;
+      color: var(--hero-ink);
+      place-items: center;
+      cursor: pointer;
+      padding: 0;
+    }
+    .mobile-menu-btn svg { width: 18px; height: 18px; }
+    .mobile-drawer {
+      margin: -14px 0 24px;
+      padding: 14px;
+      border-radius: var(--card-radius);
+      border: 1px solid color-mix(in srgb, var(--hero-ink) 20%, transparent);
+      background: color-mix(in srgb, var(--surface) 92%, var(--hero-bg));
+      color: var(--ink);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
+    }
+    .mobile-drawer a {
+      padding: 11px 14px;
+      border-radius: var(--btn-radius);
+      font: 600 13.5px var(--sans);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .mobile-drawer a:hover {
+      background: color-mix(in srgb, var(--ink) 7%, transparent);
+    }
+    .mobile-drawer .mobile-drawer-cta {
+      margin-top: 6px;
+      background: var(--btn-bg);
+      color: var(--btn-ink);
+      justify-content: center;
+      font-weight: 700;
     }
 
     /* Back Link & Quick Project Switcher (1:1 jak zakładki w Hero) */
@@ -605,35 +694,20 @@
       letter-spacing: 0.05em;
     }
 
+    /* Czysty, ciemny gradient ze złotym światłem — identyczny z index.html i projects.html */
     .pm-mini-preview {
       height: 100%;
       position: relative;
-      background: #121312;
+      background:
+        radial-gradient(ellipse at 85% 20%, rgba(197, 160, 89, 0.14) 0%, transparent 55%),
+        linear-gradient(145deg, #151615 0%, #0c0d0c 100%);
       color: #f4f4f5;
-      padding: 32px 36px;
+      padding: 36px 40px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       isolation: isolate;
       overflow: hidden;
-    }
-    .pm-mini-bg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 58%;
-      z-index: -2;
-      filter: saturate(0.84) contrast(1.05);
-    }
-    .pm-mini-shade {
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      background:
-        linear-gradient(90deg, rgba(11, 11, 12, 0.86) 0%, rgba(11, 11, 12, 0.45) 65%, rgba(11, 11, 12, 0.2) 100%),
-        linear-gradient(0deg, rgba(11, 11, 12, 0.72) 0%, transparent 55%);
     }
 
     /* 4-Column Meta Grid */
@@ -890,10 +964,11 @@
       .page-wrap { width: calc(100% - 28px); }
       .section-pad { padding-block: 60px; }
 
-      /* Nawigacja dopasowana do 360px */
+      /* Nawigacja z przyciskiem menu mobilnego */
       .nav-wrap { height: 64px; margin-bottom: 24px; gap: 8px; }
       .wordmark { font-size: 20px; }
       .nav-links, .wordmark-sub, .nav-cta { display: none; }
+      .mobile-menu-btn { display: grid; }
       .nav-actions { gap: 6px; }
       .lang-btn { height: 34px; min-width: 38px; padding: 0 9px; }
       .theme-icon-btn { width: 28px; height: 28px; }
@@ -911,7 +986,7 @@
       .ck-mini-preview { padding: 50px 18px 20px; min-height: 290px; }
       .ck-mini-nav { padding: 0 16px; font-size: 9.5px; }
       .ck-mini-nav span:last-child { display: none; }
-      .pm-mini-preview { padding: 20px 18px; min-height: 300px; }
+      .pm-mini-preview { padding: 24px 20px; min-height: 280px; }
 
       /* Metadane, statystyki i treść */
       .case-meta-grid { grid-template-columns: 1fr 1fr; gap: 16px; padding: 20px 0 24px; }
@@ -930,7 +1005,7 @@
   <!-- Reading Progress Bar -->
   <div class="progress-bar" :style="`transform: scaleX(${scrollProgress})`" aria-hidden="true"></div>
 
-  <!-- ═══ CASE STUDY MASTHEAD + HEADER ═══ -->
+  <!-- ═══ CASE STUDY MASTHEAD + HEADER + MOBILE DRAWER ═══ -->
   <header class="case-masthead" id="top">
     <div class="page-wrap">
 
@@ -942,19 +1017,17 @@
         </a>
 
         <nav class="nav-links" :aria-label="lang === 'pl' ? 'Główna nawigacja' : 'Main navigation'">
-          <a href="projects.html" class="is-current" x-text="lang === 'pl' ? 'Projekty (5)' : 'Projects (5)'"></a>
-          <a href="index.html#estimator" x-text="lang === 'pl' ? 'Pakiety i wycena' : 'Tiers & Pricing'"></a>
-          <a href="index.html#about" x-text="lang === 'pl' ? 'Podejście' : 'Approach'"></a>
-          <a href="index.html#contact" x-text="lang === 'pl' ? 'Kontakt' : 'Contact'"></a>
+          <a href="projects.html" class="is-current" x-text="navProjectsLabel">Projekty (5)</a>
+          <a href="index.html#estimator" x-text="lang === 'pl' ? 'Pakiety i wycena' : 'Tiers & Pricing'">Pakiety i wycena</a>
+          <a href="index.html#about" x-text="lang === 'pl' ? 'Podejście' : 'Approach'">Podejście</a>
+          <a href="index.html#contact" x-text="lang === 'pl' ? 'Kontakt' : 'Contact'">Kontakt</a>
         </nav>
 
         <div class="nav-actions">
-          <!-- Language Switcher PL / EN -->
           <button type="button" class="lang-btn tactile" @click="toggleLang()"
             :aria-label="lang === 'pl' ? 'Switch to English' : 'Zmień język na polski'"
-            x-text="lang === 'pl' ? 'EN' : 'PL'"></button>
+            x-text="lang === 'pl' ? 'EN' : 'PL'">EN</button>
 
-          <!-- 3-Theme Switcher: Słoneczko (01) / Półksiężyc (03) / Księżyc (02) -->
           <div class="theme-dock" role="group" :aria-label="lang === 'pl' ? 'Wybierz motyw kolorystyczny' : 'Choose color theme'">
             <button type="button" class="theme-icon-btn tactile"
               :class="direction === 'editorial' ? 'is-active' : ''"
@@ -990,51 +1063,96 @@
           </div>
 
           <a href="index.html#estimator" class="nav-cta tactile">
-            <span x-text="lang === 'pl' ? 'Wyceń projekt' : 'Start a project'"></span>
+            <span x-text="lang === 'pl' ? 'Wyceń projekt' : 'Start a project'">Wyceń projekt</span>
             <span aria-hidden="true">↗</span>
           </a>
+
+          <!-- Przycisk menu na urządzeniach mobilnych (<= 720px) -->
+          <button type="button" class="mobile-menu-btn tactile"
+            @click="mobileMenuOpen = !mobileMenuOpen"
+            :aria-expanded="mobileMenuOpen"
+            :aria-label="lang === 'pl' ? 'Otwórz menu nawigacji' : 'Toggle navigation menu'">
+            <svg x-show="!mobileMenuOpen" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+              <path d="M3 5.5h14M3 10h14M3 14.5h14"/>
+            </svg>
+            <svg x-show="mobileMenuOpen" x-cloak viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+              <path d="M4.5 4.5l11 11M15.5 4.5l-11 11"/>
+            </svg>
+          </button>
         </div>
       </div>
 
-      <!-- Back Link + Quick 5-Project Switcher -->
+      <!-- Panel Nawigacji Mobilnej (Drawer) -->
+      <nav class="mobile-drawer" x-show="mobileMenuOpen" x-cloak
+           :aria-label="lang === 'pl' ? 'Menu mobilne' : 'Mobile navigation'">
+        <a href="index.html" @click="mobileMenuOpen = false">
+          <span x-text="lang === 'pl' ? 'Strona główna' : 'Homepage'">Strona główna</span>
+          <span aria-hidden="true">←</span>
+        </a>
+        <a href="projects.html" @click="mobileMenuOpen = false">
+          <span x-text="navProjectsLabel">Projekty (5)</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+        <a href="index.html#estimator" @click="mobileMenuOpen = false">
+          <span x-text="lang === 'pl' ? 'Pakiety i wycena' : 'Tiers & Pricing'">Pakiety i wycena</span>
+          <span aria-hidden="true">→</span>
+        </a>
+        <a href="index.html#about" @click="mobileMenuOpen = false">
+          <span x-text="lang === 'pl' ? 'Podejście' : 'Approach'">Podejście</span>
+          <span aria-hidden="true">→</span>
+        </a>
+        <a href="index.html#contact" @click="mobileMenuOpen = false">
+          <span x-text="lang === 'pl' ? 'Kontakt' : 'Contact'">Kontakt</span>
+          <span aria-hidden="true">→</span>
+        </a>
+        <a href="index.html#estimator" class="mobile-drawer-cta tactile" @click="mobileMenuOpen = false">
+          <span x-text="lang === 'pl' ? 'Wyceń projekt' : 'Start a project'">Wyceń projekt</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+      </nav>
+
+      <!-- Back Link + Quick Project Switcher (WCAG tabs + obsługa strzałek + historia pushState) -->
       <div class="masthead-top-bar">
         <a href="projects.html" class="back-link tactile">
           <span aria-hidden="true">←</span>
-          <span x-text="lang === 'pl' ? 'Wszystkie projekty (5)' : 'All projects (5)'"></span>
+          <span x-text="backProjectsLabel">Wszystkie projekty (5)</span>
         </a>
 
-        <div class="project-switcher" role="tablist" :aria-label="lang === 'pl' ? 'Przełącz Case Study' : 'Switch Case Study'">
+        <div class="project-switcher" role="tablist" x-ref="switcherList" :aria-label="lang === 'pl' ? 'Przełącz Case Study' : 'Switch Case Study'">
           <template x-for="(id, idx) in projectOrder" :key="id">
             <button type="button" class="switch-pill tactile"
+              role="tab"
+              :aria-selected="projectId === id"
+              :tabindex="projectId === id ? 0 : -1"
               :class="projectId === id ? 'is-active' : ''"
-              :aria-pressed="projectId === id"
               @click="selectProject(id)"
-              x-text="'0' + (idx + 1) + ' · ' + cases[id].shortName[lang]"></button>
+              @keydown="onSwitcherKeydown($event, idx)"
+              x-text="String(idx + 1).padStart(2, '0') + ' · ' + cases[id].shortName[lang]"></button>
           </template>
         </div>
       </div>
 
-      <!-- Kicker, H1 Title & Subtitle -->
+      <!-- Kicker, H1 Title & Subtitle (z domyślnym polskim tekstem pod SEO i zero CLS) -->
       <p class="case-kicker">
-        <span x-text="currentCase.tag[lang]"></span>
-        <span style="opacity:0.7;" x-text="' / ' + currentCase.year"></span>
+        <span x-text="currentCase.tag[lang]">01 · Transport / TSL</span>
+        <span style="opacity:0.7;" x-text="' / ' + currentCase.year"> / 2026</span>
       </p>
-      <h1 class="case-title" x-text="currentCase.title[lang]"></h1>
-      <p class="case-subtitle" x-text="currentCase.subtitle[lang]"></p>
+      <h1 class="case-title" x-text="currentCase.title[lang]">Transport, logistyka i spedycja (AD REM T2)</h1>
+      <p class="case-subtitle" x-text="currentCase.subtitle[lang]">Strona transportowa B2B, która prowadzi klienta od wyboru miasta na mapie Europy do sprecyzowanego zapytania o przewóz.</p>
 
       <!-- CASE HERO ARTWORK STAGE -->
       <div class="case-hero-art" role="img" :aria-label="currentCase.title[lang]">
         <div class="case-art-frame">
 
-<!-- ═══ Artwork 1: AD REM T2 - INTERAKTYWNA MAPA 8 HUBÓW EUROPY + KALKULATOR FLOTY ═══ -->
+          <!-- ═══ Artwork 1: AD REM T2 - INTERAKTYWNA MAPA 8 HUBÓW EUROPY + KALKULATOR FLOTY ═══ -->
           <div x-show="projectId === 'adremt2'" x-cloak class="art-route-split">
             <div class="art-route-map-box">
               <div class="art-micro-header">
                 <span style="display:inline-flex; align-items:center; gap:6px;">
                   <i style="width:7px; height:7px; border-radius:50%; background:#d90429; display:inline-block;"></i>
-                  <span x-text="lang === 'pl' ? 'INTERAKTYWNA MAPA TRAS - KLIKNIJ LUB NAJEDŹ NA MIASTO' : 'INTERACTIVE ROUTE MAP - HOVER OR CLICK ANY CITY'"></span>
+                  <span x-text="lang === 'pl' ? 'INTERAKTYWNA MAPA TRAS - KLIKNIJ LUB NAJEDŹ NA MIASTO' : 'INTERACTIVE ROUTE MAP - HOVER OR CLICK ANY CITY'">INTERAKTYWNA MAPA TRAS - KLIKNIJ LUB NAJEDŹ NA MIASTO</span>
                 </span>
-                <span style="color:#d90429; font-weight:700;" x-text="lang === 'pl' ? '◉ WARSZAWA (BAZA)' : '◉ WARSAW (HUB)'"></span>
+                <span style="color:#d90429; font-weight:700;" x-text="lang === 'pl' ? '◉ WARSZAWA (BAZA)' : '◉ WARSAW (HUB)'">◉ WARSZAWA (BAZA)</span>
               </div>
 
               <svg class="route-map-graphic" viewBox="0 0 900 520" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:32px 0 0; height:calc(100% - 32px);">
@@ -1173,23 +1291,25 @@
             </div>
           </div>
 
-          <!-- Artwork 3: PM Classics -->
+          <!-- Artwork 3: PM Classics (Czysta ciemna karta bez obrazka z Wikipedii) -->
           <div x-show="projectId === 'pmclassics'" x-cloak class="pm-mini-preview">
-            <img :src="classicCarImg" alt="1966 Volvo Amazon 122S Classic Car" class="pm-mini-bg"/>
-            <div class="pm-mini-shade"></div>
-            <div style="display:flex; justify-content:space-between; font:500 10.5px var(--mono); letter-spacing:0.1em; color:#dfbd78;">
-              <span x-text="lang === 'pl' ? 'PM CLASSICS · 1966 VOLVO AMAZON 122S' : 'PM CLASSICS · 1966 VOLVO AMAZON 122S'"></span>
+            <div style="display:flex; justify-content:space-between; align-items:center; font:500 10.5px var(--mono); letter-spacing:0.1em; color:#dfbd78;">
+              <span>PM CLASSICS</span>
               <span>PL · EN · NO | EUR · PLN · NOK</span>
             </div>
             <div>
               <span style="font:500 10.5px var(--mono); letter-spacing:0.12em; color:#e4e4e7;" x-text="lang === 'pl' ? 'SZTUKA RENOWACJI KLASYKÓW' : 'THE ART OF CLASSIC RESTORATION'"></span>
-              <h3 style="margin:8px 0 16px; font:600 clamp(2.2rem, 4.4vw, 3.8rem)/0.94 var(--display); letter-spacing:-0.05em;">
+              <h3 style="margin:8px 0 18px; font:600 clamp(2.2rem, 4.4vw, 3.8rem)/0.94 var(--display); letter-spacing:-0.05em;">
                 <span x-text="lang === 'pl' ? 'Drugie życie ' : 'Second '"></span>
                 <i style="color:#dfbd78; font-weight:400;" x-text="lang === 'pl' ? 'klasyków.' : 'chapters.'"></i>
               </h3>
-              <span style="display:inline-block; padding:8px 16px; background:#c5a059; color:#0b0b0c; font:700 11px var(--mono); border-radius:var(--btn-radius);"
+              <span style="display:inline-block; padding:9px 16px; background:#c5a059; color:#0b0b0c; font:700 11px var(--mono); border-radius:var(--btn-radius);"
                 x-text="lang === 'pl' ? 'WIRTUALNY GARAŻ + 3-KROKOWY BRIEF RENOWACJI →' : 'VIRTUAL GARAGE + 3-STEP RESTORATION BRIEF →'">
               </span>
+            </div>
+            <div style="display:flex; justify-content:space-between; font:500 10px var(--mono); letter-spacing:0.08em; color:#a1a1aa;">
+              <span x-text="lang === 'pl' ? 'KLASYKI LAT 60. I 70.' : '1960S & 70S EUROPEAN CLASSICS'"></span>
+              <span>EUR · PLN · NOK</span>
             </div>
           </div>
 
@@ -1438,20 +1558,20 @@
       <!-- 4-Column Meta Grid -->
       <div class="case-meta-grid tabular">
         <div>
-          <span x-text="lang === 'pl' ? 'Typ projektu' : 'Project type'"></span>
-          <strong x-text="currentCase.pageType[lang]"></strong>
+          <span x-text="lang === 'pl' ? 'Typ projektu' : 'Project type'">Typ projektu</span>
+          <strong x-text="currentCase.pageType[lang]">Strona usługowa B2B + kalkulator trasy</strong>
         </div>
         <div>
-          <span x-text="lang === 'pl' ? 'Kluczowe funkcje' : 'Key features'"></span>
-          <strong x-text="currentCase.keyFeatures[lang]"></strong>
+          <span x-text="lang === 'pl' ? 'Kluczowe funkcje' : 'Key features'">Kluczowe funkcje</span>
+          <strong x-text="currentCase.keyFeatures[lang]">Mapa Europy SVG · wybór trasy · szybka wycena</strong>
         </div>
         <div>
-          <span x-text="lang === 'pl' ? 'Czas realizacji' : 'Timeline'"></span>
-          <strong x-text="currentCase.duration[lang]"></strong>
+          <span x-text="lang === 'pl' ? 'Czas realizacji' : 'Timeline'">Czas realizacji</span>
+          <strong x-text="currentCase.duration[lang]">3 tygodnie</strong>
         </div>
         <div>
-          <span x-text="lang === 'pl' ? 'Technologie' : 'Technology'"></span>
-          <strong x-text="currentCase.technology"></strong>
+          <span x-text="lang === 'pl' ? 'Technologie' : 'Technology'">Technologie</span>
+          <strong x-text="currentCase.technology">Vanilla JS · SVG · GeoJSON</strong>
         </div>
       </div>
 
@@ -1478,7 +1598,7 @@
 
         <!-- Sticky Table of Contents Aside -->
         <aside class="case-content-aside">
-          <p class="case-kicker" x-text="lang === 'pl' ? 'STRUKTURA CASE STUDY' : 'CASE STUDY STRUCTURE'"></p>
+          <p class="case-kicker" x-text="lang === 'pl' ? 'STRUKTURA CASE STUDY' : 'CASE STUDY STRUCTURE'">STRUKTURA CASE STUDY</p>
           <ol>
             <template x-for="(sec, idx) in currentCase.sections[lang]" :key="sec.heading">
               <li>
@@ -1489,7 +1609,7 @@
               </li>
             </template>
           </ol>
-          <p class="case-aside-note" x-text="lang === 'pl' ? 'KLUCZOWA FUNKCJA / ŚCIEŻKA KONWERSJI UŻYTKOWNIKA' : 'KEY INTERACTION / USER CONVERSION JOURNEY'"></p>
+          <p class="case-aside-note" x-text="lang === 'pl' ? 'KLUCZOWA FUNKCJA / ŚCIEŻKA KONWERSJI UŻYTKOWNIKA' : 'KEY INTERACTION / USER CONVERSION JOURNEY'">KLUCZOWA FUNKCJA / ŚCIEŻKA KONWERSJI UŻYTKOWNIKA</p>
         </aside>
 
         <!-- Main Prose Column -->
@@ -1514,12 +1634,12 @@
                :target="currentCase.url.startsWith('http') ? '_blank' : '_self'"
                :rel="currentCase.url.startsWith('http') ? 'noopener noreferrer' : ''"
                class="btn-live tactile">
-              <span x-text="lang === 'pl' ? 'Otwórz działający projekt' : 'Visit live project'"></span>
+              <span x-text="lang === 'pl' ? 'Otwórz działający projekt' : 'Visit live project'">Otwórz działający projekt</span>
               <span aria-hidden="true">↗</span>
             </a>
 
             <a href="index.html#estimator" class="btn-case-secondary tactile">
-              <span x-text="lang === 'pl' ? 'Zamów podobne rozwiązanie' : 'Request a similar build'"></span>
+              <span x-text="lang === 'pl' ? 'Zamów podobne rozwiązanie' : 'Request a similar build'">Zamów podobne rozwiązanie</span>
               <span aria-hidden="true">→</span>
             </a>
           </div>
@@ -1533,10 +1653,10 @@
        @click.prevent="selectProject(nextProjectId); window.scrollTo({top: 0, behavior: 'smooth'})"
        class="case-next">
       <span>
-        <b x-text="lang === 'pl' ? 'KOLEJNY PROJEKT CASE STUDY' : 'NEXT PROJECT CASE STUDY'"></b>
+        <b x-text="lang === 'pl' ? 'KOLEJNY PROJEKT CASE STUDY' : 'NEXT PROJECT CASE STUDY'">KOLEJNY PROJEKT CASE STUDY</b>
         <i style="font-style:normal;" aria-hidden="true">↗</i>
       </span>
-      <strong x-text="cases[nextProjectId].title[lang]"></strong>
+      <strong x-text="cases[nextProjectId].title[lang]">Ad Rem Centrum Księgowe</strong>
     </a>
 
   </main>
@@ -1544,22 +1664,56 @@
   <footer style="background:var(--bg-alt); color:var(--ink); border-top:1px solid var(--line); padding:32px 0; font:500 11px var(--mono);">
     <div class="page-wrap" style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px;">
       <span><strong>web4biz.pl</strong> · Independent Digital Practice by Archie</span>
-      <span style="color:#899188;" x-text="lang === 'pl' ? '© 2026 Archie. Wszelkie prawa zastrzeżone.' : '© 2026 Archie. All rights reserved.'"></span>
-      <a href="#top" x-text="lang === 'pl' ? '↑ Na górę' : '↑ Back to top'"></a>
+      <div style="display:flex; flex-wrap:wrap; align-items:center; gap:16px;">
+        <a href="https://www.linkedin.com/in/artur-zaluska/" target="_blank" rel="noopener noreferrer" style="opacity:0.85;">LinkedIn ↗</a>
+        <a href="https://www.instagram.com/agilearchie/" target="_blank" rel="noopener noreferrer" style="opacity:0.85;">Instagram ↗</a>
+        <span style="color:#899188;">© 2026 Archie.</span>
+        <a href="#top" x-text="lang === 'pl' ? '↑ Na górę' : '↑ Back to top'">↑ Na górę</a>
+      </div>
     </div>
   </footer>
 
   <script>
-function caseStudyApp() {
+    function caseStudyApp() {
+      const shared = window.WEB4BIZ_DATA || {};
+      const sharedProjects = Array.isArray(shared.projects) && shared.projects.length
+        ? shared.projects
+        : [
+            {
+              id: 'adremt2',
+              year: '2026',
+              url: 'https://adremt2.pl/index2.html',
+              shortName: { pl: 'AD REM T2', en: 'AD REM T2' },
+              title: { pl: 'Transport, logistyka i spedycja (AD REM T2)', en: 'Transport, Logistics & Freight Forwarding (AD REM T2)' },
+              subtitle: { pl: 'Załaduj plik projects-data.js w tym samym katalogu, aby wyświetlić pełną bazę Case Study.', en: 'Place projects-data.js in the same directory to load the full Case Study archive.' },
+              tag: { pl: '01 · Transport / TSL', en: '01 · Transport / Logistics' },
+              pageType: { pl: 'Strona usługowa B2B + kalkulator trasy', en: 'B2B service site + route calculator' },
+              keyFeatures: { pl: 'Mapa Europy SVG · wybór trasy · szybka wycena', en: 'SVG Europe map · route selection · quote flow' },
+              duration: { pl: '3 tygodnie', en: '3 weeks' },
+              technology: 'Vanilla JS · SVG · GeoJSON',
+              stats: { pl: [], en: [] },
+              sections: { pl: [], en: [] }
+            }
+          ];
+
+      const casesMap = {};
+      const projectOrder = [];
+      sharedProjects.forEach((p) => {
+        casesMap[p.id] = p;
+        projectOrder.push(p.id);
+      });
+
       const requestedProject = new URLSearchParams(window.location.search).get('project');
-      const validProjects = ['adremt2', 'ckadrem', 'pmclassics', 'kubatura', 'gemba'];
+      const initialProject = casesMap[requestedProject] ? requestedProject : projectOrder[0];
 
       return {
         direction: localStorage.getItem('w4b_theme') || 'editorial',
         lang: localStorage.getItem('lang') === 'en' ? 'en' : 'pl',
+        mobileMenuOpen: false,
         scrollProgress: 0,
-        projectId: validProjects.includes(requestedProject) ? requestedProject : 'adremt2',
-        classicCarImg: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Volvo_Amazon_1966.jpg/1280px-Volvo_Amazon_1966.jpg',
+        projectId: initialProject,
+        projectOrder: projectOrder,
+        cases: casesMap,
 
         // 8 Interaktywnych Hubów Europejskich dla mapy AD REM T2
         selectedCityIdx: 0,
@@ -1605,6 +1759,18 @@ function caseStudyApp() {
           { id: 'cab',  name: { pl: 'Szafa aktowa RODO (pełna)', en: 'Loaded GDPR Filing Cabinet' }, m3: 1.1, kg: 145, qty: 5 },
           { id: 'safe', name: { pl: 'Szafa RACK / Sejf ognioodporny', en: 'Server RACK / Fireproof Safe' }, m3: 1.5, kg: 320, qty: 2 }
         ],
+
+        get projectsCount() {
+          return this.projectOrder.length;
+        },
+
+        get navProjectsLabel() {
+          return this.lang === 'pl' ? `Projekty (${this.projectsCount})` : `Projects (${this.projectsCount})`;
+        },
+
+        get backProjectsLabel() {
+          return this.lang === 'pl' ? `Wszystkie projekty (${this.projectsCount})` : `All projects (${this.projectsCount})`;
+        },
 
         get kubaturaTotalM3() {
           return this.kubaturaItems.reduce((s, i) => s + i.m3 * i.qty, 0);
@@ -1669,389 +1835,8 @@ function caseStudyApp() {
           this.kubaturaItems[2].qty = exactLoad[2];
         },
 
-        projectOrder: ['adremt2', 'ckadrem', 'pmclassics', 'kubatura', 'gemba'],
-
-        cases: {
-          'adremt2': {
-            shortName: { pl: 'AD REM T2', en: 'AD REM T2' },
-            title: {
-              pl: 'Transport, logistyka i spedycja (AD REM T2)',
-              en: 'Transport, Logistics & Freight Forwarding (AD REM T2)'
-            },
-            subtitle: {
-              pl: 'Strona transportowa B2B, która prowadzi klienta od wyboru miasta na mapie Europy do sprecyzowanego zapytania o przewóz.',
-              en: 'A B2B transport platform taking visitors from selecting a city on the European map to a pre-populated freight enquiry.'
-            },
-            tag: { pl: '01 · Transport / TSL', en: '01 · Transport / Logistics' },
-            pageType: { pl: 'Strona usługowa B2B + kalkulator trasy', en: 'B2B service site + route calculator' },
-            keyFeatures: { pl: 'Mapa Europy SVG · wybór trasy · szybka wycena', en: 'SVG Europe map · route selection · quote flow' },
-            duration: { pl: '3 tygodnie', en: '3 weeks' },
-            technology: 'Vanilla JS · SVG · GeoJSON',
-            year: '2026',
-            url: 'https://adremt2.pl/index2.html',
-            stats: {
-              pl: [
-                ['3', 'Obszary usług transportowych i spedycyjnych'],
-                ['MAPA SVG', 'Wybór miasta i kalkulacja trasy z Warszawy'],
-                ['0 PLN', 'Stałych kosztów zewnętrznych API mapowych'],
-                ['24/7', 'Bezpośredni kontakt z dyspozytorem']
-              ],
-              en: [
-                ['3', 'Core transport & forwarding service pillars'],
-                ['SVG MAP', 'Interactive city & route selection from Warsaw'],
-                ['0 EUR', 'Recurring third-party map API fees'],
-                ['24/7', 'Direct dispatcher contact workflow']
-              ]
-            },
-            sections: {
-              pl: [
-                {
-                  heading: 'Usługi widoczne i uporządkowane od pierwszego ekranu',
-                  body: 'Strona porządkuje transport ekspresowy, spedycję drogową i logistykę kontraktową jako odrębne, łatwe do porównania ścieżki wejścia. Każda prowadzi prosto do parametrów potrzebnych przed zleceniem przewozu.'
-                },
-                {
-                  heading: 'Mapa Europy SVG jako interaktywne narzędzie wyboru trasy',
-                  body: 'Zamiast zaczynać od pustego formularza kontaktowego, klient wskazuje miasto docelowe na interaktywnej mapie Europy powyżej, sprawdza szacowany dystans oraz czas przejazdu (Bus Express lub FTL 24t) z bazy w Warszawie i jednym kliknięciem przechodzi do wyceny wybranej relacji.',
-                  bullets: [
-                    'Autorski silnik wektorowy SVG + GeoJSON działający natychmiast w przeglądarce bez opłat za Google Maps API.',
-                    'Automatyczne przeniesienie wybranej trasy do formularza zapytania ofertowego.',
-                    'Czytelna prezentacja transportu krajowego i międzynarodowego door-to-door.'
-                  ]
-                },
-                {
-                  heading: 'Odpowiedzi na kluczowe pytania spedycyjne przed kontaktem',
-                  body: 'Sekcje o flocie, ubezpieczeniu OCP, monitoringu GPS oraz całodobowym kontakcie z dyspozytorem budują zaufanie decydenta B2B i skracają czas potrzebny na sfinalizowanie zlecenia.'
-                }
-              ],
-              en: [
-                {
-                  heading: 'Services structured clearly from the first viewport',
-                  body: 'The platform organizes express transport, road freight forwarding, and contract logistics into distinct, easy-to-compare entry points, guiding dispatchers and B2B buyers directly to operational details.'
-                },
-                {
-                  heading: 'An interactive SVG Europe map built around route selection',
-                  body: 'Instead of facing a blank contact form, visitors pick a destination city on the interactive European map above, preview the road distance and transit ETA from the Warsaw hub, and proceed to an enquiry pre-populated with their route.',
-                  bullets: [
-                    'Custom SVG + GeoJSON vector engine running client-side with zero recurring Google Maps API costs.',
-                    'Seamless transfer of selected route parameters into the freight quote form.',
-                    'Clear breakdown of domestic and international door-to-door transport.'
-                  ]
-                },
-                {
-                  heading: 'Answering critical logistics questions before first contact',
-                  body: 'Dedicated sections covering fleet capabilities, carrier liability insurance (OCP), GPS tracking, and 24/7 dispatcher availability establish immediate operational trust.'
-                }
-              ]
-            }
-          },
-
-          'ckadrem': {
-            shortName: { pl: 'CK Ad Rem', en: 'CK Ad Rem' },
-            title: {
-              pl: 'Ad Rem Centrum Księgowe',
-              en: 'Ad Rem Accounting Centre'
-            },
-            subtitle: {
-              pl: 'Serwis korporacyjny porządkujący obsługę spółek, przedsiębiorców (KPiR) oraz fundacji i stowarzyszeń (NGO).',
-              en: 'A corporate service website separating business accounting from the dedicated offer for foundations and associations (NGOs).'
-            },
-            tag: { pl: '02 · Finanse / Usługi B2B', en: '02 · Finance / B2B Services' },
-            pageType: { pl: 'Serwis usługowy z segmentacją oferty', en: 'Service website with segmented funnels' },
-            keyFeatures: { pl: 'Ścieżki B2B i NGO · KPiR i ZUS · Meta Pixel', en: 'B2B & NGO paths · bookkeeping · Meta Pixel' },
-            duration: { pl: '4 tygodnie', en: '4 weeks' },
-            technology: 'Bootstrap 5 · Meta Pixel · SEO',
-            year: '2024–2025',
-            url: 'https://ck-adrem.pl',
-            stats: {
-              pl: [
-                ['22 LATA', 'Doświadczenia rynkowego biura w Warszawie'],
-                ['B2B + NGO', 'Osobna oferta dla firm oraz fundacji i stowarzyszeń'],
-                ['KPiR / ZUS', 'Konkretna lista zadań przekazywanych biuru'],
-                ['PIXEL', 'Analityka konwersji i pomiar interakcji']
-              ],
-              en: [
-                ['22 YEARS', 'Of established accounting heritage in Warsaw'],
-                ['B2B + NGO', 'Separate pathways for businesses and non-profits'],
-                ['LEDGER / ZUS', 'Task-oriented breakdown of accounting services'],
-                ['PIXEL', 'Full Meta Pixel conversion tracking integration']
-              ]
-            },
-            sections: {
-              pl: [
-                {
-                  heading: 'Dwie wyraźne ścieżki przez ofertę: Biznes oraz NGO',
-                  body: 'Układ strony od samego początku rozróżnia obsługę firm (spółki prawa handlowego, jednoosobowe działalności) od specjalistycznej księgowości dla fundacji i stowarzyszeń. Dzięki temu każdy klient trafia od razu do właściwej sekcji.'
-                },
-                {
-                  heading: 'Lista usług opisana językiem konkretnych zadań',
-                  body: 'Zamiast ogólników strona precyzyjnie nazywa sprawy, które przedsiębiorca może powierzyć biuru - od wsparcia przy rejestracji działalności po pełne księgi, KPiR oraz bieżące rozliczenia ZUS i kadry.',
-                  bullets: [
-                    'Pomoc przy zakładaniu działalności gospodarczej i wyborze formy opodatkowania.',
-                    'Prowadzenie KPiR, pełnej księgowości spółek oraz ewidencji VAT.',
-                    'Kompleksowa obsługa kadr, płac i rozliczeń ZUS.',
-                    'Dedykowany moduł dla organizacji pozarządowych (dotacje, granty, sprawozdania).'
-                  ]
-                },
-                {
-                  heading: 'Wezwania do działania przy właściwej usłudze i pomiar Meta Pixel',
-                  body: 'Punkty kontaktu towarzyszą bezpośrednio opisom poszczególnych usług, a wdrożenie analityki Meta Pixel oraz optymalizacja kanoniczna wspierają pozyskiwanie klientów z kampanii.'
-                }
-              ],
-              en: [
-                {
-                  heading: 'Two distinct pathways through the service offer: Business & NGO',
-                  body: 'The information architecture separates corporate and sole-proprietor bookkeeping from specialized accounting for foundations and associations, eliminating decision friction.'
-                },
-                {
-                  heading: 'Services framed as concrete tasks handed over to experts',
-                  body: 'Rather than vague slogans, the website names the exact responsibilities clients can delegate - from company registration to tax books, payroll, and ZUS filings.',
-                  bullets: [
-                    'Guided support when registering a new business and selecting tax models.',
-                    'Full corporate accounting, revenue-and-expense ledgers (KPiR), and VAT records.',
-                    'End-to-end payroll, HR administration, and ZUS compliance.',
-                    'Dedicated non-profit & NGO accounting (grants, subsidies, statutory reporting).'
-                  ]
-                },
-                {
-                  heading: 'Contextual calls to action paired with Meta Pixel analytics',
-                  body: 'Consultation triggers sit directly beside relevant service descriptions, backed by Meta Pixel event tracking to measure campaign conversion efficiency.'
-                }
-              ]
-            }
-          },
-
-          'pmclassics': {
-            shortName: { pl: 'PM Classics', en: 'PM Classics' },
-            title: {
-              pl: 'PM Classics - Renowacja i Kolekcja Klasyków',
-              en: 'PM Classics - Classic Vehicle Restoration & Garage'
-            },
-            subtitle: {
-              pl: 'Wielojęzyczna platforma łącząca wirtualny garaż klasyków, przelicznik trzech walut (EUR/PLN/NOK) i 3-etapowy brief renowacji.',
-              en: 'A trilingual platform combining a filterable virtual garage, three-currency live pricing (EUR/PLN/NOK), and a 3-step restoration brief.'
-            },
-            tag: { pl: '03 · Klasyki / Dodatkowe narzędzia', en: '03 · Classic Automotive / Custom Tools' },
-            pageType: { pl: 'Katalog pojazdów + konfigurator briefu', en: 'Vehicle inventory + project brief configurator' },
-            keyFeatures: { pl: 'Wirtualny garaż · 3 waluty · brief 3-krokowy', en: 'Virtual garage · 3 currencies · 3-step brief' },
-            duration: { pl: '3 tygodnie', en: '3 weeks' },
-            technology: 'Tailwind CSS · Alpine.js · REST API',
-            year: '2026',
-            url: 'pmclassics.html',
-            stats: {
-              pl: [
-                ['PL · EN · NO', 'Natychmiastowe przełączanie 3 języków'],
-                ['3 WALUTY', 'Dynamiczny przelicznik EUR · PLN · NOK'],
-                ['GARAŻ', 'Filtrowany stock aut i motocykli z lat 60./70.'],
-                ['3 KROKI', 'Interaktywny brief wyceny i renowacji']
-              ],
-              en: [
-                ['PL · EN · NO', 'Instant switching across 3 native languages'],
-                ['3 CURRENCIES', 'Live price conversion in EUR · PLN · NOK'],
-                ['GARAGE', 'Filterable 1960s/70s car & motorcycle stock'],
-                ['3 STEPS', 'Interactive restoration & sourcing brief']
-              ]
-            },
-            sections: {
-              pl: [
-                {
-                  heading: 'Katalog pojazdów zaprojektowany jak wirtualny garaż kolekcjonera',
-                  body: 'Prezentacja klasyków (Volvo Amazon, Opel Manta, Simca, DAF, Moto Guzzi, Lambretta) łączy autentyczne fotografie z filtrami statusu (dostępny od ręki / w trakcie renowacji). Klient jednym kliknięciem przechodzi od wybranego egzemplarza prosto do rozmowy o nim.'
-                },
-                {
-                  heading: 'Przelicznik walut i wielojęzyczność bez przeładowania strony',
-                  body: 'Ponieważ marka obsługuje kolekcjonerów z Polski, Europy Zachodniej i Norwegii, zmiana języka (PL/EN/NO) oraz waluty (EUR/PLN/NOK) odbywa się błyskawicznie w pamięci przeglądarki.',
-                  bullets: [
-                    'Pełna lokalizacja na język polski, angielski i norweski (Bokmål) z zapisem w localStorage.',
-                    'Dynamiczne przeliczanie cen całego garażu między EUR, PLN i NOK ze stabilną typografią (tabular-nums).',
-                    'Automatyczne pobieranie fotografii klasycznych modeli przez Wikipedia REST API.'
-                  ]
-                },
-                {
-                  heading: '3-krokowy brief prowadzący przez projekt renowacji lub importu',
-                  body: 'Zamiast zwykłego pola tekstowego zastosowano interaktywny konfigurator: klient wybiera cel (zakup ze stocku / poszukiwanie w Europie / renowacja), typ pojazdu oraz budżet, co dostarcza właścicielowi warsztatu kompletny kontekst przed pierwszą rozmową.'
-                }
-              ],
-              en: [
-                {
-                  heading: 'An inventory that works like a collector’s virtual garage',
-                  body: 'Showcasing characterful 1960s and 70s European classics (Volvo Amazon, Opel Manta, Simca, DAF, Moto Guzzi, Lambretta) with instant category and build-status filters lets buyers move directly from a specific vehicle into an enquiry.'
-                },
-                {
-                  heading: 'Multi-currency pricing and localization without page reloads',
-                  body: 'Built for Polish, Western European, and Norwegian collectors, language (PL/EN/NO) and currency (EUR/PLN/NOK) switching happens instantaneously client-side.',
-                  bullets: [
-                    'Complete Polish, English, and Norwegian localization persisted in localStorage.',
-                    'Live conversion across EUR, PLN, and NOK using tabular numerals for zero layout shift.',
-                    'Dynamic vehicle photography resolution via Wikipedia REST API.'
-                  ]
-                },
-                {
-                  heading: 'A 3-step brief guiding restoration and sourcing enquiries',
-                  body: 'The interactive configurator captures the service type, vehicle category, and target budget before submission, ensuring every incoming lead contains actionable workshop context.'
-                }
-              ]
-            }
-          },
-
-          'kubatura': {
-            shortName: { pl: 'KUBATURA', en: 'KUBATURA' },
-            title: {
-              pl: 'KUBATURA - Relokacje Biur i Archiwów Bez Przestoju',
-              en: 'KUBATURA - Zero-Downtime Corporate Office Relocation'
-            },
-            subtitle: {
-              pl: 'Jak zamienić stresującą przeprowadzkę firmy w policzalną operację weekendową - i odsiać przypadkowe zapytania jeszcze przed wizją lokalną.',
-              en: 'Turning a high-risk corporate move into a predictable weekend operation-and qualifying B2B leads before the first site survey.'
-            },
-            tag: { pl: '04 · Logistyka B2B / Kalkulator Floty', en: '04 · B2B Logistics / Fleet Estimator' },
-            pageType: { pl: 'Platforma ofertowa B2B + estymator ładunku SVG', en: 'B2B service platform + SVG cargo estimator' },
-            keyFeatures: { pl: 'Przekrój kontenera 24 m³ · pomiar m³ i kg', en: '24 m³ truck cutaway · m³ & kg tracking' },
-            duration: { pl: '2 tygodnie', en: '2 weeks' },
-            technology: 'Alpine.js · GSAP · Interactive SVG · Schema.org',
-            year: '2026',
-            url: 'kubatura.html',
-            stats: {
-              pl: [
-                ['24 m³ / 3.5t', 'Przekrój kontenera SVG zapełniający się na żywo'],
-                ['m³ vs KG', 'Równoległy pomiar objętości i limitu wagowego DMC'],
-                ['1 MLN PLN', 'Polisa OCP i plombowane pojemniki RODO na pierwszym ekranie'],
-                ['PT 17 → PN 08', 'Minutowy protokół relokacji z poniedziałkową asystą IT']
-              ],
-              en: [
-                ['24 m³ / 3.5t', 'Live interactive SVG box-truck cutaway visualization'],
-                ['m³ vs KG', 'Dual cargo volume and gross payload limit tracking'],
-                ['1M PLN', 'All-risk carrier insurance & numbered GDPR seals upfront'],
-                ['FRI 17 → MON 08', 'Minute-by-minute weekend protocol with Day-1 IT support']
-              ]
-            },
-            sections: {
-              pl: [
-                {
-                  heading: 'Dlaczego strony firm przeprowadzkowych przegrywają kontrakty B2B',
-                  body: 'Większość firm przeprowadzkowych wygląda w sieci identycznie: stockowe zdjęcia uśmiechniętych panów z kartonem i ogólniki o „szybkim i tanim transporcie”. Tymczasem Office Manager albo Dyrektor Administracyjny, który przenosi 60-osobowe biuro, nie szuka taniego busa. Boi się jednego scenariusza: że w poniedziałek o 8:00 zespół usiądzie przy niepodłączonych monitorach, a segregatory kadrowe i księgowe zaginą między piętrami.'
-                },
-                {
-                  heading: 'Zero-Downtime zamiast obietnic - architektura zaufania od pierwszego ekranu',
-                  body: 'Zamiast lania wody o „wieloletnim doświadczeniu”, pierwszy ekran KUBATURY stawia twarde warunki operacyjne: start w piątek o 17:00, gotowość stanowisk w poniedziałek o 8:00, polisa OCP na 1 000 000 PLN oraz numerowane plomby bezpieczeństwa na pojemnikach RODO. Komunikat rozbity na dwa kontrastowe wersy - logistyczny pomarańcz i techniczny grafit - od razu oddziela relokacje korporacyjne od przeprowadzek mieszkań.'
-                },
-                {
-                  heading: 'Fizyka ładunku w SVG: dlaczego liczymy jednocześnie m³ oraz kg',
-                  body: 'W relokacjach biurowych o liczbie kursów rzadko decyduje sama objętość mebli. Metalowe szafy aktowe wypełnione papierem, szafy serwerowe RACK i kasy pancerne wyczerpują limit ładowności auta (3 500 kg DMC) na długo przed zapełnieniem 24 m³ paki. Zbudowałem interaktywny przekrój meblowozu w SVG, który reaguje na każde kliknięcie i wizualizuje oba ograniczenia naraz.',
-                  bullets: [
-                    'Presety jednym kliknięciem (Biuro 15 stanowisk, Piętro korporacyjne 50 stanowisk, Archiwum RODO + Serwerownia) pozwalają oszacować skalę operacji w 5 sekund.',
-                    'Uwzględnienie tarcia budynkowego: piętro załadunku, dostępność windy towarowej oraz dystans automatycznie korygują wielkość ekipy techników i budżet.',
-                    'Wizualizacja 15 modułów wewnątrz kontenera 4,8 m × 2,2 m × 2,3 m ostrzega zmianą koloru, gdy masa ładunku zbliża się do limitu DMC.'
-                  ]
-                },
-                {
-                  heading: 'Kwalifikacja leada przed telefonem i widoczność w wyszukiwarkach AI',
-                  body: 'Zwykły formularz „Zapytaj o wycenę” generuje dziesiątki telefonów o pojedynczą kanapę. Tutaj przycisk pod kalkulatorem jednym kliknięciem przenosi gotową specyfikację (kubaturę, masę, liczbę kontenerów 24 m³ oraz pełną listę pozycji) prosto do formularza wizji lokalnej. Całość uzupełnia godzinowy harmonogram weekendowy z poniedziałkowym dyżurem Day-1 Support oraz graf Schema.org (MovingCompany + FAQPage) pod lokalne wyniki Google i odpowiedzi AI.'
-                }
-              ],
-              en: [
-                {
-                  heading: 'Why standard moving websites lose corporate contracts',
-                  body: 'Most moving company websites look identical: stock photos of smiling guys holding cardboard boxes and vague promises of “fast, affordable transport.” An Office or Facility Manager relocating a 60-person floor is not shopping for a cheap van. They are losing sleep over one risk: Monday at 8:00 AM arriving with unpatched workstations and misplaced HR or tax files.'
-                },
-                {
-                  heading: 'Operational guarantees over fluff - engineering trust above the fold',
-                  body: 'Instead of generic claims about “years of experience,” KUBATURA leads with hard operational SLAs: Friday 17:00 kickoff, Monday 08:00 desk readiness, 1,000,000 PLN all-risk carrier insurance, and numbered security seals on HDPE archive crates. Split dual-tone typography in safety orange and industrial graphite immediately signals commercial engineering rather than residential moving.'
-                },
-                {
-                  heading: 'Cargo physics in SVG: why the estimator tracks both m³ and kg',
-                  body: 'In office relocations, furniture volume is rarely the real bottleneck. Loaded steel filing cabinets, server RACKs, and fireproof safes hit a box truck’s 3,500 kg gross payload limit long before filling its 24 m³ cargo bay. I built a live SVG container cutaway that calculates both constraints simultaneously and animates load distribution in real time.',
-                  bullets: [
-                    'One-click presets (15-Desk Office, 50-Desk Corporate Floor, GDPR Archive + Server Room) benchmark project scale in five seconds.',
-                    'Building friction inputs-floor level, freight elevator access, and route distance-dynamically adjust crew headcount and fee estimates.',
-                    'Fifteen modular cargo blocks inside the 4.8m × 2.2m × 2.3m bay shift color to flag payload overload before a truck is ever dispatched.'
-                  ]
-                },
-                {
-                  heading: 'Pre-qualifying leads before the phone rings + AI search readiness',
-                  body: 'A blank “Request a Quote” form invites residential tyre-kickers. KUBATURA’s estimator transfers the itemized manifest-total volume, weight, required 24 m³ trips, and equipment list-straight into the site survey brief with a single click. Paired with a minute-by-minute weekend timeline (including Monday morning Day-1 floor support) and MovingCompany + FAQPage Schema.org markup, the site converts high-intent B2B buyers.'
-                }
-              ]
-            }
-          },
-
-          'gemba': {
-            shortName: { pl: '玄 GEMBA', en: '玄 GEMBA' },
-            title: {
-              pl: '玄 GEMBA - Diagnostyka Lean, TPS & Six Sigma',
-              en: '玄 GEMBA - Lean, TPS & Six Sigma Diagnostic Workspace'
-            },
-            subtitle: {
-              pl: 'Aplikacja webowa, która tłumaczy opis problemu z codziennej pracy na straty procesowe (Muda, Mura, Muri), dobiera właściwą z 47 metod Lean i prowadzi przez 5-fazowy plan usprawnień.',
-              en: 'An interactive web workspace that translates plain-language workplace problems into process waste, selects the right tool from 47 Lean/Six Sigma methods, and guides execution across 5 phases.'
-            },
-            tag: { pl: '05 · Dodatkowe narzędzia / Lean & Six Sigma', en: '05 · Custom Web Tools / Lean & Six Sigma' },
-            pageType: { pl: 'Aplikacja diagnostyczna + Workspace procesowy', en: 'Diagnostic web app + process workspace' },
-            keyFeatures: { pl: 'Diagnoza problemu · 47 metod · 70+ pojęć · Workspace', en: 'Problem diagnosis · 47 methods · 70+ terms · Workspace' },
-            duration: { pl: '3 tygodnie', en: '3 weeks' },
-            technology: 'React · Tailwind CSS · Lean / TPS Engine',
-            year: '2026',
-            url: 'https://lean-guide-flow.base44.app',
-            stats: {
-              pl: [
-                ['47 METOD', 'Skatalogowane narzędzia Lean, TPS i Six Sigma (VSM, SMED, 5S, DMAIC)'],
-                ['70+ POJĘĆ', 'Praktyczny słownik japońskich terminów produkcyjnych i procesowych'],
-                ['5 FAZ', 'Ustrukturyzowany plan wdrożenia i kontroli dla każdego problemu'],
-                ['0 ŻARGONU', 'Diagnoza na podstawie naturalnego opisu objawów z miejsca pracy']
-              ],
-              en: [
-                ['47 METHODS', 'Curated Lean, TPS & Six Sigma toolkit (VSM, SMED, 5S, DMAIC)'],
-                ['70+ TERMS', 'Plain-language dictionary of Japanese shop-floor concepts'],
-                ['5 PHASES', 'Structured observation, data, countermeasure & check roadmap'],
-                ['NO JARGON', 'Diagnoses operational issues from plain-English descriptions']
-              ]
-            },
-            sections: {
-              pl: [
-                {
-                  heading: 'Odwrócenie najczęstszego błędu: najpierw diagnoza problemu, potem narzędzie',
-                  body: 'Większość inicjatyw Lean kończy się niepowodzeniem, ponieważ zespół wybiera modne narzędzie zanim dobrze zrozumie źródło problemu. 玄 GEMBA odwraca ten proces: użytkownik opisuje własnymi słowami, co szwankuje na stanowisku pracy lub w procesie, a system sam identyfikuje rodzaj marnotrawstwa (Muda), zmienności (Mura) lub przeciążenia (Muri).'
-                },
-                {
-                  heading: 'Cztery zintegrowane moduły: Diagnose, Toolkit, Glossary i Workspace',
-                  body: 'Aplikacja łączy interaktywną diagnostykę z kompletną bazą wiedzy Systemu Produkcyjnego Toyoty (TPS) oraz Six Sigma, pozwalając przejść od zgłoszenia problemu do trwałego standardu w jednym miejscu.',
-                  bullets: [
-                    'Diagnose: Tłumaczenie symptomów i częstotliwości występowania problemu na konkretne przyczyny i rekomendowaną metodę.',
-                    'Toolkit (47 metod): Precyzyjny katalog metod (m.in. Value Stream Mapping, 5 Whys, SMED, Kanban, DMAIC, 5S) z określeniem czasu wdrożenia i zastosowania.',
-                    'Glossary (70+ pojęć): Przejrzysty słownik terminów japońskich (Kaizen, Muda, Jidoka, Heijunka, Poka-yoke, Andon) napisany prostym, praktycznym językiem.',
-                    'Workspace (5 faz planu): Interaktywna przestrzeń robocza prowadząca krok po kroku przez obserwację, zbieranie danych, wdrożenie środka zaradczego i weryfikację.'
-                  ]
-                },
-                {
-                  heading: 'Przełożenie praktyki Lean Green Belt na użyteczny produkt cyfrowy',
-                  body: 'Projekt stanowi bezpośrednie połączenie moich kompetencji procesowych (Lean Green Belt, Agile Delivery Lead) z inżynierią frontendową - pokazuje, jak złożoną metodykę operacyjną można zamknąć w intuicyjnym narzędziu webowym, które oszczędza czas liderów i zespołów.'
-                }
-              ],
-              en: [
-                {
-                  heading: 'Reversing why Lean fails: understand the problem before picking the tool',
-                  body: 'Process improvement fails when teams pick a trendy tool before diagnosing the root issue. 玄 GEMBA starts the other way around: users describe the symptom, frequency, and location in plain language, and the engine translates it into underlying waste (Muda), unevenness (Mura), or overburden (Muri).'
-                },
-                {
-                  heading: 'Four cohesive modules: Diagnose, Toolkit, Glossary, and Workspace',
-                  body: 'The platform bridges interactive root-cause diagnosis with a structured Toyota Production System (TPS) and Six Sigma reference library.',
-                  bullets: [
-                    'Diagnose: Matches plain-language workplace complaints to the specific method that addresses the root cause.',
-                    'Toolkit (47 methods): Actionable guides for VSM, 5 Whys, SMED, Kanban, DMAIC, and 5S with clear timeframes and category filters.',
-                    'Glossary (70+ terms): Shop-floor Japanese terminology (Kaizen, Muda, Jidoka, Heijunka, Poka-yoke) explained without academic fluff.',
-                    'Workspace (5 phases per plan): A step-by-step checklist covering observation, data collection, countermeasures, and standard verification.'
-                  ]
-                },
-                {
-                  heading: 'Turning Lean Green Belt domain expertise into software',
-                  body: 'Built at the intersection of operational consulting (Lean Green Belt, Agile Delivery) and frontend engineering, 玄 GEMBA demonstrates how complex B2B methodologies can be transformed into self-serve digital products.'
-                }
-              ]
-            }
-          }
-        },
-
         get currentCase() {
-          return this.cases[this.projectId] || this.cases['adremt2'];
+          return this.cases[this.projectId] || this.cases[this.projectOrder[0]];
         },
 
         get activeCity() {
@@ -2063,12 +1848,40 @@ function caseStudyApp() {
           return this.projectOrder[(idx + 1) % this.projectOrder.length];
         },
 
-        selectProject(id) {
-          if (this.cases[id]) {
-            this.projectId = id;
+        updateDocumentTitle() {
+          if (this.currentCase && this.currentCase.title) {
+            document.title = `${this.currentCase.title[this.lang]} - Case Study | web4biz.pl`;
+          }
+        },
+
+        selectProject(id, pushHistory = true) {
+          if (!this.cases[id]) return;
+          this.projectId = id;
+          this.updateDocumentTitle();
+
+          if (pushHistory) {
             const url = new URL(window.location);
-            url.searchParams.set('project', id);
-            window.history.replaceState({}, '', url);
+            if (url.searchParams.get('project') !== id) {
+              url.searchParams.set('project', id);
+              window.history.pushState({ project: id }, '', url);
+            }
+          }
+        },
+
+        onSwitcherKeydown(e, idx) {
+          let nextIdx = null;
+          if (e.key === 'ArrowRight') {
+            nextIdx = (idx + 1) % this.projectOrder.length;
+          } else if (e.key === 'ArrowLeft') {
+            nextIdx = (idx - 1 + this.projectOrder.length) % this.projectOrder.length;
+          }
+          if (nextIdx !== null) {
+            e.preventDefault();
+            this.selectProject(this.projectOrder[nextIdx]);
+            this.$nextTick(() => {
+              const tabs = this.$refs.switcherList?.querySelectorAll('[role="tab"]');
+              if (tabs && tabs[nextIdx]) tabs[nextIdx].focus();
+            });
           }
         },
 
@@ -2080,36 +1893,24 @@ function caseStudyApp() {
         toggleLang() {
           this.lang = this.lang === 'pl' ? 'en' : 'pl';
           localStorage.setItem('lang', this.lang);
-        },
-
-        async loadAuthenticClassicPhoto() {
-          try {
-            const res = await fetch('https://en.wikipedia.org/api/rest_v1/page/summary/Volvo_Amazon');
-            if (res.ok) {
-              const data = await res.json();
-              const imgUrl = (data.originalimage && data.originalimage.source) || (data.thumbnail && data.thumbnail.source);
-              if (imgUrl) this.classicCarImg = imgUrl;
-            }
-          } catch (e) {
-            // Keeps verified Wikimedia Commons 1966 Volvo Amazon fallback
-          }
+          this.updateDocumentTitle();
         },
 
         init() {
-          const params = new URLSearchParams(window.location.search);
-          const requested = params.get('project');
-          if (requested && this.cases[requested]) {
-            this.projectId = requested;
-          }
+          this.updateDocumentTitle();
+
+          window.addEventListener('popstate', () => {
+            const requested = new URLSearchParams(window.location.search).get('project');
+            const nextId = this.cases[requested] ? requested : this.projectOrder[0];
+            this.selectProject(nextId, false);
+          });
 
           window.addEventListener('scroll', () => {
             const docHeight = document.documentElement.scrollHeight - window.innerHeight;
             this.scrollProgress = docHeight > 0 ? Math.min(1, Math.max(0, window.scrollY / docHeight)) : 0;
           }, { passive: true });
-
-          this.loadAuthenticClassicPhoto();
         }
-      }
+      };
     }
   </script>
 </body>
