@@ -3,6 +3,23 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- Natychmiastowe ustawienie motywu przed pierwszym rysowaniem strony -->
+  <script>
+    (function () {
+      try {
+        var theme = localStorage.getItem('w4b_theme') || 'editorial';
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {}
+      document.documentElement.classList.add('is-loading');
+      window.addEventListener('DOMContentLoaded', function () {
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            document.documentElement.classList.remove('is-loading');
+          });
+        });
+      });
+    })();
+  </script>
   <title x-text="currentCase.title[lang] + ' - Case Study | web4biz.pl'">Case Study - web4biz.pl</title>
   <meta name="description" content="Szczegółowe Case Study projektów web4biz.pl - wyzwanie biznesowe, architektura rozwiązania, interaktywne narzędzia i rezultaty wdrożenia."/>
   <meta name="robots" content="index, follow"/>
@@ -10,7 +27,7 @@
   <!-- Google Fonts: Space Grotesk + DM Sans + JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Space+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Space+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=block" rel="stylesheet"/>
 
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
@@ -82,9 +99,11 @@
       --btn-ink: #061014;
     }
 
-    *, *::before, *::after { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: border-box; }
     [x-cloak] { display: none !important; }
-    html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; }
+    html.is-loading,
+    html.is-loading * { transition: none !important; }
+    html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; background: var(--bg); }
     body {
       margin: 0;
       background: var(--bg);
@@ -1007,8 +1026,8 @@
       <div class="case-hero-art" role="img" :aria-label="currentCase.title[lang]">
         <div class="case-art-frame">
 
-          <!-- ═══ Artwork 1: AD REM T2 - INTERAKTYWNA MAPA 8 HUBÓW EUROPY + KALKULATOR FLOTY ═══ -->
-          <div x-show="projectId === 'adremt2'" class="art-route-split">
+<!-- ═══ Artwork 1: AD REM T2 - INTERAKTYWNA MAPA 8 HUBÓW EUROPY + KALKULATOR FLOTY ═══ -->
+          <div x-show="projectId === 'adremt2'" x-cloak class="art-route-split">
             <div class="art-route-map-box">
               <div class="art-micro-header">
                 <span style="display:inline-flex; align-items:center; gap:6px;">
@@ -1531,12 +1550,15 @@
   </footer>
 
   <script>
-    function caseStudyApp() {
+function caseStudyApp() {
+      const requestedProject = new URLSearchParams(window.location.search).get('project');
+      const validProjects = ['adremt2', 'ckadrem', 'pmclassics', 'kubatura', 'gemba'];
+
       return {
         direction: localStorage.getItem('w4b_theme') || 'editorial',
         lang: localStorage.getItem('lang') === 'en' ? 'en' : 'pl',
         scrollProgress: 0,
-        projectId: 'adremt2',
+        projectId: validProjects.includes(requestedProject) ? requestedProject : 'adremt2',
         classicCarImg: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Volvo_Amazon_1966.jpg/1280px-Volvo_Amazon_1966.jpg',
 
         // 8 Interaktywnych Hubów Europejskich dla mapy AD REM T2
