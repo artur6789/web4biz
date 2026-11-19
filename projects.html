@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title x-text="lang === 'pl' ? 'Projekty &amp; Realizacje — web4biz.pl | Archie' : 'Projects &amp; Builds — web4biz.pl | Archie'">Projekty &amp; Realizacje — web4biz.pl | Archie</title>
-  <meta name="description" content="Pełna lista zrealizowanych stron B2B, interaktywnych kalkulatorów (SVG/GeoJSON), wielojęzycznych platform oraz aplikacji webowych — web4biz.pl."/>
+  <title x-text="lang === 'pl' ? 'Projekty &amp; Realizacje - web4biz.pl | Archie' : 'Projects &amp; Builds - web4biz.pl | Archie'">Projekty &amp; Realizacje - web4biz.pl | Archie</title>
+  <meta name="description" content="Pełna lista zrealizowanych stron B2B, interaktywnych kalkulatorów (SVG/GeoJSON), wielojęzycznych platform oraz aplikacji webowych - web4biz.pl."/>
   <meta name="robots" content="index, follow"/>
   <link rel="canonical" href="https://web4biz.pl/projects.html"/>
 
@@ -18,7 +18,7 @@
 
   <style>
     /* ═══════════════════════════════════════════════════════════════════
-       1. DESIGN TOKENS - 3 MOTYWY (IDENTYCZNE Z index.html)
+       1. DESIGN TOKENS - 3 MOTYWY (UJEDNOLICONY SYSTEM PRZYCISKÓW Z index.html)
        ═══════════════════════════════════════════════════════════════════ */
     :root,
     [data-theme="editorial"] {
@@ -34,6 +34,9 @@
       --hero-bg: #d8fa52;
       --hero-ink: #172019;
       --hero-muted: #34422a;
+      /* Kolor przewodni wszystkich przycisków w motywie Słoneczko */
+      --btn-bg: #172019;
+      --btn-ink: #d8fa52;
       --card-radius: 8px;
       --btn-radius: 6px;
       --ease-out-quart: cubic-bezier(0.22, 1, 0.36, 1);
@@ -57,6 +60,9 @@
       --hero-bg: #18211b;
       --hero-ink: #f0f2e9;
       --hero-muted: #c2cbbd;
+      /* Kolor przewodni wszystkich przycisków w motywie Półksiężyc */
+      --btn-bg: #d8fa52;
+      --btn-ink: #141a16;
     }
 
     /* Widok 02 (Księżyc): 21st.dev Obsidian & Cyan */
@@ -73,6 +79,9 @@
       --hero-bg: #07090b;
       --hero-ink: #f4f6f8;
       --hero-muted: #94a3b8;
+      /* Kolor przewodni wszystkich przycisków w motywie Księżyc */
+      --btn-bg: #06b6d4;
+      --btn-ink: #061014;
     }
 
     *, *::before, *::after { box-sizing: border-box; }
@@ -92,7 +101,7 @@
     a { color: inherit; text-decoration: none; }
     button { font-family: inherit; color: inherit; }
     ::selection { background: var(--accent); color: var(--accent-ink); }
-    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    :focus-visible { outline: 2px solid var(--btn-bg); outline-offset: 3px; }
 
     .page-wrap { width: min(1340px, calc(100% - 64px)); margin-inline: auto; }
     .section-pad { padding-block: 84px; }
@@ -103,6 +112,7 @@
                   background-color 160ms var(--ease-out-snappy),
                   border-color 160ms var(--ease-out-snappy),
                   color 160ms var(--ease-out-snappy),
+                  filter 160ms var(--ease-out-snappy),
                   box-shadow 180ms var(--ease-out-quart);
     }
     .tactile:active { transform: scale(0.96); }
@@ -191,7 +201,11 @@
       font: 600 11px var(--mono);
       cursor: pointer;
     }
-    .lang-btn:hover { background: var(--hero-ink); color: var(--hero-bg); }
+    .lang-btn:hover {
+      background: var(--btn-bg);
+      color: var(--btn-ink);
+      border-color: var(--btn-bg);
+    }
 
     .theme-dock {
       display: inline-flex;
@@ -217,14 +231,9 @@
     .theme-icon-btn:hover { opacity: 1; }
     .theme-icon-btn.is-active {
       opacity: 1;
-      background: var(--hero-ink);
-      color: var(--hero-bg);
+      background: var(--btn-bg);
+      color: var(--btn-ink);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
-    }
-    [data-theme="bento"] .theme-icon-btn.is-active,
-    [data-theme="forest"] .theme-icon-btn.is-active {
-      background: var(--accent);
-      color: var(--accent-ink);
     }
     .theme-icon-btn svg { width: 16px; height: 16px; }
 
@@ -234,15 +243,14 @@
       gap: 8px;
       padding: 11px 18px;
       border-radius: var(--btn-radius);
-      background: var(--hero-ink);
-      color: var(--hero-bg);
+      border: 1px solid var(--btn-bg);
+      background: var(--btn-bg);
+      color: var(--btn-ink);
       font-size: 12px;
       font-weight: 700;
     }
-    [data-theme="bento"] .nav-cta,
-    [data-theme="forest"] .nav-cta {
-      background: var(--accent);
-      color: var(--accent-ink);
+    @media (hover: hover) and (pointer: fine) {
+      .nav-cta:hover { filter: brightness(0.94); }
     }
 
     .back-link {
@@ -301,7 +309,7 @@
     }
 
     /* ═══════════════════════════════════════════════════════════════════
-       3. FILTRY I STOS DUŻYCH, RÓWNYCH KAFELKÓW (JEDEN POD DRUGIM)
+       3. FILTRY (1:1 JAK ZAKŁADKI W HERO) I STOS DUŻYCH, RÓWNYCH KAFELKÓW
        ═══════════════════════════════════════════════════════════════════ */
     .filter-row {
       display: flex;
@@ -314,26 +322,33 @@
       border-bottom: 1px solid var(--line);
     }
     .filter-bar { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    /* Przyciski filtrów - identyczna wysokość, powierzchnia i reakcja jak w Hero */
     .filter-pill {
-      min-height: 38px;
+      min-height: 42px;
       padding: 0 16px;
       border-radius: var(--btn-radius);
-      border: 1px solid var(--line);
-      background: transparent;
-      color: var(--muted);
-      font: 500 11px var(--mono);
+      border: 1px solid color-mix(in srgb, var(--ink) 20%, transparent);
+      background: color-mix(in srgb, var(--surface) 75%, transparent);
+      color: var(--ink);
+      font: 500 11.5px var(--mono);
       cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
     }
-    .filter-pill.is-active, .filter-pill:hover {
-      background: var(--ink);
-      color: var(--bg);
-      border-color: var(--ink);
+    @media (hover: hover) and (pointer: fine) {
+      .filter-pill:not(.is-active):hover {
+        border-color: color-mix(in srgb, var(--ink) 50%, transparent);
+        background: var(--surface);
+      }
     }
-    [data-theme="bento"] .filter-pill.is-active,
-    [data-theme="forest"] .filter-pill.is-active {
-      background: var(--accent);
-      color: var(--accent-ink);
-      border-color: var(--accent);
+    .filter-pill.is-active {
+      background: var(--btn-bg);
+      color: var(--btn-ink);
+      border-color: var(--btn-bg);
+      font-weight: 700;
     }
 
     .results-meta {
@@ -343,7 +358,7 @@
       text-transform: uppercase;
     }
 
-    /* Stos równych, dużych kart — jedna pod drugą */
+    /* Stos równych, dużych kart - jedna pod drugą */
     .projects-stack {
       display: flex;
       flex-direction: column;
@@ -453,23 +468,22 @@
       min-height: 44px;
       padding: 0 18px;
       border-radius: var(--btn-radius);
-      background: var(--ink);
-      color: var(--bg);
-      font: 600 12px var(--mono);
+      border: 1px solid var(--btn-bg);
+      background: var(--btn-bg);
+      color: var(--btn-ink);
+      font: 700 12px var(--mono);
       display: inline-flex;
       align-items: center;
       gap: 8px;
     }
-    [data-theme="bento"] .btn-card-primary,
-    [data-theme="forest"] .btn-card-primary {
-      background: var(--accent);
-      color: var(--accent-ink);
+    @media (hover: hover) and (pointer: fine) {
+      .btn-card-primary:hover { filter: brightness(0.94); }
     }
     .btn-card-secondary {
       min-height: 44px;
       padding: 0 16px;
       border-radius: var(--btn-radius);
-      border: 1px solid var(--line);
+      border: 1px solid color-mix(in srgb, var(--ink) 22%, transparent);
       background: transparent;
       color: var(--ink);
       font: 600 12px var(--mono);
@@ -477,14 +491,11 @@
       align-items: center;
       gap: 8px;
     }
-    .btn-card-secondary:hover {
-      border-color: var(--signal);
-      color: var(--signal);
-    }
-    [data-theme="bento"] .btn-card-secondary:hover,
-    [data-theme="forest"] .btn-card-secondary:hover {
-      border-color: var(--accent);
-      color: var(--accent);
+    @media (hover: hover) and (pointer: fine) {
+      .btn-card-secondary:hover {
+        border-color: var(--ink);
+        background: color-mix(in srgb, var(--ink) 6%, transparent);
+      }
     }
 
     /* ═══════════════════════════════════════════════════════════════════
@@ -624,17 +635,15 @@
       gap: 12px;
       padding: 0 24px;
       border-radius: var(--btn-radius);
-      border: 0;
-      background: var(--hero-ink);
-      color: var(--hero-bg);
+      border: 1px solid var(--btn-bg);
+      background: var(--btn-bg);
+      color: var(--btn-ink);
       font-size: 13px;
       font-weight: 700;
       cursor: pointer;
     }
-    [data-theme="bento"] .btn-primary,
-    [data-theme="forest"] .btn-primary {
-      background: var(--accent);
-      color: var(--accent-ink);
+    @media (hover: hover) and (pointer: fine) {
+      .btn-primary:hover { filter: brightness(0.94); }
     }
 
     /* ═══════════════════════════════════════════════════════════════════
@@ -773,7 +782,7 @@
     </div>
   </section>
 
-  <!-- ═══ KATALOG PROJEKTÓW (RÓWNE, DUŻE KAFELKI — JEDEN POD DRUGIM) ═══ -->
+  <!-- ═══ KATALOG PROJEKTÓW (RÓWNE, DUŻE KAFELKI - JEDEN POD DRUGIM) ═══ -->
   <main class="section-pad">
     <div class="page-wrap">
 
@@ -783,6 +792,7 @@
           <template x-for="f in filters" :key="f.id">
             <button type="button" class="filter-pill tactile"
               :class="activeFilter === f.id ? 'is-active' : ''"
+              :aria-pressed="activeFilter === f.id"
               @click="activeFilter = f.id"
               x-text="f.label[lang]"></button>
           </template>
@@ -790,7 +800,7 @@
         <span class="results-meta tabular" x-text="lang === 'pl' ? 'ZREALIZOWANE: 05 PROJEKTÓW' : 'SHIPPED: 05 PROJECTS'"></span>
       </div>
 
-      <!-- Stos projektów — jednakowe rozmiary, jeden pod drugim -->
+      <!-- Stos projektów - jednakowe rozmiary, jeden pod drugim -->
       <div class="projects-stack">
 
         <!-- ═══ 01. AD REM T2 ═══ -->
@@ -842,8 +852,8 @@
                 <span>Vanilla JS · SVG · GeoJSON</span>
                 <span x-text="lang === 'pl' ? 'Kalkulator Tras' : 'Route Calculator'"></span>
               </div>
-              <h2 x-text="lang === 'pl' ? 'AD REM T2 — Transport, logistyka i spedycja' : 'AD REM T2 — Transport, Logistics &amp; Freight'"></h2>
-              <p x-text="lang === 'pl' ? 'Interaktywna mapa Europy pozwala wskazać miasto, sprawdzić dystans drogowy z Warszawy i wysłać sprecyzowane zapytanie do dyspozytora — bez płatnych API mapowych.' : 'Interactive European vector map lets visitors pick a destination, calculate road distance from Warsaw, and send a pre-populated freight enquiry with zero recurring map API costs.'"></p>
+              <h2 x-text="lang === 'pl' ? 'AD REM T2 - Transport, logistyka i spedycja' : 'AD REM T2 - Transport, Logistics &amp; Freight'"></h2>
+              <p x-text="lang === 'pl' ? 'Interaktywna mapa Europy pozwala wskazać miasto, sprawdzić dystans drogowy z Warszawy i wysłać sprecyzowane zapytanie do dyspozytora - bez płatnych API mapowych.' : 'Interactive European vector map lets visitors pick a destination, calculate road distance from Warsaw, and send a pre-populated freight enquiry with zero recurring map API costs.'"></p>
             </div>
             <div class="row-actions">
               <a href="case-study.html?project=adremt2" class="btn-card-primary tactile">
@@ -1022,7 +1032,7 @@
                 <span>Alpine.js · GSAP · SVG</span>
                 <span x-text="lang === 'pl' ? 'Kalkulator m³ / kg' : 'm³ / kg Estimator'"></span>
               </div>
-              <h2 x-text="lang === 'pl' ? 'KUBATURA — Relokacje Biur i Archiwów' : 'KUBATURA — Corporate Office Relocation'"></h2>
+              <h2 x-text="lang === 'pl' ? 'KUBATURA - Relokacje Biur i Archiwów' : 'KUBATURA - Corporate Office Relocation'"></h2>
               <p x-text="lang === 'pl' ? 'Platforma B2B dla weekendowych relokacji biur (Piątek 17:00 → Poniedziałek 08:00) z interaktywnym kalkulatorem kubatury (m³), masy (kg) oraz przekrojem kontenera 24 m³.' : 'Weekend B2B office relocation platform (Friday 17:00 → Monday 08:00) featuring a live cargo volume (m³), payload (kg), and 24 m³ box-truck cutaway estimator.'"></p>
             </div>
             <div class="row-actions">
@@ -1093,7 +1103,7 @@
                 <span>React · Tailwind CSS</span>
                 <span>Lean · TPS · Six Sigma</span>
               </div>
-              <h2 x-text="lang === 'pl' ? '玄 GEMBA — Diagnostyka Lean &amp; Six Sigma' : '玄 GEMBA — Lean &amp; Six Sigma Workspace'"></h2>
+              <h2 x-text="lang === 'pl' ? '玄 GEMBA - Diagnostyka Lean &amp; Six Sigma' : '玄 GEMBA - Lean &amp; Six Sigma Workspace'"></h2>
               <p x-text="lang === 'pl' ? 'Aplikacja webowa tłumacząca codzienne problemy w pracy na straty procesowe (Muda, Mura, Muri), dobierająca właściwą z 47 metod Lean i prowadząca przez 5-fazowy plan wdrożenia.' : 'Diagnostic web app translating workplace problems into process waste, matching them to 47 Lean/Six Sigma methods and guiding execution through a 5-phase workspace.'"></p>
             </div>
             <div class="row-actions">
@@ -1110,9 +1120,8 @@
         </article>
 
         <!-- ═══════════════════════════════════════════════════════════════
-             SZABLON DO DODAWANIA KOLEJNYCH PROJEKTÓW (06, 07, 08...)
-             Skopiuj dowolny blok <article class="project-row-card"> powyżej
-             i wklej w tym miejscu. Każda karta zachowa identyczne wymiary.
+             MIEJSCE NA KOLEJNE PROJEKTY (06, 07, 08...)
+             Skopiuj dowolną kartę .project-row-card powyżej i wklej tutaj.
              ═══════════════════════════════════════════════════════════════ -->
 
       </div>
