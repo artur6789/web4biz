@@ -22,16 +22,19 @@
   </script>
 
   <title x-text="currentCase.title[lang] + ' - Case Study | web4biz.pl'">Case Study - web4biz.pl</title>
-  <meta name="description" content="Szczegółowe Case Study projektów web4biz.pl - wyzwanie biznesowe, architektura rozwiązania, interaktywne narzędzia i rezultaty wdrożenia."/>
+  <meta name="description" content="Case study stron i narzędzi web4biz.pl: wyzwania, zakres prac, decyzje projektowe i funkcje wdrożonych rozwiązań."/>
   <meta name="robots" content="index, follow"/>
-  <link rel="canonical" href="https://web4biz.pl/case-study.html"/>
+  <link rel="canonical" href="https://artur6789.github.io/web4biz/case-study.html?project=adremt2"/>
+  <link rel="alternate" hreflang="pl" href="https://artur6789.github.io/web4biz/case-study.html?project=adremt2"/>
+  <link rel="alternate" hreflang="en" href="https://artur6789.github.io/web4biz/case-study.html?project=adremt2&amp;lang=en"/>
+  <link rel="alternate" hreflang="x-default" href="https://artur6789.github.io/web4biz/case-study.html?project=adremt2"/>
 
   <!-- Inline SVG Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23172019'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='800' font-size='26' fill='%23d8fa52'%3Ew4b%3C/text%3E%3C/svg%3E"/>
 
   <!-- OpenGraph & Social Preview -->
   <meta property="og:type" content="article"/>
-  <meta property="og:url" content="https://web4biz.pl/case-study.html"/>
+  <meta property="og:url" content="https://artur6789.github.io/web4biz/case-study.html?project=adremt2"/>
   <meta property="og:title" content="Case Study - web4biz.pl | Archie"/>
   <meta property="og:description" content="Analiza projektów B2B, interaktywnych kalkulatorów SVG/GeoJSON i aplikacji webowych zrealizowanych w web4biz.pl."/>
   <meta property="og:locale" content="pl_PL"/>
@@ -40,7 +43,7 @@
   <meta name="twitter:title" content="Case Study - web4biz.pl"/>
   <meta name="twitter:description" content="Wyzwanie biznesowe, architektura i działające dema interaktywnych projektów web4biz.pl."/>
 
-  <!-- Dane strukturalne Schema.org (WebPage + BreadcrumbList pod SEO i AI/GEO) -->
+  <!-- Dane strukturalne Schema.org (WebPage + BreadcrumbList) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -48,34 +51,34 @@
       {
         "@type": "WebPage",
         "name": "Case Study - web4biz.pl",
-        "url": "https://web4biz.pl/case-study.html",
+        "url": "https://artur6789.github.io/web4biz/case-study.html",
         "description": "Szczegółowe Case Study projektów B2B, kalkulatorów wycen i aplikacji webowych web4biz.pl.",
         "isPartOf": {
           "@type": "WebSite",
           "name": "web4biz.pl",
-          "url": "https://web4biz.pl/"
+          "url": "https://artur6789.github.io/web4biz/"
         }
       },
       {
         "@type": "BreadcrumbList",
         "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "web4biz.pl", "item": "https://web4biz.pl/" },
-          { "@type": "ListItem", "position": 2, "name": "Projekty", "item": "https://web4biz.pl/projects.html" },
-          { "@type": "ListItem", "position": 3, "name": "Case Study", "item": "https://web4biz.pl/case-study.html" }
+          { "@type": "ListItem", "position": 1, "name": "web4biz.pl", "item": "https://artur6789.github.io/web4biz/" },
+          { "@type": "ListItem", "position": 2, "name": "Projekty", "item": "https://artur6789.github.io/web4biz/projects.html" },
+          { "@type": "ListItem", "position": 3, "name": "Case Study", "item": "https://artur6789.github.io/web4biz/case-study.html" }
         ]
       }
     ]
   }
   </script>
 
-  <!-- Google Fonts: Space Grotesk + DM Sans + JetBrains Mono (display=block eliminuje przeskok fontów) -->
+  <!-- Google Fonts: Space Grotesk + DM Sans + JetBrains Mono (display=swap keeps text visible while fonts load) -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Space+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=block" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Space+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet"/>
 
   <!-- Wspólne źródło danych projektów + Alpine.js -->
   <script src="projects-data.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.17.5/dist/cdn.min.js"></script>
 
   <style>
     /* ═══════════════════════════════════════════════════════════════════
@@ -1011,6 +1014,16 @@
       .btn-live, .btn-case-secondary { width: 100%; justify-content: center; }
       .case-next { padding: 40px 14px; }
     }
+    .case-brand-art { position:relative; min-height:340px; height:100%; padding:26px 32px; display:flex; flex-direction:column; justify-content:space-between; overflow:hidden; }
+    .case-brand-topline,.case-brand-bottomline { display:flex; justify-content:space-between; gap:12px; font:600 10px var(--mono); letter-spacing:.08em; }
+    .case-brand-copy { max-width:760px; padding:38px 0; }
+    .case-brand-copy p { margin:0 0 16px; font:600 11px var(--mono); letter-spacing:.12em; text-transform:uppercase; }
+    .case-brand-copy strong { display:block; font:700 clamp(40px,8vw,100px)/.9 var(--display); letter-spacing:-.07em; }
+    .case-brand-copy span { display:block; max-width:620px; margin-top:18px; font:500 clamp(15px,2vw,22px)/1.35 var(--sans); }
+    .case-brand-bdc { background:#d8fa52; color:#172019; }
+    .case-brand-hauhaus { background:#102c26; color:#f5f1e6; }
+    .case-brand-piec { background:#f0e8dc; color:#201815; }
+    @media(max-width:700px){ .case-brand-art{padding:20px; min-height:260px;} }
   </style>
 </head>
 
@@ -1566,6 +1579,16 @@
 
           </div>
 
+
+          <div x-show="['bdcacademy','hauhaus','piec'].includes(projectId)" x-cloak class="case-brand-art" :class="'case-brand-' + projectId" role="img" :aria-label="currentCase.title[lang]">
+            <div class="case-brand-topline"><span x-text="currentCase.tag[lang]">08 · Brand</span><span x-text="currentCase.year">2026</span></div>
+            <div class="case-brand-copy">
+              <p x-text="currentCase.keyFeatures[lang]">Key features</p>
+              <strong x-text="currentCase.shortName[lang]">Project</strong>
+              <span x-text="currentCase.subtitle[lang]">Project summary</span>
+            </div>
+            <div class="case-brand-bottomline"><span>WEB4BIZ · SELECTED WORK</span><span>08 / 08</span></div>
+          </div>
         </div>
       </div>
 
@@ -1579,9 +1602,9 @@
           <span x-text="lang === 'pl' ? 'Kluczowe funkcje' : 'Key features'">Kluczowe funkcje</span>
           <strong x-text="currentCase.keyFeatures[lang]">Mapa Europy SVG · wybór trasy · szybka wycena</strong>
         </div>
-        <div>
+        <div x-show="currentCase.duration">
           <span x-text="lang === 'pl' ? 'Czas realizacji' : 'Timeline'">Czas realizacji</span>
-          <strong x-text="currentCase.duration[lang]">3 tygodnie</strong>
+          <strong x-text="currentCase.duration && currentCase.duration[lang]">3 tygodnie</strong>
         </div>
         <div>
           <span x-text="lang === 'pl' ? 'Technologie' : 'Technology'">Technologie</span>
@@ -1722,7 +1745,7 @@
 
       return {
         direction: localStorage.getItem('w4b_theme') || 'editorial',
-        lang: localStorage.getItem('lang') === 'en' ? 'en' : 'pl',
+        lang: new URLSearchParams(window.location.search).get('lang') === 'en' ? 'en' : (localStorage.getItem('lang') === 'en' ? 'en' : 'pl'),
         mobileMenuOpen: false,
         scrollProgress: 0,
         projectId: initialProject,
@@ -1863,9 +1886,23 @@
         },
 
         updateDocumentTitle() {
-          if (this.currentCase && this.currentCase.title) {
-            document.title = `${this.currentCase.title[this.lang]} - Case Study | web4biz.pl`;
-          }
+          if (!this.currentCase || !this.currentCase.title) return;
+          const title = `${this.currentCase.title[this.lang]} - Case Study | web4biz.pl`;
+          const description = this.currentCase.subtitle[this.lang];
+          const canonical = new URL('case-study.html', 'https://artur6789.github.io/web4biz/');
+          canonical.searchParams.set('project', this.projectId);
+          if (this.lang === 'en') canonical.searchParams.set('lang', 'en');
+          document.documentElement.lang = this.lang;
+          document.querySelector('link[hreflang="pl"]')?.setAttribute('href', `${canonical.origin}${canonical.pathname}?project=${encodeURIComponent(this.projectId)}`);
+          document.querySelector('link[hreflang="en"]')?.setAttribute('href', `${canonical.origin}${canonical.pathname}?project=${encodeURIComponent(this.projectId)}&lang=en`);
+          document.title = title;
+          document.querySelector('link[rel="canonical"]')?.setAttribute('href', canonical.href);
+          document.querySelector('meta[property="og:url"]')?.setAttribute('content', canonical.href);
+          document.querySelector('meta[name="description"]')?.setAttribute('content', description);
+          document.querySelector('meta[property="og:title"]')?.setAttribute('content', title);
+          document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
+          document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', title);
+          document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', description);
         },
 
         selectProject(id, pushHistory = true) {
@@ -1907,6 +1944,10 @@
         toggleLang() {
           this.lang = this.lang === 'pl' ? 'en' : 'pl';
           localStorage.setItem('lang', this.lang);
+          const nextUrl = new URL(window.location.href);
+          if (this.lang === 'en') nextUrl.searchParams.set('lang', 'en');
+          else nextUrl.searchParams.delete('lang');
+          window.history.replaceState({}, '', nextUrl);
           this.updateDocumentTitle();
         },
 

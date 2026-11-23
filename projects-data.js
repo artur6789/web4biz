@@ -1,8 +1,8 @@
 /**
  * web4biz.pl — Wspólne źródło danych projektów (Single Source of Truth)
  * Używane przez: index.html, projects.html oraz case-study.html.
- * Aby dodać projekt 06, dopisz obiekt do tablicy `projects` — liczniki,
- * filtry oraz podstrona Case Study zaktualizują się automatycznie.
+ * Liczniki, filtry i Case Study korzystają z tej wspólnej bazy. Przy dodaniu
+ * projektu dodaj również jego indywidualną kartę na stronie głównej i w archiwum.
  */
 window.WEB4BIZ_DATA = {
   brand: {
@@ -342,8 +342,8 @@ window.WEB4BIZ_DATA = {
             ]
           },
           {
-            heading: 'Kwalifikacja leada przed telefonem i widoczność w wyszukiwarkach AI',
-            body: 'Zwykły formularz „Zapytaj o wycenę” generuje dziesiątki telefonów o pojedynczą kanapę. Tutaj przycisk pod kalkulatorem jednym kliknięciem przenosi gotową specyfikację (kubaturę, masę, liczbę kontenerów 24 m³ oraz pełną listę pozycji) prosto do formularza wizji lokalnej. Całość uzupełnia godzinowy harmonogram weekendowy z poniedziałkowym dyżurem Day-1 Support oraz graf Schema.org (MovingCompany + FAQPage) pod lokalne wyniki Google i odpowiedzi AI.'
+            heading: 'Kwalifikacja zapytań przed pierwszym kontaktem',
+            body: 'Zwykły formularz „Zapytaj o wycenę” generuje dziesiątki telefonów o pojedynczą kanapę. Tutaj przycisk pod kalkulatorem jednym kliknięciem przenosi gotową specyfikację (kubaturę, masę, liczbę kontenerów 24 m³ oraz pełną listę pozycji) prosto do formularza wizji lokalnej. Całość uzupełnia godzinowy harmonogram weekendowy z poniedziałkowym dyżurem Day-1 Support oraz dane Schema.org (MovingCompany + FAQPage) wspierające czytelne indeksowanie lokalnej oferty.'
           }
         ],
         en: [
@@ -365,8 +365,8 @@ window.WEB4BIZ_DATA = {
             ]
           },
           {
-            heading: 'Pre-qualifying leads before the phone rings + AI search readiness',
-            body: 'A blank “Request a Quote” form invites residential tyre-kickers. KUBATURA’s estimator transfers the itemized manifest-total volume, weight, required 24 m³ trips, and equipment list-straight into the site survey brief with a single click. Paired with a minute-by-minute weekend timeline (including Monday morning Day-1 floor support) and MovingCompany + FAQPage Schema.org markup, the site converts high-intent B2B buyers.'
+            heading: 'Qualifying enquiries before first contact',
+            body: 'A blank “Request a Quote” form invites residential tyre-kickers. KUBATURA’s estimator transfers the itemized manifest-total volume, weight, required 24 m³ trips, and equipment list-straight into the site survey brief with a single click. Paired with a minute-by-minute weekend timeline (including Monday morning Day-1 floor support) and MovingCompany + FAQPage structured data to describe the local service clearly for search engines.'
           }
         ]
       }
@@ -458,6 +458,354 @@ window.WEB4BIZ_DATA = {
           }
         ]
       }
-    }
+    },
+{
+  "id": "bdcacademy",
+  "num": "06",
+  "year": "2026",
+  "categories": [
+    "b2b"
+  ],
+  "url": "bdc-academy.html",
+  "external": false,
+  "shortName": {
+    "pl": "BDC Academy",
+    "en": "BDC Academy"
+  },
+  "cardTitle": {
+    "pl": "BDC Academy — szkolenia dla BDC w automotive",
+    "en": "BDC Academy — automotive BDC training"
+  },
+  "cardDesc": {
+    "pl": "Programy szkoleniowe dla zespołów sprzedaży, serwisu, części, F&I oraz liderów BDC w salonach dealerskich.",
+    "en": "Training programmes for dealer sales, service, parts, F&I and BDC leadership teams."
+  },
+  "liveLabel": {
+    "pl": "Otwórz stronę",
+    "en": "Open project"
+  },
+  "title": {
+    "pl": "BDC Academy — szkolenia Automotive Contact Center",
+    "en": "BDC Academy — Automotive Contact Centre Training"
+  },
+  "subtitle": {
+    "pl": "Katalog specjalistycznych programów szkoleniowych dla działów BDC w branży dealerskiej.",
+    "en": "A focused catalogue of specialist training programmes for dealership Business Development Centre teams."
+  },
+  "tag": {
+    "pl": "06 · Automotive / B2B",
+    "en": "06 · Automotive / B2B"
+  },
+  "pageType": {
+    "pl": "Strona usługowa B2B + katalog szkoleń",
+    "en": "B2B service website + training catalogue"
+  },
+  "keyFeatures": {
+    "pl": "7 ścieżek szkoleniowych · czytelne grupowanie oferty",
+    "en": "7 training tracks · structured offer navigation"
+  },
+  "duration": null,
+  "technology": "HTML · CSS · JavaScript",
+  "stats": {
+    "pl": [
+      [
+        "7 ŚCIEŻEK",
+        "Programy dla kluczowych ról w BDC"
+      ],
+      [
+        "SPRZEDAŻ",
+        "Obsługa leadów i domykanie wizyt"
+      ],
+      [
+        "SERWIS",
+        "Kontakt z klientem posprzedażowym"
+      ],
+      [
+        "F&I",
+        "Wsparcie procesu finansowania"
+      ]
+    ],
+    "en": [
+      [
+        "7 TRACKS",
+        "Programmes for key dealership BDC roles"
+      ],
+      [
+        "SALES",
+        "Lead handling and appointment conversion"
+      ],
+      [
+        "SERVICE",
+        "Customer contact after the sale"
+      ],
+      [
+        "F&I",
+        "Support for finance and insurance workflows"
+      ]
+    ]
+  },
+  "sections": {
+    "pl": [
+      {
+        "heading": "Oferta uporządkowana według funkcji w salonie",
+        "body": "Strona rozdziela szkolenia dla sprzedaży, serwisu, części, F&I, domykania wizyt oraz kierowników BDC, dzięki czemu odwiedzający szybciej odnajduje program powiązany z rolą i zadaniem zespołu."
+      },
+      {
+        "heading": "Treść zaprojektowana dla konkretnego odbiorcy B2B",
+        "body": "Zamiast ogólnego opisu szkoleń strona nazywa obszary pracy dealerów i przedstawia ofertę w języku automotive contact center. To daje dobrą bazę do dalszego rozwijania stron poszczególnych programów i kwalifikowania zapytań."
+      },
+      {
+        "heading": "Szkolenie połączone z codziennym procesem",
+        "body": "Programy są podzielone według ról i etapów kontaktu z klientem. Dzięki temu organizacja może dobrać szkolenie do konkretnego zadania zespołu, a nie tylko do ogólnej kategorii stanowiska."
+      }
+    ],
+    "en": [
+      {
+        "heading": "An offer organised around dealership roles",
+        "body": "The site separates training for sales, service, parts, F&I, appointment conversion and BDC managers so visitors can find the programme relevant to their team and responsibilities."
+      },
+      {
+        "heading": "Content for a specific B2B audience",
+        "body": "Instead of generic training language, the page names dealership workflows and frames the offer for automotive contact-centre teams. This creates a clear foundation for programme detail pages and better-qualified enquiries."
+      },
+      {
+        "heading": "Training connected to daily workflows",
+        "body": "The offer is divided by role and by stage of customer contact. This helps a dealership match a programme to a team’s actual responsibilities instead of selecting only by job-title category."
+      }
+    ]
+  }
+},
+{
+  "id": "hauhaus",
+  "num": "07",
+  "year": "2026",
+  "categories": [
+    "brand"
+  ],
+  "url": "hauhaus.html",
+  "external": false,
+  "shortName": {
+    "pl": "HAUHAUS",
+    "en": "HAUHAUS"
+  },
+  "cardTitle": {
+    "pl": "HAUHAUS — kameralne psiedszkole",
+    "en": "HAUHAUS — neighbourhood dog daycare"
+  },
+  "cardDesc": {
+    "pl": "Warszawskie psiedszkole z ogrodem 800 m², podglądem na żywo i opieką behawiorysty oraz weterynarza.",
+    "en": "A Warsaw dog daycare with an 800 m² garden, live camera access, and on-site behaviourist and veterinary support."
+  },
+  "liveLabel": {
+    "pl": "Otwórz stronę",
+    "en": "Open project"
+  },
+  "title": {
+    "pl": "HAUHAUS — psiedszkole, ogród i opieka nad psami",
+    "en": "HAUHAUS — dog daycare, garden and care"
+  },
+  "subtitle": {
+    "pl": "Strona lokalnej usługi opieki nad psami, która pokazuje warunki pobytu, codzienny rytm i dostępne wsparcie specjalistów.",
+    "en": "A local dog-care website presenting the daycare environment, daily routine and specialist support."
+  },
+  "tag": {
+    "pl": "07 · Marka lokalna / Warszawa",
+    "en": "07 · Local service / Warsaw"
+  },
+  "pageType": {
+    "pl": "Strona lokalnej usługi + prezentacja oferty",
+    "en": "Local service website + offer presentation"
+  },
+  "keyFeatures": {
+    "pl": "Ogród 800 m² · podgląd na żywo · nosework",
+    "en": "800 m² garden · live camera · nosework"
+  },
+  "duration": null,
+  "technology": "HTML · CSS · Alpine.js",
+  "stats": {
+    "pl": [
+      [
+        "800 m²",
+        "Ogród do aktywności na zewnątrz"
+      ],
+      [
+        "NA ŻYWO",
+        "Podgląd dla opiekunów"
+      ],
+      [
+        "NOSEWORK",
+        "Zajęcia węchowe"
+      ],
+      [
+        "SPECJALIŚCI",
+        "Behawiorysta i weterynarz na miejscu"
+      ]
+    ],
+    "en": [
+      [
+        "800 m²",
+        "Outdoor garden space"
+      ],
+      [
+        "LIVE",
+        "Camera access for owners"
+      ],
+      [
+        "NOSEWORK",
+        "Scent-work activities"
+      ],
+      [
+        "SPECIALISTS",
+        "On-site behaviourist and vet"
+      ]
+    ]
+  },
+  "sections": {
+    "pl": [
+      {
+        "heading": "Najpierw odpowiedź na pytanie: czy mój pies będzie tu bezpieczny?",
+        "body": "Strona od razu komunikuje charakter opieki, przestrzeń do aktywności oraz dostęp do podglądu na żywo. To pomaga opiekunowi ocenić miejsce przed pierwszym kontaktem."
+      },
+      {
+        "heading": "Usługa pokazana przez konkretne elementy dnia",
+        "body": "Ogród, nosework, świeża kuchnia oraz wsparcie behawiorysty i weterynarza zamieniają ogólną obietnicę opieki w czytelny obraz tego, czego można oczekiwać."
+      },
+      {
+        "heading": "Lokalna marka z wyraźnym tonem",
+        "body": "Lekki, przyjazny język i charakterystyczne określenie „psiedszkole” nadają stronie własny głos, przy jednoczesnym zachowaniu praktycznych informacji dla właściciela psa."
+      }
+    ],
+    "en": [
+      {
+        "heading": "Answering the first question: will my dog be safe here?",
+        "body": "The page quickly communicates the care model, outdoor space and live camera access, helping owners assess the daycare before getting in touch."
+      },
+      {
+        "heading": "Making the service tangible",
+        "body": "The garden, nosework, fresh kitchen and on-site behaviourist and vet turn a general promise of care into a clearer picture of what a dog’s day can include."
+      },
+      {
+        "heading": "A local brand with a recognisable voice",
+        "body": "The warm tone and distinctive naming give the service its own character while keeping practical information easy for dog owners to find."
+      }
+    ]
+  }
+},
+{
+  "id": "piec",
+  "num": "08",
+  "year": "2026",
+  "categories": [
+    "brand"
+  ],
+  "url": "https://rotating-baguette-637711.framer.app/",
+  "external": true,
+  "shortName": {
+    "pl": "PIEC®",
+    "en": "PIEC®"
+  },
+  "cardTitle": {
+    "pl": "PIEC® — Niegrzeczny chleb",
+    "en": "PIEC® — No-Nonsense Sourdough"
+  },
+  "cardDesc": {
+    "pl": "Marka rzemieślniczej piekarni zakwasowej oparta na długiej fermentacji, prostych składnikach i odważnym tonie.",
+    "en": "A craft sourdough bakery brand built around slow fermentation, simple ingredients and a bold voice."
+  },
+  "liveLabel": {
+    "pl": "Otwórz projekt",
+    "en": "Open live project"
+  },
+  "title": {
+    "pl": "PIEC® — Niegrzeczny chleb",
+    "en": "PIEC® — No-Nonsense Sourdough Bakery"
+  },
+  "subtitle": {
+    "pl": "Marka piekarni rzemieślniczej, która opowiada o zakwasie, czasie i wypiekach z charakterem.",
+    "en": "A craft bakery brand built around sourdough, time and baked goods with character."
+  },
+  "tag": {
+    "pl": "08 · Marka / Żywność",
+    "en": "08 · Brand / Food"
+  },
+  "pageType": {
+    "pl": "Strona marki + katalog wypieków",
+    "en": "Brand website + bakery range"
+  },
+  "keyFeatures": {
+    "pl": "48 godzin fermentacji · 4 linie wypieków · FAQ",
+    "en": "48-hour fermentation · 4 bakery lines · FAQ"
+  },
+  "duration": null,
+  "technology": "Framer · Responsive CMS site",
+  "stats": {
+    "pl": [
+      [
+        "48 GODZIN",
+        "Fermentacja zakwasu"
+      ],
+      [
+        "4 LINIE",
+        "Chleb, croissanty, brioche i bagietki"
+      ],
+      [
+        "4 SKŁADNIKI",
+        "Prosty skład komunikowany na stronie"
+      ],
+      [
+        "1 GŁOS",
+        "Wyrazista, konsekwentna osobowość marki"
+      ]
+    ],
+    "en": [
+      [
+        "48 HOURS",
+        "Sourdough fermentation"
+      ],
+      [
+        "4 LINES",
+        "Bread, croissants, brioche and baguettes"
+      ],
+      [
+        "4 INGREDIENTS",
+        "Simple ingredients highlighted on site"
+      ],
+      [
+        "1 VOICE",
+        "Distinctive, consistent brand personality"
+      ]
+    ]
+  },
+  "sections": {
+    "pl": [
+      {
+        "heading": "Marka zbudowana wokół własnego charakteru",
+        "body": "Hasło „Niegrzeczny chleb” od razu ustawia ton. Mocna typografia, kontrast i krótkie komunikaty sprawiają, że marka jest łatwa do zapamiętania."
+      },
+      {
+        "heading": "Proces rzemieślniczy jako główna opowieść",
+        "body": "Długi czas fermentacji i ręczna praca są pokazane jako konkretne etapy: wyrabianie, fermentacja, pieczenie i przełamanie bochenka. Strona przekłada sposób produkcji na historię marki."
+      },
+      {
+        "heading": "Wypieki mają własne nazwy i role",
+        "body": "Buntownik, Croissant Chaos, Brioche Baby i Bagietki Rebel porządkują ofertę w cztery rozpoznawalne linie. FAQ odpowiada na podstawowe pytania o zakwas, skład i asortyment."
+      }
+    ],
+    "en": [
+      {
+        "heading": "A brand with a clear point of view",
+        "body": "The “Niegrzeczny chleb” (“naughty bread”) line sets the tone immediately. Strong typography, contrast and concise copy make the identity easy to recognise."
+      },
+      {
+        "heading": "The craft process becomes the story",
+        "body": "Long fermentation and hands-on baking are presented as clear stages: kneading, fermentation, baking and breaking the loaf. The site turns the process into the brand narrative."
+      },
+      {
+        "heading": "A bakery range with its own character",
+        "body": "Buntownik, Croissant Chaos, Brioche Baby and Bagietki Rebel organise the offer into four memorable lines. The FAQ answers basic questions about sourdough, ingredients and products."
+      }
+    ]
+  }
+}
   ]
 };

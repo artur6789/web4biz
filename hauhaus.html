@@ -1,0 +1,1786 @@
+<!DOCTYPE html>
+<html lang="pl" :lang="lang" x-data="hauhausApp()" @keydown.escape.window="mobileMenuOpen = false" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title x-text="lang === 'pl' ? 'HAUHAUS — Kameralne Psiedszkole, Ogród & Opieka Weterynaryjna | Warszawa' : 'HAUHAUS — Boutique Dog Daycare, Garden & On-Site Vet Care | Warsaw'">HAUHAUS — Kameralne Psiedszkole, Ogród &amp; Opieka Weterynaryjna | Warszawa</title>
+  <meta name="description" content="Kameralne psiedszkole w Warszawie. Podgląd na żywo, ogród 800 m², zajęcia nosework, świeża Kuchnia HAUHAUS oraz behawiorysta i weterynarz na miejscu."/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://artur6789.github.io/web4biz/hauhaus.html"/>
+
+  <!-- Inline SVG Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%231F1B18'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia,serif' font-size='32' fill='%23F7F4EE'%3EH%3C/text%3E%3C/svg%3E"/>
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://artur6789.github.io/web4biz/hauhaus.html"/>
+  <meta property="og:title" content="HAUHAUS — Spokojna głowa. Szczęśliwy pies."/>
+  <meta property="og:description" content="Kameralne psiedszkole w Warszawie: podgląd na żywo, ogród 800 m², nosework, Kuchnia HAUHAUS, behawiorysta i weterynarz na miejscu."/>
+  <meta property="og:locale" content="pl_PL"/>
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "HAUHAUS — Kameralne Psiedszkole",
+    "description": "Kameralne psiedszkole z ogrodem 800 m², zajęciami nosework, podglądem na żywo, świeżą kuchnią dla psów oraz behawiorystą i lekarzem weterynarii na miejscu.",
+    "areaServed": "Warszawa",
+    "openingHours": "Mo-Fr 07:30-19:00",
+    "priceRange": "$$"
+  }
+  </script>
+
+  <!-- Google Fonts: Instrument Serif (Editorial Display) + Plus Jakarta Sans (Clean Modern UI) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.17.5/dist/cdn.min.js"></script>
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════════════
+       1. WARM EDITORIAL DESIGN TOKENS (KINFOLK / ASTRO / HOSPITALITY)
+       ═══════════════════════════════════════════════════════════════════ */
+    :root {
+      --ivory: #F7F4EE;
+      --linen: #EFEAE0;
+      --paper: #FCFBF8;
+      --espresso: #1F1B18;
+      --espresso-deep: #171412;
+      --espresso-soft: #292420;
+      --stone: #6B645C;
+      --stone-light: #B8B0A6;
+      --line: #E3DDD2;
+      --line-dark: rgba(247, 244, 238, 0.14);
+      --sage: #3B5242;
+      --sage-soft: #E6ECE7;
+      --terracotta: #B65D3A;
+      --terracotta-soft: #F5E7E0;
+      --glass-light: rgba(252, 251, 248, 0.84);
+      --glass-border: rgba(255, 255, 255, 0.72);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-pill: 999px;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --serif: 'Instrument Serif', Georgia, serif;
+      --sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    [x-cloak] { display: none !important; }
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 5.5rem;
+      background: var(--ivory);
+    }
+    body {
+      margin: 0;
+      background: var(--ivory);
+      color: var(--espresso);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea, select { font-family: inherit; color: inherit; }
+    img { display: block; max-width: 100%; }
+    ::selection { background: var(--espresso); color: var(--ivory); }
+    :focus-visible { outline: 2px solid var(--terracotta); outline-offset: 3px; }
+
+    .wrap { width: min(1240px, calc(100% - 56px)); margin-inline: auto; }
+    .section { padding-block: 108px; }
+    .tabular { font-variant-numeric: tabular-nums; }
+
+    /* Subtle tactile press */
+    .press {
+      transition: transform 140ms var(--ease),
+                  background-color 200ms var(--ease),
+                  border-color 200ms var(--ease),
+                  color 200ms var(--ease),
+                  box-shadow 220ms var(--ease);
+    }
+    .press:active { transform: scale(0.97); }
+
+    /* Shared Editorial Typography */
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--stone);
+      margin: 0 0 18px;
+    }
+    .eyebrow-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--terracotta);
+    }
+    .h2-editorial {
+      margin: 0;
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(2.5rem, 5.2vw, 4.4rem);
+      line-height: 0.98;
+      letter-spacing: -0.02em;
+    }
+    .h2-editorial em {
+      font-style: italic;
+      color: var(--terracotta);
+    }
+
+    /* Pill Buttons */
+    .btn-dark {
+      min-height: 48px;
+      padding: 0 24px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--espresso);
+      background: var(--espresso);
+      color: var(--ivory);
+      font-size: 13.5px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+    .btn-dark:hover { background: #332D28; border-color: #332D28; }
+
+    .btn-light {
+      min-height: 48px;
+      padding: 0 24px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--ivory);
+      background: var(--ivory);
+      color: var(--espresso);
+      font-size: 13.5px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+    .btn-light:hover { background: #EAE4D9; border-color: #EAE4D9; }
+
+    .btn-ghost {
+      min-height: 48px;
+      padding: 0 22px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--espresso);
+      font-size: 13.5px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .btn-ghost:hover { border-color: var(--espresso); background: rgba(31, 27, 24, 0.04); }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       2. NAVIGATION + MOBILE DRAWER
+       ═══════════════════════════════════════════════════════════════════ */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(247, 244, 238, 0.86);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(227, 221, 210, 0.75);
+    }
+    .nav-inner {
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+    .brand-wordmark {
+      font-family: var(--serif);
+      font-size: 28px;
+      line-height: 1;
+      letter-spacing: 0.04em;
+      color: var(--espresso);
+    }
+    .brand-loc {
+      font-size: 11.5px;
+      font-weight: 500;
+      color: var(--stone);
+      letter-spacing: 0.04em;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--stone);
+    }
+    .nav-links a {
+      transition: color 180ms ease;
+    }
+    .nav-links a:hover { color: var(--espresso); }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .lang-pill {
+      height: 40px;
+      padding: 0 14px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--line);
+      background: transparent;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--stone);
+      cursor: pointer;
+    }
+    .lang-pill:hover { border-color: var(--espresso); color: var(--espresso); }
+
+    .nav-cta {
+      height: 42px;
+      padding: 0 20px;
+      border-radius: var(--radius-pill);
+      background: var(--espresso);
+      color: var(--ivory);
+      font-size: 13px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-cta:hover { background: #332D28; }
+
+    .burger-btn {
+      display: none;
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--line);
+      background: transparent;
+      place-items: center;
+      cursor: pointer;
+      padding: 0;
+    }
+    .mobile-drawer {
+      border-top: 1px solid var(--line);
+      background: var(--paper);
+      padding: 16px 20px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .mobile-drawer a {
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      font-size: 15px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .mobile-drawer a:hover { background: var(--linen); }
+    .mobile-drawer .drawer-cta {
+      margin-top: 8px;
+      background: var(--espresso);
+      color: var(--ivory);
+      justify-content: center;
+      border-radius: var(--radius-pill);
+      font-weight: 600;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       3. HERO — DIRECTION 2 (CENTERED EDITORIAL SERIF + FULL-WIDTH PHOTO)
+       ═══════════════════════════════════════════════════════════════════ */
+    .hero {
+      padding: 64px 0 88px;
+    }
+    .hero-head {
+      text-align: center;
+      max-width: 880px;
+      margin: 0 auto 44px;
+    }
+    .hero-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--line);
+      background: var(--paper);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--stone);
+      margin-bottom: 24px;
+    }
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--sage);
+      box-shadow: 0 0 0 4px rgba(59, 82, 66, 0.16);
+      display: inline-block;
+    }
+    .hero-title {
+      margin: 0 0 20px;
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(3.3rem, 7.6vw, 6.6rem);
+      line-height: 0.94;
+      letter-spacing: -0.025em;
+      color: var(--espresso);
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--terracotta);
+    }
+    .hero-sub {
+      max-width: 580px;
+      margin: 0 auto 30px;
+      font-size: 16.5px;
+      line-height: 1.68;
+      color: var(--stone);
+    }
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    /* Wide Rounded Architectural Photo Frame */
+    .hero-media {
+      position: relative;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      max-height: 620px;
+      width: 100%;
+      background:
+        radial-gradient(ellipse at 30% 25%, #DED4C3 0%, #C7B9A5 55%, #A99882 100%);
+      box-shadow: 0 28px 64px rgba(31, 27, 24, 0.11);
+      border: 1px solid rgba(31, 27, 24, 0.06);
+    }
+    .hero-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 52%;
+    }
+    .hero-media::after {
+      content: '';
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 36%;
+      background: linear-gradient(to top, rgba(23, 20, 18, 0.34), transparent);
+      pointer-events: none;
+    }
+
+    /* Floating Frosted-Glass Badges over Hero Photo */
+    .hero-float-bar {
+      position: absolute;
+      left: 22px;
+      right: 22px;
+      bottom: 22px;
+      z-index: 2;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .hero-float-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .glass-pill {
+      padding: 10px 16px;
+      border-radius: var(--radius-pill);
+      background: var(--glass-light);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      color: var(--espresso);
+      font-size: 13px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 10px 26px rgba(23, 20, 18, 0.12);
+    }
+    .glass-pill:hover {
+      background: #FFFFFF;
+      transform: translateY(-1px);
+    }
+    .glass-pill svg { width: 15px; height: 15px; color: var(--terracotta); }
+
+    /* Subtle Metrics Strip under Hero */
+    .trust-strip {
+      margin-top: 34px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 20px;
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
+    }
+    .trust-item strong {
+      display: block;
+      font-family: var(--serif);
+      font-size: 32px;
+      font-weight: 400;
+      line-height: 1.05;
+      color: var(--espresso);
+    }
+    .trust-item span {
+      display: block;
+      margin-top: 4px;
+      font-size: 13px;
+      color: var(--stone);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       4. LIVE VIEW & SPACES (PHOTO-DRIVEN CAMERA SWITCHER + DAY LOG)
+       ═══════════════════════════════════════════════════════════════════ */
+    .section-linen {
+      background: var(--linen);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .split-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 42px;
+    }
+    .split-lead {
+      max-width: 420px;
+      margin: 0;
+      font-size: 15px;
+      color: var(--stone);
+      line-height: 1.7;
+    }
+
+    .cam-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.85fr);
+      gap: 28px;
+      align-items: stretch;
+    }
+    .cam-stage-card {
+      position: relative;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      background: #D8CFC0;
+      min-height: 460px;
+      border: 1px solid rgba(31, 27, 24, 0.08);
+      box-shadow: 0 20px 50px rgba(31, 27, 24, 0.08);
+    }
+    .cam-stage-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 500ms var(--ease);
+    }
+    .cam-overlay-top {
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      right: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 8px;
+      z-index: 2;
+    }
+    .cam-badge-dark {
+      padding: 7px 14px;
+      border-radius: var(--radius-pill);
+      background: rgba(23, 20, 18, 0.72);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--ivory);
+      font-size: 12px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cam-pulse {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #4ADE80;
+      animation: pulseLive 1.8s ease-in-out infinite;
+    }
+    @keyframes pulseLive {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(0.85); }
+    }
+    .cam-overlay-bottom {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 18px;
+      padding: 18px 20px;
+      border-radius: var(--radius-lg);
+      background: var(--glass-light);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .cam-sidebar {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .cam-tabs {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .cam-tab-btn {
+      width: 100%;
+      text-align: left;
+      padding: 15px 18px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .cam-tab-btn:hover { border-color: var(--espresso); }
+    .cam-tab-btn.is-active {
+      background: var(--espresso);
+      border-color: var(--espresso);
+      color: var(--ivory);
+    }
+    .cam-tab-btn small {
+      display: block;
+      margin-top: 2px;
+      font-size: 12px;
+      opacity: 0.72;
+      font-weight: 400;
+    }
+
+    .day-log {
+      border-top: 1px solid var(--line);
+      padding-top: 20px;
+      display: grid;
+      gap: 12px;
+    }
+    .day-log-row {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 12px;
+      font-size: 13px;
+      align-items: baseline;
+    }
+    .day-log-time {
+      font-weight: 600;
+      color: var(--terracotta);
+      font-size: 12px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       5. DARK EDITORIAL BAND — WETERYNARZ, BEHAWIORYSTA & RYTM DNIA
+       ═══════════════════════════════════════════════════════════════════ */
+    .section-dark {
+      background: var(--espresso-deep);
+      color: var(--ivory);
+    }
+    .section-dark .eyebrow { color: var(--stone-light); }
+    .section-dark .split-lead { color: var(--stone-light); }
+
+    .care-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      gap: 56px;
+      align-items: center;
+    }
+    .care-photo-wrap {
+      position: relative;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      background: #2C2621;
+      border: 1px solid var(--line-dark);
+    }
+    .care-photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .care-caption-pill {
+      position: absolute;
+      left: 18px;
+      bottom: 18px;
+      padding: 10px 16px;
+      border-radius: var(--radius-pill);
+      background: rgba(23, 20, 18, 0.78);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(247, 244, 238, 0.16);
+      color: var(--ivory);
+      font-size: 12.5px;
+      font-weight: 500;
+    }
+
+    .care-pillars {
+      display: grid;
+      gap: 18px;
+      margin-top: 28px;
+    }
+    .care-card {
+      padding: 22px 24px;
+      border-radius: var(--radius-lg);
+      background: var(--espresso-soft);
+      border: 1px solid var(--line-dark);
+    }
+    .care-card h3 {
+      margin: 0 0 8px;
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 27px;
+      line-height: 1.05;
+      color: var(--ivory);
+    }
+    .care-card p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--stone-light);
+      line-height: 1.65;
+    }
+
+    .rhythm-strip {
+      margin-top: 64px;
+      padding-top: 44px;
+      border-top: 1px solid var(--line-dark);
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 20px;
+    }
+    .rhythm-step {
+      padding: 20px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line-dark);
+      background: rgba(255, 255, 255, 0.025);
+    }
+    .rhythm-time {
+      font-size: 12px;
+      font-weight: 600;
+      color: #E29B7B;
+      letter-spacing: 0.04em;
+    }
+    .rhythm-step h4 {
+      margin: 8px 0 6px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--ivory);
+    }
+    .rhythm-step p {
+      margin: 0;
+      font-size: 13px;
+      color: var(--stone-light);
+      line-height: 1.55;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       6. KUCHNIA HAUHAUS (KONFIGURATOR POSIŁKU & ALERGENÓW)
+       ═══════════════════════════════════════════════════════════════════ */
+    .kitchen-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      gap: 44px;
+      align-items: start;
+    }
+    .kitchen-photo-card {
+      position: sticky;
+      top: 100px;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      background: #DDD4C5;
+      border: 1px solid var(--line);
+      box-shadow: 0 20px 50px rgba(31, 27, 24, 0.07);
+    }
+    .kitchen-photo-box {
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+    }
+    .kitchen-photo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .kitchen-summary-foot {
+      padding: 24px 26px;
+      background: var(--paper);
+      border-top: 1px solid var(--line);
+    }
+
+    .config-panel {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      padding: 32px;
+      display: grid;
+      gap: 26px;
+    }
+    .config-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--stone);
+      margin-bottom: 10px;
+    }
+    .pill-select-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .choice-pill {
+      min-height: 40px;
+      padding: 0 16px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--line);
+      background: var(--ivory);
+      color: var(--espresso);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .choice-pill:hover { border-color: var(--espresso); }
+    .choice-pill.is-active {
+      background: var(--espresso);
+      border-color: var(--espresso);
+      color: var(--ivory);
+      font-weight: 600;
+    }
+    .choice-pill.is-sage.is-active {
+      background: var(--sage);
+      border-color: var(--sage);
+      color: #FFFFFF;
+    }
+
+    /* Clean editorial range slider */
+    .weight-slider {
+      width: 100%;
+      accent-color: var(--terracotta);
+      cursor: pointer;
+      height: 6px;
+    }
+
+    .menu-preview-box {
+      padding: 22px;
+      border-radius: var(--radius-lg);
+      background: var(--ivory);
+      border: 1px solid var(--line);
+      display: grid;
+      gap: 14px;
+    }
+    .menu-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+      font-size: 13.5px;
+    }
+    .menu-line:last-child { border-bottom: 0; padding-bottom: 0; }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       7. DOBIERACZ GRUPY, KALKULATOR KARNETU & RAPORT O 17:00
+       ═══════════════════════════════════════════════════════════════════ */
+    .planner-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: 32px;
+      align-items: stretch;
+    }
+    .planner-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      padding: 34px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 26px;
+    }
+    .report-card {
+      background: var(--espresso);
+      color: var(--ivory);
+      border-radius: var(--radius-xl);
+      padding: 34px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .report-meter {
+      display: grid;
+      gap: 12px;
+    }
+    .meter-track {
+      height: 7px;
+      border-radius: var(--radius-pill);
+      background: rgba(247, 244, 238, 0.14);
+      overflow: hidden;
+    }
+    .meter-fill {
+      height: 100%;
+      border-radius: var(--radius-pill);
+      transition: width 260ms var(--ease);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       8. FORMULARZ REZERWACJI DNIA ADAPTACYJNEGO
+       ═══════════════════════════════════════════════════════════════════ */
+    .booking-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 56px;
+      align-items: start;
+    }
+    .booking-form-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      padding: 36px;
+      display: grid;
+      gap: 18px;
+    }
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .ed-input {
+      width: 100%;
+      padding: 13px 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      background: var(--ivory);
+      color: var(--espresso);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 160ms ease, background-color 160ms ease;
+    }
+    .ed-input:focus {
+      border-color: var(--espresso);
+      background: #FFFFFF;
+    }
+
+    /* Footer */
+    .site-footer {
+      border-top: 1px solid var(--line);
+      background: var(--linen);
+      padding: 36px 0;
+      font-size: 13px;
+      color: var(--stone);
+    }
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       9. RESPONSIVE (TABLET & MOBILE)
+       ═══════════════════════════════════════════════════════════════════ */
+    @media (max-width: 980px) {
+      .cam-layout, .care-grid, .kitchen-grid, .planner-grid, .booking-grid {
+        grid-template-columns: 1fr;
+      }
+      .kitchen-photo-card { position: static; }
+      .trust-strip, .rhythm-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .cam-stage-card { min-height: 360px; }
+    }
+    @media (max-width: 720px) {
+      .wrap { width: calc(100% - 32px); }
+      .section { padding-block: 72px; }
+      .nav-links, .brand-loc, .nav-cta { display: none; }
+      .burger-btn { display: grid; }
+      .hero { padding: 36px 0 56px; }
+      .hero-media { aspect-ratio: 4 / 3; border-radius: var(--radius-lg); }
+      .hero-float-bar { left: 12px; right: 12px; bottom: 12px; }
+      .glass-pill { padding: 8px 12px; font-size: 11.5px; }
+      .trust-strip, .rhythm-strip, .field-row { grid-template-columns: 1fr; }
+      .config-panel, .planner-card, .report-card, .booking-form-card { padding: 24px 20px; }
+      .hero-cta-row { flex-direction: column; align-items: stretch; }
+      .btn-dark, .btn-light, .btn-ghost { width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══ HEADER & MOBILE DRAWER ═══ -->
+  <header class="site-header" id="top">
+    <div class="wrap nav-inner">
+      <a href="#top" class="brand">
+        <span class="brand-wordmark">HAUHAUS</span>
+        <span class="brand-loc" x-text="lang === 'pl' ? 'Warszawa · Wilanów' : 'Warsaw · Wilanów'">Warszawa · Wilanów</span>
+      </a>
+
+      <nav class="nav-links" :aria-label="lang === 'pl' ? 'Nawigacja główna' : 'Main navigation'">
+        <a href="#live" x-text="lang === 'pl' ? 'Podgląd i Ogród' : 'Live & Garden'">Podgląd i Ogród</a>
+        <a href="#care" x-text="lang === 'pl' ? 'Weterynarz i Behawiorysta' : 'Vet & Behaviorist'">Weterynarz i Behawiorysta</a>
+        <a href="#kitchen" x-text="lang === 'pl' ? 'Kuchnia' : 'Kitchen'">Kuchnia</a>
+        <a href="#planner" x-text="lang === 'pl' ? 'Pakiety' : 'Plans'">Pakiety</a>
+      </nav>
+
+      <div class="nav-right">
+        <button type="button" class="lang-pill press" @click="toggleLang()" x-text="lang === 'pl' ? 'EN' : 'PL'">EN</button>
+        <a href="#booking" class="nav-cta press">
+          <span x-text="lang === 'pl' ? 'Zapisz psa' : 'Book trial day'">Zapisz psa</span>
+        </a>
+        <button type="button" class="burger-btn press" @click="mobileMenuOpen = !mobileMenuOpen"
+          :aria-expanded="mobileMenuOpen" :aria-label="lang === 'pl' ? 'Menu' : 'Menu'">
+          <svg x-show="!mobileMenuOpen" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+            <path d="M3.5 6h13M3.5 10h13M3.5 14h13"/>
+          </svg>
+          <svg x-show="mobileMenuOpen" x-cloak width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+            <path d="M5 5l10 10M15 5L5 15"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <nav class="mobile-drawer" x-show="mobileMenuOpen" x-cloak>
+      <a href="#live" @click="mobileMenuOpen = false" x-text="lang === 'pl' ? 'Podgląd Live i Ogród' : 'Live View & Garden'">Podgląd Live i Ogród</a>
+      <a href="#care" @click="mobileMenuOpen = false" x-text="lang === 'pl' ? 'Weterynarz i Behawiorysta' : 'Vet & Behaviorist'">Weterynarz i Behawiorysta</a>
+      <a href="#kitchen" @click="mobileMenuOpen = false" x-text="lang === 'pl' ? 'Kuchnia HAUHAUS' : 'HAUHAUS Kitchen'">Kuchnia HAUHAUS</a>
+      <a href="#planner" @click="mobileMenuOpen = false" x-text="lang === 'pl' ? 'Dobierz grupę i karnet' : 'Group & Pricing'">Dobierz grupę i karnet</a>
+      <a href="#booking" class="drawer-cta press" @click="mobileMenuOpen = false" x-text="lang === 'pl' ? 'Umów dzień adaptacyjny' : 'Book adaptation day'">Umów dzień adaptacyjny</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ═══ HERO — WARM EDITORIAL (KIERUNEK 2) ═══ -->
+    <section class="hero">
+      <div class="wrap">
+        <div class="hero-head">
+          <div class="hero-status">
+            <span class="live-dot" aria-hidden="true"></span>
+            <span x-text="lang === 'pl' ? 'Kameralne psiedszkole · Wolne 2 miejsca adaptacyjne w tym tygodniu' : 'Boutique dog daycare · 2 adaptation spots open this week'">Kameralne psiedszkole · Wolne 2 miejsca adaptacyjne w tym tygodniu</span>
+          </div>
+
+          <h1 class="hero-title">
+            <span x-text="lang === 'pl' ? 'Spokojna głowa.' : 'Peace of mind.'">Spokojna głowa.</span><br/>
+            <em x-text="lang === 'pl' ? 'Szczęśliwy pies.' : 'A happier dog.'">Szczęśliwy pies.</em>
+          </h1>
+
+          <p class="hero-sub" x-text="lang === 'pl'
+            ? 'Zaprojektowana ze spokojem dzienna opieka dla psów w Warszawie. Prywatny ogród 800 m², zajęcia nosework, świeżo gotowane posiłki z Kuchni HAUHAUS oraz stała obecność behawiorysty i lekarza weterynarii.'
+            : 'Thoughtfully designed daytime care for dogs in Warsaw. An 800 m² private garden, guided nosework, freshly prepared meals from the HAUHAUS Kitchen, and an on-site behaviorist and veterinarian.'">Zaprojektowana ze spokojem dzienna opieka dla psów w Warszawie. Prywatny ogród 800 m², zajęcia nosework, świeżo gotowane posiłki z Kuchni HAUHAUS oraz stała obecność behawiorysty i lekarza weterynarii.</p>
+
+          <div class="hero-cta-row">
+            <a href="#booking" class="btn-dark press">
+              <span x-text="lang === 'pl' ? 'Umów dzień adaptacyjny' : 'Book an adaptation day'">Umów dzień adaptacyjny</span>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 7h9M7.5 3l4 4-4 4"/></svg>
+            </a>
+            <a href="#live" class="btn-ghost press" x-text="lang === 'pl' ? 'Podejrzyj ogród i strefy' : 'Explore garden & live view'">Podejrzyj ogród i strefy</a>
+          </div>
+        </div>
+
+        <!-- Wide Rounded Editorial Hero Photograph + Subtle Floating Glass Pills -->
+        <div class="hero-media">
+          <img src="assets/hauhaus-hero.jpg" alt="Minimalistyczna, słoneczna sala dzienna psiedszkola HAUHAUS z dwoma spokojnymi psami na lnianych poduszkach"/>
+
+          <div class="hero-float-bar">
+            <div class="hero-float-group">
+              <a href="#care" class="glass-pill press">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg>
+                <span x-text="lang === 'pl' ? 'Weterynarz na miejscu' : 'On-site veterinarian'">Weterynarz na miejscu</span>
+              </a>
+              <a href="#kitchen" class="glass-pill press">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10h14a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5Z"/><path d="M7 6.5c0-1 .8-1.8 1.5-2.5M12.5 6.5c0-1 .8-1.8 1.5-2.5"/></svg>
+                <span x-text="lang === 'pl' ? 'Kuchnia HAUHAUS' : 'HAUHAUS Kitchen'">Kuchnia HAUHAUS</span>
+              </a>
+            </div>
+
+            <div class="hero-float-group">
+              <a href="#live" class="glass-pill press">
+                <span class="live-dot" aria-hidden="true"></span>
+                <span x-text="lang === 'pl' ? 'Podgląd Live · Nosework & Ogród' : 'Live View · Nosework & Garden'">Podgląd Live · Nosework &amp; Ogród</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Editorial Numbers Strip -->
+        <div class="trust-strip tabular">
+          <div class="trust-item">
+            <strong>1 : 4</strong>
+            <span x-text="lang === 'pl' ? 'Maksymalnie cztery psy pod opieką jednego behawiorysty' : 'Maximum four dogs per certified behaviorist'">Maksymalnie cztery psy pod opieką jednego behawiorysty</span>
+          </div>
+          <div class="trust-item">
+            <strong>800 m²</strong>
+            <span x-text="lang === 'pl' ? 'Prywatny ogród ze śluzą bezpieczeństwa i torem sensorycznym' : 'Private garden with double-gate airlock & sensory path'">Prywatny ogród ze śluzą bezpieczeństwa i torem sensorycznym</span>
+          </div>
+          <div class="trust-item">
+            <strong>08:00–18:00</strong>
+            <span x-text="lang === 'pl' ? 'Dyżur lekarza weterynarii i podawanie leków na miejscu' : 'On-site veterinarian hours & medication administration'">Dyżur lekarza weterynarii i podawanie leków na miejscu</span>
+          </div>
+          <div class="trust-item">
+            <strong>17:00</strong>
+            <span x-text="lang === 'pl' ? 'Codzienny raport opiekuna: nosework, posiłki i sen' : 'Daily owner report: nosework, meals, and rest balance'">Codzienny raport opiekuna: nosework, posiłki i sen</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 01: PODGLĄD NA ŻYWO, OGRÓD I NOSEWORK ═══ -->
+    <section class="section section-linen" id="live">
+      <div class="wrap">
+        <div class="split-head">
+          <div>
+            <p class="eyebrow"><span class="eyebrow-dot"></span><span x-text="lang === 'pl' ? '01 · Przestrzeń i Podgląd Live' : '01 · Spaces & Live View'">01 · Przestrzeń i Podgląd Live</span></p>
+            <h2 class="h2-editorial">
+              <span x-text="lang === 'pl' ? 'Zawsze widzisz, jak ' : 'Always see how '">Zawsze widzisz, jak </span>
+              <em x-text="lang === 'pl' ? 'mija jego dzień.' : 'their day unfolds.'">mija jego dzień.</em>
+            </h2>
+          </div>
+          <p class="split-lead" x-text="lang === 'pl'
+            ? 'Każdy opiekun otrzymuje szyfrowany dostęp do podglądu trzech głównych stref. Zamiast chaotycznego biegania w tłumie stawiamy na pracę węchową, kontakt z naturą i spokojną regenerację.'
+            : 'Every parent receives private access to three quiet camera zones. Instead of chaotic pack play, we balance scent work, garden exploration, and calm rest.'">Każdy opiekun otrzymuje szyfrowany dostęp do podglądu trzech głównych stref. Zamiast chaotycznego biegania w tłumie stawiamy na pracę węchową, kontakt z naturą i spokojną regenerację.</p>
+        </div>
+
+        <div class="cam-layout">
+          <!-- Photo Live Feed Stage -->
+          <div class="cam-stage-card">
+            <img :src="activeCam.img" :alt="activeCam.title[lang]"/>
+
+            <div class="cam-overlay-top tabular">
+              <span class="cam-badge-dark">
+                <span class="cam-pulse" aria-hidden="true"></span>
+                <span x-text="'LIVE · ' + activeCam.code">LIVE · OGRÓD 01</span>
+              </span>
+              <span class="cam-badge-dark" x-text="activeCam.meta[lang]">5 psów · 2 opiekunów · 18°C</span>
+            </div>
+
+            <div class="cam-overlay-bottom">
+              <div>
+                <strong style="display:block; font-size:15px;" x-text="activeCam.title[lang]">Prywatny Ogród i Ścieżka Sensoryczna</strong>
+                <span style="font-size:13px; color:var(--stone);" x-text="activeCam.desc[lang]">Trawnik, zacieniona weranda dębowa i podwójna śluza wejściowa.</span>
+              </div>
+              <span style="padding:6px 12px; border-radius:999px; background:var(--sage-soft); color:var(--sage); font-size:12px; font-weight:600;"
+                    x-text="activeCam.status[lang]">Aktywna eksploracja</span>
+            </div>
+          </div>
+
+          <!-- Camera Switcher + Calm Live Log -->
+          <div class="cam-sidebar">
+            <div>
+              <span class="config-label" x-text="lang === 'pl' ? 'Przełącz kamerę strefy' : 'Switch live zone'">Przełącz kamerę strefy</span>
+              <div class="cam-tabs" role="tablist">
+                <template x-for="(cam, idx) in cameras" :key="cam.id">
+                  <button type="button" class="cam-tab-btn press"
+                    role="tab"
+                    :aria-selected="activeCamIdx === idx"
+                    :class="activeCamIdx === idx ? 'is-active' : ''"
+                    @click="activeCamIdx = idx">
+                    <div>
+                      <strong style="font-size:14.5px; font-weight:600;" x-text="cam.tab[lang]"></strong>
+                      <small x-text="cam.sub[lang]"></small>
+                    </div>
+                    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8h9M8.5 4l4 4-4 4"/></svg>
+                  </button>
+                </template>
+              </div>
+            </div>
+
+            <div class="day-log tabular">
+              <span class="config-label" style="margin-bottom:2px;" x-text="lang === 'pl' ? 'Dzisiejszy dziennik grupy' : 'Today’s group journal'">Dzisiejszy dziennik grupy</span>
+              <template x-for="entry in dayLog" :key="entry.time">
+                <div class="day-log-row">
+                  <span class="day-log-time" x-text="entry.time"></span>
+                  <span style="color:var(--espresso);" x-text="entry.text[lang]"></span>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 02 (DARK BAND): WETERYNARZ, BEHAWIORYSTA & RYTM DNIA ═══ -->
+    <section class="section section-dark" id="care">
+      <div class="wrap">
+        <div class="care-grid">
+          <div class="care-photo-wrap">
+            <img src="assets/hauhaus-vet.jpg" alt="Lekarz weterynarii HAUHAUS podczas spokojnego badania psa w słonecznym gabinecie"/>
+            <span class="care-caption-pill" x-text="lang === 'pl' ? 'lek. wet. Zofia Kowalczyk · Gabinet na miejscu 08:00–18:00' : 'Dr. Zofia Kowalczyk, DVM · On-site clinic 08:00–18:00'">lek. wet. Zofia Kowalczyk · Gabinet na miejscu 08:00–18:00</span>
+          </div>
+
+          <div>
+            <p class="eyebrow"><span class="eyebrow-dot"></span><span x-text="lang === 'pl' ? '02 · Opieka kliniczna i behawioralna' : '02 · Clinical & Behavioral Care'">02 · Opieka kliniczna i behawioralna</span></p>
+            <h2 class="h2-editorial" style="color:var(--ivory);">
+              <span x-text="lang === 'pl' ? 'Bezpieczeństwo bez ' : 'Safety without '">Bezpieczeństwo bez </span>
+              <em style="color:#E29B7B;" x-text="lang === 'pl' ? 'szpitalnego stresu.' : 'clinical stress.'">szpitalnego stresu.</em>
+            </h2>
+
+            <div class="care-pillars">
+              <div class="care-card">
+                <h3 x-text="lang === 'pl' ? 'Weterynarz na miejscu i opieka kooperacyjna' : 'On-site veterinarian & cooperative care'">Weterynarz na miejscu i opieka kooperacyjna</h3>
+                <p x-text="lang === 'pl'
+                  ? 'Nasz lekarz weterynarii weryfikuje książeczki zdrowia, podaje leki o stałych porach, sprawdza opuszki łap i uszy po ogrodzie oraz oswaja psa z wagą i dotykiem w ramach treningu cooperative care — bez pośpiechu i zimnych stołów.'
+                  : 'Our resident vet verifies vaccination records, administers scheduled medication, checks paws and ears after garden play, and practices low-stress cooperative care handling.'">Nasz lekarz weterynarii weryfikuje książeczki zdrowia, podaje leki o stałych porach, sprawdza opuszki łap i uszy po ogrodzie oraz oswaja psa z wagą i dotykiem w ramach treningu cooperative care — bez pośpiechu i zimnych stołów.</p>
+              </div>
+
+              <div class="care-card">
+                <h3 x-text="lang === 'pl' ? 'Behawiorysta w każdej grupie i mądry nosework' : 'Behaviorist-led groups & calm nosework'">Behawiorysta w każdej grupie i mądry nosework</h3>
+                <p x-text="lang === 'pl'
+                  ? 'Grupy układamy według temperamentu, a nie wyłącznie wagi. 20 minut zorganizowanego noseworku na drewnianych skrzynkach i matach lnianych męczy psią głowę zdrowiej niż dwie godziny gonitwy — pies wraca do domu wyciszony, nie przebodźcowany.'
+                  : 'Groups are matched by temperament rather than size alone. Twenty minutes of structured nosework satisfies canine curiosity far better than frantic chasing—so dogs return calm, never overstimulated.'">Grupy układamy według temperamentu, a nie wyłącznie wagi. 20 minut zorganizowanego noseworku na drewnianych skrzynkach i matach lnianych męczy psią głowę zdrowiej niż dwie godziny gonitwy — pies wraca do domu wyciszony, nie przebodźcowany.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Harmonogram dnia 07:30 - 19:00 -->
+        <div class="rhythm-strip tabular">
+          <div class="rhythm-step">
+            <span class="rhythm-time">07:30 – 09:30</span>
+            <h4 x-text="lang === 'pl' ? 'Spokojne powitanie' : 'Unhurried arrival'">Spokojne powitanie</h4>
+            <p x-text="lang === 'pl' ? 'Wejście przez podwójną śluzę, poranna kontrola samopoczucia i wyjście na świeżą trawę w kameralnym składzie.' : 'Double-gate check-in, quick wellness greeting, and relaxed morning garden exploration.'">Wejście przez podwójną śluzę, poranna kontrola samopoczucia i wyjście na świeżą trawę w kameralnym składzie.</p>
+          </div>
+          <div class="rhythm-step">
+            <span class="rhythm-time">09:30 – 12:00</span>
+            <h4 x-text="lang === 'pl' ? 'Nosework i ogród' : 'Nosework & garden'">Nosework i ogród</h4>
+            <p x-text="lang === 'pl' ? 'Indywidualne rundy węchowe z behawiorystą, maty z naturalnego lnu i spokojna praca na ścieżce sensorycznej.' : 'Individual scent rounds with our behaviorist, linen snuffle mats, and sensory path work.'">Indywidualne rundy węchowe z behawiorystą, maty z naturalnego lnu i spokojna praca na ścieżce sensorycznej.</p>
+          </div>
+          <div class="rhythm-step">
+            <span class="rhythm-time">12:00 – 15:00</span>
+            <h4 x-text="lang === 'pl' ? 'Kuchnia i Strefa Ciszy' : 'Kitchen & Quiet Rest'">Kuchnia i Strefa Ciszy</h4>
+            <p x-text="lang === 'pl' ? 'Posiłek w osobnych boksach karmienia bez rywalizacji, a po nim 2 godziny obowiązkowej drzemki regeneracyjnej.' : 'Individual no-competition feeding stations followed by a two-hour restorative nap.'">Posiłek w osobnych boksach karmienia bez rywalizacji, a po nim 2 godziny obowiązkowej drzemki regeneracyjnej.</p>
+          </div>
+          <div class="rhythm-step">
+            <span class="rhythm-time">15:00 – 19:00</span>
+            <h4 x-text="lang === 'pl' ? 'Wyciszenie i Raport' : 'Wind-down & Report'">Wyciszenie i Raport</h4>
+            <p x-text="lang === 'pl' ? 'Popołudniowy spacer po ogrodzie, oczyszczenie łap i wysłanie codziennego raportu o 17:00 przed odbiorem.' : 'Afternoon garden stroll, paw care, and your daily 17:00 summary before pickup.'">Popołudniowy spacer po ogrodzie, oczyszczenie łap i wysłanie codziennego raportu o 17:00 przed odbiorem.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 03: KUCHNIA HAUHAUS (KONFIGURATOR POSIŁKÓW & ALERGENÓW) ═══ -->
+    <section class="section" id="kitchen">
+      <div class="wrap">
+        <div class="split-head">
+          <div>
+            <p class="eyebrow"><span class="eyebrow-dot"></span><span x-text="lang === 'pl' ? '03 · Kuchnia HAUHAUS' : '03 · HAUHAUS Kitchen'">03 · Kuchnia HAUHAUS</span></p>
+            <h2 class="h2-editorial">
+              <span x-text="lang === 'pl' ? 'Świeża miska dopasowana ' : 'Fresh bowls tailored '">Świeża miska dopasowana </span>
+              <em x-text="lang === 'pl' ? 'do jego brzucha.' : 'to their needs.'">do jego brzucha.</em>
+            </h2>
+          </div>
+          <p class="split-lead" x-text="lang === 'pl'
+            ? 'Gotujemy na miejscu z mięsa jakości human-grade i warzyw sezonowych, serwujemy zbilansowany BARF albo podajemy dokładnie odmierzoną karmę własną z domu — zawsze w spokojnych stanowiskach bez stresu.'
+            : 'We gently cook human-grade meals on-site, serve balanced BARF, or store and serve your own food from home—always in calm, separate feeding spaces.'">Gotujemy na miejscu z mięsa jakości human-grade i warzyw sezonowych, serwujemy zbilansowany BARF albo podajemy dokładnie odmierzoną karmę własną z domu — zawsze w spokojnych stanowiskach bez stresu.</p>
+        </div>
+
+        <div class="kitchen-grid">
+          <!-- Editorial Bowl Photograph -->
+          <div class="kitchen-photo-card">
+            <div class="kitchen-photo-box">
+              <img src="assets/hauhaus-kitchen.jpg" alt="Ceramiczna miska z ciepłym posiłkiem z indyka, dyni i cukinii z Kuchni HAUHAUS"/>
+            </div>
+            <div class="kitchen-summary-foot tabular">
+              <div style="display:flex; justify-content:space-between; align-items:baseline; gap:12px;">
+                <div>
+                  <span style="font-size:11.5px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--stone);"
+                        x-text="lang === 'pl' ? 'Dzienna porcja pobytowa' : 'Daily daycare portion'">Dzienna porcja pobytowa</span>
+                  <strong style="display:block; font-family:var(--serif); font-size:32px; font-weight:400; line-height:1.1; margin-top:2px;"
+                          x-text="kitchenPortionGrams + ' g / ' + (lang === 'pl' ? 'dzień' : 'day')">360 g / dzień</strong>
+                </div>
+                <div style="text-align:right;">
+                  <span style="font-size:11.5px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--stone);"
+                        x-text="lang === 'pl' ? 'Koszt żywienia' : 'Meal fee'">Koszt żywienia</span>
+                  <strong style="display:block; font-size:17px; color:var(--terracotta); margin-top:4px;"
+                          x-text="kitchenDailyFee === 0 ? (lang === 'pl' ? 'W cenie pobytu' : 'Included') : '+' + kitchenDailyFee + ' PLN'">+24 PLN</strong>
+                </div>
+              </div>
+              <p style="margin:12px 0 0; font-size:12.5px; color:var(--stone);" x-text="kitchenAllergyNote"></p>
+            </div>
+          </div>
+
+          <!-- Interactive Meal Configurator -->
+          <div class="config-panel">
+            <div>
+              <span class="config-label" x-text="lang === 'pl' ? '1. Wybierz sposób żywienia w psiedszkolu' : '1. Choose feeding style'">1. Wybierz sposób żywienia w psiedszkolu</span>
+              <div class="pill-select-group">
+                <template x-for="d in dietTypes" :key="d.id">
+                  <button type="button" class="choice-pill press"
+                    :class="kitchen.diet === d.id ? 'is-active' : ''"
+                    @click="kitchen.diet = d.id"
+                    x-text="d.label[lang]"></button>
+                </template>
+              </div>
+            </div>
+
+            <div>
+              <span class="config-label" x-text="lang === 'pl' ? '2. Wykluczenia i potrzeby (możesz zaznaczyć kilka)' : '2. Exclusions & dietary needs'">2. Wykluczenia i potrzeby (możesz zaznaczyć kilka)</span>
+              <div class="pill-select-group">
+                <template x-for="ex in exclusions" :key="ex.id">
+                  <button type="button" class="choice-pill is-sage press"
+                    :class="kitchen.exclusions.includes(ex.id) ? 'is-active' : ''"
+                    @click="toggleExclusion(ex.id)"
+                    x-text="ex.label[lang]"></button>
+                </template>
+              </div>
+            </div>
+
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px;">
+                <span class="config-label" style="margin:0;" x-text="lang === 'pl' ? '3. Waga Twojego psa' : '3. Your dog’s weight'">3. Waga Twojego psa</span>
+                <strong class="tabular" style="font-size:15px;" x-text="kitchen.weight + ' kg'">14 kg</strong>
+              </div>
+              <input type="range" min="3" max="45" step="1" x-model.number="kitchen.weight" class="weight-slider"
+                     :aria-label="lang === 'pl' ? 'Waga psa w kilogramach' : 'Dog weight in kilograms'"/>
+              <div style="display:flex; justify-content:space-between; font-size:11.5px; color:var(--stone); margin-top:4px;">
+                <span>3 kg</span><span>20 kg</span><span>45 kg</span>
+              </div>
+            </div>
+
+            <!-- Live Generated Daily Menu -->
+            <div class="menu-preview-box">
+              <span class="config-label" style="margin:0;" x-text="lang === 'pl' ? 'Przykładowy plan misek na dziś' : 'Today’s tailored meal plan'">Przykładowy plan misek na dziś</span>
+              <div class="menu-line">
+                <strong style="color:var(--terracotta); font-size:12.5px;" x-text="lang === 'pl' ? '10:30 · Nosework' : '10:30 · Nosework'">10:30 · Nosework</strong>
+                <span style="text-align:right;" x-text="generatedMenu.treat"></span>
+              </div>
+              <div class="menu-line">
+                <strong style="color:var(--terracotta); font-size:12.5px;" x-text="lang === 'pl' ? '12:30 · Miska główna' : '12:30 · Main bowl'">12:30 · Miska główna</strong>
+                <span style="text-align:right;" x-text="generatedMenu.main"></span>
+              </div>
+              <div class="menu-line">
+                <strong style="color:var(--terracotta); font-size:12.5px;" x-text="lang === 'pl' ? '16:15 · Nawodnienie' : '16:15 · Hydration'">16:15 · Nawodnienie</strong>
+                <span style="text-align:right;" x-text="generatedMenu.hydration"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 04: DOBIERACZ GRUPY, KALKULATOR KARNETU & RAPORT O 17:00 ═══ -->
+    <section class="section section-linen" id="planner">
+      <div class="wrap">
+        <div class="split-head">
+          <div>
+            <p class="eyebrow"><span class="eyebrow-dot"></span><span x-text="lang === 'pl' ? '04 · Dopasowanie grupy i cennik' : '04 · Group Matcher & Pricing'">04 · Dopasowanie grupy i cennik</span></p>
+            <h2 class="h2-editorial">
+              <span x-text="lang === 'pl' ? 'Dobierz grupę przed ' : 'Find the right group before '">Dobierz grupę przed </span>
+              <em x-text="lang === 'pl' ? 'pierwszą wizytą.' : 'your first visit.'">pierwszą wizytą.</em>
+            </h2>
+          </div>
+          <p class="split-lead" x-text="lang === 'pl'
+            ? 'Wskaż wielkość, temperament i częstotliwość pobytu. Zobaczysz dopasowaną grupę, przejrzystą stawkę oraz przykładowy Raport Dnia, jaki wyślemy Ci o 17:00.'
+            : 'Select your dog’s size, temperament, and visit frequency to preview their recommended group, transparent pricing, and sample 17:00 daily report.'">Wskaż wielkość, temperament i częstotliwość pobytu. Zobaczysz dopasowaną grupę, przejrzystą stawkę oraz przykładowy Raport Dnia, jaki wyślemy Ci o 17:00.</p>
+        </div>
+
+        <div class="planner-grid">
+          <!-- Left: Group & Pass Calculator -->
+          <div class="planner-card">
+            <div style="display:grid; gap:24px;">
+              <div>
+                <span class="config-label" x-text="lang === 'pl' ? 'Wielkość psa' : 'Dog size'">Wielkość psa</span>
+                <div class="pill-select-group">
+                  <template x-for="sz in dogSizes" :key="sz.id">
+                    <button type="button" class="choice-pill press"
+                      :class="plan.size === sz.id ? 'is-active' : ''"
+                      @click="plan.size = sz.id"
+                      x-text="sz.label[lang]"></button>
+                  </template>
+                </div>
+              </div>
+
+              <div>
+                <span class="config-label" x-text="lang === 'pl' ? 'Temperament i potrzeby społeczne' : 'Temperament & social style'">Temperament i potrzeby społeczne</span>
+                <div class="pill-select-group">
+                  <template x-for="tm in temperaments" :key="tm.id">
+                    <button type="button" class="choice-pill press"
+                      :class="plan.temperament === tm.id ? 'is-active' : ''"
+                      @click="plan.temperament = tm.id"
+                      x-text="tm.label[lang]"></button>
+                  </template>
+                </div>
+              </div>
+
+              <div>
+                <span class="config-label" x-text="lang === 'pl' ? 'Częstotliwość pobytu' : 'Attendance frequency'">Częstotliwość pobytu</span>
+                <div class="pill-select-group">
+                  <template x-for="fr in frequencies" :key="fr.id">
+                    <button type="button" class="choice-pill press"
+                      :class="plan.frequency === fr.id ? 'is-active' : ''"
+                      @click="plan.frequency = fr.id"
+                      x-text="fr.label[lang]"></button>
+                  </template>
+                </div>
+              </div>
+            </div>
+
+            <div style="padding-top:22px; border-top:1px solid var(--line); display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:18px;" class="tabular">
+              <div>
+                <span style="font-size:12px; color:var(--stone); display:block;" x-text="recommendedGroup.badge[lang]"></span>
+                <strong style="font-family:var(--serif); font-size:38px; font-weight:400; line-height:1.05;" x-text="estimatedPriceLabel"></strong>
+                <span style="display:block; font-size:12px; color:var(--stone); margin-top:2px;"
+                      x-text="lang === 'pl' ? 'Wymagane aktualne szczepienia — weryfikacja przez weterynarza w dniu adaptacji.' : 'Up-to-date vaccinations required — verified by our on-site vet on trial day.'"></span>
+              </div>
+
+              <button type="button" class="btn-dark press" @click="transferPlanToBooking()">
+                <span x-text="lang === 'pl' ? 'Przenieś profil do rezerwacji' : 'Transfer profile to booking'">Przenieś profil do rezerwacji</span>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 2.5v9M3 7.5l4 4 4-4"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Right: Sample 17:00 Daily Owner Report -->
+          <aside class="report-card tabular">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px; color:var(--stone-light); margin-bottom:14px;">
+                <span x-text="lang === 'pl' ? 'PRZYKŁADOWY RAPORT O 17:00' : 'SAMPLE 17:00 OWNER REPORT'">PRZYKŁADOWY RAPORT O 17:00</span>
+                <span style="padding:4px 10px; border-radius:999px; background:rgba(247,244,238,0.1); color:var(--ivory);" x-text="recommendedGroup.code">GRUPA S</span>
+              </div>
+              <h3 style="margin:0 0 8px; font-family:var(--serif); font-weight:400; font-size:34px; line-height:1.02;"
+                  x-text="recommendedGroup.name[lang]">Grupa Spokojna i Węchowa</h3>
+              <p style="margin:0; font-size:13.5px; color:var(--stone-light); line-height:1.6;"
+                 x-text="recommendedGroup.desc[lang]"></p>
+            </div>
+
+            <div class="report-meter">
+              <div>
+                <div style="display:flex; justify-content:space-between; font-size:12.5px; margin-bottom:5px;">
+                  <span x-text="lang === 'pl' ? 'Nosework i praca węchowa' : 'Nosework & scent enrichment'">Nosework i praca węchowa</span>
+                  <strong x-text="recommendedGroup.balance.nosework + '%'">35%</strong>
+                </div>
+                <div class="meter-track"><div class="meter-fill" :style="`width:${recommendedGroup.balance.nosework}%; background:#E29B7B;`"></div></div>
+              </div>
+              <div>
+                <div style="display:flex; justify-content:space-between; font-size:12.5px; margin-bottom:5px;">
+                  <span x-text="lang === 'pl' ? 'Ogród i spokojny ruch' : 'Garden & gentle movement'">Ogród i spokojny ruch</span>
+                  <strong x-text="recommendedGroup.balance.garden + '%'">30%</strong>
+                </div>
+                <div class="meter-track"><div class="meter-fill" :style="`width:${recommendedGroup.balance.garden}%; background:#86B094;`"></div></div>
+              </div>
+              <div>
+                <div style="display:flex; justify-content:space-between; font-size:12.5px; margin-bottom:5px;">
+                  <span x-text="lang === 'pl' ? 'Regeneracja w Strefie Ciszy' : 'Quiet Zone restorative rest'">Regeneracja w Strefie Ciszy</span>
+                  <strong x-text="recommendedGroup.balance.rest + '%'">35%</strong>
+                </div>
+                <div class="meter-track"><div class="meter-fill" :style="`width:${recommendedGroup.balance.rest}%; background:#DFD6C7;`"></div></div>
+              </div>
+            </div>
+
+            <div style="padding-top:18px; border-top:1px solid var(--line-dark); font-size:13px; color:var(--stone-light); line-height:1.6;">
+              <strong style="display:block; color:var(--ivory); font-size:12px; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:4px;"
+                      x-text="lang === 'pl' ? 'Notatka behawiorysty' : 'Behaviorist note'">Notatka behawiorysty</strong>
+              <span x-text="recommendedGroup.note[lang]"></span>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 05: REZERWACJA DNIA ADAPTACYJNEGO ═══ -->
+    <section class="section" id="booking">
+      <div class="wrap booking-grid">
+        <div>
+          <p class="eyebrow"><span class="eyebrow-dot"></span><span x-text="lang === 'pl' ? '05 · Pierwsze spotkanie' : '05 · First Visit'">05 · Pierwsze spotkanie</span></p>
+          <h2 class="h2-editorial">
+            <span x-text="lang === 'pl' ? 'Zacznijmy od ' : 'Let’s start with '">Zacznijmy od </span>
+            <em x-text="lang === 'pl' ? 'spokojnej adaptacji.' : 'a calm adaptation.'">spokojnej adaptacji.</em>
+          </h2>
+          <p style="margin:20px 0 28px; font-size:15.5px; color:var(--stone); line-height:1.7; max-width:440px;"
+             x-text="lang === 'pl'
+               ? 'Każdy nowy pies zaczyna od 3-godzinnego spotkania adaptacyjnego z behawiorystą i krótkiej rozmowy z lekarzem weterynarii. Dzięki temu wiemy, że to miejsce naprawdę służy Twojemu pupilowi.'
+               : 'Every new dog begins with a 3-hour adaptation visit alongside our behaviorist and a brief check-in with our vet, ensuring HAUHAUS truly fits their personality.'">Każdy nowy pies zaczyna od 3-godzinnego spotkania adaptacyjnego z behawiorystą i krótkiej rozmowy z lekarzem weterynarii. Dzięki temu wiemy, że to miejsce naprawdę służy Twojemu pupilowi.</p>
+
+          <div style="display:grid; gap:10px; padding-top:20px; border-top:1px solid var(--line); font-size:13.5px; color:var(--stone);">
+            <div><strong style="color:var(--espresso);">Adres:</strong> ul. Przyczółkowa 118, Warszawa · Wilanów</div>
+            <div><strong style="color:var(--espresso);">Godziny:</strong> Poniedziałek – Piątek, 07:30 – 19:00</div>
+            <div><strong style="color:var(--espresso);">Kontakt:</strong> kontakt@hauhaus.pl · +48 22 000 44 12</div>
+          </div>
+        </div>
+
+        <form class="booking-form-card" @submit.prevent="submitBooking()">
+          <input type="text" x-model="form.honey" style="display:none;" tabindex="-1" autocomplete="off"/>
+
+          <div class="field-row">
+            <div>
+              <label class="config-label" for="owner-name" x-text="lang === 'pl' ? 'Twoje imię' : 'Your name'">Twoje imię</label>
+              <input id="owner-name" type="text" class="ed-input" x-model="form.owner" placeholder="Anna Nowak" required/>
+            </div>
+            <div>
+              <label class="config-label" for="dog-name" x-text="lang === 'pl' ? 'Imię i rasa psa' : 'Dog’s name & breed'">Imię i rasa psa</label>
+              <input id="dog-name" type="text" class="ed-input" x-model="form.dog" placeholder="Fraszka · Wyżeł / Kundelek" required/>
+            </div>
+          </div>
+
+          <div>
+            <label class="config-label" for="owner-email" x-text="lang === 'pl' ? 'Adres e-mail lub telefon' : 'Email or phone'">Adres e-mail lub telefon</label>
+            <input id="owner-email" type="text" class="ed-input" x-model="form.contact" placeholder="anna@przyklad.pl" required/>
+          </div>
+
+          <div>
+            <label class="config-label" for="booking-notes" x-text="lang === 'pl' ? 'Profil psa, dieta i preferowany dzień' : 'Dog profile, diet & preferred day'">Profil psa, dieta i preferowany dzień</label>
+            <textarea id="booking-notes" rows="4" class="ed-input" x-model="form.notes"
+                      :placeholder="lang === 'pl' ? 'Napisz kilka słów o nawykach psa, alergiach lub ulubionych zabawach...' : 'Tell us briefly about habits, allergies, or preferred adaptation day...'" required></textarea>
+          </div>
+
+          <button type="submit" class="btn-dark press" style="width:100%; justify-content:space-between;">
+            <span x-text="formState === 'sent' ? (lang === 'pl' ? 'Zgłoszenie przyjęte' : 'Request received') : (lang === 'pl' ? 'Wyślij zgłoszenie adaptacyjne' : 'Request adaptation day')">Wyślij zgłoszenie adaptacyjne</span>
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8h9M8.5 4l4 4-4 4"/></svg>
+          </button>
+
+          <p x-show="formMessage" x-cloak
+             style="margin:0; padding:12px 15px; border-radius:var(--radius-md); font-size:13px; line-height:1.5;"
+             :style="formState === 'sent'
+               ? 'background:var(--sage-soft); color:var(--sage); border:1px solid rgba(59,82,66,0.25);'
+               : 'background:var(--terracotta-soft); color:var(--terracotta); border:1px solid rgba(182,93,58,0.28);'"
+             x-text="formMessage"></p>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div style="display:flex; align-items:baseline; gap:14px;">
+        <strong style="font-family:var(--serif); font-size:22px; font-weight:400; color:var(--espresso); letter-spacing:0.04em;">HAUHAUS</strong>
+        <span x-text="lang === 'pl' ? 'Kameralne Psiedszkole · Projekt koncepcyjny dla portfolio web4biz.pl' : 'Boutique Dog Daycare · Concept build for web4biz.pl'">Kameralne Psiedszkole · Projekt koncepcyjny dla portfolio web4biz.pl</span>
+      </div>
+      <div style="display:flex; flex-wrap:wrap; align-items:center; gap:18px;">
+        <a href="projects.html" style="font-weight:600; color:var(--espresso);" x-text="lang === 'pl' ? '← Wróć do projektów web4biz.pl' : '← Back to web4biz.pl projects'">← Wróć do projektów web4biz.pl</a>
+        <a href="#top" x-text="lang === 'pl' ? 'Na górę' : 'Back to top'">Na górę</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function hauhausApp() {
+      return {
+        lang: localStorage.getItem('lang') === 'en' ? 'en' : 'pl',
+        mobileMenuOpen: false,
+
+        /* 1. Podgląd Live (3 strefy oparte o czyste fotografie w assets/) */
+        activeCamIdx: 0,
+        cameras: [
+          {
+            id: 'garden',
+            code: 'OGRÓD 01',
+            img: 'assets/hauhaus-garden.jpg',
+            tab: { pl: 'Ogródek 800 m²', en: '800 m² Garden' },
+            sub: { pl: 'Ścieżka sensoryczna i dębowa weranda', en: 'Sensory path & shaded oak veranda' },
+            title: { pl: 'Prywatny Ogród i Ścieżka Sensoryczna', en: 'Private Garden & Sensory Pathway' },
+            desc: { pl: 'Bezpieczny teren ze śluzą wejściową, naturalną trawą i cieniem drzew.', en: 'Double-gated natural lawn, wooden balance path, and shaded veranda.' },
+            meta: { pl: '5 psów · 2 opiekunów · 18°C', en: '5 dogs · 2 carers · 18°C' },
+            status: { pl: 'Aktywna eksploracja', en: 'Calm exploration' }
+          },
+          {
+            id: 'nosework',
+            code: 'NOSEWORK 02',
+            img: 'assets/hauhaus-nosework.jpg',
+            tab: { pl: 'Sala Nosework', en: 'Nosework Studio' },
+            sub: { pl: 'Praca węchowa na drewnianych skrzynkach', en: 'Scent boxes & linen snuffle mats' },
+            title: { pl: 'Sala Pracy Węchowej i Mat Lnianych', en: 'Scent Enrichment & Nosework Room' },
+            desc: { pl: 'Indywidualne 20-minutowe sesje wyciszające układ nerwowy pod okiem behawiorysty.', en: 'Structured 20-minute scent sessions guided by our certified behaviorist.' },
+            meta: { pl: '2 psy · 1 behawiorysta · Cisza', en: '2 dogs · 1 behaviorist · Quiet' },
+            status: { pl: 'Sesja węchowa w toku', en: 'Nosework in progress' }
+          },
+          {
+            id: 'lounge',
+            code: 'STREFA CISZY 03',
+            img: 'assets/hauhaus-hero.jpg',
+            tab: { pl: 'Strefa Ciszy', en: 'Quiet Lounge' },
+            sub: { pl: 'Lniane legowiska i popołudniowa drzemka', en: 'Linen floor beds & restorative rest' },
+            title: { pl: 'Słoneczny Pawilon i Strefa Regeneracji', en: 'Sunlit Pavilion & Quiet Rest Area' },
+            desc: { pl: 'Ciepłe drewno, akustyczne panele i naturalne światło do głębokiego snu.', en: 'Warm oak acoustics, natural light, and dedicated space for restorative naps.' },
+            meta: { pl: '4 psy · 1 opiekun · Odpoczynek', en: '4 dogs · 1 carer · Resting' },
+            status: { pl: 'Drzemka regeneracyjna', en: 'Restorative nap' }
+          }
+        ],
+        dayLog: [
+          { time: '09:40', text: { pl: 'Fraszka ukończyła rundę nosework na skrzynkach dębowych.', en: 'Fraszka completed her oak scent-box nosework session.' } },
+          { time: '11:15', text: { pl: 'Spokojny spacer w ogrodzie i przegląd łap przez lek. wet.', en: 'Relaxed garden walk and quick paw check by our vet.' } },
+          { time: '12:45', text: { pl: 'Kuchnia HAUHAUS podała ciepły indyk z dynią (zjedzone 100%).', en: 'HAUHAUS Kitchen served warm turkey & pumpkin (100% eaten).' } },
+          { time: '13:30', text: { pl: 'Start drzemki regeneracyjnej w Strefie Ciszy.', en: 'Restorative nap started in the Quiet Lounge.' } }
+        ],
+
+        /* 2. Kuchnia HAUHAUS (Konfigurator posiłku) */
+        kitchen: {
+          diet: 'cooked',
+          exclusions: ['no-chicken'],
+          weight: 14
+        },
+        dietTypes: [
+          { id: 'cooked', label: { pl: 'Gotowane na miejscu', en: 'Freshly cooked on-site' }, fee: 24 },
+          { id: 'barf',   label: { pl: 'Zbilansowany BARF',   en: 'Balanced BARF' },           fee: 28 },
+          { id: 'own',    label: { pl: 'Karma własna z domu', en: 'Own food from home' },      fee: 0 }
+        ],
+        exclusions: [
+          { id: 'no-chicken', label: { pl: 'Bez kurczaka', en: 'Chicken-free' } },
+          { id: 'grain-free', label: { pl: 'Bez zbóż', en: 'Grain-free' } },
+          { id: 'sensitive',  label: { pl: 'Wrażliwy żołądek', en: 'Sensitive tummy' } },
+          { id: 'senior',     label: { pl: 'Szczeniak / Senior', en: 'Puppy / Senior' } }
+        ],
+
+        /* 3. Dobieracz Grupy & Kalkulator Karnetu */
+        plan: {
+          size: 'm',
+          temperament: 'calm',
+          frequency: 'twice'
+        },
+        dogSizes: [
+          { id: 's', label: { pl: 'Mały (do 10 kg)', en: 'Small (up to 10 kg)' }, mod: 0 },
+          { id: 'm', label: { pl: 'Średni (10–25 kg)', en: 'Medium (10–25 kg)' }, mod: 10 },
+          { id: 'l', label: { pl: 'Duży (25+ kg)', en: 'Large (25+ kg)' }, mod: 20 }
+        ],
+        temperaments: [
+          { id: 'calm',   label: { pl: 'Spokojny / Nieśmiały', en: 'Calm / Shy' } },
+          { id: 'social', label: { pl: 'Towarzyski', en: 'Social' } },
+          { id: 'active', label: { pl: 'Wysoka energia', en: 'High energy' } },
+          { id: 'senior', label: { pl: 'Senior', en: 'Senior' } }
+        ],
+        frequencies: [
+          { id: 'trial', label: { pl: 'Dzień adaptacyjny (3h)', en: 'Adaptation day (3h)' }, base: 95, unitPl: 'jednorazowo', unitEn: 'one-time' },
+          { id: 'twice', label: { pl: '2× w tygodniu (8 dni/mies.)', en: '2× per week (8 days/mo)' }, base: 145, unitPl: '/ dzień w karnecie', unitEn: '/ day on pass' },
+          { id: 'full',  label: { pl: 'Abonament pełny (Pon–Pt)', en: 'Full membership (Mon–Fri)' }, base: 125, unitPl: '/ dzień w abonamencie', unitEn: '/ day on plan' }
+        ],
+
+        /* 4. Formularz rezerwacji */
+        form: { owner: '', dog: '', contact: '', notes: '', honey: '' },
+        formState: 'idle',
+        formMessage: '',
+
+        get activeCam() {
+          return this.cameras[this.activeCamIdx] || this.cameras[0];
+        },
+
+        toggleLang() {
+          this.lang = this.lang === 'pl' ? 'en' : 'pl';
+          localStorage.setItem('lang', this.lang);
+        },
+
+        toggleExclusion(id) {
+          if (this.kitchen.exclusions.includes(id)) {
+            this.kitchen.exclusions = this.kitchen.exclusions.filter(x => x !== id);
+          } else {
+            this.kitchen.exclusions.push(id);
+          }
+        },
+
+        get kitchenPortionGrams() {
+          const factor = this.kitchen.diet === 'barf' ? 24 : 26;
+          return Math.round((this.kitchen.weight * factor) / 10) * 10;
+        },
+
+        get kitchenDailyFee() {
+          const d = this.dietTypes.find(x => x.id === this.kitchen.diet);
+          if (!d || d.fee === 0) return 0;
+          const weightAdd = this.kitchen.weight > 22 ? 8 : (this.kitchen.weight > 12 ? 4 : 0);
+          return d.fee + weightAdd;
+        },
+
+        get kitchenAllergyNote() {
+          const count = this.kitchen.exclusions.length;
+          if (this.kitchen.diet === 'own') {
+            return this.lang === 'pl'
+              ? 'Przechowujemy Twoją karmę w osobnej chłodziarce i podajemy zgodnie z rozpiską.'
+              : 'We store your home food in a dedicated chiller and serve it on your schedule.';
+          }
+          if (count === 0) {
+            return this.lang === 'pl'
+              ? 'Zbilansowana receptura opracowana z dietetykiem weterynaryjnym. Bez konserwantów.'
+              : 'Balanced recipe crafted with a veterinary nutritionist. Zero preservatives.';
+          }
+          return this.lang === 'pl'
+            ? `Uwzględniono ${count} indywidualne wykluczenia — osobna deska i miska z imieniem psa.`
+            : `${count} custom dietary preferences applied — dedicated prep board & named bowl.`;
+        },
+
+        get generatedMenu() {
+          const noChicken = this.kitchen.exclusions.includes('no-chicken');
+          const sensitive = this.kitchen.exclusions.includes('sensitive');
+          const senior = this.kitchen.exclusions.includes('senior');
+
+          if (this.kitchen.diet === 'own') {
+            return this.lang === 'pl'
+              ? {
+                  treat: 'Odłożone smaczki z domu (lub liofilizowany królik do noseworku)',
+                  main: `Odmierzona porcja własna (${this.kitchenPortionGrams} g) w spokojnym stanowisku`,
+                  hydration: 'Świeża woda filtrowana + opcjonalny bulion kolagenowy'
+                }
+              : {
+                  treat: 'Home treats (or freeze-dried rabbit for nosework rounds)',
+                  main: `Pre-portioned home meal (${this.kitchenPortionGrams} g) in a quiet station`,
+                  hydration: 'Filtered water + optional warm bone broth'
+                };
+          }
+
+          if (this.kitchen.diet === 'barf') {
+            const proteinPl = noChicken ? 'Królik i wołowina pastwiskowa' : 'Indyk zagrodowy i wołowina';
+            const proteinEn = noChicken ? 'Rabbit & grass-fed beef' : 'Free-range turkey & beef';
+            return this.lang === 'pl'
+              ? {
+                  treat: 'Suszone plastry jelenia (100% mięsa, bez zbóż)',
+                  main: `${proteinPl}, dynia, olej z kryla, algi (${this.kitchenPortionGrams} g)`,
+                  hydration: sensitive ? 'Napój z rumianku i siemienia lnianego' : 'Ciepły wywar kostny z pietruszką'
+                }
+              : {
+                  treat: 'Air-dried venison strips (100% meat, grain-free)',
+                  main: `${proteinEn}, pumpkin, krill oil & kelp (${this.kitchenPortionGrams} g)`,
+                  hydration: sensitive ? 'Gentle chamomile & flaxseed infusion' : 'Warm bone broth with parsley'
+                };
+          }
+
+          // Cooked on-site
+          const meatPl = noChicken ? (senior ? 'Delikatny królik na parze' : 'Wolno gotowana jagnięcina') : 'Indyk z wolnego wybiegu';
+          const meatEn = noChicken ? (senior ? 'Steamed tender rabbit' : 'Slow-cooked lamb') : 'Free-range turkey';
+          const vegPl = sensitive ? 'gotowana dynia i batat' : 'dynia, cukinia i natka pietruszki';
+          const vegEn = sensitive ? 'steamed pumpkin & sweet potato' : 'pumpkin, zucchini & fresh parsley';
+
+          return this.lang === 'pl'
+            ? {
+                treat: noChicken ? 'Liofilizowana kaczka do maty węchowej' : 'Pieczone kawałki indyka do noseworku',
+                main: `${meatPl}, ${vegPl}, olej z łososia (${this.kitchenPortionGrams} g)`,
+                hydration: 'Ciepły bulion warzywno-mięsny po powrocie z ogrodu'
+              }
+            : {
+                treat: noChicken ? 'Freeze-dried duck for snuffle mats' : 'Baked turkey bites for nosework',
+                main: `${meatEn}, ${vegEn}, salmon oil (${this.kitchenPortionGrams} g)`,
+                hydration: 'Warm gentle broth after returning from the garden'
+              };
+        },
+
+        get recommendedGroup() {
+          const map = {
+            calm: {
+              code: 'GRUPA A · SPOKÓJ',
+              badge: { pl: 'Rekomendacja: Grupa Wyciszona (max 5 psów)', en: 'Recommended: Calm Group (max 5 dogs)' },
+              name: { pl: 'Grupa Wyciszona i Węchowa', en: 'Calm & Scent-Focused Group' },
+              desc: { pl: 'Stworzona dla psów wrażliwych i nieśmiałych. Więcej indywidualnego noseworku, mniej bodźców i powolne budowanie pewności siebie.', en: 'Designed for sensitive and shy dogs. More solo nosework, lower stimulation, and confidence-building at their own pace.' },
+              balance: { nosework: 40, garden: 20, rest: 40 },
+              note: { pl: '„Pies szybko poczuł się bezpiecznie na macie węchowej i chętnie przespał dwie godziny w Strefie Ciszy.”', en: '“Settled right into the snuffle mats and enjoyed a deep two-hour nap in the Quiet Zone.”' }
+            },
+            social: {
+              code: 'GRUPA B · HARMONIA',
+              badge: { pl: 'Rekomendacja: Grupa Towarzyska (max 6 psów)', en: 'Recommended: Social Harmony (max 6 dogs)' },
+              name: { pl: 'Grupa Towarzyska i Ogrodowa', en: 'Social Garden Group' },
+              desc: { pl: 'Zrównoważona grupa dla przyjaznych psów. Wspólne spacery w ogrodzie 800 m², zabawy węchowe i pilnowane przerwy na odpoczynek.', en: 'Balanced group for friendly dogs. Shared garden exploration, scent games, and structured rest windows.' },
+              balance: { nosework: 30, garden: 35, rest: 35 },
+              note: { pl: '„Świetna komunikacja w ogrodzie z dwoma innymi psami, bez nakręcania się. Miska zjedzona do czysta.”', en: '“Calm, polite play in the garden with two peers—no overarousal. Finished the entire bowl.”' }
+            },
+            active: {
+              code: 'GRUPA C · WĘCH & RUCH',
+              badge: { pl: 'Rekomendacja: Grupa Nosework Pro (max 5 psów)', en: 'Recommended: Active Nosework (max 5 dogs)' },
+              name: { pl: 'Grupa Aktywna i Nosework Pro', en: 'Active & Nosework Pro Group' },
+              desc: { pl: 'Dla psów pracujących i pełnych energii. Złożone zadania węchowe, ścieżka sensoryczna i świadome wyciszanie po wysiłku.', en: 'Built for high-drive dogs. Multi-stage scent puzzles, sensory balance paths, and guided decompression.' },
+              balance: { nosework: 45, garden: 30, rest: 25 },
+              note: { pl: '„Dwie trudniejsze rundy noseworku pięknie wyciszyły energię — po 13:00 głęboki sen aż do odbioru.”', en: '“Two advanced nosework rounds channelled all that energy—slept deeply from 13:00 until pickup.”' }
+            },
+            senior: {
+              code: 'GRUPA D · SENIOR',
+              badge: { pl: 'Rekomendacja: Klub Seniora (max 4 psy)', en: 'Recommended: Senior Lounge (max 4 dogs)' },
+              name: { pl: 'Kameralny Klub Seniora', en: 'Gentle Senior Lounge' },
+              desc: { pl: 'Miękkie legowiska ortopedyczne, krótkie wyjścia na płaski ogród, delikatny nosework i stały nadzór weterynarza (w tym podawanie leków).', en: 'Orthopedic linen beds, easy flat garden access, gentle scent games, and on-site vet oversight including scheduled meds.' },
+              balance: { nosework: 25, garden: 20, rest: 55 },
+              note: { pl: '„Leki podane punktualnie o 12:00. Spokojne wygrzewanie w słońcu na werandzie i chęć na delikatny nosework.”', en: '“Medication given on time at 12:00. Enjoyed sunbathing on the oak veranda and light scent work.”' }
+            }
+          };
+          return map[this.plan.temperament] || map.calm;
+        },
+
+        get estimatedPriceLabel() {
+          const freq = this.frequencies.find(f => f.id === this.plan.frequency) || this.frequencies[1];
+          const sz = this.dogSizes.find(s => s.id === this.plan.size) || this.dogSizes[1];
+          const price = freq.base + (freq.id === 'trial' ? 0 : sz.mod);
+          return `${price} PLN ${this.lang === 'pl' ? freq.unitPl : freq.unitEn}`;
+        },
+
+        transferPlanToBooking() {
+          const group = this.recommendedGroup.name[this.lang];
+          const sz = this.dogSizes.find(s => s.id === this.plan.size).label[this.lang];
+          const fr = this.frequencies.find(f => f.id === this.plan.frequency).label[this.lang];
+          const diet = this.dietTypes.find(d => d.id === this.kitchen.diet).label[this.lang];
+
+          if (this.lang === 'pl') {
+            this.form.notes = `Profil z konfiguratora HAUHAUS:\n• Grupa: ${group}\n• Wielkość: ${sz} (${this.kitchen.weight} kg)\n• Tryb: ${fr}\n• Kuchnia: ${diet} (${this.kitchenPortionGrams} g/dzień)\n\nDodatkowe uwagi: `;
+          } else {
+            this.form.notes = `Profile from HAUHAUS planner:\n• Group: ${group}\n• Size: ${sz} (${this.kitchen.weight} kg)\n• Plan: ${fr}\n• Kitchen: ${diet} (${this.kitchenPortionGrams} g/day)\n\nAdditional notes: `;
+          }
+          document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+          setTimeout(() => { document.getElementById('owner-name')?.focus({ preventScroll: true }); }, 420);
+        },
+
+        submitBooking() {
+          if (this.form.honey) return;
+          const owner = this.form.owner.trim();
+          const dog = this.form.dog.trim();
+          const contact = this.form.contact.trim();
+          const notes = this.form.notes.trim();
+
+          if (owner.length < 2 || dog.length < 2 || contact.length < 5 || notes.length < 10 || !/[aeiouyąęó]/i.test(notes)) {
+            this.formState = 'error';
+            this.formMessage = this.lang === 'pl'
+              ? 'Proszę uzupełnić imię opiekuna, imię psa, poprawny kontakt oraz krótki opis (min. kilka słów).'
+              : 'Please enter your name, dog’s name, valid contact info, and a short meaningful note.';
+            return;
+          }
+
+          this.formState = 'sent';
+          this.formMessage = this.lang === 'pl'
+            ? `Dziękujemy, ${owner}! Wstępna rezerwacja dnia adaptacyjnego dla: ${dog} została zapisana (tryb demo portfolio). Skontaktujemy się w ciągu 24h.`
+            : `Thank you, ${owner}! Your adaptation day request for ${dog} has been recorded (portfolio demo mode). We will get back within 24h.`;
+        }
+      };
+    }
+  </script>
+</body>
+</html>

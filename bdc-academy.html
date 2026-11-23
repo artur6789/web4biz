@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="pl" x-data="bdcAcademy()" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BDC Academy — Szkolenia Automotive Contact Center dla Dealerów</title>
+  <meta name="description" content="Dedykowane szkolenia dla działów BDC w branży automotive: Sprzedaż, Serwis, Części, F&I, Domykanie wizyt oraz Kierownicy BDC. Wybierz program dla swojej stacji." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://artur6789.github.io/web4biz/bdc-academy.html" />
+  <link rel="alternate" hreflang="pl" href="https://artur6789.github.io/web4biz/bdc-academy.html" />
+  <link rel="alternate" hreflang="en" href="https://artur6789.github.io/web4biz/bdc-academy.html?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://artur6789.github.io/web4biz/bdc-academy.html" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="BDC Academy — High-Performance Automotive BDC Training" />
+  <meta property="og:description" content="Wybierz dedykowane szkolenia dla swojego zespołu BDC: Sprzedaż, Serwis, Części, F&I, Closing & Show-Rate oraz Leadership." />
+  <meta property="og:url" content="https://artur6789.github.io/web4biz/bdc-academy.html" />
+
+  <!-- Structured Data (SEO / AEO / GEO) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "EducationalOrganization",
+        "@id": "https://artur6789.github.io/web4biz/bdc-academy.html#org",
+        "name": "BDC Academy",
+        "url": "https://artur6789.github.io/web4biz/bdc-academy.html",
+        "description": "Specialized Automotive Business Development Center (BDC) training for car dealerships and multi-brand dealer groups.",
+        "founder": {
+          "@type": "Person",
+          "name": "Artur Załuska",
+          "jobTitle": "Automotive BDC Trainer & Agile Delivery Lead",
+          "email": "artur.zaluska@gmail.com"
+        },
+        "areaServed": ["Poland", "Europe"]
+      },
+      {
+        "@type": "ItemList",
+        "name": "Automotive BDC Training Programs",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Sales BDC Consultants Training" },
+          { "@type": "ListItem", "position": 2, "name": "Service BDC Advisors Training" },
+          { "@type": "ListItem", "position": 3, "name": "Parts & Accessories BDC Training" },
+          { "@type": "ListItem", "position": 4, "name": "Finance & Insurance (F&I) BDC Training" },
+          { "@type": "ListItem", "position": 5, "name": "Closing Appointments & Show-Rate Mastery" },
+          { "@type": "ListItem", "position": 6, "name": "Soft Skills, Customer Psychology & EQ" },
+          { "@type": "ListItem", "position": 7, "name": "BDC Managers & Leadership Program" }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- Fonts: Plus Jakarta Sans (Display & Body) + JetBrains Mono (Technical Labels) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- GSAP + ScrollTrigger + Alpine.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.17.5/dist/cdn.min.js"></script>
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════════════
+       1. DESIGN TOKENS — CARBON OBSIDIAN & ELECTRIC CYAN (#06B6D4)
+       ═══════════════════════════════════════════════════════════════════ */
+    :root {
+      --bg: #06080c;
+      --bg-elevated: #0c1017;
+      --bg-card: #10151f;
+      --bg-card-hover: #141b28;
+      --ink: #f8fafc;
+      --ink-secondary: #cbd5e1;
+      --ink-muted: #7c8b9e;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.16);
+      --cyan: #06b6d4;
+      --cyan-bright: #22d3ee;
+      --cyan-soft: rgba(6, 182, 212, 0.12);
+      --cyan-glow: rgba(6, 182, 212, 0.28);
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-snappy: cubic-bezier(0.215, 0.61, 0.355, 1);
+      --sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    [x-cloak] { display: none !important; }
+    html { scroll-behavior: smooth; scroll-padding-top: 6rem; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-synthesis: none;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: clip;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; color: inherit; }
+    ::selection { background: var(--cyan); color: #041014; }
+    :focus-visible { outline: 2px solid var(--cyan-bright); outline-offset: 3px; border-radius: 6px; }
+
+    .tabular { font-variant-numeric: tabular-nums; }
+    .wrap { width: min(1280px, calc(100% - 48px)); margin-inline: auto; }
+    .icon-sm { width: 16px; height: 16px; flex: 0 0 auto; display: block; }
+    .icon-xs { width: 14px; height: 14px; flex: 0 0 auto; display: block; }
+
+    /* Tactile Press & Micro-Interactions */
+    .tactile {
+      transition: transform 120ms var(--ease-snappy),
+                  background-color 160ms var(--ease-snappy),
+                  border-color 160ms var(--ease-snappy),
+                  box-shadow 200ms var(--ease-out);
+    }
+    .tactile:active { transform: scale(0.97); }
+
+    /* Subtle Film Grain Texture */
+    .noise-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 90;
+      pointer-events: none;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       2. SUPAHERO FLOATING GLASS NAVBAR (ZERO CLUTTER)
+       ═══════════════════════════════════════════════════════════════════ */
+    .floating-nav-wrap {
+      position: fixed;
+      top: 18px;
+      left: 0;
+      right: 0;
+      z-index: 60;
+      padding-inline: 24px;
+      transition: transform 260ms var(--ease-out);
+    }
+    .floating-nav-wrap.is-hidden { transform: translateY(-140%); }
+
+    .floating-nav {
+      width: min(1120px, 100%);
+      height: 60px;
+      margin-inline: auto;
+      padding: 0 10px 0 20px;
+      border-radius: 999px;
+      background: rgba(12, 16, 23, 0.76);
+      backdrop-filter: blur(18px) saturate(1.4);
+      -webkit-backdrop-filter: blur(18px) saturate(1.4);
+      border: 1px solid var(--border);
+      background-clip: padding-box;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: -0.03em;
+    }
+    .brand-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--cyan-bright);
+      box-shadow: 0 0 14px var(--cyan);
+    }
+
+    .nav-center {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink-secondary);
+    }
+    .nav-center a { transition: color 150ms ease; }
+    .nav-center a:hover { color: var(--ink); }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .pill-lang {
+      height: 38px;
+      min-width: 44px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      font: 600 11px var(--mono);
+      color: var(--ink-secondary);
+      cursor: pointer;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .pill-lang:hover { border-color: var(--border-strong); color: var(--ink); }
+    }
+
+    .pill-cta {
+      height: 40px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 0;
+      background: var(--ink);
+      color: #06080c;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .pill-cta:hover { background: var(--cyan-bright); }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       3. SUPAHERO-INSPIRED ARCHITECTURAL SHOWROOM HERO (100svh)
+       ═══════════════════════════════════════════════════════════════════ */
+    .hero-stage {
+      position: relative;
+      min-height: 100svh;
+      padding: 148px 0 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+      isolation: isolate;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Spotlight Beam & Showroom Horizon SVG */
+    .hero-spotlight {
+      position: absolute;
+      top: -18%;
+      left: 50%;
+      width: min(1100px, 140vw);
+      height: 620px;
+      transform: translateX(-50%);
+      z-index: -2;
+      background: radial-gradient(50% 50% at 50% 35%, rgba(6, 182, 212, 0.22) 0%, rgba(6, 182, 212, 0.05) 48%, transparent 75%);
+      pointer-events: none;
+    }
+    .hero-grid-floor {
+      position: absolute;
+      inset: 0;
+      z-index: -3;
+      opacity: 0.35;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: radial-gradient(65% 60% at 50% 42%, #000 15%, transparent 78%);
+      -webkit-mask-image: radial-gradient(65% 60% at 50% 42%, #000 15%, transparent 78%);
+    }
+
+    .hero-content {
+      max-width: 920px;
+      margin-inline: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(34, 211, 238, 0.28);
+      background: rgba(6, 182, 212, 0.08);
+      font: 500 11px var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--cyan-bright);
+      margin-bottom: 28px;
+    }
+
+    .hero-h1 {
+      margin: 0 0 22px;
+      font-weight: 800;
+      font-size: clamp(2.85rem, 6.2vw, 5.5rem);
+      line-height: 1.01;
+      letter-spacing: -0.045em;
+      text-wrap: balance;
+      background: linear-gradient(180deg, #ffffff 35%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-sub {
+      margin: 0 0 36px;
+      max-width: 58ch;
+      font-size: clamp(16px, 1.35vw, 18.5px);
+      line-height: 1.65;
+      color: var(--ink-secondary);
+      font-weight: 400;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .btn-cyan {
+      min-height: 50px;
+      padding: 0 26px;
+      border-radius: 999px;
+      border: 0;
+      background: var(--cyan);
+      color: #031318;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 0 32px rgba(6, 182, 212, 0.32);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .btn-cyan:hover {
+        background: var(--cyan-bright);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 36px rgba(34, 211, 238, 0.42);
+      }
+    }
+
+    .btn-secondary {
+      min-height: 50px;
+      padding: 0 24px;
+      border-radius: 999px;
+      border: 1px solid var(--border-strong);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .btn-secondary:hover {
+        border-color: rgba(255, 255, 255, 0.32);
+        background: rgba(255, 255, 255, 0.06);
+      }
+    }
+
+    /* Automotive Acoustic & Showroom Horizon Visual (Pure Precision Vector) */
+    .hero-visual-arc {
+      width: min(980px, 100%);
+      margin-top: 44px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+      text-align: left;
+    }
+    .arc-stat {
+      padding: 14px 18px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+    }
+    .arc-stat span {
+      display: block;
+      font: 500 10.5px var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--cyan-bright);
+      margin-bottom: 4px;
+    }
+    .arc-stat strong {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       4. TRAINING PROGRAM SELECTOR (7 DEALERSHIP MODULES)
+       ═══════════════════════════════════════════════════════════════════ */
+    .sec-pad { padding-block: 108px; }
+    .sec-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+    .sec-kicker {
+      display: block;
+      font: 600 11px var(--mono);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cyan-bright);
+      margin-bottom: 10px;
+    }
+    .sec-h2 {
+      margin: 0;
+      font-weight: 800;
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      line-height: 1.06;
+      letter-spacing: -0.04em;
+      text-wrap: balance;
+    }
+    .sec-desc {
+      margin: 0;
+      max-width: 46ch;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--ink-muted);
+    }
+
+    /* Department Filter Pills */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+    .filter-pill {
+      min-height: 38px;
+      padding: 0 16px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--ink-secondary);
+      cursor: pointer;
+    }
+    .filter-pill.is-active {
+      background: var(--ink);
+      color: #06080c;
+      border-color: var(--ink);
+    }
+
+    /* 7-Program Bento Grid */
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 18px;
+      align-items: stretch;
+    }
+    .prog-card {
+      grid-column: span 4;
+      position: relative;
+      border-radius: 16px;
+      padding: 26px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      background-clip: padding-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
+      transition: transform 180ms var(--ease-out), border-color 180ms ease, background-color 180ms ease, box-shadow 220ms var(--ease-out);
+    }
+    .prog-card.is-wide { grid-column: span 6; }
+
+    @media (hover: hover) and (pointer: fine) {
+      .prog-card:hover {
+        background: var(--bg-card-hover);
+        border-color: rgba(255, 255, 255, 0.18);
+        transform: translateY(-2px);
+      }
+    }
+    .prog-card.is-selected {
+      border-color: var(--cyan);
+      background: linear-gradient(180deg, rgba(6, 182, 212, 0.09) 0%, var(--bg-card) 100%);
+      box-shadow: 0 0 0 1px var(--cyan), 0 18px 40px rgba(6, 182, 212, 0.12);
+    }
+
+    .prog-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .prog-num {
+      font: 600 11px var(--mono);
+      letter-spacing: 0.08em;
+      color: var(--cyan-bright);
+    }
+    .prog-duration {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      font: 500 11px var(--mono);
+      color: var(--ink-muted);
+    }
+    .prog-title {
+      margin: 0 0 10px;
+      font-size: 21px;
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.025em;
+    }
+    .prog-summary {
+      margin: 0 0 18px;
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: var(--ink-muted);
+    }
+    .prog-outcomes {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 9px;
+    }
+    .prog-outcomes li {
+      position: relative;
+      padding-left: 18px;
+      font-size: 13px;
+      line-height: 1.45;
+      color: var(--ink-secondary);
+    }
+    .prog-outcomes li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 7px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--cyan);
+    }
+
+    .prog-footer {
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .select-toggle-btn {
+      width: 100%;
+      min-height: 44px;
+      padding: 0 16px;
+      border-radius: 10px;
+      border: 1px solid var(--border-strong);
+      background: rgba(255, 255, 255, 0.03);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .prog-card.is-selected .select-toggle-btn {
+      background: var(--cyan);
+      border-color: var(--cyan);
+      color: #031318;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       5. ENGAGEMENT FORMATS (3 ARCHITECTURAL STEPS)
+       ═══════════════════════════════════════════════════════════════════ */
+    .formats-sec {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-elevated);
+    }
+    .formats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+    .format-card {
+      padding: 30px;
+      border-radius: 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .format-card h3 {
+      margin: 10px 0 8px;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .format-card p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--ink-muted);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       6. BOOKING CONFIGURATOR SECTION
+       ═══════════════════════════════════════════════════════════════════ */
+    .booking-box {
+      border-radius: 20px;
+      padding: clamp(28px, 4vw, 52px);
+      background:
+        radial-gradient(60% 80% at 100% 0%, rgba(6, 182, 212, 0.14), transparent 70%),
+        var(--bg-card);
+      border: 1px solid var(--border-strong);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .selected-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 20px 0 28px;
+    }
+    .chip-item {
+      min-height: 36px;
+      padding: 0 13px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .chip-item.is-on {
+      border-color: var(--cyan);
+      background: var(--cyan-soft);
+      color: var(--cyan-bright);
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 16px;
+    }
+    .field-label {
+      display: block;
+      font: 500 11px var(--mono);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 7px;
+    }
+    .field-input {
+      width: 100%;
+      min-height: 46px;
+      padding: 0 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 14px;
+    }
+    textarea.field-input {
+      padding: 12px 14px;
+      min-height: 92px;
+      resize: vertical;
+    }
+
+    /* Floating Selection Bar (appears when programs are picked) */
+    .selection-dock {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 55;
+      width: min(760px, calc(100% - 32px));
+      padding: 10px 12px 10px 20px;
+      border-radius: 999px;
+      background: rgba(12, 16, 23, 0.88);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(34, 211, 238, 0.35);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    @media (max-width: 1024px) {
+      .prog-card, .prog-card.is-wide { grid-column: span 6; }
+      .booking-box { grid-template-columns: 1fr; gap: 36px; }
+    }
+    @media (max-width: 720px) {
+      .wrap { width: calc(100% - 28px); }
+      .nav-center { display: none; }
+      .hero-visual-arc, .formats-grid { grid-template-columns: 1fr; }
+      .prog-card, .prog-card.is-wide { grid-column: span 12; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="noise-layer" aria-hidden="true"></div>
+
+  <!-- ═══ MINIMAL FLOATING GLASS NAVBAR ═══ -->
+  <div class="floating-nav-wrap" :class="{ 'is-hidden': navHidden }">
+    <nav class="floating-nav" :aria-label="lang === 'pl' ? 'Nawigacja główna' : 'Main navigation'">
+      <a href="#top" class="brand">
+        <span class="brand-dot" aria-hidden="true"></span>
+        <span>BDC Academy</span>
+      </a>
+
+      <div class="nav-center">
+        <a href="#programs" x-text="lang === 'pl' ? 'Programy szkoleń (7)' : 'Training Programs (7)'"></a>
+        <a href="#formats" x-text="lang === 'pl' ? 'Formuła współpracy' : 'How We Work'"></a>
+      </div>
+
+      <div class="nav-right">
+        <button type="button" class="pill-lang tactile" @click="toggleLang()"
+          :aria-label="lang === 'pl' ? 'Switch to English' : 'Zmień język na polski'"
+          x-text="lang === 'pl' ? 'EN' : 'PL'"></button>
+
+        <a href="#book" class="pill-cta tactile">
+          <span x-text="lang === 'pl' ? 'Zamów szkolenie' : 'Book Training'"></span>
+          <span class="tabular" x-show="selectedIds.length > 0" x-text="'(' + selectedIds.length + ')'"></span>
+        </a>
+      </div>
+    </nav>
+  </div>
+
+  <main id="top">
+    <!-- ═══ SUPAHERO-GRADE ARCHITECTURAL HERO ═══ -->
+    <section class="hero-stage">
+      <div class="hero-spotlight" aria-hidden="true"></div>
+      <div class="hero-grid-floor" aria-hidden="true"></div>
+
+      <div class="wrap hero-content">
+        <div class="hero-badge reveal-hero">
+          <span class="brand-dot" style="width:6px; height:6px;" aria-hidden="true"></span>
+          <span x-text="lang === 'pl' ? 'SZKOLENIA AUTOMOTIVE BDC · SPRZEDAŻ · SERWIS · F&I' : 'AUTOMOTIVE BDC TRAINING · SALES · SERVICE · F&I'"></span>
+        </div>
+
+        <h1 class="hero-h1 reveal-hero" x-text="lang === 'pl'
+          ? 'Zamień każdy lead dealera w wizytę w salonie.'
+          : 'Turn Every Dealership Lead Into a Showroom Arrival.'">Zamień każdy lead dealera w wizytę w salonie.</h1>
+
+        <p class="hero-sub reveal-hero" x-text="lang === 'pl'
+          ? 'Praktyczne szkolenia dla działów Business Development Center w stacjach dealerskich. Wybierz konkretne moduły dla konsultantów Sprzedaży, Serwisu, Części, F&I oraz Kierowników BDC.'
+          : 'Hands-on training for automotive dealership Contact Centers. Select tailored modules for Sales, Service, Parts, F&I consultants, and BDC Managers.'"></p>
+
+        <div class="hero-actions reveal-hero">
+          <a href="#programs" class="btn-cyan tactile">
+            <span x-text="lang === 'pl' ? 'Wybierz programy szkoleń' : 'Select Training Programs'"></span>
+            <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 5v14m-6-6 6 6 6-6"/></svg>
+          </a>
+          <a href="#formats" class="btn-secondary tactile" x-text="lang === 'pl' ? 'Jak szkolimy zespoły' : 'How We Train Teams'"></a>
+        </div>
+      </div>
+
+      <div class="wrap hero-visual-arc reveal-hero">
+        <div class="arc-stat">
+          <span x-text="lang === 'pl' ? '01 / DOŚWIADCZENIE' : '01 / TRACK RECORD'"></span>
+          <strong x-text="lang === 'pl' ? '10+ lat budowy i coachingu BDC u liderów rynku' : '10+ years building & coaching top dealer BDCs'"></strong>
+        </div>
+        <div class="arc-stat">
+          <span x-text="lang === 'pl' ? '02 / ZAKRES STACJI' : '02 / FULL DEALERSHIP'"></span>
+          <strong x-text="lang === 'pl' ? 'Sprzedaż · Serwis · Części · F&I · Liderzy' : 'Sales · Service · Parts · F&I · Leadership'"></strong>
+        </div>
+        <div class="arc-stat">
+          <span x-text="lang === 'pl' ? '03 / REZULTAT' : '03 / MEASURABLE LIFT'"></span>
+          <strong x-text="lang === 'pl' ? 'Szybszy Speed-to-Lead, wyższy Show Rate i marża' : 'Faster Speed-to-Lead, higher Show Rate & gross'"></strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 7 TRAINING PROGRAMS SELECTOR (THE CORE PRODUCT) ═══ -->
+    <section class="sec-pad" id="programs">
+      <div class="wrap">
+        <div class="sec-header reveal">
+          <div>
+            <span class="sec-kicker" x-text="lang === 'pl' ? '01 / WYBIERZ ZAKRES SZKOLENIA' : '01 / SELECT TRAINING MODULES'"></span>
+            <h2 class="sec-h2" x-text="lang === 'pl' ? 'Programy dla każdego działu BDC.' : 'Programs built for every BDC role.'"></h2>
+          </div>
+          <p class="sec-desc" x-text="lang === 'pl'
+            ? 'Zaznacz szkolenia, których potrzebuje Twój zespół. Wybrane moduły trafią bezpośrednio do konfiguratora wyceny na dole strony.'
+            : 'Click to select the modules your dealership needs. Selected programs populate your training brief automatically.'"></p>
+        </div>
+
+        <!-- Role Category Filter -->
+        <div class="filter-bar" role="group" :aria-label="lang === 'pl' ? 'Filtruj szkolenia' : 'Filter programs'">
+          <button type="button" class="filter-pill tactile" :class="filter === 'all' ? 'is-active' : ''" @click="filter = 'all'"
+            x-text="lang === 'pl' ? 'Wszystkie (7)' : 'All Programs (7)'"></button>
+          <button type="button" class="filter-pill tactile" :class="filter === 'agents' ? 'is-active' : ''" @click="filter = 'agents'"
+            x-text="lang === 'pl' ? 'Konsultanci i Specjaliści (4)' : 'Department Specialists (4)'"></button>
+          <button type="button" class="filter-pill tactile" :class="filter === 'skills' ? 'is-active' : ''" @click="filter = 'skills'"
+            x-text="lang === 'pl' ? 'Domykanie i Kompetencje Miękkie (2)' : 'Closing & Soft Skills (2)'"></button>
+          <button type="button" class="filter-pill tactile" :class="filter === 'management' ? 'is-active' : ''" @click="filter = 'management'"
+            x-text="lang === 'pl' ? 'Kierownicy BDC (1)' : 'BDC Managers (1)'"></button>
+        </div>
+
+        <!-- 7 Bento Program Cards -->
+        <div class="programs-grid">
+          <template x-for="prog in filteredPrograms" :key="prog.id">
+            <article class="prog-card" :class="{ 'is-selected': isSelected(prog.id), 'is-wide': prog.wide }">
+              <div>
+                <div class="prog-top">
+                  <span class="prog-num" x-text="prog.num + ' · ' + prog.tag"></span>
+                  <span class="prog-duration" x-text="prog.duration[lang]"></span>
+                </div>
+
+                <h3 class="prog-title" x-text="prog.title[lang]"></h3>
+                <p class="prog-summary" x-text="prog.summary[lang]"></p>
+
+                <ul class="prog-outcomes">
+                  <template x-for="point in prog.outcomes[lang]" :key="point">
+                    <li x-text="point"></li>
+                  </template>
+                </ul>
+              </div>
+
+              <div class="prog-footer">
+                <button type="button" class="select-toggle-btn tactile" @click="toggleProgram(prog.id)">
+                  <svg x-show="isSelected(prog.id)" class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                  <svg x-show="!isSelected(prog.id)" class="icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+                  <span x-text="isSelected(prog.id)
+                    ? (lang === 'pl' ? 'Wybrano do programu' : 'Selected in plan')
+                    : (lang === 'pl' ? 'Wybierz to szkolenie' : 'Select this training')"></span>
+                </button>
+              </div>
+            </article>
+          </template>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ ENGAGEMENT FORMATS ═══ -->
+    <section class="sec-pad formats-sec" id="formats">
+      <div class="wrap">
+        <div class="sec-header reveal">
+          <div>
+            <span class="sec-kicker" x-text="lang === 'pl' ? '02 / FORMUŁA WDROŻENIA' : '02 / ENGAGEMENT FORMATS'"></span>
+            <h2 class="sec-h2" x-text="lang === 'pl' ? 'Trzy sposoby współpracy ze stacją.' : 'Three ways to train your dealership.'"></h2>
+          </div>
+          <p class="sec-desc" x-text="lang === 'pl'
+            ? 'Pracujemy na realnych leadach, nagraniach rozmów i procesach Twojego CRM — zero teoretycznych slajdów oderwanych od realiów salonu.'
+            : 'Every session is built around your dealership’s live leads, call recordings, and CRM workflow—zero generic theory.'"></p>
+        </div>
+
+        <div class="formats-grid">
+          <article class="format-card reveal">
+            <div>
+              <span class="prog-num">FORMAT 01</span>
+              <h3 x-text="lang === 'pl' ? 'Audyt Tajemniczego Klienta BDC' : 'BDC Mystery Shopper Audit'"></h3>
+              <p x-text="lang === 'pl'
+                ? 'Sprawdzamy realny czas reakcji (Speed-to-Lead), jakość rozmów telefonicznych, korespondencję e-mail oraz przekazanie klienta do salonu i serwisu.'
+                : 'We benchmark your live lead response speed, phone handling, email follow-ups, and showroom/service handoff before training starts.'"></p>
+            </div>
+            <span style="font:500 12px var(--mono); color:var(--cyan-bright);" x-text="lang === 'pl' ? 'Raport + nagrania + rekomendacje' : 'Full diagnostic report + call scorecards'"></span>
+          </article>
+
+          <article class="format-card reveal">
+            <div>
+              <span class="prog-num">FORMAT 02</span>
+              <h3 x-text="lang === 'pl' ? 'Warsztaty Stacjonarne w Salonie' : 'On-Site Dealership Workshops'"></h3>
+              <p x-text="lang === 'pl'
+                ? 'Intensywne 1- lub 2-dniowe szkolenia warsztatowe bezpośrednio w Twojej stacji dealerskiej, podzielone na role (Sprzedaż, Serwis, Części, F&I).'
+                : 'Intensive 1- or 2-day hands-on role-play workshops delivered on-site at your dealership for each specialized BDC team.'"></p>
+            </div>
+            <span style="font:500 12px var(--mono); color:var(--cyan-bright);" x-text="lang === 'pl' ? 'Gotowe Talk-Tracki i checklisty CRM' : 'Custom Talk-Tracks & CRM checklists'"></span>
+          </article>
+
+          <article class="format-card reveal">
+            <div>
+              <span class="prog-num">FORMAT 03</span>
+              <h3 x-text="lang === 'pl' ? 'Wdrożenie 90-Dniowe i Coaching Lidera' : '90-Day Rollout & Manager Coaching'"></h3>
+              <p x-text="lang === 'pl'
+                ? 'Budowa lub reorganizacja działu BDC od podstaw: rekrutacja przez symulacje, plan onboardingu 30-60-90 oraz cotygodniowy coaching Kierownika BDC.'
+                : 'End-to-end BDC build or turnaround: simulation hiring, 30-60-90 agent onboarding, and weekly KPI coaching for your BDC Manager.'"></p>
+            </div>
+            <span style="font:500 12px var(--mono); color:var(--cyan-bright);" x-text="lang === 'pl' ? 'Dla pojedynczych stacji i grup dealerskich' : 'Single rooftops & multi-brand groups'"></span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ STREAMLINED TRAINING BOOKING SECTION ═══ -->
+    <section class="sec-pad" id="book">
+      <div class="wrap">
+        <div class="booking-box">
+          <div>
+            <span class="sec-kicker" x-text="lang === 'pl' ? '03 / REZERWACJA TERMINU' : '03 / REQUEST TRAINING'"></span>
+            <h2 class="sec-h2" style="margin-bottom:14px;" x-text="lang === 'pl' ? 'Zarezerwuj szkolenie dla swojego zespołu BDC.' : 'Book training for your BDC team.'"></h2>
+            <p class="sec-desc" style="margin-bottom:20px;" x-text="lang === 'pl'
+              ? 'Kliknij moduły poniżej, aby dodać lub usunąć je z zapytania, uzupełnij dane stacji i wyślij brief.'
+              : 'Toggle modules below to adjust your selection, enter your dealership details, and send your request.'"></p>
+
+            <div class="selected-chips">
+              <template x-for="prog in programs" :key="prog.id">
+                <button type="button" class="chip-item tactile"
+                  :class="{ 'is-on': isSelected(prog.id) }"
+                  @click="toggleProgram(prog.id)">
+                  <span x-text="isSelected(prog.id) ? '✓' : '+'"></span>
+                  <span x-text="prog.short[lang]"></span>
+                </button>
+              </template>
+            </div>
+
+            <div style="padding-top:20px; border-top:1px solid var(--border); font-size:13px; color:var(--ink-muted); line-height:1.6;">
+              <strong style="color:var(--ink); display:block;">Artur Załuska · BDC Academy</strong>
+              <span x-text="lang === 'pl' ? 'Trener Automotive Contact Center & Agile Delivery Lead' : 'Automotive Contact Center Trainer & Agile Delivery Lead'"></span><br />
+              <a href="mailto:artur.zaluska@gmail.com" style="color:var(--cyan-bright); text-decoration:underline;">artur.zaluska@gmail.com</a>
+            </div>
+          </div>
+
+          <form class="form-grid" @submit.prevent="submitBooking()">
+            <div>
+              <label class="field-label" for="dealer-name" x-text="lang === 'pl' ? 'Imię, nazwisko i nazwa dealera' : 'Your name & dealership'"></label>
+              <input id="dealer-name" type="text" class="field-input" x-model="form.dealer" required
+                :placeholder="lang === 'pl' ? 'np. Jan Kowalski · Auto Group Warszawa' : 'e.g. John Smith · Metro Motors'" />
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+              <div>
+                <label class="field-label" for="dealer-email" x-text="lang === 'pl' ? 'Służbowy e-mail' : 'Work email'"></label>
+                <input id="dealer-email" type="email" class="field-input" x-model="form.email" required placeholder="name@dealership.com" />
+              </div>
+              <div>
+                <label class="field-label" for="dealer-format" x-text="lang === 'pl' ? 'Formuła' : 'Format'"></label>
+                <select id="dealer-format" class="field-input" x-model="form.format">
+                  <option value="On-Site Workshop" x-text="lang === 'pl' ? 'Warsztat w salonie' : 'On-Site Workshop'"></option>
+                  <option value="Mystery Audit" x-text="lang === 'pl' ? 'Audyt BDC' : 'BDC Mystery Audit'"></option>
+                  <option value="90-Day Rollout" x-text="lang === 'pl' ? 'Wdrożenie 90-dniowe' : '90-Day Rollout'"></option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="field-label" for="dealer-notes" x-text="lang === 'pl' ? 'Dodatkowe informacje (liczba osób, marki, cel)' : 'Notes (team size, brands, main goal)'"></label>
+              <textarea id="dealer-notes" class="field-input" x-model="form.notes"
+                :placeholder="lang === 'pl' ? 'np. 8 konsultantów BDC (sprzedaż + serwis), zależy nam na podniesieniu Show Rate i jakości przekazywania leadów...' : 'e.g. 8 BDC agents across sales & service, looking to improve show rate and CRM handoffs...'"></textarea>
+            </div>
+
+            <button type="submit" class="btn-cyan tactile" style="width:100%; justify-content:center;">
+              <span x-text="lang === 'pl' ? 'Wyślij zapytanie o szkolenie (' + selectedIds.length + ')' : 'Send Training Request (' + selectedIds.length + ')'"></span>
+              <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Floating Selection Dock -->
+  <div class="selection-dock" x-show="selectedIds.length > 0" x-cloak>
+    <div style="font-size:13px; font-weight:600; color:var(--ink);">
+      <span class="tabular" style="color:var(--cyan-bright); font-weight:800;" x-text="selectedIds.length"></span>
+      <span x-text="lang === 'pl' ? ' wybrane programy szkoleniowe BDC' : ' BDC training programs selected'"></span>
+    </div>
+    <a href="#book" class="btn-cyan tactile" style="min-height:40px; padding:0 18px; font-size:13px;">
+      <span x-text="lang === 'pl' ? 'Przejdź do wyceny →' : 'Configure & Book →'"></span>
+    </a>
+  </div>
+
+  <footer style="border-top:1px solid var(--border); padding:28px 0; font:500 12px var(--mono); color:var(--ink-muted);">
+    <div class="wrap" style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:12px;">
+      <span><strong style="color:var(--ink);">BDC Academy</strong> · Artur Załuska</span>
+      <span>© 2026 BDC Academy · Automotive Contact Center Training</span>
+    </div>
+  </footer>
+
+  <script>
+    function bdcAcademy() {
+      return {
+        lang: localStorage.getItem('lang') === 'en' ? 'en' : 'pl',
+        navHidden: false,
+        lastScrollY: 0,
+        filter: 'all',
+        selectedIds: ['sales', 'closing'],
+        form: {
+          dealer: '',
+          email: '',
+          format: 'On-Site Workshop',
+          notes: ''
+        },
+
+        programs: [
+          {
+            id: 'sales',
+            num: '01',
+            group: 'agents',
+            wide: false,
+            tag: 'SALES BDC',
+            duration: { pl: '1–2 dni', en: '1–2 Days' },
+            short: { pl: '01 · Sprzedaż', en: '01 · Sales BDC' },
+            title: { pl: 'Konsultanci Sprzedaży (Sales BDC)', en: 'Sales BDC Consultants' },
+            summary: {
+              pl: 'Skuteczna obsługa zapytań o auta nowe, używane (CPO) i odkup (trade-in) od pierwszej minuty po przekazanie klienta do salonu.',
+              en: 'High-conversion handling of new, used (CPO), and trade-in leads from first response to showroom arrival.'
+            },
+            outcomes: {
+              pl: [
+                'Reakcja Speed-to-Lead poniżej 10 minut bez generycznych szablonów',
+                '5-etapowa kwalifikacja potrzeb i pilności zakupu bez tonu przesłuchania',
+                'Reaktywacja starszych leadów przez konkretne wyzwalacze ofertowe',
+                'Kompletny Handoff Brief w CRM, by klient nie powtarzał historii w salonie'
+              ],
+              en: [
+                'Sub-10-minute Speed-to-Lead responses tailored to buyer intent',
+                '5-step natural qualification without sounding like an interrogation',
+                'Cold-lead re-engagement using price, stock, and trade-in triggers',
+                'Actionable CRM handoff notes so showroom advisors are fully prepared'
+              ]
+            }
+          },
+          {
+            id: 'service',
+            num: '02',
+            group: 'agents',
+            wide: false,
+            tag: 'SERVICE BDC',
+            duration: { pl: '1–2 dni', en: '1–2 Days' },
+            short: { pl: '02 · Serwis', en: '02 · Service BDC' },
+            title: { pl: 'Konsultanci Serwisu (Service BDC)', en: 'Service BDC Advisors' },
+            summary: {
+              pl: 'Zamiana biernej recepcji telefonicznej w proaktywne doradztwo serwisowe, które zapełnia podnośniki i podnosi wartość zlecenia (RO).',
+              en: 'Transforming reactive phone scheduling into proactive service advisory that fills bays and raises repair order value.'
+            },
+            outcomes: {
+              pl: [
+                'Tłumaczenie zakresu przeglądów i napraw językiem bezpieczeństwa i spokoju',
+                'Naturalny upselling pakietów sezonowych i diagnostyki przy umawianiu wizyty',
+                'Kampanie wychodzące po przebiegu, końcu gwarancji i akcjach serwisowych',
+                'Płynna koordynacja grafiku hali, aut zastępczych i redukcja kolejek'
+              ],
+              en: [
+                'Communicating maintenance value in clear, trust-building language',
+                'Inbound upselling of seasonal packages and inspections during booking',
+                'Proactive retention outreach by mileage, warranty expiry, and recalls',
+                'Balancing shop bay capacity and courtesy-car scheduling'
+              ]
+            }
+          },
+          {
+            id: 'parts',
+            num: '03',
+            group: 'agents',
+            wide: false,
+            tag: 'PARTS & ACCESSORIES',
+            duration: { pl: '1 dzień', en: '1 Day' },
+            short: { pl: '03 · Części i Akcesoria', en: '03 · Parts & Accessories' },
+            title: { pl: 'Dział Części i Akcesoriów', en: 'Parts & Accessories BDC' },
+            summary: {
+              pl: 'Aktywna sprzedaż akcesoriów przed odbiorem auta oraz pełna synchronizacja dostępności części między BDC, serwisem i magazynem.',
+              en: 'Proactive pre-delivery accessory sales and zero-delay parts alignment between BDC, service, and warehouse.'
+            },
+            outcomes: {
+              pl: [
+                'Doposażanie aut (koła zimowe, haki, boksy) przed wydaniem klientowi',
+                'Weryfikacja dostępności części przed wizytą na hali (brak przestojów)',
+                'Sezonowe kampanie telefoniczne budujące marżę działu części',
+                'Uporządkowany przepływ zamówień i szybsza rotacja magazynu'
+              ],
+              en: [
+                'Pre-delivery accessory pitching before vehicle handover',
+                'Pre-visit parts availability checks to eliminate service bay delays',
+                'Outbound seasonal tire, wheel, and kit campaigns',
+                'Streamlined order workflow and faster parts inventory turnover'
+              ]
+            }
+          },
+          {
+            id: 'finance',
+            num: '04',
+            group: 'agents',
+            wide: false,
+            tag: 'F&I BDC',
+            duration: { pl: '1 dzień', en: '1 Day' },
+            short: { pl: '04 · Finanse (F&I)', en: '04 · F&I BDC' },
+            title: { pl: 'Finanse i Ubezpieczenia (F&I)', en: 'Finance & Insurance (F&I)' },
+            summary: {
+              pl: 'Rozmowy o budżecie, racie miesięcznej, ubezpieczeniu GAP i przedłużonej gwarancji budujące zaufanie przed spotkaniem w salonie.',
+              en: 'Framing monthly payments, GAP protection, and extended warranties transparently to boost F&I penetration.'
+            },
+            outcomes: {
+              pl: [
+                'Przejście od pytania o rabat gotówkowy do rozmowy o budżecie miesięcznym',
+                'Wstępne budowanie wartości produktów GAP i przedłużonej gwarancji',
+                'Obsługa klientów z kończącym się leasingiem (3–6 mies. przed końcem)',
+                'Jasna, transparentna komunikacja warunków finansowania'
+              ],
+              en: [
+                'Shifting from sticker-price haggling to monthly mobility budgeting',
+                'Early value seeding for GAP insurance and extended service plans',
+                'Structured lease-maturity outreach 3–6 months prior to contract end',
+                'Clear, no-surprise financial communication that builds buyer trust'
+              ]
+            }
+          },
+          {
+            id: 'closing',
+            num: '05',
+            group: 'skills',
+            wide: false,
+            tag: 'CLOSING & SHOW-RATE',
+            duration: { pl: '1 dzień (Intensywny)', en: '1 Day Intensive' },
+            short: { pl: '05 · Domykanie & Show Rate', en: '05 · Closing & Show Rate' },
+            title: { pl: 'Domykanie Wizyt i Show Rate', en: 'Closing & Show-Rate Mastery' },
+            summary: {
+              pl: 'Jak zamieniać luźne rozmowy w potwierdzone wizyty, na które klienci faktycznie przyjeżdżają (72%–85% Show Rate).',
+              en: 'Turning tentative inquiries into high-commitment showroom appointments that actually show up (72%–85% Show Rate).'
+            },
+            outcomes: {
+              pl: [
+                '6-etapowa architektura rozmowy umawiającej ze sprzedażą wartości wizyty',
+                'Zbijanie obiekcji „Tylko się rozglądam” oraz „Szukam najniższej ceny”',
+                'System potwierdzeń When / Where / Who / Why obniżający liczbę No-Show',
+                'Spokojna procedura odzyskiwania nieodbytych wizyt bez poczucia winy'
+              ],
+              en: [
+                '6-step booking conversation structure with clear visit value framing',
+                'Neutralizing “Just looking” and lowest-price objections calmly',
+                'When / Where / Who / Why confirmations that lock in attendance',
+                'Guilt-free No-Show recovery workflow to rebook missed visits'
+              ]
+            }
+          },
+          {
+            id: 'soft',
+            num: '06',
+            group: 'skills',
+            wide: false,
+            tag: 'SOFT SKILLS & EQ',
+            duration: { pl: '1–2 dni', en: '1–2 Days' },
+            short: { pl: '06 · Szkolenia Miękkie & EQ', en: '06 · Soft Skills & EQ' },
+            title: { pl: 'Szkolenia Miękkie i Psychologia Klienta', en: 'Soft Skills & Customer Psychology' },
+            summary: {
+              pl: 'Inteligencja emocjonalna, rozbrajanie trudnych rozmów reklamacyjnych, aktywne słuchanie oraz zarządzanie czasem w szczycie ruchu.',
+              en: 'Emotional intelligence, de-escalating frustrated callers, deep active listening, and peak-hour time management.'
+            },
+            outcomes: {
+              pl: [
+                'Łączenie argumentów racjonalnych z emocjonalnymi w decyzji zakupowej',
+                'Deeskalacja zdenerwowanych klientów po opóźnieniu dostawy lub w serwisie',
+                'Aktywne słuchanie i wychwytywanie ukrytych barier decyzyjnych',
+                'Odporność psychiczna (Resilience) i priorytetyzacja zadań w ciągu dnia'
+              ],
+              en: [
+                'Balancing rational specs with emotional drivers in automotive buying',
+                'De-escalating upset callers over service delays or delivery timelines',
+                'Active listening to uncover unspoken buyer objections',
+                'Agent resilience and daily task batching under high lead volume'
+              ]
+            }
+          },
+          {
+            id: 'managers',
+            num: '07',
+            group: 'management',
+            wide: true,
+            tag: 'BDC LEADERSHIP & KPI',
+            duration: { pl: '2 dni + wdrożenie', en: '2 Days + Rollout' },
+            short: { pl: '07 · Kierownicy BDC', en: '07 · BDC Managers' },
+            title: { pl: 'Kierownicy BDC: Praca z Ludźmi, Raportowanie i Mierzenie Efektów', en: 'BDC Managers: People Leadership, Reporting & KPI Management' },
+            summary: {
+              pl: 'Kompleksowy program dla Szefów BDC i Dyrektorów Stacji: rekrutacja oparta na symulacjach, wdrożenie 30-60-90, coaching z nagrań oraz zarządzanie całym łańcuchem konwersji.',
+              en: 'Executive leadership program for BDC Managers and GMs: simulation hiring, 30-60-90 onboarding, call coaching, and full-funnel KPI governance.'
+            },
+            outcomes: {
+              pl: [
+                'Rekrutacja przez praktyczne symulacje (e-mail, role-play, dzień próbny) i karty oceny',
+                'Strukturalny onboarding 30-60-90 dni skracający czas dojścia agenta do pełnych wyników',
+                'Cotygodniowy coaching 1-on-1 oparty na nagraniach i higienie etapów w CRM',
+                'Czytanie powiązanych wskaźników KPI (Speed-to-Lead → Contact → Booked → Show → Sale/RO)'
+              ],
+              en: [
+                'Simulation-based hiring (email test, phone role-play, trial day) with scorecards',
+                '30-60-90 day structured onboarding that accelerates agent ramp-up',
+                'Weekly evidence-based 1-on-1 coaching from call recordings and CRM hygiene',
+                'Managing the full KPI chain (Speed-to-Lead → Contact → Booked → Show → Sale/RO)'
+              ]
+            }
+          }
+        ],
+
+        get filteredPrograms() {
+          if (this.filter === 'all') return this.programs;
+          return this.programs.filter(p => p.group === this.filter);
+        },
+
+        isSelected(id) {
+          return this.selectedIds.includes(id);
+        },
+
+        toggleProgram(id) {
+          if (this.isSelected(id)) {
+            this.selectedIds = this.selectedIds.filter(item => item !== id);
+          } else {
+            this.selectedIds.push(id);
+          }
+        },
+
+        toggleLang() {
+          this.lang = this.lang === 'pl' ? 'en' : 'pl';
+          localStorage.setItem('lang', this.lang);
+        },
+
+        submitBooking() {
+          const chosen = this.programs
+            .filter(p => this.selectedIds.includes(p.id))
+            .map(p => '• ' + p.title[this.lang])
+            .join('\n');
+
+          const subject = this.lang === 'pl'
+            ? `Zapytanie o szkolenie BDC Academy — ${this.form.dealer}`
+            : `BDC Academy Training Enquiry — ${this.form.dealer}`;
+
+          const body = this.lang === 'pl'
+            ? `Dzień dobry Arturze,\n\nZgłaszający / Dealer: ${this.form.dealer}\nE-mail: ${this.form.email}\nFormuła: ${this.form.format}\n\nWybrane programy szkoleniowe:\n${chosen || '• Do ustalenia podczas rozmowy'}\n\nDodatkowe informacje:\n${this.form.notes}`
+            : `Hi Artur,\n\nName / Dealership: ${this.form.dealer}\nEmail: ${this.form.email}\nFormat: ${this.form.format}\n\nSelected Training Programs:\n${chosen || '• To be discussed'}\n\nNotes:\n${this.form.notes}`;
+
+          window.location.href = `mailto:artur.zaluska@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        },
+
+        init() {
+          window.addEventListener('scroll', () => {
+            const y = window.scrollY;
+            this.navHidden = y > 180 && y > this.lastScrollY;
+            this.lastScrollY = y;
+          }, { passive: true });
+
+          if (window.gsap && window.ScrollTrigger && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            gsap.registerPlugin(ScrollTrigger);
+            gsap.from('.reveal-hero', {
+              y: 22,
+              opacity: 0,
+              duration: 0.75,
+              stagger: 0.1,
+              ease: 'power3.out',
+              clearProps: 'transform,opacity'
+            });
+            gsap.utils.toArray('.reveal').forEach(el => {
+              gsap.from(el, {
+                y: 24,
+                opacity: 0,
+                duration: 0.65,
+                ease: 'power3.out',
+                scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+                clearProps: 'transform,opacity'
+              });
+            });
+          }
+        }
+      };
+    }
+  </script>
+</body>
+</html>

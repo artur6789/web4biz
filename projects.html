@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl" :lang="lang" x-data="projectsPageApp()" :data-theme="direction" @keydown.escape.window="mobileMenuOpen = false" class="scroll-smooth">
+<html lang="pl" :lang="lang" x-data="projectsPageApp()" x-init="$nextTick(() => updateDocumentMetadata())" :data-theme="direction" @keydown.escape.window="mobileMenuOpen = false" class="scroll-smooth">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -22,58 +22,64 @@
   </script>
 
   <title x-text="lang === 'pl' ? 'Projekty &amp; Realizacje - web4biz.pl | Archie' : 'Projects &amp; Builds - web4biz.pl | Archie'">Projekty &amp; Realizacje - web4biz.pl | Archie</title>
-  <meta name="description" content="Pełna lista zrealizowanych stron B2B, interaktywnych kalkulatorów (SVG/GeoJSON), wielojęzycznych platform oraz aplikacji webowych - web4biz.pl."/>
+  <meta name="description" content="Portfolio ośmiu stron, narzędzi i marek zbudowanych wokół realnych potrzeb klientów: web4biz.pl."/>
   <meta name="robots" content="index, follow"/>
-  <link rel="canonical" href="https://web4biz.pl/projects.html"/>
+  <link rel="canonical" href="https://artur6789.github.io/web4biz/projects.html"/>
+  <link rel="alternate" hreflang="pl" href="https://artur6789.github.io/web4biz/projects.html"/>
+  <link rel="alternate" hreflang="en" href="https://artur6789.github.io/web4biz/projects.html?lang=en"/>
+  <link rel="alternate" hreflang="x-default" href="https://artur6789.github.io/web4biz/projects.html"/>
 
   <!-- Inline SVG Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23172019'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='800' font-size='26' fill='%23d8fa52'%3Ew4b%3C/text%3E%3C/svg%3E"/>
 
   <!-- OpenGraph & Social Preview -->
   <meta property="og:type" content="website"/>
-  <meta property="og:url" content="https://web4biz.pl/projects.html"/>
+  <meta property="og:url" content="https://artur6789.github.io/web4biz/projects.html"/>
   <meta property="og:title" content="Projekty &amp; Realizacje - web4biz.pl | Archie"/>
-  <meta property="og:description" content="Pełny katalog stron B2B, kalkulatorów wycen SVG/GeoJSON, wielojęzycznych platform oraz aplikacji webowych z opisami Case Study."/>
+  <meta property="og:description" content="Portfolio 8 projektów: stron B2B, narzędzi online, szkoleń automotive i marek usługowych z opisami Case Study."/>
   <meta property="og:locale" content="pl_PL"/>
   <meta property="og:locale:alternate" content="en_US"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Projekty &amp; Realizacje - web4biz.pl"/>
   <meta name="twitter:description" content="Zobacz realizacje B2B, interaktywne narzędzia webowe i aplikacje z pełnym opisem Case Study."/>
 
-  <!-- Dane strukturalne Schema.org (CollectionPage + ItemList pod SEO i AI/GEO) -->
+  <!-- Dane strukturalne Schema.org (CollectionPage + ItemList) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     "name": "Projekty i Realizacje - web4biz.pl",
-    "url": "https://web4biz.pl/projects.html",
-    "description": "Pełna lista stron B2B, interaktywnych kalkulatorów oraz aplikacji webowych zaprojektowanych w web4biz.pl.",
+    "url": "https://artur6789.github.io/web4biz/projects.html",
+    "description": "Portfolio 8 stron, narzędzi i marek zaprojektowanych w web4biz.pl.",
     "isPartOf": {
       "@type": "WebSite",
       "name": "web4biz.pl",
-      "url": "https://web4biz.pl/"
+      "url": "https://artur6789.github.io/web4biz/"
     },
     "mainEntity": {
       "@type": "ItemList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "AD REM T2 - Transport, logistyka i spedycja", "url": "https://web4biz.pl/case-study.html?project=adremt2" },
-        { "@type": "ListItem", "position": 2, "name": "Ad Rem Centrum Księgowe", "url": "https://web4biz.pl/case-study.html?project=ckadrem" },
-        { "@type": "ListItem", "position": 3, "name": "PM Classics", "url": "https://web4biz.pl/case-study.html?project=pmclassics" },
-        { "@type": "ListItem", "position": 4, "name": "KUBATURA - Relokacje Biur i Archiwów", "url": "https://web4biz.pl/case-study.html?project=kubatura" },
-        { "@type": "ListItem", "position": 5, "name": "玄 GEMBA - Diagnostyka Lean & Six Sigma", "url": "https://web4biz.pl/case-study.html?project=gemba" }
+        { "@type": "ListItem", "position": 1, "name": "AD REM T2 - Transport, logistyka i spedycja", "url": "https://artur6789.github.io/web4biz/case-study.html?project=adremt2" },
+        { "@type": "ListItem", "position": 2, "name": "Ad Rem Centrum Księgowe", "url": "https://artur6789.github.io/web4biz/case-study.html?project=ckadrem" },
+        { "@type": "ListItem", "position": 3, "name": "PM Classics", "url": "https://artur6789.github.io/web4biz/case-study.html?project=pmclassics" },
+        { "@type": "ListItem", "position": 4, "name": "KUBATURA - Relokacje Biur i Archiwów", "url": "https://artur6789.github.io/web4biz/case-study.html?project=kubatura" },
+        { "@type": "ListItem", "position": 5, "name": "玄 GEMBA - Diagnostyka Lean & Six Sigma", "url": "https://artur6789.github.io/web4biz/case-study.html?project=gemba" },
+        { "@type": "ListItem", "position": 6, "name": "BDC Academy - szkolenia Automotive Contact Center", "url": "https://artur6789.github.io/web4biz/case-study.html?project=bdcacademy" },
+        { "@type": "ListItem", "position": 7, "name": "HAUHAUS - kameralne psiedszkole", "url": "https://artur6789.github.io/web4biz/case-study.html?project=hauhaus" },
+        { "@type": "ListItem", "position": 8, "name": "PIEC - Niegrzeczny chleb", "url": "https://artur6789.github.io/web4biz/case-study.html?project=piec" }
       ]
     }
   }
   </script>
 
-  <!-- Google Fonts: Space Grotesk + DM Sans + JetBrains Mono (display=block eliminuje przeskok fontów) -->
+  <!-- Google Fonts: Space Grotesk + DM Sans + JetBrains Mono (display=swap keeps text visible while fonts load) -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Space+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=block" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Space+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet"/>
 
   <!-- Wspólne dane projektów + Alpine.js -->
   <script src="projects-data.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.17.5/dist/cdn.min.js"></script>
 
   <style>
     /* ═══════════════════════════════════════════════════════════════════
@@ -793,6 +799,14 @@
       .row-actions { flex-direction: column; align-items: stretch; }
       .btn-card-primary, .btn-card-secondary, .btn-primary { width: 100%; justify-content: center; }
     }
+    .portfolio-preview { min-height: 290px; padding: 22px; display:flex; flex-direction:column; justify-content:space-between; border-bottom:0; text-decoration:none; overflow:hidden; }
+    .portfolio-preview .preview-topline,.portfolio-preview .preview-bottomline { display:flex; justify-content:space-between; gap:12px; font:600 9px var(--mono); letter-spacing:.08em; }
+    .portfolio-preview .preview-kicker { margin:0 0 10px; font:600 9px var(--mono); letter-spacing:.1em; }
+    .portfolio-preview strong { display:block; font:700 clamp(28px,4vw,42px)/.95 var(--display); letter-spacing:-.06em; }
+    .portfolio-preview em { font-style:normal; }
+    .preview-bdc { background:#d8fa52; color:#172019; } .preview-bdc em { color:#477331; }
+    .preview-hauhaus { background:#102c26; color:#f5f1e6; } .preview-hauhaus em { color:#f6a55c; }
+    .preview-piec { background:#f0e8dc; color:#201815; } .preview-piec em { color:#c4432e; }
   </style>
 </head>
 
@@ -1258,11 +1272,20 @@
           </div>
         </article>
 
-        <!-- ═══════════════════════════════════════════════════════════════
-             MIEJSCE NA KOLEJNE PROJEKTY (06, 07, 08...)
-             Skopiuj dowolną kartę .project-row-card powyżej, dodaj obiekt do
-             projects-data.js, a liczniki i filtry zaktualizują się same.
-             ═══════════════════════════════════════════════════════════════ -->
+        <article class="project-row-card" x-show="matchesFilter('bdcacademy')">
+          <a href="case-study.html?project=bdcacademy" class="row-art-box portfolio-preview preview-bdc"><div class="preview-topline"><span>BDC ACADEMY · AUTOMOTIVE</span><span>06 / 08</span></div><div><p class="preview-kicker">SZKOLENIA DLA DEALERÓW</p><strong>BUILD<br/>BETTER<br/><em>BDC.</em></strong></div><div class="preview-bottomline"><span>SALES · SERVICE · F&amp;I</span><span>→</span></div></a>
+          <div class="row-body"><div><div class="row-top-meta tabular"><span class="row-index">06 / AUTOMOTIVE B2B</span><span class="row-year">2026</span></div><div class="project-tags"><span>HTML · CSS · JavaScript</span><span>Dealer Training</span></div><h2>BDC Academy — szkolenia dla BDC</h2><p x-text="lang === 'pl' ? 'Programy dla sprzedaży, serwisu, części, F&I i liderów BDC w salonach dealerskich.' : 'Training for dealership sales, service, parts, F&I and BDC leadership teams.'">Programy dla sprzedaży, serwisu, części, F&amp;I i liderów BDC w salonach dealerskich.</p></div><div class="row-actions"><a href="case-study.html?project=bdcacademy" class="btn-card-primary tactile"><span x-text="lang === 'pl' ? 'Czytaj Case Study' : 'Read Case Study'">Czytaj Case Study</span><span aria-hidden="true">→</span></a><a href="bdc-academy.html" class="btn-card-secondary tactile"><span x-text="lang === 'pl' ? 'Otwórz stronę' : 'Open project'">Otwórz stronę</span><span aria-hidden="true">↗</span></a></div></div>
+        </article>
+
+        <article class="project-row-card" x-show="matchesFilter('hauhaus')">
+          <a href="case-study.html?project=hauhaus" class="row-art-box portfolio-preview preview-hauhaus"><div class="preview-topline"><span>HAUHAUS · WARSZAWA</span><span>07 / 08</span></div><div><p class="preview-kicker">PSIEDSZKOLE · OGRÓD · OPIEKA</p><strong>Spokojna<br/>głowa.<br/><em>Szczęśliwy pies.</em></strong></div><div class="preview-bottomline"><span>800 m² · PODGLĄD LIVE</span><span>♥</span></div></a>
+          <div class="row-body"><div><div class="row-top-meta tabular"><span class="row-index">07 / USŁUGA LOKALNA</span><span class="row-year">2026</span></div><div class="project-tags"><span>HTML · Tailwind · Alpine.js</span><span>Local service</span></div><h2>HAUHAUS — kameralne psiedszkole</h2><p x-text="lang === 'pl' ? 'Warszawska opieka nad psami z ogrodem 800 m², podglądem na żywo i wsparciem specjalistów.' : 'Warsaw dog daycare with an 800 m² garden, live camera access and specialist support.'">Warszawska opieka nad psami z ogrodem 800 m², podglądem na żywo i wsparciem specjalistów.</p></div><div class="row-actions"><a href="case-study.html?project=hauhaus" class="btn-card-primary tactile"><span x-text="lang === 'pl' ? 'Czytaj Case Study' : 'Read Case Study'">Czytaj Case Study</span><span aria-hidden="true">→</span></a><a href="hauhaus.html" class="btn-card-secondary tactile"><span x-text="lang === 'pl' ? 'Otwórz stronę' : 'Open project'">Otwórz stronę</span><span aria-hidden="true">↗</span></a></div></div>
+        </article>
+
+        <article class="project-row-card" x-show="matchesFilter('piec')">
+          <a href="case-study.html?project=piec" class="row-art-box portfolio-preview preview-piec"><div class="preview-topline"><span>PIEC® · NIEGRZECZNY CHLEB</span><span>08 / 08</span></div><div><p class="preview-kicker">MĄKA / WODA / ZAKWAS / CZAS</p><strong>NIEGRZECZNY<br/><em>CHLEB.</em></strong></div><div class="preview-bottomline"><span>48 H · SOURDOUGH</span><span>↗</span></div></a>
+          <div class="row-body"><div><div class="row-top-meta tabular"><span class="row-index">08 / MARKA KONSUMENCKA</span><span class="row-year">2026</span></div><div class="project-tags"><span>Framer</span><span>Brand website</span></div><h2>PIEC® — Niegrzeczny chleb</h2><p x-text="lang === 'pl' ? 'Strona rzemieślniczej piekarni zakwasowej: długa fermentacja, proste składniki i cztery linie wypieków.' : 'Craft sourdough bakery site built around slow fermentation, simple ingredients and four bakery lines.'">Strona rzemieślniczej piekarni zakwasowej: długa fermentacja, proste składniki i cztery linie wypieków.</p></div><div class="row-actions"><a href="case-study.html?project=piec" class="btn-card-primary tactile"><span x-text="lang === 'pl' ? 'Czytaj Case Study' : 'Read Case Study'">Czytaj Case Study</span><span aria-hidden="true">→</span></a><a href="https://rotating-baguette-637711.framer.app/" target="_blank" rel="noopener noreferrer" class="btn-card-secondary tactile"><span x-text="lang === 'pl' ? 'Otwórz projekt' : 'Open live project'">Otwórz projekt</span><span aria-hidden="true">↗</span></a></div></div>
+        </article>
 
       </div>
     </div>
@@ -1311,12 +1334,13 @@
       const baseFilters = shared.filters || [
         { id: 'b2b',   label: { pl: 'Strony B2B & SEO',    en: 'B2B & SEO Websites' } },
         { id: 'tools', label: { pl: 'Dodatkowe narzędzia', en: 'Custom Web Tools' } },
-        { id: 'react', label: { pl: 'Aplikacje React',     en: 'React Apps' } }
+        { id: 'react', label: { pl: 'Aplikacje webowe', en: 'Web applications' } },
+        { id: 'brand', label: { pl: 'Marki i usługi lokalne', en: 'Consumer brands & local services' } }
       ];
 
       return {
         direction: localStorage.getItem('w4b_theme') || 'editorial',
-        lang: localStorage.getItem('lang') === 'en' ? 'en' : 'pl',
+        lang: new URLSearchParams(window.location.search).get('lang') === 'en' ? 'en' : (localStorage.getItem('lang') === 'en' ? 'en' : 'pl'),
         mobileMenuOpen: false,
         activeFilter: 'all',
         projectsList: sharedProjects,
@@ -1371,6 +1395,28 @@
         toggleLang() {
           this.lang = this.lang === 'pl' ? 'en' : 'pl';
           localStorage.setItem('lang', this.lang);
+          const nextUrl = new URL(window.location.href);
+          if (this.lang === 'en') nextUrl.searchParams.set('lang', 'en');
+          else nextUrl.searchParams.delete('lang');
+          window.history.replaceState({}, '', nextUrl);
+          this.updateDocumentMetadata();
+        },
+
+        updateDocumentMetadata() {
+          document.documentElement.lang = this.lang;
+          document.title = this.lang === 'pl' ? 'Projekty i realizacje | web4biz.pl' : 'Selected Work & Projects | web4biz.pl';
+          const description = this.lang === 'pl'
+            ? 'Portfolio stron B2B, narzędzi online, szkoleń automotive i marek usługowych.'
+            : 'A portfolio of B2B websites, online tools, automotive training and service brands.';
+          const pageUrl = new URL('https://artur6789.github.io/web4biz/projects.html');
+          if (this.lang === 'en') pageUrl.searchParams.set('lang', 'en');
+          document.querySelector('link[rel="canonical"]')?.setAttribute('href', pageUrl.href);
+          document.querySelector('meta[property="og:url"]')?.setAttribute('content', pageUrl.href);
+          document.querySelector('meta[name="description"]')?.setAttribute('content', description);
+          document.querySelector('meta[property="og:title"]')?.setAttribute('content', document.title);
+          document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
+          document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', document.title);
+          document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', description);
         }
       };
     }
