@@ -21,8 +21,8 @@
     })();
   </script>
 
-  <title>web4biz.pl - Strony B2B, Narzędzia Webowe &amp; Aplikacje React | Archie</title>
-  <meta name="description" content="Projektuję i wdrażam strony B2B oraz narzędzia online, które pomagają klientom podejmować decyzje i ograniczają ręczną pracę zespołów."/>
+  <title>Strony B2B i narzędzia webowe | Archie</title>
+  <meta name="description" content="Strony B2B i praktyczne narzędzia online, które pomagają klientom wybrać właściwą usługę i przekazać zespołowi potrzebny kontekst."/>
   <meta name="robots" content="index, follow"/>
   <link rel="canonical" href="https://artur6789.github.io/web4biz/"/>
   <link rel="alternate" hreflang="pl" href="https://artur6789.github.io/web4biz/"/>
@@ -35,13 +35,13 @@
   <!-- OpenGraph & Social Preview -->
   <meta property="og:type" content="website"/>
   <meta property="og:url" content="https://artur6789.github.io/web4biz/"/>
-  <meta property="og:title" content="web4biz.pl - Strony B2B, Dedykowane Narzędzia Online &amp; Aplikacje Webowe"/>
-  <meta property="og:description" content="Strony B2B i narzędzia online projektowane wokół realnych procesów: od kwalifikacji zapytań po wycenę i samoobsługę. Zobacz 8 projektów."/>
+  <meta property="og:title" content="Strony B2B i narzędzia webowe | Archie"/>
+  <meta property="og:description" content="Strony B2B i praktyczne narzędzia online, które pomagają klientom wybrać właściwą usługę i przekazać zespołowi potrzebny kontekst."/>
   <meta property="og:locale" content="pl_PL"/>
   <meta property="og:locale:alternate" content="en_US"/>
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="web4biz.pl - Strony B2B i Dedykowane Narzędzia Webowe"/>
-  <meta name="twitter:description" content="Projektuję szybkie strony B2B, narzędzia webowe oraz interaktywne aplikacje usprawniające sprzedaż."/>
+  <meta name="twitter:title" content="Strony B2B i narzędzia webowe | Archie"/>
+  <meta name="twitter:description" content="Strony B2B i praktyczne narzędzia online, które pomagają klientom wybrać właściwą usługę i przekazać zespołowi potrzebny kontekst."/>
 
   <!-- Dane strukturalne Schema.org (SEO + wyszukiwarki AI / GEO) -->
   <script type="application/ld+json">
@@ -383,7 +383,7 @@
     }
 
     /* ═══════════════════════════════════════════════════════════════════
-       3. HERO GRID + 3D BROWSER SHOWCASE (CZYSTY CSS 3D TILT BEZ GSAP)
+       3. HERO GRID + CUSTOMER JOURNEY
        ═══════════════════════════════════════════════════════════════════ */
     .hero-grid {
       display: grid;
@@ -481,86 +481,31 @@
       text-transform: uppercase;
     }
 
-    .hero-showcase { position: relative; margin: 0; perspective: 1200px; }
-    .showcase-browser {
-      position: relative;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.65);
-      border-radius: 13px;
-      background: #f7f6f0;
-      color: #172019;
-      box-shadow: 0 28px 65px rgba(15, 23, 18, 0.26), 0 4px 12px rgba(15, 23, 18, 0.14);
-      backface-visibility: hidden;
-      will-change: transform;
-      transition: transform 320ms var(--ease-out-quart);
+    .hero-journey {
+      margin: 0;
+      padding: clamp(24px, 3vw, 38px);
+      border: 1px solid color-mix(in srgb, var(--hero-ink) 13%, transparent);
+      border-radius: 14px;
+      background: var(--surface);
+      color: var(--ink);
+      box-shadow: 0 24px 58px rgba(12, 18, 13, 0.15), 0 3px 10px rgba(12, 18, 13, 0.08);
     }
-    .showcase-browser-bar {
-      height: 36px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 0 14px;
-      background: #ecebe4;
-      border-bottom: 1px solid #dfddd4;
-    }
-    .dot-r, .dot-y, .dot-g { width: 8px; height: 8px; border-radius: 50%; }
-    .dot-r { background: #e58b79; }
-    .dot-y { background: #e8bd67; }
-    .dot-g { background: #90b887; }
-    .showcase-address {
-      margin-inline: auto;
-      padding: 4px 14px;
-      border-radius: 4px;
-      background: #faf9f5;
-      border: 1px solid #e0dfd6;
-      color: #686c63;
-      font: 500 10px var(--mono);
-    }
-    .showcase-stage { height: 330px; position: relative; overflow: hidden; }
-    .showcase-footer-bar {
-      height: 46px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 20px;
-      background: #f8f7f2;
-      border-top: 1px solid #e6e4dc;
-      font: 600 11px var(--mono);
-      color: #172019;
-    }
-
-    .showcase-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
-    .showcase-tab {
-      flex: 1 1 auto;
-      min-height: 42px;
-      padding: 0 14px;
-      border-radius: var(--btn-radius);
-      border: 1px solid color-mix(in srgb, var(--hero-ink) 25%, transparent);
-      background: color-mix(in srgb, var(--surface) 60%, transparent);
-      color: var(--hero-ink);
-      font: 500 11.5px var(--sans);
-      letter-spacing: -0.01em;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 7px;
-    }
-    @media (hover: hover) and (pointer: fine) {
-      .showcase-tab:not(.is-active):hover {
-        border-color: color-mix(in srgb, var(--hero-ink) 55%, transparent);
-        background: color-mix(in srgb, var(--surface) 88%, transparent);
-      }
-    }
-    .showcase-tab.is-active {
-      background: var(--btn-bg);
-      color: var(--btn-ink);
-      border-color: var(--btn-bg);
-      font-weight: 700;
-    }
+    .hero-journey-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .hero-journey-label { margin: 0; color: var(--muted); font: 600 9px var(--mono); letter-spacing: .09em; }
+    .hero-journey-tag { flex: 0 0 auto; padding: 6px 8px; border: 1px solid var(--line); border-radius: 4px; color: var(--signal); font: 600 8px var(--mono); letter-spacing: .04em; }
+    .hero-journey-title { max-width: 460px; margin: 18px 0 0; font: 600 clamp(1.55rem, 2.5vw, 2.15rem)/1.04 var(--display); letter-spacing: -.045em; }
+    .hero-journey-steps { display: grid; gap: 0; margin: 26px 0 0; padding: 0; list-style: none; }
+    .hero-journey-step { position: relative; display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 15px; padding: 0 0 22px; }
+    .hero-journey-step:last-child { padding-bottom: 0; }
+    .hero-journey-step:not(:last-child)::after { content: ''; position: absolute; left: 19px; top: 40px; bottom: 0; width: 1px; background: var(--line); }
+    .hero-journey-number { z-index: 1; display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid var(--line); border-radius: 50%; background: var(--surface); color: var(--signal); font: 600 10px var(--mono); }
+    .hero-journey-step h3 { margin: 1px 0 5px; font: 600 15px/1.2 var(--display); letter-spacing: -.02em; }
+    .hero-journey-step p { max-width: 390px; margin: 0; color: var(--muted); font: 400 12px/1.5 var(--sans); }
+    .hero-journey-note { display: flex; align-items: center; gap: 8px; margin: 24px 0 0; padding: 12px 14px; border-radius: 5px; background: color-mix(in srgb, var(--accent) 22%, var(--surface)); color: var(--ink); font: 600 10px/1.4 var(--mono); }
+    .hero-journey-note > span:first-child { color: var(--signal); font-size: 14px; }
 
     /* ═══════════════════════════════════════════════════════════════════
-       4. MINIATURY PROJEKTÓW I INTERAKTYWNE WIDOKI W HERO
+       4. SELECTED PROJECT CARD PREVIEWS
        ═══════════════════════════════════════════════════════════════════ */
     .route-map-graphic { display: block; width: 100%; height: 100%; }
     .route-map-land { fill: #e1e7de; }
@@ -573,8 +518,6 @@
       stroke-linejoin: round;
     }
     .route-map-poland { fill: rgba(217, 4, 41, 0.17); stroke: #d90429; stroke-width: 3; stroke-linejoin: round; }
-    .route-map-cities circle { fill: #d33239; stroke: #fff; stroke-width: 3.5; }
-    .route-map-start { fill: #d33239; stroke: #fff; stroke-width: 5; }
     .route-map-label {
       fill: #172019;
       stroke: #ffffff;
@@ -583,21 +526,6 @@
       font: 700 14px var(--sans);
       letter-spacing: 0.02em;
     }
-    .route-city-dot {
-      fill: #d33239;
-      stroke: #ffffff;
-      stroke-width: 3.5;
-      cursor: pointer;
-      transition: transform 150ms ease, fill 150ms ease;
-      transform-box: fill-box;
-      transform-origin: center;
-    }
-    .route-city-dot:hover,
-    .route-city-dot.is-selected {
-      fill: #172019;
-      transform: scale(1.35);
-    }
-
     .art-route-split {
       display: grid;
       grid-template-columns: 1.45fr 1fr;
@@ -629,82 +557,6 @@
       font-size: 12px;
       line-height: 1.5;
       color: #374151;
-    }
-
-    /* Interaktywna KUBATURA w oknie 3D Hero (Stage 1) */
-    .hero-kubatura-split {
-      display: grid;
-      grid-template-columns: minmax(0, 1.32fr) minmax(0, 0.98fr);
-      height: 100%;
-      background: #f4f5f7;
-      color: #181a1f;
-    }
-    .hero-kubatura-truck {
-      padding: 14px 16px 10px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      background-color: #f4f5f7;
-      background-image:
-        linear-gradient(rgba(24,26,31,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(24,26,31,0.04) 1px, transparent 1px);
-      background-size: 28px 28px;
-      min-height: 0;
-    }
-    .hero-kubatura-panel {
-      background: #ffffff;
-      border-left: 3px solid #ea580c;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 8px;
-    }
-
-    .hero-chip {
-      appearance: none;
-      -webkit-appearance: none;
-      padding: 4px 9px;
-      border-radius: 4px;
-      border: 1px solid #d5d7d0;
-      background: #f4f5f2;
-      color: #374151;
-      font: 600 10px var(--mono);
-      cursor: pointer;
-      transition: all 140ms ease;
-    }
-    .hero-chip:hover { border-color: #172019; color: #172019; }
-    .hero-chip.is-active {
-      background: #d90429;
-      border-color: #d90429;
-      color: #ffffff;
-    }
-    .hero-chip.is-orange-active {
-      background: #ea580c;
-      border-color: #ea580c;
-      color: #ffffff;
-    }
-
-    .gemba-chip {
-      appearance: none;
-      -webkit-appearance: none;
-      width: 100%;
-      padding: 7px 10px;
-      border-radius: 3px;
-      border: 1px solid #dfdcd2;
-      background: #fcfbf8;
-      color: #475053;
-      font: 500 11px/1.35 var(--sans);
-      text-align: left;
-      cursor: pointer;
-      transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease, box-shadow 140ms ease;
-    }
-    .gemba-chip:hover { border-color: #b8432e; }
-    .gemba-chip.is-active {
-      border-color: #b8432e;
-      background: #fdf3f1;
-      color: #161e21;
-      box-shadow: inset 3px 0 0 #b8432e;
     }
 
     .ck-mini-preview {
@@ -1082,76 +934,13 @@
       .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
       .proof-row { gap: 10px 18px; margin-top: 28px; }
 
-      /* Okno podglądu 3D w Hero — zakładki nad oknem i stała, równa wysokość 445px */
-      .hero-showcase { display: flex; flex-direction: column; }
-      .showcase-tabs {
-        order: -1;
-        margin-top: 0;
-        margin-bottom: 12px;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 6px;
-      }
-      .showcase-tab { padding: 8px 8px; font-size: 11px; min-height: 38px; }
-      .showcase-stage { height: 445px; }
-      .showcase-browser-bar { padding: 0 10px; }
-      .showcase-address { max-width: 185px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-      .showcase-footer-bar { height: auto; padding: 10px 14px; gap: 8px; flex-wrap: wrap; font-size: 10px; }
-      .showcase-footer-bar > span { display: none; }
-
-      /* Podglądy projektów w Hero — wszystkie wypełniają dokładnie 100% sceny (445px) */
-      .showcase-stage .art-route-split,
-      .showcase-stage .hero-kubatura-split {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-      }
-      .showcase-stage .art-route-map-box {
-        flex: 1 1 0;
-        min-height: 175px;
-      }
-      .showcase-stage .art-route-panel {
-        flex: 0 0 auto;
-        border-left: 0;
-        border-top: 3px solid #d90429;
-        padding: 13px 14px;
-        gap: 6px;
-      }
-      .showcase-stage .hero-kubatura-truck {
-        flex: 1 1 0;
-        padding: 12px 14px 8px;
-      }
-      .showcase-stage .hero-kubatura-panel {
-        flex: 0 0 auto;
-        border-left: 0;
-        border-top: 3px solid #ea580c;
-        padding: 12px 14px;
-        gap: 6px;
-      }
-      .showcase-stage .gemba-stage-wrap {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-      }
-      .gemba-stage-grid {
-        flex: 1 1 0;
-        height: auto !important;
-        grid-template-columns: 1fr !important;
-        padding: 14px 16px 10px !important;
-        gap: 10px !important;
-        align-content: space-between;
-      }
-      .gemba-stage-grid h3 { font-size: 24px !important; margin-bottom: 4px !important; }
-      .gemba-stage-grid p { display: none; }
-      .gemba-glossary-bar {
-        position: static !important;
-        flex-shrink: 0;
-        height: auto !important;
-        padding: 9px 16px !important;
-        flex-wrap: wrap;
-        gap: 6px;
-      }
-      .gemba-glossary-bar > div { flex-wrap: wrap; gap: 10px !important; }
+      .hero-journey { padding: 22px 20px; }
+      .hero-journey-head { align-items: flex-start; }
+      .hero-journey-label { max-width: 210px; line-height: 1.5; }
+      .hero-journey-title { margin-top: 14px; font-size: 1.6rem; }
+      .hero-journey-steps { margin-top: 22px; }
+      .hero-journey-step { padding-bottom: 20px; }
+      .hero-journey-note { margin-top: 20px; }
 
       /* Podglądy projektów w kartach poniżej (#work) */
       .project-card .art-route-split { grid-template-columns: 1fr; }
@@ -1178,6 +967,156 @@
     .portfolio-preview em { font-style:normal; }
     .preview-piec { background:#f0e8dc; color:#201815; } .preview-piec em { color:#c4432e; }
     .form-privacy-note { max-width:540px; margin:0; color:var(--muted); font:400 11px/1.6 var(--sans); }
+
+    /* Motion-led hero, selected-work panels and Framer-inspired editorial sections */
+    .hero-grid { display: block; }
+    .hero-copy { max-width: 1120px; }
+    .hero-title { max-width: 1040px; font-size: clamp(4rem, 8vw, 7.4rem); line-height: .86; }
+    .hero-title .line { overflow: hidden; padding-block: .04em; margin-block: -.04em; }
+    .hero-title .line-inner { display: inline-block; transform: translateY(112%); animation: hero-line-reveal .9s var(--ease-out-quart) both; }
+    .hero-title .line:nth-child(1) .line-inner { animation-delay: .08s; }
+    .hero-title .line:nth-child(2) .line-inner { animation-delay: .2s; }
+    .hero-title .line:nth-child(3) .line-inner { animation-delay: .32s; }
+    @keyframes hero-line-reveal { to { transform: translateY(0); } }
+    .hero-section { padding-bottom: 112px; }
+
+    #work { background: #090909; color: #f4f3ef; overflow: clip; }
+    #work .section-title { color: #f4f3ef; }
+    #work .section-kicker { color: #a6b784; }
+    #work > .page-wrap > div:first-child > p { color: #a8a8a3 !important; }
+    #work .filter-bar { margin: 28px 0 20px; }
+    #work .filter-pill.filter-cta { background: #f1f0e9; border-color: #f1f0e9; color: #111; }
+    .project-grid { display: grid; grid-template-columns: minmax(0,1fr); gap: 22px; align-items: start; margin-top: 48px; }
+    .project-card {
+      --copy-col: 40%;
+      position: sticky;
+      top: 94px;
+      z-index: 1;
+      height: clamp(560px, 70vh, 720px);
+      min-height: 0;
+      display: grid;
+      grid-template-columns: var(--copy-col) minmax(0,1fr);
+      grid-template-areas: "copy art";
+      border: 1px solid #292929;
+      border-radius: 20px;
+      background: #111;
+      color: #f4f3ef;
+      box-shadow: 0 28px 70px rgba(0,0,0,.28);
+    }
+    .project-card:nth-child(1) { z-index: 1; }
+    .project-card:nth-child(2) { z-index: 2; }
+    .project-card:nth-child(3) { z-index: 3; }
+    .project-card:nth-child(4) { z-index: 4; }
+    .project-card:hover { transform: none; border-color: #444; box-shadow: 0 30px 74px rgba(0,0,0,.34); }
+    .project-body { grid-area: copy; padding: clamp(28px, 3.4vw, 54px); display: flex; flex-direction: column; justify-content: space-between; min-width: 0; }
+    .project-body h3 { color: #f5f3ed; font-size: clamp(1.8rem, 2.7vw, 3rem); line-height: 1.02; letter-spacing: -.055em; }
+    .project-body p { min-height: 0; color: #b1b1ac; font-size: 15px; line-height: 1.7; }
+    .project-tags { gap: 8px; margin-bottom: 24px; }
+    .project-tags span { color: #babbb3; border-color: #393939; font-size: 10px; }
+    .project-footer { color: #b2b2ac; border-color: #303030; font-size: 10px; gap: 12px; }
+    .project-footer a:first-child { color: #f5f3ed; }
+    .project-art-box {
+      grid-area: art;
+      height: auto;
+      min-height: 0;
+      margin: 14px;
+      border: 0;
+      border-radius: 14px;
+      background-clip: padding-box;
+      transition: transform 650ms var(--ease-out-quart), filter 650ms var(--ease-out-quart);
+    }
+    .project-card:hover .project-art-box { transform: scale(1.012); filter: saturate(1.04); }
+    .art-route-split { grid-template-columns: minmax(0,1.45fr) minmax(175px,1fr); }
+    .art-route-panel { padding: clamp(18px,2vw,32px); }
+    .project-case-bubble {
+      position: absolute;
+      z-index: 5;
+      top: 50%;
+      left: var(--copy-col);
+      width: 92px;
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      padding: 14px;
+      border: 1px solid rgba(20,20,20,.12);
+      border-radius: 50%;
+      background: #f5f3ed;
+      color: #171717;
+      font: 600 11px/1.2 var(--mono);
+      text-align: center;
+      transform: translate(-50%,-50%);
+      transition: transform 240ms var(--ease-out-quart), background-color 220ms, color 220ms;
+    }
+    .project-case-bubble:hover { transform: translate(-50%,-50%) scale(1.08); background: var(--accent); color: var(--accent-ink); }
+    .what-i-do-section, .how-i-work-section { background: #0b0b0b; color: #f2f1ec; border-top: 1px solid #232323; }
+    .how-i-work-section { background: #111; }
+    .what-i-do-section .section-title, .how-i-work-section .section-title { max-width: 850px; color: #f2f1ec; }
+    .what-i-do-section .section-kicker, .how-i-work-section .section-kicker { color: #a6b784; }
+    .service-section-heading { margin-bottom: 54px; }
+    .service-list, .process-list { border-top: 1px solid #2b2b2b; }
+    .service-row, .process-row {
+      display: grid;
+      grid-template-columns: 84px minmax(280px,1.1fr) minmax(260px,1fr);
+      align-items: center;
+      gap: 26px;
+      padding: 38px 22px;
+      border-bottom: 1px solid #2b2b2b;
+      border-radius: 10px;
+      transition: background-color 300ms ease, padding 300ms var(--ease-out-quart);
+    }
+    .service-row:hover, .process-row:hover { padding-inline: 30px; background: #141414; }
+    .service-number, .process-number { color: #999b91; font: 500 13px var(--mono); }
+    .service-row h3, .process-row h3 { margin: 0; color: #f4f3ef; font: 500 clamp(1.65rem,3.1vw,3rem)/1.06 var(--display); letter-spacing: -.05em; }
+    .service-row p, .process-row p { max-width: 520px; margin: 0; color: #aaa9a3; font-size: 16px; line-height: 1.65; }
+    .process-row { grid-template-columns: 84px minmax(170px,.7fr) minmax(300px,1.3fr); padding-block: 29px; }
+    .process-row h3 { font-size: clamp(1.5rem,2.6vw,2.25rem); }
+    .process-proof { margin: 28px 0 0; color: #a3a39c; font: 500 11px/1.7 var(--mono); letter-spacing: .025em; }
+
+    html.motion-ready [data-reveal] { opacity: 0; transform: translateY(26px); transition: opacity 720ms var(--ease-out-quart), transform 720ms var(--ease-out-quart); }
+    html.motion-ready [data-reveal].is-inview { opacity: 1; transform: translateY(0); }
+    .service-row:nth-child(2), .process-row:nth-child(2) { transition-delay: 50ms; }
+    .service-row:nth-child(3), .process-row:nth-child(3) { transition-delay: 100ms; }
+    .process-row:nth-child(4) { transition-delay: 150ms; }
+
+    @media (max-width: 900px) {
+      .project-card { --copy-col: 40%; height: clamp(520px,68vh,640px); }
+      .project-body { padding: 28px; }
+      .project-tags { gap: 5px; }
+      .project-tags span { white-space: normal; }
+      .project-case-bubble { width: 78px; font-size: 10px; }
+      .service-row { grid-template-columns: 58px minmax(220px,1fr) minmax(230px,1fr); gap: 18px; padding-inline: 14px; }
+      .process-row { grid-template-columns: 58px minmax(140px,.7fr) minmax(230px,1.3fr); gap: 18px; padding-inline: 14px; }
+    }
+    @media (max-width: 720px) {
+      .hero-section { padding-bottom: 74px; }
+      .hero-grid { display: block; }
+      .hero-title { font-size: clamp(2.55rem,10.2vw,4rem); line-height: .94; letter-spacing: -.075em; }
+      .hero-title .line { padding-left: 0; }
+      #work { padding-block: 68px; }
+      #work .project-grid { gap: 18px; margin-top: 34px; }
+      .project-card { position: relative; top: auto; height: auto; min-height: 0; grid-template-columns: minmax(0,1fr); grid-template-areas: "art" "copy"; border-radius: 16px; }
+      .project-body { min-height: 310px; padding: 24px 20px 20px; }
+      .project-body h3 { font-size: clamp(1.8rem,8vw,2.5rem); }
+      .project-body p { font-size: 14px; }
+      .project-art-box { height: 310px; min-height: 310px; margin: 0 12px 12px; }
+      .project-card .art-route-split { grid-template-columns: 1fr; }
+      .project-card .art-route-map-box { min-height: 310px; }
+      .project-card .art-route-panel { display: none; }
+      .project-case-bubble { top: auto; left: auto; right: 24px; bottom: 284px; width: 74px; transform: none; }
+      .project-case-bubble:hover { transform: scale(1.06); }
+      .service-section-heading { margin-bottom: 34px; }
+      .service-row, .process-row { grid-template-columns: 38px minmax(0,1fr); gap: 12px 16px; padding: 24px 8px; }
+      .service-row:hover, .process-row:hover { padding-inline: 8px; }
+      .service-row h3, .process-row h3 { grid-column: 2; font-size: 1.7rem; }
+      .service-row p, .process-row p { grid-column: 2; font-size: 14px; }
+      .service-number, .process-number { grid-row: span 2; align-self: start; padding-top: 4px; }
+      .process-proof { font-size: 10px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-title .line-inner { animation: none; transform: none; }
+      html.motion-ready [data-reveal] { opacity: 1; transform: none; transition: none; }
+      .project-card, .project-art-box, .project-case-bubble, .service-row, .process-row { transition: none; }
+    }
   </style>
 </head>
 
@@ -1196,8 +1135,8 @@
 
         <nav class="nav-links" :aria-label="lang === 'pl' ? 'Główna nawigacja' : 'Main navigation'">
           <a href="projects.html" x-text="navProjectsLabel">Projekty (5)</a>
-          <a href="#estimator" x-text="t.navEstimator">Pakiety i wycena</a>
-          <a href="#about" x-text="t.navAbout">Podejście</a>
+          <a href="#what-i-do" x-text="t.navEstimator">Co robię</a>
+          <a href="#how-i-work" x-text="t.navAbout">Jak pracuję</a>
           <a href="#contact" x-text="t.navContact">Kontakt</a>
         </nav>
 
@@ -1269,12 +1208,12 @@
           <span x-text="navProjectsLabel">Projekty (5)</span>
           <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
         </a>
-        <a href="#estimator" @click="mobileMenuOpen = false">
-          <span x-text="t.navEstimator">Pakiety i wycena</span>
+        <a href="#what-i-do" @click="mobileMenuOpen = false">
+          <span x-text="t.navEstimator">Co robię</span>
           <span aria-hidden="true">→</span>
         </a>
-        <a href="#about" @click="mobileMenuOpen = false">
-          <span x-text="t.navAbout">Podejście</span>
+        <a href="#how-i-work" @click="mobileMenuOpen = false">
+          <span x-text="t.navAbout">Jak pracuję</span>
           <span aria-hidden="true">→</span>
         </a>
         <a href="#contact" @click="mobileMenuOpen = false">
@@ -1296,19 +1235,19 @@
           </p>
 
           <h1 class="hero-title">
-            <span class="line" x-text="t.heroLine1">Strony dla firm.</span>
-            <span class="line line-italic" x-text="t.heroLine2">Narzędzia, które</span>
-            <span class="line" x-text="t.heroLine3">oszczędzają czas.</span>
+            <span class="line"><span class="line-inner" x-text="t.heroLine1">Strony.</span></span>
+            <span class="line"><span class="line-inner" x-text="t.heroLine2">Narzędzia.</span></span>
+            <span class="line"><span class="line-inner" x-text="t.heroLine3">Aplikacje webowe.</span></span>
           </h1>
 
-          <p class="hero-intro" x-text="t.heroIntro">Projektuję i wdrażam strony B2B oraz interaktywne narzędzia, które ułatwiają klientom decyzję i zdejmują powtarzalną pracę z zespołu.</p>
+          <p class="hero-intro" x-text="t.heroIntro">Projektuję i tworzę strony internetowe, narzędzia online oraz aplikacje webowe dla firm.</p>
 
           <div class="hero-actions">
-            <a href="#work" class="btn-primary tactile">
-              <span x-text="t.heroBtnPrimary">Zobacz projekty w akcji</span>
+            <a href="#contact" class="btn-primary tactile">
+              <span x-text="t.heroBtnPrimary">Porozmawiajmy o projekcie</span>
               <span aria-hidden="true">→</span>
             </a>
-            <a href="#estimator" class="btn-secondary tactile" x-text="t.heroBtnSecondary">Wybierz pakiet dla siebie →</a>
+            <a href="#work" class="btn-secondary tactile" x-text="t.heroBtnSecondary">Zobacz 4 wybrane projekty</a>
           </div>
 
           <div class="proof-row tabular">
@@ -1318,277 +1257,7 @@
           </div>
         </div>
 
-        <!-- 3D BROWSER SHOWCASE (3 INTERAKTYWNE PROJEKTY: AD REM T2, KUBATURA, GEMBA) -->
-        <figure class="hero-showcase" @mousemove="tiltHeroBrowser($event)" @mouseleave="resetHeroBrowser()">
-          <div class="showcase-browser" :style="heroTiltStyle">
-            <div class="showcase-browser-bar">
-              <span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span>
-              <div class="showcase-address" x-text="activeShowcase.domain">adremt2.pl/index2.html</div>
-              <span style="font-size:10px; color:#777a71;">•••</span>
-            </div>
 
-            <div class="showcase-stage">
-
-              <!-- Stage 0: AD REM T2 Route Map SVG -->
-              <div x-show="showcaseIdx === 0" class="art-route-split">
-                <div class="art-route-map-box">
-                  <div class="art-micro-header">
-                    <span x-text="lang === 'pl' ? 'EUROPA / KIERUNKI' : 'EUROPE / ROUTES'">EUROPA / KIERUNKI</span>
-                    <span style="color:#d90429;" x-text="lang === 'pl' ? '◉ WARSZAWA / BAZA' : '◉ WARSAW / HUB'">◉ WARSZAWA / BAZA</span>
-                  </div>
-
-                  <svg class="route-map-graphic" viewBox="0 0 900 520" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:28px 0 0; height:calc(100% - 28px);">
-                    <path class="route-map-land" d="m101 76 41-25 34 8 24-23 39 12 28 31 34-8 30 18 27-9 30 21 41-12 30 22 43-5 24 23 43-2 23 29 40 14 13 32-19 25-35 7-5 30-28 15-12 34-34 12-15 32-39 6-20 27-37-4-20-26-31-5-18-24-36-2-19-24-31-4-13-24-32-14-10-25-32-13-15-28-35-9-9-28-31-6-12-24 20-26Z"/>
-                    <path class="route-map-land route-map-land-secondary" d="m73 256 38 7 28 27-10 34-33 20-30-21-9-34Zm209 172 31-22 35 9 8 22-27 21-34-7Zm286 24 32-18 25 10-12 25-31 8Zm-75-436 34-13 30 15-13 25-32-4Z"/>
-                    <g class="route-map-borders">
-                      <path d="m199 79 21 48 39 22 25-19 34 26-9 47 28 26-10 37-31 17 2 41-32 19-17 42"/>
-                      <path d="m263 79 20 52 38 25 37-12 26 29-8 37 34 22-9 34-36 17 1 43-28 22"/>
-                      <path d="m344 91 11 42 39 23 19 39-22 30 27 25-7 39 28 26-17 39"/>
-                      <path d="m419 103 20 39 34 16 15 38-18 33 25 27-6 39 31 18"/>
-                      <path d="m493 105 18 46 36 13 15 40-20 26 26 27-12 40 26 20"/>
-                      <path d="m568 126 23 37 36 11 15 31-16 33 27 31-16 37"/>
-                      <path d="m134 167 44 14 21 31-14 34 20 27-7 33m-83-16 49 9 27 30 42 9 20 29m-36-167 52 10 34-16 44 12 31-9 38 12 33-14 42 19 41-12 33 14"/>
-                      <path d="m176 368 42 6 27 29 36 7m113-62 31 15 37-7 26 22 40 5m31-136 43 7 21 31 40 4m-224-192 19-32 39 4 22 32"/>
-                    </g>
-                    <path class="route-map-poland" d="m480 193 30-14 34 8 18 25 31 7 7 33-17 25 5 31-26 20-31-8-20 13-27-15-17-25-24-8-5-27 18-20Z"/>
-
-                    <line x1="534" y1="235" :x2="activeCity.x" :y2="activeCity.y"
-                          stroke="#d90429" stroke-width="3" stroke-dasharray="6 4" stroke-linecap="round"/>
-
-                    <circle class="route-city-dot" :class="selectedCityIdx === 0 ? 'is-selected' : ''" @click="selectedCityIdx = 0" cx="284" cy="287" r="7.5"/>
-                    <circle class="route-city-dot" :class="selectedCityIdx === 1 ? 'is-selected' : ''" @click="selectedCityIdx = 1" cx="367" cy="252" r="7.5"/>
-                    <circle class="route-city-dot" :class="selectedCityIdx === 2 ? 'is-selected' : ''" @click="selectedCityIdx = 2" cx="412" cy="353" r="7.5"/>
-                    <circle class="route-city-dot" :class="selectedCityIdx === 3 ? 'is-selected' : ''" @click="selectedCityIdx = 3" cx="225" cy="226" r="7.5"/>
-
-                    <text :x="activeCity.x" :y="activeCity.y - 14" text-anchor="middle" class="route-map-label" x-text="activeCity.name[lang]">Rotterdam</text>
-
-                    <circle class="route-map-start" cx="534" cy="235" r="10"/>
-                    <text class="route-map-label" x="550" y="240" x-text="lang === 'pl' ? 'WARSZAWA' : 'WARSAW'">WARSZAWA</text>
-                  </svg>
-                </div>
-
-                <div class="art-route-panel">
-                  <span style="font:600 10px var(--mono); color:#d90429;" x-text="lang === 'pl' ? '↳ PODGLĄD RELACJI' : '↳ ROUTE PREVIEW'">↳ PODGLĄD RELACJI</span>
-                  <h3 style="margin:0; font:700 20px/1.05 var(--display); color:#172019;" x-text="lang === 'pl' ? 'Dokąd jedziemy?' : 'Where to next?'">Dokąd jedziemy?</h3>
-
-                  <div style="display:flex; flex-wrap:wrap; gap:5px; margin:4px 0;">
-                    <template x-for="(city, cIdx) in heroCities" :key="city.id">
-                      <button type="button" class="hero-chip"
-                        :class="selectedCityIdx === cIdx ? 'is-active' : ''"
-                        @click="selectedCityIdx = cIdx"
-                        x-text="city.name[lang]"></button>
-                    </template>
-                  </div>
-
-                  <div class="tabular" style="padding:9px 0; border-block:1px solid rgba(0,0,0,0.1); font:700 12px/1.35 var(--mono); color:#172019;">
-                    <div style="font-size:9.5px; color:#686a64; font-weight:600; margin-bottom:2px;" x-text="lang === 'pl' ? 'DYSTANS DROGOWY Z WARSZAWY:' : 'ROAD DISTANCE FROM WARSAW:'">DYSTANS DROGOWY Z WARSZAWY:</div>
-                    <span x-text="activeCity.name[lang] + ' - '">Rotterdam - </span>
-                    <span style="color:#d90429;" x-text="activeCity.km + ' km'">1 180 km</span>
-                    <span style="font-weight:500; color:#555b53;" x-text="' (' + activeCity.time + ')'"> (~15h)</span>
-                  </div>
-                  <span style="font:500 10px var(--mono); color:#5a5a5a;" x-text="lang === 'pl' ? '◷ Kontakt z dyspozytorem 24/7' : '◷ 24/7 Dispatcher Contact'">◷ Kontakt z dyspozytorem 24/7</span>
-                </div>
-              </div>
-
-              <!-- Stage 1: KUBATURA B2B — Interaktywny Symulator Kontenera 24 m³ (zastępuje CK Ad Rem) -->
-              <div x-show="showcaseIdx === 1" x-cloak class="hero-kubatura-split">
-                <div class="hero-kubatura-truck">
-                  <div style="display:flex; justify-content:space-between; align-items:center; font:600 9.5px var(--mono); letter-spacing:0.05em;">
-                    <span style="display:inline-flex; align-items:center; gap:5px; font-weight:700;">
-                      <span style="padding:2px 5px; border-radius:3px; background:#ea580c; color:#ffffff;">B2B</span>
-                      KUBATURA.
-                    </span>
-                    <span style="color:#059669;">● OCP 1M PLN</span>
-                  </div>
-
-                  <div style="font:800 17px/1.04 var(--display); letter-spacing:-0.04em; margin:4px 0;">
-                    <span style="color:#ea580c;" x-text="lang === 'pl' ? 'Przeprowadzka biura w weekend.' : 'Office relocation over one weekend.'"></span><br/>
-                    <span style="color:#373c47;" x-text="lang === 'pl' ? 'Zero przestoju w pracy.' : 'Zero operational downtime.'"></span>
-                  </div>
-
-                  <svg viewBox="0 0 460 125" preserveAspectRatio="xMidYMid meet" style="width:100%; height:auto; max-height:165px; display:block;" role="img"
-                       :aria-label="lang === 'pl' ? 'Przekrój kontenera 24 m³ KUBATURA B2B' : 'KUBATURA B2B 24 m³ box truck cutaway'">
-                    <line x1="6" y1="112" x2="454" y2="112" stroke="#cbd5e1" stroke-width="2"/>
-                    <!-- Winda hydrauliczna + wózek RODO -->
-                    <path d="M10 110 L44 95 H56 V101 L16 112 Z" fill="#ea580c"/>
-                    <rect x="22" y="79" width="18" height="15" rx="2" fill="#ea580c"/>
-                    <line x1="25" y1="83" x2="37" y2="83" stroke="#ffffff" stroke-width="1.5"/>
-
-                    <!-- Zabudowa kontenerowa 24 m3 -->
-                    <rect x="56" y="16" width="272" height="84" rx="3" fill="#ffffff" stroke="#181a1f" stroke-width="2"/>
-                    <g stroke="#e2e8f0" stroke-width="1">
-                      <line x1="110" y1="16" x2="110" y2="100"/>
-                      <line x1="164" y1="16" x2="164" y2="100"/>
-                      <line x1="218" y1="16" x2="218" y2="100"/>
-                      <line x1="272" y1="16" x2="272" y2="100"/>
-                      <line x1="56" y1="44" x2="328" y2="44"/>
-                      <line x1="56" y1="72" x2="328" y2="72"/>
-                    </g>
-
-                    <!-- 15 dynamicznych modułów ładunku -->
-                    <rect x="277" y="75" width="46" height="22" rx="2" :fill="activeKubaturaDemo.slots >= 1 ? '#181a1f' : '#f1f5f9'"/>
-                    <rect x="223" y="75" width="46" height="22" rx="2" :fill="activeKubaturaDemo.slots >= 2 ? '#ea580c' : '#f1f5f9'"/>
-                    <rect x="169" y="75" width="46" height="22" rx="2" :fill="activeKubaturaDemo.slots >= 3 ? '#181a1f' : '#f1f5f9'"/>
-                    <rect x="115" y="75" width="46" height="22" rx="2" :fill="activeKubaturaDemo.slots >= 4 ? '#181a1f' : '#f1f5f9'"/>
-                    <rect x="61"  y="75" width="46" height="22" rx="2" :fill="activeKubaturaDemo.slots >= 5 ? '#ea580c' : '#f1f5f9'"/>
-
-                    <rect x="277" y="47" width="46" height="22" rx="2" :fill="activeKubaturaDemo.slots >= 6 ? '#ea580c' : '#f1f5f9'"/>
-                    <rect x="223" y="47" width="46" height="22" rx="2" :fill="activeKubaturaDemo.slots >= 7 ? '#181a1f' : '#f1f5f9'"/>
-                    <rect x="169" y="47" width="46" height="22" rx="2" :fill="activeKubaturaDemo.slots >= 8 ? '#ea580c' : '#f1f5f9'"/>
-                    <rect x="115" y="47" width="46" height="22" rx="2" :fill="activeKubaturaDemo.slots >= 9 ? '#181a1f' : '#f1f5f9'"/>
-                    <rect x="61"  y="47" width="46" height="22" rx="2" :fill="activeKubaturaDemo.slots >= 10 ? (activeKubaturaDemo.overload ? '#dc2626' : '#181a1f') : '#f1f5f9'"/>
-
-                    <rect x="277" y="19" width="46" height="22" rx="2" :fill="activeKubaturaDemo.slots >= 11 ? (activeKubaturaDemo.overload ? '#dc2626' : '#181a1f') : '#f1f5f9'"/>
-                    <rect x="223" y="19" width="46" height="22" rx="2" :fill="activeKubaturaDemo.slots >= 12 ? (activeKubaturaDemo.overload ? '#dc2626' : '#ea580c') : '#f1f5f9'"/>
-                    <rect x="169" y="19" width="46" height="22" rx="2" :fill="activeKubaturaDemo.slots >= 13 ? '#181a1f' : '#f1f5f9'"/>
-                    <rect x="115" y="19" width="46" height="22" rx="2" :fill="activeKubaturaDemo.slots >= 14 ? '#ea580c' : '#f1f5f9'"/>
-                    <rect x="61"  y="19" width="46" height="22" rx="2" :fill="activeKubaturaDemo.slots >= 15 ? '#dc2626' : '#f1f5f9'"/>
-
-                    <!-- Kabina -->
-                    <path d="M332 100 H428 V68 L402 38 H332 Z" fill="#181a1f"/>
-                    <path d="M346 46 H394 L414 66 H346 Z" fill="#334155"/>
-                    <rect x="332" y="76" width="96" height="6" fill="#ea580c"/>
-
-                    <!-- Koła -->
-                    <circle cx="110" cy="105" r="12" fill="#181a1f" stroke="#ffffff" stroke-width="2.5"/>
-                    <circle cx="110" cy="105" r="4.5" fill="#94a3b8"/>
-                    <circle cx="386" cy="105" r="12" fill="#181a1f" stroke="#ffffff" stroke-width="2.5"/>
-                    <circle cx="386" cy="105" r="4.5" fill="#94a3b8"/>
-                  </svg>
-
-                  <div style="font:600 9.5px var(--mono); color:#5a606e; display:flex; justify-content:space-between;">
-                    <span>KONTENER 24.0 m³</span>
-                    <span style="color:#181a1f;">PT 17:00 → PN 08:00</span>
-                  </div>
-                </div>
-
-                <!-- Prawy panel klikalnych presetów KUBATURY -->
-                <div class="hero-kubatura-panel tabular">
-                  <div>
-                    <span style="font:600 9.5px var(--mono); color:#ea580c;" x-text="lang === 'pl' ? '↳ TESTUJ KUBATURĘ' : '↳ TEST CAPACITY'"></span>
-                    <h3 style="margin:3px 0 8px; font:700 18px/1.05 var(--display); color:#181a1f;" x-text="lang === 'pl' ? 'm³ vs limit masy' : 'm³ vs weight limit'"></h3>
-
-                    <div style="display:flex; flex-wrap:wrap; gap:4px;">
-                      <template x-for="(kp, kIdx) in heroKubaturaDemos" :key="kp.id">
-                        <button type="button" class="hero-chip"
-                          :class="heroKubaturaIdx === kIdx ? 'is-orange-active' : ''"
-                          @click="heroKubaturaIdx = kIdx"
-                          x-text="kp.label[lang]"></button>
-                      </template>
-                    </div>
-                  </div>
-
-                  <div style="padding:9px 10px; background:#f4f5f7; border:1px solid rgba(24,26,31,0.11); border-radius:5px; display:grid; gap:7px; font:600 10px var(--mono);">
-                    <div>
-                      <div style="display:flex; justify-content:space-between; margin-bottom:3px;">
-                        <span style="color:#5a606e;" x-text="lang === 'pl' ? 'KUBATURA:' : 'VOLUME:'"></span>
-                        <strong style="color:#ea580c;" x-text="activeKubaturaDemo.m3 + ' (' + activeKubaturaDemo.volPct + '%)'"></strong>
-                      </div>
-                      <div style="height:5px; border-radius:99px; background:#e2e8f0; overflow:hidden;">
-                        <div :style="`width:${activeKubaturaDemo.volPct}%; height:100%; background:#ea580c; transition:width 200ms ease;`"></div>
-                      </div>
-                    </div>
-
-                    <div>
-                      <div style="display:flex; justify-content:space-between; margin-bottom:3px;">
-                        <span style="color:#5a606e;" x-text="lang === 'pl' ? 'MASA (3.5t):' : 'PAYLOAD (3.5t):'"></span>
-                        <strong :style="activeKubaturaDemo.overload ? 'color:#dc2626;' : 'color:#059669;'" x-text="activeKubaturaDemo.kg + ' (' + activeKubaturaDemo.kgPct + '%)'"></strong>
-                      </div>
-                      <div style="height:5px; border-radius:99px; background:#e2e8f0; overflow:hidden;">
-                        <div :style="`width:${activeKubaturaDemo.kgPct}%; height:100%; background:${activeKubaturaDemo.overload ? '#dc2626' : '#059669'}; transition:width 200ms ease;`"></div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div style="display:flex; justify-content:space-between; align-items:center; font:600 9.5px var(--mono); color:#5a606e;">
-                    <span :style="activeKubaturaDemo.overload ? 'color:#dc2626;' : 'color:#059669;'" x-text="activeKubaturaDemo.note[lang]"></span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Stage 2: 玄 GEMBA Preview -->
-              <div x-show="showcaseIdx === 2" x-cloak class="gemba-stage-wrap" style="height:100%; position:relative; background-color:#f9f8f3; background-image:linear-gradient(#ebe8df 1px, transparent 1px), linear-gradient(90deg, #ebe8df 1px, transparent 1px); background-size:36px 36px; color:#161e21; overflow:hidden;">
-                <div class="gemba-stage-grid" style="height:calc(100% - 38px); padding:20px 26px 14px; display:grid; grid-template-columns:1fr 1.15fr; gap:20px; align-items:center;">
-                  <div style="display:flex; flex-direction:column; justify-content:space-between; height:100%;">
-                    <div style="display:inline-flex; align-items:center; gap:7px; font:600 10px var(--mono); letter-spacing:0.1em; color:#5b6568;">
-                      <i style="width:7px; height:7px; background:#b8432e; display:inline-block;"></i>
-                      <span>LEAN · TPS · SIX SIGMA</span>
-                    </div>
-                    <div>
-                      <h3 style="margin:0 0 8px; font:700 28px/0.96 var(--display); letter-spacing:-0.05em; color:#161e21;">
-                        <span x-text="lang === 'pl' ? 'Opisz problem.' : 'Describe the problem.'"></span><br/>
-                        <span style="color:#b8432e;" x-text="lang === 'pl' ? 'Otrzymaj metodę.' : 'Get the method.'"></span>
-                      </h3>
-                      <p style="margin:0; font-size:11.5px; color:#5b6568; line-height:1.45;"
-                        x-text="lang === 'pl' ? 'Wybierz objaw obok, aby zobaczyć diagnozę straty i metodę:' : 'Pick a symptom on the right to see the waste and matched tool:'"></p>
-                    </div>
-                    <div style="display:flex; gap:18px; padding-top:8px; border-top:1px solid #e2dfd5; font:700 12px var(--display);" class="tabular">
-                      <span>47 <small style="font:500 9px var(--mono); color:#6e777a;" x-text="lang==='pl'?'METOD':'METHODS'"></small></span>
-                      <span>70+ <small style="font:500 9px var(--mono); color:#6e777a;" x-text="lang==='pl'?'POJĘĆ':'TERMS'"></small></span>
-                      <span>5 <small style="font:500 9px var(--mono); color:#6e777a;" x-text="lang==='pl'?'FAZ':'PHASES'"></small></span>
-                    </div>
-                  </div>
-
-                  <!-- Prawa karta diagnostyczna -->
-                  <div style="background:#ffffff; border:1px solid #dfdcd2; padding:14px 16px; box-shadow:0 8px 24px rgba(22,30,33,0.05); display:flex; flex-direction:column; gap:8px;">
-                    <div style="display:flex; justify-content:space-between; font:600 9.5px var(--mono); letter-spacing:0.08em; color:#5b6568;">
-                      <span x-text="lang === 'pl' ? 'OPISZ PROBLEM / OBJAW' : 'DESCRIBE THE PROBLEM'"></span>
-                      <span style="color:#b8432e;">01</span>
-                    </div>
-                    <template x-for="(g, gIdx) in gembaDemos" :key="g.id">
-                      <button type="button" class="gemba-chip"
-                        :class="gembaDemoIdx === gIdx ? 'is-active' : ''"
-                        @click="gembaDemoIdx = gIdx"
-                        x-text="g.symptom[lang]"></button>
-                    </template>
-                    <div style="padding-top:8px; border-top:1px solid #ece9e0; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:6px; font:600 9.5px var(--mono);">
-                      <span style="color:#5b6568;" x-text="gembaDemos[gembaDemoIdx].waste[lang]"></span>
-                      <span style="color:#b8432e;" x-text="'→ ' + gembaDemos[gembaDemoIdx].method"></span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Dolny pasek Glossary -->
-                <div class="gemba-glossary-bar" style="position:absolute; left:0; right:0; bottom:0; height:38px; background:#151c1f; color:#ffffff; padding:0 26px; display:flex; justify-content:space-between; align-items:center; font:500 10.5px var(--sans); border-top:1px solid #dfdcd2;">
-                  <span style="font:500 9.5px var(--mono); color:#9ba3a7; letter-spacing:0.1em;">GLOSSARY · TPS</span>
-                  <div style="display:flex; gap:18px;">
-                    <span><b style="color:#b8432e; font-weight:500; margin-right:4px;">改善</b>Kaizen</span>
-                    <span><b style="color:#b8432e; font-weight:500; margin-right:4px;">無駄</b>Muda</span>
-                    <span><b style="color:#b8432e; font-weight:500; margin-right:4px;">自働化</b>Jidoka</span>
-                    <span><b style="color:#b8432e; font-weight:500; margin-right:4px;">平準化</b>Heijunka</span>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-            <!-- Browser Footer -->
-            <div class="showcase-footer-bar tabular">
-              <strong x-text="activeShowcase.badge[lang]">AD REM T2 · MAPA TRAS EUROPY</strong>
-              <span style="color:#686c63;" x-text="activeShowcase.tech">VANILLA JS · SVG · GEOJSON</span>
-              <a :href="activeShowcase.url"
-                 :target="activeShowcase.external ? '_blank' : '_self'"
-                 :rel="activeShowcase.external ? 'noopener noreferrer' : ''"
-                 class="icon-link" style="color:#172019; font-weight:700;"><span x-text="lang === 'pl' ? 'OTWÓRZ' : 'LIVE'">OTWÓRZ</span><svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg></a>
-            </div>
-          </div>
-
-          <!-- Interactive Switcher Tabs Under Browser (dostępność WCAG + obsługa strzałek) -->
-          <div class="showcase-tabs" role="tablist" :aria-label="lang === 'pl' ? 'Podgląd interaktywnych projektów' : 'Interactive project previews'">
-            <template x-for="(sc, idx) in showcases" :key="sc.domain">
-              <button type="button" class="showcase-tab tactile"
-                role="tab"
-                :aria-selected="showcaseIdx === idx"
-                :tabindex="showcaseIdx === idx ? 0 : -1"
-                :class="showcaseIdx === idx ? 'is-active' : ''"
-                @click="showcaseIdx = idx"
-                @keydown="onShowcaseKeydown($event, idx)">
-                <span style="opacity:0.65;" x-text="'0' + (idx + 1)"></span>
-                <span x-text="sc.tab[lang]"></span>
-              </button>
-            </template>
-          </div>
-        </figure>
 
       </div>
     </div>
@@ -1601,9 +1270,9 @@
       <div style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:24px;">
         <div>
           <p class="section-kicker" x-text="t.workKicker">01 / WYBRANE PROJEKTY</p>
-          <h2 class="section-title" x-text="t.workTitle">Wynik ma znaczenie.</h2>
+          <h2 class="section-title" x-text="t.workTitle">Wybrane projekty.</h2>
         </div>
-        <p style="max-width:360px; margin:0; color:var(--muted); font-size:14px; line-height:1.6;" x-text="t.workSub">Strony B2B, wyceny, szkolenia i doświadczenia marek — z naciskiem na jasne ścieżki klienta.</p>
+        <p style="max-width:360px; margin:0; color:var(--muted); font-size:14px; line-height:1.6;" x-text="t.workSub">Cztery projekty. Różne branże i wyzwania. Każdy z nich łączy czytelny projekt z konkretnym celem biznesowym.</p>
       </div>
 
       <!-- Full project archive -->
@@ -1620,7 +1289,7 @@
       <div class="project-grid">
 
         <!-- 01. AD REM T2 -->
-        <article class="project-card">
+        <article class="project-card" data-reveal>
           <a href="case-study.html?project=adremt2" class="project-art-box">
             <div class="art-route-split">
               <div class="art-route-map-box">
@@ -1671,10 +1340,13 @@
               <a href="https://adremt2.pl/index2.html" target="_blank" rel="noopener noreferrer" class="icon-link" style="color:var(--signal);"><span x-text="lang === 'pl' ? 'Otwórz projekt' : 'Open live site'">Otwórz projekt</span><svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg></a>
             </div>
           </div>
+          <a class="project-case-bubble" href="case-study.html?project=adremt2" :aria-label="lang === 'pl' ? 'Zobacz case study' : 'View case study'">
+            <span x-text="lang === 'pl' ? 'Zobacz case' : 'View case'">Zobacz case</span>
+          </a>
         </article>
 
         <!-- 02. KUBATURA B2B -->
-        <article class="project-card">
+        <article class="project-card" data-reveal>
           <a href="case-study.html?project=kubatura" class="project-art-box" style="background-color:#f4f5f7; background-image:linear-gradient(rgba(24,26,31,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(24,26,31,0.045) 1px, transparent 1px); background-size:28px 28px; color:#181a1f; padding:15px 18px; display:flex; flex-direction:column; justify-content:space-between;">
             <div style="display:flex; justify-content:space-between; align-items:center; font:600 9.5px var(--mono); letter-spacing:0.05em;">
               <span style="display:inline-flex; align-items:center; gap:6px; font-weight:700;">
@@ -1745,10 +1417,13 @@
               <a href="kubatura.html" class="icon-link" style="color:var(--signal);"><span x-text="lang === 'pl' ? 'Otwórz projekt' : 'Open live site'">Otwórz projekt</span><svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg></a>
             </div>
           </div>
+          <a class="project-case-bubble" href="case-study.html?project=kubatura" :aria-label="lang === 'pl' ? 'Zobacz case study' : 'View case study'">
+            <span x-text="lang === 'pl' ? 'Zobacz case' : 'View case'">Zobacz case</span>
+          </a>
         </article>
 
         <!-- 03. 玄 GEMBA - LEAN PROBLEM-SOLVING WORKSPACE -->
-        <article class="project-card">
+        <article class="project-card" data-reveal>
           <a href="case-study.html?project=gemba" class="project-art-box" style="background-color:#f9f8f3; background-image:linear-gradient(#ebe8df 1px, transparent 1px), linear-gradient(90deg, #ebe8df 1px, transparent 1px); background-size:36px 36px; color:#161e21; padding:0; display:flex; flex-direction:column; justify-content:space-between; position:relative; overflow:hidden; border-bottom:0; background-clip:padding-box;">
             <div style="padding:20px 22px 14px; display:flex; flex-direction:column; justify-content:space-between; flex:1;">
               <div style="display:flex; justify-content:space-between; align-items:center; font:500 10px var(--mono); letter-spacing:0.1em; color:#5b6568;">
@@ -1796,37 +1471,103 @@
                 <span x-text="lang === 'pl' ? '03 / Narzędzie Diagnostyczne' : '03 / Diagnostic Web App'">03 / Narzędzie Diagnostyczne</span>
                 <span>React</span>
               </div>
-              <h3 x-text="lang === 'pl' ? '玄 GEMBA - Diagnostyka Lean & Six Sigma' : '玄 GEMBA - Lean & Six Sigma Workspace'">玄 GEMBA - Diagnostyka Lean &amp; Six Sigma</h3>
-              <p x-text="lang === 'pl' ? 'Aplikacja tłumacząca problemy z pracy na straty procesowe (Muda, Mura, Muri), dobierająca właściwą z 47 metod Lean i prowadząca przez 5-etapowy plan działań.' : 'Diagnostic web app translating workplace problems into process waste, matching them to 47 Lean/Six Sigma methods and a 5-phase action workspace.'">Aplikacja tłumacząca problemy z pracy na straty procesowe (Muda, Mura, Muri), dobierająca właściwą z 47 metod Lean i prowadząca przez 5-etapowy plan działań.</p>
+              <h3 x-text="lang === 'pl' ? '玄 GEMBA — Narzędzie Lean do rozwiązywania problemów' : '玄 GEMBA — Lean problem-solving workspace'">玄 GEMBA — Narzędzie Lean do rozwiązywania problemów</h3>
+              <p x-text="lang === 'pl' ? 'Aplikacja, która pomaga zdiagnozować problemy w pracy i dobrać odpowiednie podejście Lean.' : 'A diagnostic app that helps teams understand workplace problems and choose a practical Lean method.'">Aplikacja tłumacząca problemy z pracy na straty procesowe (Muda, Mura, Muri), dobierająca właściwą z 47 metod Lean i prowadząca przez 5-etapowy plan działań.</p>
             </div>
             <div class="project-footer">
               <a href="case-study.html?project=gemba" class="tactile" x-text="lang === 'pl' ? 'Case study →' : 'Case study →'">Case study →</a>
               <a href="https://lean-guide-flow.base44.app" target="_blank" rel="noopener noreferrer" class="icon-link" style="color:var(--signal);"><span x-text="lang === 'pl' ? 'Otwórz aplikację' : 'Open live app'">Otwórz aplikację</span><svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg></a>
             </div>
           </div>
+          <a class="project-case-bubble" href="case-study.html?project=gemba" :aria-label="lang === 'pl' ? 'Zobacz case study' : 'View case study'">
+            <span x-text="lang === 'pl' ? 'Zobacz case' : 'View case'">Zobacz case</span>
+          </a>
         </article>
 
         <!-- 04. PIEC -->
-        <article class="project-card">
+        <article class="project-card" data-reveal>
           <a href="case-study.html?project=piec" class="project-art-box portfolio-preview preview-piec" aria-label="PIEC case study">
             <div class="preview-topline"><span>PIEC® · NIEGRZECZNY CHLEB</span><span>04 / 04</span></div>
             <div><p class="preview-kicker">MĄKA / WODA / ZAKWAS / CZAS</p><strong>NIEGRZECZNY<br/><em>CHLEB.</em></strong></div>
             <div class="preview-bottomline"><span>48 H · SOURDOUGH</span><span>↗</span></div>
           </a>
-          <div class="project-body"><div><div class="project-tags"><span>04 / MARKA KONSUMENCKA</span><span>BAKERY</span></div><h3>PIEC® — Niegrzeczny chleb</h3><p x-text="lang === 'pl' ? 'Strona rzemieślniczej piekarni zakwasowej: długa fermentacja, proste składniki i cztery linie wypieków.' : 'Craft sourdough bakery site built around slow fermentation, simple ingredients and four bakery lines.'">Strona rzemieślniczej piekarni zakwasowej: długa fermentacja, proste składniki i cztery linie wypieków.</p></div><div class="project-footer"><a href="case-study.html?project=piec" class="tactile" x-text="lang === 'pl' ? 'Case study →' : 'Case study →'">Case study →</a><a href="https://rotating-baguette-637711.framer.app/" target="_blank" rel="noopener noreferrer" class="icon-link" style="color:var(--signal);"><span x-text="lang === 'pl' ? 'Otwórz projekt' : 'Open live project'">Otwórz projekt</span><span aria-hidden="true">↗</span></a></div></div>
+          <div class="project-body"><div><div class="project-tags"><span>04 / MARKA KONSUMENCKA</span><span>BAKERY</span></div><h3 x-text="lang === 'pl' ? 'PIEC® — Niegrzeczny chleb' : 'PIEC® — No-Nonsense Sourdough'">PIEC® — Niegrzeczny chleb</h3><p x-text="lang === 'pl' ? 'Strona rzemieślniczej piekarni zakwasowej: długa fermentacja, proste składniki i cztery linie wypieków.' : 'Craft sourdough bakery site built around slow fermentation, simple ingredients and four bakery lines.'">Strona rzemieślniczej piekarni zakwasowej: długa fermentacja, proste składniki i cztery linie wypieków.</p></div><div class="project-footer"><a href="case-study.html?project=piec" class="tactile" x-text="lang === 'pl' ? 'Case study →' : 'Case study →'">Case study →</a><a href="https://rotating-baguette-637711.framer.app/" target="_blank" rel="noopener noreferrer" class="icon-link" style="color:var(--signal);"><span x-text="lang === 'pl' ? 'Otwórz projekt' : 'Open live project'">Otwórz projekt</span><span aria-hidden="true">↗</span></a></div></div>
+          <a class="project-case-bubble" href="case-study.html?project=piec" :aria-label="lang === 'pl' ? 'Zobacz case study' : 'View case study'">
+            <span x-text="lang === 'pl' ? 'Zobacz case' : 'View case'">Zobacz case</span>
+          </a>
         </article>
 
       </div>
     </div>
   </section>
 
-  <!-- ═══ SECTION 02: WYBÓR 3 PAKIETÓW PROJEKTOWYCH ═══ -->
+  <!-- ═══ WHAT I DO ═══ -->
+  <section class="what-i-do-section section-pad" id="what-i-do">
+    <div class="page-wrap">
+      <div class="service-section-heading" data-reveal>
+        <p class="section-kicker" x-text="lang === 'pl' ? '02 / CO ROBIĘ' : '02 / WHAT I DO'">02 / CO ROBIĘ</p>
+        <h2 class="section-title" x-text="lang === 'pl' ? 'Cyfrowe rozwiązania dla firm.' : 'Digital work for business.'">Cyfrowe rozwiązania dla firm.</h2>
+      </div>
+      <div class="service-list">
+        <article class="service-row" data-reveal>
+          <span class="service-number">01</span>
+          <h3 x-text="lang === 'pl' ? 'Strony B2B + SEO' : 'B2B websites + SEO'">Strony B2B + SEO</h3>
+          <p x-text="lang === 'pl' ? 'Szybkie, widoczne w wyszukiwarkach strony, które jasno pokazują ofertę i pomagają właściwym klientom nawiązać kontakt.' : 'Fast, search-ready websites that make your offer clear and guide the right customers to get in touch.'">Szybkie, widoczne w wyszukiwarkach strony, które jasno pokazują ofertę i pomagają właściwym klientom nawiązać kontakt.</p>
+        </article>
+        <article class="service-row" data-reveal>
+          <span class="service-number">02</span>
+          <h3 x-text="lang === 'pl' ? 'Dedykowane narzędzia online' : 'Custom online tools'">Dedykowane narzędzia online</h3>
+          <p x-text="lang === 'pl' ? 'Interaktywne narzędzia i rozwiązania usprawniające pracę, oparte na regułach biznesowych, danych i decyzjach klientów.' : 'Interactive calculators and workflow tools built around real business rules, data and customer decisions.'">Interaktywne narzędzia i rozwiązania usprawniające pracę, oparte na regułach biznesowych, danych i decyzjach klientów.</p>
+        </article>
+        <article class="service-row" data-reveal>
+          <span class="service-number">03</span>
+          <h3 x-text="lang === 'pl' ? 'Wielojęzyczne platformy i aplikacje' : 'Multilingual platforms & apps'">Wielojęzyczne platformy i aplikacje</h3>
+          <p x-text="lang === 'pl' ? 'Wielojęzyczne platformy i aplikacje webowe, które ułatwiają przejście przez złożone procesy.' : 'Localised platforms and React applications that make complex journeys easier to complete.'">Wielojęzyczne platformy i aplikacje webowe, które ułatwiają przejście przez złożone procesy.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ HOW I WORK ═══ -->
+  <section class="how-i-work-section section-pad" id="how-i-work">
+    <div class="page-wrap">
+      <div class="service-section-heading" data-reveal>
+        <p class="section-kicker" x-text="lang === 'pl' ? '03 / JAK PRACUJĘ' : '03 / HOW I WORK'">03 / JAK PRACUJĘ</p>
+        <h2 class="section-title" x-text="lang === 'pl' ? 'Od wyzwania do działającego rozwiązania.' : 'From business challenge to a working solution.'">Od wyzwania do działającego rozwiązania.</h2>
+      </div>
+      <div class="process-list">
+        <article class="process-row" data-reveal>
+          <span class="process-number">01</span>
+          <h3 x-text="lang === 'pl' ? 'Poznaję' : 'Discover'">Poznaję</h3>
+          <p x-text="lang === 'pl' ? 'Rozumiem decyzje klientów, bariery sprzedażowe i obecny sposób pracy zespołu.' : 'Understand the customer decision, the sales bottleneck and the current workflow.'">Rozumiem decyzje klientów, bariery sprzedażowe i obecny sposób pracy zespołu.</p>
+        </article>
+        <article class="process-row" data-reveal>
+          <span class="process-number">02</span>
+          <h3 x-text="lang === 'pl' ? 'Porządkuję' : 'Structure'">Porządkuję</h3>
+          <p x-text="lang === 'pl' ? 'Przekładam cel biznesowy na architekturę, treść i jasną ścieżkę działania.' : 'Turn the business goal into clear architecture, content and a conversion path.'">Przekładam cel biznesowy na architekturę, treść i jasną ścieżkę działania.</p>
+        </article>
+        <article class="process-row" data-reveal>
+          <span class="process-number">03</span>
+          <h3 x-text="lang === 'pl' ? 'Buduję' : 'Build'">Buduję</h3>
+          <p x-text="lang === 'pl' ? 'Dobieram technologię do zadania: HTML i Alpine.js dla prostych rozwiązań lub React dla rozbudowanych procesów.' : 'Choose practical technology: HTML and Alpine.js for lean experiences, or React for deeper workflows.'">Dobieram technologię do zadania: HTML i Alpine.js dla prostych rozwiązań lub React dla rozbudowanych procesów.</p>
+        </article>
+        <article class="process-row" data-reveal>
+          <span class="process-number">04</span>
+          <h3 x-text="lang === 'pl' ? 'Ulepszam' : 'Improve'">Ulepszam</h3>
+          <p x-text="lang === 'pl' ? 'Sprawdzam działanie, dopracowuję szczegóły i dbam o to, by rozwiązanie było łatwe w utrzymaniu.' : 'Validate the experience, refine the details and keep the result practical to maintain.'">Sprawdzam działanie, dopracowuję szczegóły i dbam o to, by rozwiązanie było łatwe w utrzymaniu.</p>
+        </article>
+      </div>
+      <p class="process-proof" data-reveal x-text="lang === 'pl' ? 'Ponad 10 lat doświadczenia w B2B, sprzedaży i operacjach. Agile PM · Lean Green Belt · ADKAR.' : '10+ years of experience across B2B, sales and operations. Agile PM · Lean Green Belt · ADKAR.'">Ponad 10 lat doświadczenia w B2B, sprzedaży i operacjach. Agile PM · Lean Green Belt · ADKAR.</p>
+    </div>
+  </section>
+
+  <!-- ═══ SECTION 04: WYBÓR 3 PAKIETÓW PROJEKTOWYCH ═══ -->
   <section class="services-section section-pad" id="estimator">
     <div class="page-wrap">
 
       <div style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:24px;">
         <div>
-          <p class="section-kicker" x-text="lang === 'pl' ? '02 / WYBIERZ WARIANT DLA SWOJEJ FIRMY' : '02 / CHOOSE YOUR PROJECT TIER'">02 / WYBIERZ WARIANT DLA SWOJEJ FIRMY</p>
+          <p class="section-kicker" x-text="lang === 'pl' ? '04 / WYBIERZ WARIANT DLA SWOJEJ FIRMY' : '04 / CHOOSE YOUR PROJECT TIER'">04 / WYBIERZ WARIANT DLA SWOJEJ FIRMY</p>
           <h2 class="section-title" x-text="lang === 'pl' ? 'Trzy proste pakiety projektowe.' : 'Three clear ways to build.'">Trzy proste pakiety projektowe.</h2>
         </div>
         <p style="max-width:400px; margin:0; color:var(--muted); font-size:14px; line-height:1.6;"
@@ -1884,30 +1625,11 @@
     </div>
   </section>
 
-  <!-- ═══ SECTION 03: ABOUT / PODEJŚCIE ═══ -->
-  <section class="section-pad" id="about" style="background:var(--surface); color:var(--ink); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
-    <div class="page-wrap" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap:48px; align-items:start;">
-      <div>
-        <p class="section-kicker" x-text="lang === 'pl' ? '03 / PODEJŚCIE' : '03 / THE APPROACH'">03 / PODEJŚCIE</p>
-        <h2 class="section-title" style="color:var(--ink); margin-top:14px;" x-text="lang === 'pl' ? 'Najpierw rozumiem pracę. Potem projektuję narzędzie.' : 'Understand the work first. Then design the tool.'">Najpierw rozumiem pracę. Potem projektuję narzędzie.</h2>
-      </div>
-      <div>
-        <p style="font-size:16px; line-height:1.75; color:var(--muted); margin:0 0 28px;" x-text="lang === 'pl' ? 'Łączę ponad 10 lat doświadczenia w sprzedaży B2B, logistyce, automotive i zarządzaniu projektami (Agile PM, Lean Green Belt, ADKAR) z budową szybkich stron oraz narzędzi cyfrowych. Zaczynam od tego, jak Twój klient podejmuje decyzję - dopiero potem dobieram układ, treść i technologię (HTML/Alpine lub React).' : 'I bring over 10 years of experience in B2B sales, logistics, automotive, and project delivery (Agile PM, Lean Green Belt, ADKAR) into web engineering. I start with how your buyer makes a decision-then shape the layout, copy, and stack (HTML/Alpine or React) around it.'">Łączę ponad 10 lat doświadczenia w sprzedaży B2B, logistyce, automotive i zarządzaniu projektami (Agile PM, Lean Green Belt, ADKAR) z budową szybkich stron oraz narzędzi cyfrowych. Zaczynam od tego, jak Twój klient podejmuje decyzję - dopiero potem dobieram układ, treść i technologię (HTML/Alpine lub React).</p>
-        <div style="display:flex; flex-wrap:wrap; gap:8px; padding-top:20px; border-top:1px solid var(--line);">
-          <span style="padding:8px 12px; border:1px solid var(--line); border-radius:var(--btn-radius); font:500 10.5px var(--mono);">Lean Green Belt</span>
-          <span style="padding:8px 12px; border:1px solid var(--line); border-radius:var(--btn-radius); font:500 10.5px var(--mono);">Agile PM Practitioner</span>
-          <span style="padding:8px 12px; border:1px solid var(--line); border-radius:var(--btn-radius); font:500 10.5px var(--mono);">Change Management (ADKAR)</span>
-          <span style="padding:8px 12px; border:1px solid var(--line); border-radius:var(--btn-radius); font:500 10.5px var(--mono);">React · Tailwind · Alpine.js</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ SECTION 04: KONTAKT (Z KOPIOWANIEM E-MAILA, SLA ORAZ LINKEDIN / INSTAGRAM) ═══ -->
+  <!-- ═══ SECTION 05: KONTAKT (Z KOPIOWANIEM E-MAILA, SLA ORAZ LINKEDIN / INSTAGRAM) ═══ -->
   <section class="contact-section section-pad" id="contact">
     <div class="page-wrap contact-grid">
       <div>
-        <p class="section-kicker" x-text="lang === 'pl' ? '04 / NASTĘPNY KROK' : '04 / NEXT STEP'">04 / NASTĘPNY KROK</p>
+        <p class="section-kicker" x-text="lang === 'pl' ? '05 / NASTĘPNY KROK' : '05 / NEXT STEP'">05 / NASTĘPNY KROK</p>
         <h2 class="contact-heading" style="margin:18px 0; font:600 clamp(3.4rem, 7vw, 6.8rem)/0.86 var(--display); letter-spacing:-0.09em;">
           <span style="display:block;" x-text="lang === 'pl' ? 'Co dziś' : 'What can'">Co dziś</span>
           <span style="display:block;" x-text="lang === 'pl' ? 'możemy' : 'we make'">możemy</span>
@@ -2004,6 +1726,21 @@
   </footer>
 
   <script>
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      document.documentElement.classList.add('motion-ready');
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-inview');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -5% 0px' });
+      document.querySelectorAll('[data-reveal]').forEach((element) => revealObserver.observe(element));
+    });
+
     function web4bizApp() {
       const shared = window.WEB4BIZ_DATA || {};
       const sharedProjects = shared.projects || [];
@@ -2014,112 +1751,12 @@
         lang: new URLSearchParams(window.location.search).get('lang') === 'en' ? 'en' : (localStorage.getItem('lang') === 'en' ? 'en' : 'pl'),
         mobileMenuOpen: false,
         emailCopied: false,
-        heroTiltStyle: '',
-        showcaseIdx: 0,
         projectsCount: projectsCount,
-
-        // Interaktywne miasta dla mapy AD REM T2 (Stage 0)
-        selectedCityIdx: 0,
-        heroCities: [
-          { id: 'rtm', x: 284, y: 287, km: '1 180', time: '~15h', name: { pl: 'Rotterdam', en: 'Rotterdam' } },
-          { id: 'ber', x: 367, y: 252, km: '570',   time: '~7h',  name: { pl: 'Berlin',    en: 'Berlin' } },
-          { id: 'mil', x: 412, y: 353, km: '1 340', time: '~17h', name: { pl: 'Mediolan',  en: 'Milan' } },
-          { id: 'par', x: 225, y: 226, km: '1 590', time: '~19h', name: { pl: 'Paryż',     en: 'Paris' } }
-        ],
-
-        // Interaktywne presety KUBATURY w oknie 3D Hero (Stage 1)
-        heroKubaturaIdx: 1,
-        heroKubaturaDemos: [
-          {
-            id: 'small',
-            label: { pl: 'Biuro 15 os.', en: '15 Desks' },
-            m3: '14.2 m³', volPct: 59,
-            kg: '1 150 kg', kgPct: 33,
-            slots: 9, overload: false,
-            note: { pl: '1× kontener 24 m³ · OK', en: '1× 24 m³ truck · OK' }
-          },
-          {
-            id: 'corp',
-            label: { pl: 'Piętro 50 os.', en: '50 Desks' },
-            m3: '19.8 m³', volPct: 83,
-            kg: '1 980 kg', kgPct: 57,
-            slots: 12, overload: false,
-            note: { pl: '1× kontener 24 m³ · OK', en: '1× 24 m³ truck · OK' }
-          },
-          {
-            id: 'archive',
-            label: { pl: 'Archiwum RODO', en: 'GDPR Archive' },
-            m3: '16.8 m³', volPct: 70,
-            kg: '3 320 kg', kgPct: 95,
-            slots: 11, overload: true,
-            note: { pl: 'UWAGA: Limit masy 3.5t!', en: 'ALERT: 3.5t weight limit!' }
-          }
-        ],
-
-        // Interaktywne demo diagnostyki dla 3. zakładki 玄 GEMBA (Stage 2)
-        gembaDemoIdx: 0,
-        gembaDemos: [
-          {
-            id: 'changeover',
-            symptom: {
-              pl: '„Przezbrojenie maszyny zjada całe popołudnie”',
-              en: '“Changeovers eat a whole afternoon of capacity”'
-            },
-            waste: { pl: 'Strata: Oczekiwanie (Muda)', en: 'Waste: Waiting (Muda)' },
-            method: 'SMED (Shingo)'
-          },
-          {
-            id: 'defect',
-            symptom: {
-              pl: '„Ten sam defekt wraca na kontroli końcowej”',
-              en: '“The same defect keeps coming back at inspection”'
-            },
-            waste: { pl: 'Strata: Defekty (Muda)', en: 'Waste: Defects (Muda)' },
-            method: '5 Whys + Poka-yoke'
-          }
-        ],
 
         selectedTier: 'tools',
         form: { name: '', email: '', message: '', honey: '' },
         formStatus: 'idle',
         formFeedback: '',
-
-        // 3 zakładki z wybranymi projektami
-        showcases: [
-          {
-            domain: 'adremt2.pl/index2.html',
-            url: 'https://adremt2.pl/index2.html',
-            external: true,
-            badge: {
-              pl: 'AD REM T2 · MAPA TRAS EUROPY',
-              en: 'AD REM T2 · EUROPEAN ROUTE MAP'
-            },
-            tech: 'VANILLA JS · SVG · GEOJSON',
-            tab: { pl: 'Kalkulator Tras', en: 'Route Map' }
-          },
-          {
-            domain: 'web4biz.pl/kubatura.html',
-            url: 'kubatura.html',
-            external: false,
-            badge: {
-              pl: 'KUBATURA · KALKULATOR 24 m³ / 3.5t',
-              en: 'KUBATURA · 24 m³ / 3.5t ESTIMATOR'
-            },
-            tech: 'ALPINE.JS · SVG · SCHEMA.ORG',
-            tab: { pl: 'KUBATURA (m³)', en: 'KUBATURA (m³)' }
-          },
-          {
-            domain: 'lean-guide-flow.base44.app',
-            url: 'https://lean-guide-flow.base44.app',
-            external: true,
-            badge: {
-              pl: '玄 GEMBA · DIAGNOSTYKA LEAN & TPS',
-              en: '玄 GEMBA · LEAN & TPS WORKSPACE'
-            },
-            tech: 'REACT · 47 METOD · WORKSPACE',
-            tab: { pl: '玄 GEMBA (Lean)', en: '玄 GEMBA (Lean)' }
-          }
-        ],
 
         tiers: [
           {
@@ -2204,38 +1841,38 @@
 
         copy: {
           pl: {
-            navEstimator: 'Pakiety i wycena',
-            navAbout: 'Podejście',
+            navEstimator: 'Co robię',
+            navAbout: 'Jak pracuję',
             navContact: 'Kontakt',
             navCta: 'Wyceń projekt',
             eyebrow: 'WEB4BIZ.PL · NIEZALEŻNA PRAKTYKA CYFROWA (POLSKA / EUROPA)',
-            heroLine1: 'Strony dla firm.',
-            heroLine2: 'Narzędzia, które',
-            heroLine3: 'oszczędzają czas.',
-            heroIntro: 'Projektuję i wdrażam strony B2B oraz interaktywne narzędzia, które ułatwiają klientom decyzję i zdejmują powtarzalną pracę z zespołu.',
-            heroBtnPrimary: 'Zobacz projekty w akcji',
-            heroBtnSecondary: 'Wybierz pakiet dla siebie →',
+            heroLine1: 'Strony.',
+            heroLine2: 'Narzędzia.',
+            heroLine3: 'Aplikacje webowe.',
+            heroIntro: 'Projektuję i tworzę strony internetowe, narzędzia online oraz aplikacje webowe dla firm.',
+            heroBtnPrimary: 'Porozmawiajmy o projekcie',
+            heroBtnSecondary: 'Zobacz 4 wybrane projekty',
             proof: ['10+ LAT W B2B', '5+ LAT W AGILE & LEAN', 'PL · EN · IT'],
             workKicker: '01 / WYBRANE PROJEKTY',
-            workTitle: 'Rozwiązania z myślą o działaniu.',
-            workSub: 'Cztery wybrane projekty pokazują, jak jasna ścieżka klienta wspiera logistykę, relokacje biur, rozwiązywanie problemów Lean i marki konsumenckie.'
+            workTitle: 'Wybrane projekty.',
+            workSub: 'Cztery projekty. Różne branże i wyzwania. Każdy z nich łączy czytelny projekt z konkretnym celem biznesowym.'
           },
           en: {
-            navEstimator: 'Tiers & Pricing',
-            navAbout: 'Approach',
+            navEstimator: 'What I do',
+            navAbout: 'How I work',
             navContact: 'Contact',
             navCta: 'Start a project',
             eyebrow: 'WEB4BIZ.PL · INDEPENDENT DIGITAL PRACTICE (POLAND / EUROPE)',
-            heroLine1: 'B2B websites.',
-            heroLine2: 'Useful tools that',
-            heroLine3: 'save time.',
-            heroIntro: 'I design and build B2B websites and interactive tools that help buyers make decisions and reduce repetitive work for your team.',
-            heroBtnPrimary: 'Explore live projects',
-            heroBtnSecondary: 'Choose your project tier →',
+            heroLine1: 'Websites.',
+            heroLine2: 'Tools.',
+            heroLine3: 'Web apps.',
+            heroIntro: 'I design and build websites, online tools and web apps for businesses.',
+            heroBtnPrimary: 'Let’s discuss your project',
+            heroBtnSecondary: 'See 4 selected projects',
             proof: ['10+ YEARS IN B2B', '5+ YEARS IN AGILE & LEAN', 'PL · EN · IT'],
             workKicker: '01 / SELECTED PROJECTS',
-            workTitle: 'Designed around real work.',
-            workSub: 'The core focus is B2B websites and tools. Four selected projects show how clear customer journeys can support logistics, office relocation, Lean problem-solving and consumer brands.'
+            workTitle: 'Selected projects.',
+            workSub: 'Four projects across different industries and challenges. Each pairs a clear experience with a specific business goal.'
           }
         },
 
@@ -2245,18 +1882,6 @@
 
         get navProjectsLabel() {
           return this.lang === 'pl' ? `Projekty (${this.projectsCount})` : `Projects (${this.projectsCount})`;
-        },
-
-        get activeShowcase() {
-          return this.showcases[this.showcaseIdx];
-        },
-
-        get activeCity() {
-          return this.heroCities[this.selectedCityIdx] || this.heroCities[0];
-        },
-
-        get activeKubaturaDemo() {
-          return this.heroKubaturaDemos[this.heroKubaturaIdx] || this.heroKubaturaDemos[1];
         },
 
         get activeTierObj() {
@@ -2294,16 +1919,6 @@
           document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
           document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', document.title);
           document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', description);
-        },
-
-        onShowcaseKeydown(e, idx) {
-          if (e.key === 'ArrowRight') {
-            e.preventDefault();
-            this.showcaseIdx = (idx + 1) % this.showcases.length;
-          } else if (e.key === 'ArrowLeft') {
-            e.preventDefault();
-            this.showcaseIdx = (idx - 1 + this.showcases.length) % this.showcases.length;
-          }
         },
 
         async copyEmail() {
@@ -2397,18 +2012,6 @@
           }
         },
 
-        // Czysty natywny CSS 3D tilt (bez ładowania biblioteki GSAP)
-        tiltHeroBrowser(e) {
-          if (!window.matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)').matches) return;
-          const rect = e.currentTarget.getBoundingClientRect();
-          const x = (e.clientX - rect.left) / rect.width - 0.5;
-          const y = (e.clientY - rect.top) / rect.height - 0.5;
-          this.heroTiltStyle = `transform: rotateY(${(x * 4).toFixed(2)}deg) rotateX(${(y * -4).toFixed(2)}deg);`;
-        },
-
-        resetHeroBrowser() {
-          this.heroTiltStyle = 'transform: rotateY(0deg) rotateX(0deg);';
-        }
       };
     }
   </script>
