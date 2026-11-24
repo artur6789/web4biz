@@ -1034,11 +1034,49 @@
     .kubatura-preview-copy { margin-top: -8px; font: 800 clamp(22px, 2.1vw, 27px)/1.08 var(--display); letter-spacing: -.04em; }
     .kubatura-truck-panel { position: relative; top: -28px; margin-bottom: -28px; padding: 10px 12px 7px !important; }
     .kubatura-truck-art { max-height: 116px; }
-    .gemba-preview { display: grid; place-items: center; padding: 0; background: #f2efe9; }
-    .gemba-preview img { display: block; width: 100%; height: 100%; object-fit: contain; }
-    .piec-preview { display: grid; place-items: center; padding: 0; overflow: hidden; background: #110d09; color: #f4f3ef; }
-    .piec-logo-window { position: relative; width: 100%; aspect-ratio: 3.3 / 1; overflow: hidden; }
-    .piec-logo-window img { position: absolute; top: 0; left: 0; display: block; width: 100%; height: auto; transform: translateY(-50%); }
+    .gemba-preview { display: block; overflow: hidden; padding: 0; background: #eeebe5; color: #15212a; }
+    .gemba-screen { display: grid; grid-template-columns: minmax(0, .76fr) minmax(0, 1.24fr); gap: clamp(16px, 2.4vw, 34px); width: 100%; height: 100%; padding: clamp(18px, 2.5vw, 36px); background-image: linear-gradient(rgba(21,33,42,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(21,33,42,.045) 1px, transparent 1px); background-size: 48px 48px; }
+    .gemba-story { display: flex; min-width: 0; flex-direction: column; justify-content: space-between; }
+    .gemba-brandline, .gemba-label, .gemba-stat span, .gemba-form-top, .gemba-form-foot { font-family: var(--mono); text-transform: uppercase; letter-spacing: .12em; }
+    .gemba-brandline { display: flex; align-items: center; gap: 8px; color: #5c6970; font-size: 8px; }
+    .gemba-brand-dot { width: 7px; height: 7px; background: #b8432e; }
+    .gemba-story-main { margin-block: 18px; }
+    .gemba-label { margin: 0 0 13px; color: #69757a; font-size: 8px; }
+    .gemba-story h4 { max-width: 340px; margin: 0; font: 700 clamp(23px, 3.05vw, 42px)/.98 var(--display); letter-spacing: -.065em; }
+    .gemba-story h4 span { color: #b8432e; }
+    .gemba-story-copy { max-width: 340px; margin: 16px 0 0; color: #53626c; font: 400 clamp(10px, 1.04vw, 14px)/1.55 var(--sans); }
+    .gemba-stats { display: flex; gap: clamp(12px, 2.2vw, 30px); padding-top: 12px; border-top: 1px solid rgba(21,33,42,.16); }
+    .gemba-stat strong { display: block; font: 600 clamp(16px, 1.7vw, 22px)/1 var(--display); }
+    .gemba-stat span { display: block; margin-top: 6px; color: #68747a; font-size: 7px; }
+    .gemba-app { display: grid; min-width: 0; grid-template-rows: auto minmax(0,1fr) auto auto; overflow: hidden; border: 1px solid #d5d1ca; background: #fbfaf7; box-shadow: 0 12px 28px rgba(29,36,39,.11); }
+    .gemba-form-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 38px; padding: 0 13px; border-bottom: 1px solid #d8d4cd; color: #52616a; font-size: 7px; }
+    .gemba-dictate { padding: 5px 7px; border: 1px solid #d8d4cd; color: #53616a; white-space: nowrap; }
+    .gemba-inputs { display: grid; grid-template-rows: minmax(66px,1fr) auto; min-height: 0; padding: 14px 14px 0; }
+    .gemba-problem { color: #77838a; font: 400 clamp(12px, 1.4vw, 18px)/1.4 var(--sans); }
+    .gemba-location { padding: 10px 0; border-top: 1px dotted #d8d4cd; color: #77838a; font: 400 clamp(10px, 1.15vw, 14px)/1.4 var(--sans); }
+    .gemba-suggestions { padding: 11px 14px; border-block: 1px solid #d8d4cd; background: #f4f1ec; }
+    .gemba-suggestions-title { margin: 0 0 8px; color: #69757a; font: 500 7px var(--mono); letter-spacing: .14em; }
+    .gemba-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+    .gemba-chip { padding: 5px 7px; border: 1px solid #d8d4cd; background: #fbfaf7; color: #52616a; font: 400 clamp(8px, .82vw, 10px)/1.25 var(--sans); }
+    .gemba-form-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 14px; color: #53616a; font-size: 7px; letter-spacing: .08em; }
+    .gemba-submit { padding: 8px 10px; background: #e8e4dd; color: #38454b; white-space: nowrap; }
+    .piec-preview { display: block; overflow: hidden; padding: 0; background: #100b08; color: #fff0dc; }
+    .piec-site-card { position: relative; display: flex; height: 100%; min-height: 0; flex-direction: column; justify-content: space-between; overflow: hidden; padding: clamp(16px, 2.2vw, 30px); background: radial-gradient(ellipse at 78% 45%, rgba(240,48,36,.17), transparent 35%), linear-gradient(135deg, #100b08 0%, #1a100b 55%, #0d0907 100%); }
+    .piec-site-card::after { position: absolute; inset: 0; z-index: 0; border: 1px solid rgba(255,240,220,.1); content: ''; pointer-events: none; }
+    .piec-site-head, .piec-site-copy, .piec-site-products { position: relative; z-index: 1; }
+    .piec-site-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,240,220,.16); }
+    .piec-brand { display: inline-flex; align-items: center; gap: 8px; color: #fff0dc; font: 800 clamp(16px, 1.9vw, 23px)/1 var(--display); letter-spacing: -.06em; }
+    .piec-brand img { display: block; width: clamp(22px, 2.4vw, 30px); height: clamp(22px, 2.4vw, 30px); object-fit: contain; }
+    .piec-site-nav { color: rgba(255,240,220,.68); font: 500 7px var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+    .piec-site-copy { margin-block: auto; padding-block: 18px 22px; }
+    .piec-site-kicker { margin: 0 0 9px; color: rgba(255,240,220,.66); font: 500 7px var(--mono); letter-spacing: .16em; text-transform: uppercase; }
+    .piec-site-copy h4 { max-width: 680px; margin: 0; color: #fff0dc; font: 800 clamp(32px, 5vw, 68px)/.82 var(--display); letter-spacing: -.085em; text-transform: uppercase; }
+    .piec-site-copy h4 span { color: #f03224; }
+    .piec-site-copy p { max-width: 350px; margin: 13px 0 0; color: rgba(255,240,220,.7); font: 500 clamp(9px, 1vw, 12px)/1.45 var(--sans); }
+    .piec-site-products { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 6px; }
+    .piec-product { min-width: 0; padding: 9px 9px 8px; border: 1px solid rgba(255,240,220,.16); background: rgba(255,240,220,.04); }
+    .piec-product b { display: block; overflow: hidden; color: #fff0dc; font: 700 clamp(8px, 1vw, 11px)/1.15 var(--display); letter-spacing: -.02em; text-overflow: ellipsis; white-space: nowrap; }
+    .piec-product span { display: block; margin-top: 5px; color: #f03224; font: 500 6px var(--mono); letter-spacing: .12em; text-transform: uppercase; }
     .art-route-split { grid-template-columns: minmax(0,1.45fr) minmax(175px,1fr); }
     .art-route-panel { padding: clamp(18px,2vw,32px); }
     .what-i-do-section, .how-i-work-section { background: var(--bg); color: var(--ink); border-top: 1px solid var(--line); }
@@ -1092,6 +1130,25 @@
       .project-body h3 { font-size: clamp(1.8rem,8vw,2.5rem); }
       .project-body p { font-size: 14px; }
       .project-card .project-art-box { height: 310px; min-height: 310px; margin: 0 12px 12px; }
+      .gemba-screen { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); gap: 9px; padding: 11px; }
+      .gemba-brandline, .gemba-label, .gemba-story-copy, .gemba-stats { display: none; }
+      .gemba-story-main { margin: 0; }
+      .gemba-label, .gemba-brandline, .gemba-stat span, .gemba-form-top, .gemba-form-foot, .gemba-suggestions-title { font-size: 6px; }
+      .gemba-story h4 { font-size: clamp(21px, 6vw, 29px); line-height: .94; }
+      .gemba-app { grid-template-rows: 30px minmax(0,1fr) auto 36px; }
+      .gemba-inputs { padding: 10px 10px 0; }
+      .gemba-suggestions { padding: 8px 10px; }
+      .gemba-chip { padding: 4px 5px; font-size: 7px; }
+      .gemba-form-foot { padding: 8px 10px; }
+      .gemba-form-foot > span:first-child { max-width: 55%; }
+      .piec-site-card { padding: 15px; }
+      .piec-brand { font-size: 16px; }
+      .piec-brand img { width: 22px; height: 22px; }
+      .piec-site-copy h4 { font-size: clamp(30px, 8vw, 45px); }
+      .piec-site-copy p { font-size: 9px; }
+      .piec-product { padding: 7px 6px; }
+      .piec-product b { font-size: 7px; }
+      .piec-product span { font-size: 5px; }
       .project-card .art-route-split { grid-template-columns: 1fr; }
       .project-card .art-route-map-box { min-height: 310px; }
       .project-card .art-route-panel { display: none; }
@@ -1430,8 +1487,38 @@
 
         <!-- 03. 玄 GEMBA - LEAN PROBLEM-SOLVING WORKSPACE -->
         <article class="project-card" data-reveal>
-          <a href="case-study.html?project=gemba" class="project-art-box gemba-preview" :aria-label="lang === 'pl' ? 'Zrzut ekranu aplikacji GEMBA' : 'Screenshot of the GEMBA app'">
-            <img src="assets/gemba-app-preview.webp" alt="GEMBA Lean problem-solving app interface"/>
+          <a href="case-study.html?project=gemba" class="project-art-box gemba-preview" :aria-label="lang === 'pl' ? 'Podgląd aplikacji GEMBA do rozwiązywania problemów Lean' : 'GEMBA Lean problem-solving app preview'">
+            <div class="gemba-screen">
+              <div class="gemba-story">
+                <div class="gemba-brandline"><span class="gemba-brand-dot"></span><span>LEAN THINKING · TPS · SIX SIGMA</span></div>
+                <div class="gemba-story-main">
+                  <p class="gemba-label" x-text="lang === 'pl' ? 'NARZĘDZIE DO DOSKONALENIA PRACY' : 'LEAN THINKING · TPS · SIX SIGMA'">NARZĘDZIE DO DOSKONALENIA PRACY</p>
+                  <h4><span x-text="lang === 'pl' ? 'Opisz problem.' : 'Describe the problem.'">Opisz problem.</span><br/><span x-text="lang === 'pl' ? 'Znajdź metodę.' : 'Get the method.'">Znajdź metodę.</span></h4>
+                  <p class="gemba-story-copy" x-text="lang === 'pl' ? 'Opisz, co nie działa. GEMBA pomaga nazwać źródło problemu i dobrać praktyczne kroki usprawnienia.' : 'Describe what is going wrong. GEMBA helps name the source of the problem and choose practical improvement steps.'">Opisz, co nie działa. GEMBA pomaga nazwać źródło problemu i dobrać praktyczne kroki usprawnienia.</p>
+                </div>
+                <div class="gemba-stats">
+                  <div class="gemba-stat"><strong>47</strong><span x-text="lang === 'pl' ? 'METOD' : 'METHODS'">METOD</span></div>
+                  <div class="gemba-stat"><strong>70+</strong><span x-text="lang === 'pl' ? 'POJĘĆ' : 'TERMS'">POJĘĆ</span></div>
+                  <div class="gemba-stat"><strong>5</strong><span x-text="lang === 'pl' ? 'ETAPÓW' : 'STEPS'">ETAPÓW</span></div>
+                </div>
+              </div>
+              <div class="gemba-app">
+                <div class="gemba-form-top"><span x-text="lang === 'pl' ? 'OPISZ PROBLEM' : 'DESCRIBE THE PROBLEM'">OPISZ PROBLEM</span><span class="gemba-dictate">◉ <span x-text="lang === 'pl' ? 'DYKTUJ' : 'DICTATE'">DYKTUJ</span></span><span style="color:#b8432e">01</span></div>
+                <div class="gemba-inputs">
+                  <div class="gemba-problem" x-text="lang === 'pl' ? 'Co nie działa w pracy?' : 'What is going wrong at work?'">Co nie działa w pracy?</div>
+                  <div class="gemba-location" x-text="lang === 'pl' ? 'Gdzie to się dzieje? (opcjonalnie)' : 'Where does it happen? (optional)'">Gdzie to się dzieje? (opcjonalnie)</div>
+                </div>
+                <div class="gemba-suggestions">
+                  <p class="gemba-suggestions-title" x-text="lang === 'pl' ? 'WYPRÓBUJ PRZYKŁAD' : 'TRY ONE'">WYPRÓBUJ PRZYKŁAD</p>
+                  <div class="gemba-chips">
+                    <span class="gemba-chip" x-text="lang === 'pl' ? 'Linia zatrzymuje się co zmianę' : 'The line stops every shift'">Linia zatrzymuje się co zmianę</span>
+                    <span class="gemba-chip" x-text="lang === 'pl' ? 'Zamówienia czekają tygodniami' : 'Orders take weeks to ship'">Zamówienia czekają tygodniami</span>
+                    <span class="gemba-chip" x-text="lang === 'pl' ? 'Ten sam defekt wraca na kontroli' : 'The same defect keeps returning'">Ten sam defekt wraca na kontroli</span>
+                  </div>
+                </div>
+                <div class="gemba-form-foot"><span x-text="lang === 'pl' ? 'Pisz własnymi słowami. Bez żargonu Lean.' : 'Use your own words. No Lean jargon needed.'">Pisz własnymi słowami. Bez żargonu Lean.</span><span class="gemba-submit" x-text="lang === 'pl' ? 'DOBIERZ METODĘ →' : 'FIND MY METHOD →'">DOBIERZ METODĘ →</span></div>
+              </div>
+            </div>
           </a>
 
           <div class="project-body">
@@ -1452,8 +1539,24 @@
 
         <!-- 04. PIEC -->
         <article class="project-card" data-reveal>
-          <a href="case-study.html?project=piec" class="project-art-box piec-preview" :aria-label="lang === 'pl' ? 'Znak PIEC' : 'PIEC logo'">
-            <span class="piec-logo-window"><img src="assets/piec-brand-reference.webp" alt="PIEC® logo"/></span>
+          <a href="case-study.html?project=piec" class="project-art-box piec-preview" :aria-label="lang === 'pl' ? 'Podgląd strony piekarni PIEC' : 'PIEC bakery website preview'">
+            <div class="piec-site-card">
+              <div class="piec-site-head">
+                <span class="piec-brand"><img src="https://framerusercontent.com/images/k6wcUBx45U8xW3pS3zVY18N0.svg?width=100&amp;height=100" alt=""/>PIEC®</span>
+                <span class="piec-site-nav" x-text="lang === 'pl' ? 'PIEKARNIA DLA NIEPOKORNYCH' : 'BAKERY FOR THE UNRULY'">PIEKARNIA DLA NIEPOKORNYCH</span>
+              </div>
+              <div class="piec-site-copy">
+                <p class="piec-site-kicker" x-text="lang === 'pl' ? 'PRAWDZIWY ZAKWAS · RĘCZNA ROBOTA · 48 GODZIN' : 'REAL SOURDOUGH · HANDMADE · 48 HOURS'">PRAWDZIWY ZAKWAS · RĘCZNA ROBOTA · 48 GODZIN</p>
+                <h4><span>NIEGRZECZNY</span><br/><span x-text="lang === 'pl' ? 'CHLEB.' : 'SOURDOUGH.'">CHLEB.</span></h4>
+                <p x-text="lang === 'pl' ? 'Bez kompromisów. Bez skrótów. Po prostu dobry chleb.' : 'No shortcuts. No compromises. Just seriously good bread.'">Bez kompromisów. Bez skrótów. Po prostu dobry chleb.</p>
+              </div>
+              <div class="piec-site-products" aria-hidden="true">
+                <div class="piec-product"><b>BUNTOWNIK</b><span x-text="lang === 'pl' ? 'NA ZAKWASIE' : 'SOURDOUGH'">NA ZAKWASIE</span></div>
+                <div class="piec-product"><b>CROISSANT CHAOS</b><span x-text="lang === 'pl' ? 'MAŚLANE' : 'BUTTERY'">MAŚLANE</span></div>
+                <div class="piec-product"><b>BRIOCHE BABY</b><span x-text="lang === 'pl' ? 'SŁODKIE' : 'SWEET'">SŁODKIE</span></div>
+                <div class="piec-product"><b>BAGIETKI REBEL</b><span x-text="lang === 'pl' ? 'CHRUPIĄCE' : 'CRUNCHY'">CHRUPIĄCE</span></div>
+              </div>
+            </div>
           </a>
           <div class="project-body"><div><div class="project-tags"><span>04 / MARKA KONSUMENCKA</span><span>BAKERY</span></div><h3 x-text="lang === 'pl' ? 'PIEC® — Niegrzeczny chleb' : 'PIEC® — No-Nonsense Sourdough'">PIEC® — Niegrzeczny chleb</h3><p x-text="lang === 'pl' ? 'Strona rzemieślniczej piekarni zakwasowej: długa fermentacja, proste składniki i cztery linie wypieków.' : 'Craft sourdough bakery site built around slow fermentation, simple ingredients and four bakery lines.'">Strona rzemieślniczej piekarni zakwasowej: długa fermentacja, proste składniki i cztery linie wypieków.</p></div><div class="project-footer"><a href="case-study.html?project=piec" class="tactile" x-text="lang === 'pl' ? 'Case study →' : 'Case study →'">Case study →</a><a href="https://rotating-baguette-637711.framer.app/" target="_blank" rel="noopener noreferrer" class="icon-link" style="color:var(--signal);"><span x-text="lang === 'pl' ? 'Otwórz projekt' : 'Open live project'">Otwórz projekt</span><span aria-hidden="true">↗</span></a></div></div>
         </article>
