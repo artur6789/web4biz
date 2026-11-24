@@ -969,9 +969,14 @@
     .form-privacy-note { max-width:540px; margin:0; color:var(--muted); font:400 11px/1.6 var(--sans); }
 
     /* Motion-led hero, selected-work panels and Framer-inspired editorial sections */
-    .hero-grid { display: block; }
-    .hero-copy { max-width: 1120px; }
-    .hero-title { max-width: 1040px; font-size: clamp(4rem, 8vw, 7.4rem); line-height: .86; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(320px, .92fr);
+      align-items: center;
+      gap: clamp(36px, 5vw, 76px);
+    }
+    .hero-copy { max-width: none; }
+    .hero-title { max-width: 790px; font-size: clamp(3.3rem, 5vw, 5.4rem); line-height: .9; }
     .hero-title .line { overflow: hidden; padding-block: .04em; margin-block: -.04em; }
     .hero-title .line-inner { display: inline-block; transform: translateY(112%); animation: hero-line-reveal .9s var(--ease-out-quart) both; }
     .hero-title .line:nth-child(1) .line-inner { animation-delay: .08s; }
@@ -979,13 +984,15 @@
     .hero-title .line:nth-child(3) .line-inner { animation-delay: .32s; }
     @keyframes hero-line-reveal { to { transform: translateY(0); } }
     .hero-section { padding-bottom: 112px; }
+    .hero-journey { box-shadow: 0 24px 58px rgba(12, 18, 13, .12), 0 3px 10px rgba(12, 18, 13, .06); }
+    .hero-journey-note { background: color-mix(in srgb, var(--accent) 16%, var(--surface)); }
 
-    #work { background: #090909; color: #f4f3ef; overflow: clip; }
-    #work .section-title { color: #f4f3ef; }
-    #work .section-kicker { color: #a6b784; }
-    #work > .page-wrap > div:first-child > p { color: #a8a8a3 !important; }
+    #work { background: var(--bg); color: var(--ink); overflow: clip; }
+    #work .section-title { color: var(--ink); }
+    #work .section-kicker { color: var(--signal); }
+    #work > .page-wrap > div:first-child > p { color: var(--muted) !important; }
     #work .filter-bar { margin: 28px 0 20px; }
-    #work .filter-pill.filter-cta { background: #f1f0e9; border-color: #f1f0e9; color: #111; }
+    #work .filter-pill.filter-cta { background: var(--btn-bg); border-color: var(--btn-bg); color: var(--btn-ink); }
     .project-grid { display: grid; grid-template-columns: minmax(0,1fr); gap: 22px; align-items: start; margin-top: 48px; }
     .project-card {
       --copy-col: 40%;
@@ -997,28 +1004,32 @@
       display: grid;
       grid-template-columns: var(--copy-col) minmax(0,1fr);
       grid-template-areas: "copy art";
-      border: 1px solid #292929;
+      border: 1px solid var(--line);
       border-radius: 20px;
-      background: #111;
-      color: #f4f3ef;
+      background: var(--bg-alt);
+      color: var(--ink);
       box-shadow: 0 28px 70px rgba(0,0,0,.28);
     }
     .project-card:nth-child(1) { z-index: 1; }
     .project-card:nth-child(2) { z-index: 2; }
     .project-card:nth-child(3) { z-index: 3; }
     .project-card:nth-child(4) { z-index: 4; }
-    .project-card:hover { transform: none; border-color: #444; box-shadow: 0 30px 74px rgba(0,0,0,.34); }
+    .project-card:hover { transform: none; border-color: color-mix(in srgb, var(--signal) 40%, var(--line)); box-shadow: 0 30px 74px rgba(0,0,0,.24); }
     .project-body { grid-area: copy; padding: clamp(28px, 3.4vw, 54px); display: flex; flex-direction: column; justify-content: space-between; min-width: 0; }
-    .project-body h3 { color: #f5f3ed; font-size: clamp(1.8rem, 2.7vw, 3rem); line-height: 1.02; letter-spacing: -.055em; }
-    .project-body p { min-height: 0; color: #b1b1ac; font-size: 15px; line-height: 1.7; }
+    .project-body h3 { color: var(--ink); font-size: clamp(1.8rem, 2.7vw, 3rem); line-height: 1.02; letter-spacing: -.055em; }
+    .project-body p { min-height: 0; color: var(--muted); font-size: 15px; line-height: 1.7; }
     .project-tags { gap: 8px; margin-bottom: 24px; }
-    .project-tags span { color: #babbb3; border-color: #393939; font-size: 10px; }
-    .project-footer { color: #b2b2ac; border-color: #303030; font-size: 10px; gap: 12px; }
-    .project-footer a:first-child { color: #f5f3ed; }
+    .project-tags span { color: var(--muted); border-color: var(--line); font-size: 10px; }
+    .project-footer { color: var(--muted); border-color: var(--line); font-size: 10px; gap: 12px; }
+    .project-footer a:first-child { color: var(--ink); }
+    .project-footer a:last-child { color: var(--signal) !important; }
     .project-art-box {
       grid-area: art;
-      height: auto;
-      min-height: 0;
+      align-self: center;
+      justify-self: stretch;
+      width: calc(100% - 28px);
+      height: min(66%, 500px);
+      min-height: 320px;
       margin: 14px;
       border: 0;
       border-radius: 14px;
@@ -1028,49 +1039,28 @@
     .project-card:hover .project-art-box { transform: scale(1.012); filter: saturate(1.04); }
     .art-route-split { grid-template-columns: minmax(0,1.45fr) minmax(175px,1fr); }
     .art-route-panel { padding: clamp(18px,2vw,32px); }
-    .project-case-bubble {
-      position: absolute;
-      z-index: 5;
-      top: 50%;
-      left: var(--copy-col);
-      width: 92px;
-      aspect-ratio: 1;
-      display: grid;
-      place-items: center;
-      padding: 14px;
-      border: 1px solid rgba(20,20,20,.12);
-      border-radius: 50%;
-      background: #f5f3ed;
-      color: #171717;
-      font: 600 11px/1.2 var(--mono);
-      text-align: center;
-      transform: translate(-50%,-50%);
-      transition: transform 240ms var(--ease-out-quart), background-color 220ms, color 220ms;
-    }
-    .project-case-bubble:hover { transform: translate(-50%,-50%) scale(1.08); background: var(--accent); color: var(--accent-ink); }
-    .what-i-do-section, .how-i-work-section { background: #0b0b0b; color: #f2f1ec; border-top: 1px solid #232323; }
-    .how-i-work-section { background: #111; }
-    .what-i-do-section .section-title, .how-i-work-section .section-title { max-width: 850px; color: #f2f1ec; }
-    .what-i-do-section .section-kicker, .how-i-work-section .section-kicker { color: #a6b784; }
+    .what-i-do-section, .how-i-work-section { background: var(--bg); color: var(--ink); border-top: 1px solid var(--line); }
+    .what-i-do-section .section-title, .how-i-work-section .section-title { max-width: 850px; color: var(--ink); }
+    .what-i-do-section .section-kicker, .how-i-work-section .section-kicker { color: var(--signal); }
     .service-section-heading { margin-bottom: 54px; }
-    .service-list, .process-list { border-top: 1px solid #2b2b2b; }
+    .service-list, .process-list { border-top: 1px solid var(--line); }
     .service-row, .process-row {
       display: grid;
       grid-template-columns: 84px minmax(280px,1.1fr) minmax(260px,1fr);
       align-items: center;
       gap: 26px;
       padding: 38px 22px;
-      border-bottom: 1px solid #2b2b2b;
+      border-bottom: 1px solid var(--line);
       border-radius: 10px;
       transition: background-color 300ms ease, padding 300ms var(--ease-out-quart);
     }
-    .service-row:hover, .process-row:hover { padding-inline: 30px; background: #141414; }
-    .service-number, .process-number { color: #999b91; font: 500 13px var(--mono); }
-    .service-row h3, .process-row h3 { margin: 0; color: #f4f3ef; font: 500 clamp(1.65rem,3.1vw,3rem)/1.06 var(--display); letter-spacing: -.05em; }
-    .service-row p, .process-row p { max-width: 520px; margin: 0; color: #aaa9a3; font-size: 16px; line-height: 1.65; }
+    .service-row:hover, .process-row:hover { padding-inline: 30px; background: color-mix(in srgb, var(--surface) 70%, var(--bg)); }
+    .service-number, .process-number { color: var(--muted); font: 500 13px var(--mono); }
+    .service-row h3, .process-row h3 { margin: 0; color: var(--ink); font: 500 clamp(1.65rem,3.1vw,3rem)/1.06 var(--display); letter-spacing: -.05em; }
+    .service-row p, .process-row p { max-width: 520px; margin: 0; color: var(--muted); font-size: 16px; line-height: 1.65; }
     .process-row { grid-template-columns: 84px minmax(170px,.7fr) minmax(300px,1.3fr); padding-block: 29px; }
     .process-row h3 { font-size: clamp(1.5rem,2.6vw,2.25rem); }
-    .process-proof { margin: 28px 0 0; color: #a3a39c; font: 500 11px/1.7 var(--mono); letter-spacing: .025em; }
+    .process-proof { margin: 28px 0 0; color: var(--muted); font: 500 11px/1.7 var(--mono); letter-spacing: .025em; }
 
     html.motion-ready [data-reveal] { opacity: 0; transform: translateY(26px); transition: opacity 720ms var(--ease-out-quart), transform 720ms var(--ease-out-quart); }
     html.motion-ready [data-reveal].is-inview { opacity: 1; transform: translateY(0); }
@@ -1083,13 +1073,13 @@
       .project-body { padding: 28px; }
       .project-tags { gap: 5px; }
       .project-tags span { white-space: normal; }
-      .project-case-bubble { width: 78px; font-size: 10px; }
       .service-row { grid-template-columns: 58px minmax(220px,1fr) minmax(230px,1fr); gap: 18px; padding-inline: 14px; }
       .process-row { grid-template-columns: 58px minmax(140px,.7fr) minmax(230px,1.3fr); gap: 18px; padding-inline: 14px; }
     }
     @media (max-width: 720px) {
       .hero-section { padding-bottom: 74px; }
       .hero-grid { display: block; }
+      .hero-journey { margin-top: 32px; }
       .hero-title { font-size: clamp(2.55rem,10.2vw,4rem); line-height: .94; letter-spacing: -.075em; }
       .hero-title .line { padding-left: 0; }
       #work { padding-block: 68px; }
@@ -1102,8 +1092,6 @@
       .project-card .art-route-split { grid-template-columns: 1fr; }
       .project-card .art-route-map-box { min-height: 310px; }
       .project-card .art-route-panel { display: none; }
-      .project-case-bubble { top: auto; left: auto; right: 24px; bottom: 284px; width: 74px; transform: none; }
-      .project-case-bubble:hover { transform: scale(1.06); }
       .service-section-heading { margin-bottom: 34px; }
       .service-row, .process-row { grid-template-columns: 38px minmax(0,1fr); gap: 12px 16px; padding: 24px 8px; }
       .service-row:hover, .process-row:hover { padding-inline: 8px; }
@@ -1115,7 +1103,7 @@
     @media (prefers-reduced-motion: reduce) {
       .hero-title .line-inner { animation: none; transform: none; }
       html.motion-ready [data-reveal] { opacity: 1; transform: none; transition: none; }
-      .project-card, .project-art-box, .project-case-bubble, .service-row, .process-row { transition: none; }
+      .project-card, .project-art-box, .service-row, .process-row { transition: none; }
     }
   </style>
 </head>
@@ -1257,7 +1245,29 @@
           </div>
         </div>
 
-
+        <aside class="hero-journey" data-reveal
+          :aria-label="lang === 'pl' ? 'Przykłady produktów cyfrowych' : 'Examples of digital products'">
+          <div class="hero-journey-head">
+            <p class="hero-journey-label" x-text="lang === 'pl' ? 'CO MOGĘ DLA CIEBIE ZBUDOWAĆ' : 'WHAT I CAN BUILD FOR YOU'">CO MOGĘ DLA CIEBIE ZBUDOWAĆ</p>
+            <span class="hero-journey-tag">WEB4BIZ / 01—03</span>
+          </div>
+          <h2 class="hero-journey-title" x-text="lang === 'pl' ? 'Rozwiązania cyfrowe dopasowane do Twojego biznesu.' : 'Digital solutions shaped around your business.'">Rozwiązania cyfrowe dopasowane do Twojego biznesu.</h2>
+          <ol class="hero-journey-steps">
+            <li class="hero-journey-step">
+              <span class="hero-journey-number">01</span>
+              <div><h3 x-text="lang === 'pl' ? 'Strony internetowe' : 'Websites'">Strony internetowe</h3><p x-text="lang === 'pl' ? 'Jasno przedstawiają ofertę i pomagają klientom zrobić kolejny krok.' : 'Explain your offer clearly and help customers take the next step.'">Jasno przedstawiają ofertę i pomagają klientom zrobić kolejny krok.</p></div>
+            </li>
+            <li class="hero-journey-step">
+              <span class="hero-journey-number">02</span>
+              <div><h3 x-text="lang === 'pl' ? 'Narzędzia online' : 'Online tools'">Narzędzia online</h3><p x-text="lang === 'pl' ? 'Ułatwiają klientom wybór i zdejmują powtarzalne zadania z zespołu.' : 'Make decisions easier for customers and reduce repetitive work for your team.'">Ułatwiają klientom wybór i zdejmują powtarzalne zadania z zespołu.</p></div>
+            </li>
+            <li class="hero-journey-step">
+              <span class="hero-journey-number">03</span>
+              <div><h3 x-text="lang === 'pl' ? 'Aplikacje webowe' : 'Web apps'">Aplikacje webowe</h3><p x-text="lang === 'pl' ? 'Łączą ludzi, dane i procesy w jednym dostępnym miejscu.' : 'Bring people, data and workflows together in one accessible place.'">Łączą ludzi, dane i procesy w jednym dostępnym miejscu.</p></div>
+            </li>
+          </ol>
+          <p class="hero-journey-note"><span aria-hidden="true">↗</span><span x-text="lang === 'pl' ? 'Od pierwszej rozmowy do wdrożenia.' : 'From the first conversation to launch.'">Od pierwszej rozmowy do wdrożenia.</span></p>
+        </aside>
 
       </div>
     </div>
@@ -1340,9 +1350,6 @@
               <a href="https://adremt2.pl/index2.html" target="_blank" rel="noopener noreferrer" class="icon-link" style="color:var(--signal);"><span x-text="lang === 'pl' ? 'Otwórz projekt' : 'Open live site'">Otwórz projekt</span><svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg></a>
             </div>
           </div>
-          <a class="project-case-bubble" href="case-study.html?project=adremt2" :aria-label="lang === 'pl' ? 'Zobacz case study' : 'View case study'">
-            <span x-text="lang === 'pl' ? 'Zobacz case' : 'View case'">Zobacz case</span>
-          </a>
         </article>
 
         <!-- 02. KUBATURA B2B -->
@@ -1417,9 +1424,6 @@
               <a href="kubatura.html" class="icon-link" style="color:var(--signal);"><span x-text="lang === 'pl' ? 'Otwórz projekt' : 'Open live site'">Otwórz projekt</span><svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg></a>
             </div>
           </div>
-          <a class="project-case-bubble" href="case-study.html?project=kubatura" :aria-label="lang === 'pl' ? 'Zobacz case study' : 'View case study'">
-            <span x-text="lang === 'pl' ? 'Zobacz case' : 'View case'">Zobacz case</span>
-          </a>
         </article>
 
         <!-- 03. 玄 GEMBA - LEAN PROBLEM-SOLVING WORKSPACE -->
@@ -1479,9 +1483,6 @@
               <a href="https://lean-guide-flow.base44.app" target="_blank" rel="noopener noreferrer" class="icon-link" style="color:var(--signal);"><span x-text="lang === 'pl' ? 'Otwórz aplikację' : 'Open live app'">Otwórz aplikację</span><svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg></a>
             </div>
           </div>
-          <a class="project-case-bubble" href="case-study.html?project=gemba" :aria-label="lang === 'pl' ? 'Zobacz case study' : 'View case study'">
-            <span x-text="lang === 'pl' ? 'Zobacz case' : 'View case'">Zobacz case</span>
-          </a>
         </article>
 
         <!-- 04. PIEC -->
@@ -1492,9 +1493,6 @@
             <div class="preview-bottomline"><span>48 H · SOURDOUGH</span><span>↗</span></div>
           </a>
           <div class="project-body"><div><div class="project-tags"><span>04 / MARKA KONSUMENCKA</span><span>BAKERY</span></div><h3 x-text="lang === 'pl' ? 'PIEC® — Niegrzeczny chleb' : 'PIEC® — No-Nonsense Sourdough'">PIEC® — Niegrzeczny chleb</h3><p x-text="lang === 'pl' ? 'Strona rzemieślniczej piekarni zakwasowej: długa fermentacja, proste składniki i cztery linie wypieków.' : 'Craft sourdough bakery site built around slow fermentation, simple ingredients and four bakery lines.'">Strona rzemieślniczej piekarni zakwasowej: długa fermentacja, proste składniki i cztery linie wypieków.</p></div><div class="project-footer"><a href="case-study.html?project=piec" class="tactile" x-text="lang === 'pl' ? 'Case study →' : 'Case study →'">Case study →</a><a href="https://rotating-baguette-637711.framer.app/" target="_blank" rel="noopener noreferrer" class="icon-link" style="color:var(--signal);"><span x-text="lang === 'pl' ? 'Otwórz projekt' : 'Open live project'">Otwórz projekt</span><span aria-hidden="true">↗</span></a></div></div>
-          <a class="project-case-bubble" href="case-study.html?project=piec" :aria-label="lang === 'pl' ? 'Zobacz case study' : 'View case study'">
-            <span x-text="lang === 'pl' ? 'Zobacz case' : 'View case'">Zobacz case</span>
-          </a>
         </article>
 
       </div>
