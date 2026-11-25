@@ -3,83 +3,116 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <!-- Natychmiastowe ustawienie motywu przed pierwszym rysowaniem strony (zero mignięcia tła) -->
+  <style id="initial-colors">
+    html { color-scheme: light; background-color: #f4f2e9; color: #172019; }
+    html[data-theme="forest"] { color-scheme: dark; background-color: #141a16; color: #f0f2e9; }
+    html[data-theme="bento"] { color-scheme: dark; background-color: #07090b; color: #f4f6f8; }
+  </style>
   <script>
-    (function () {
+    (() => {
+      let theme = 'editorial';
       try {
-        var theme = localStorage.getItem('w4b_theme') || 'editorial';
-        document.documentElement.setAttribute('data-theme', theme);
-      } catch (e) {}
-      document.documentElement.classList.add('is-loading');
-      window.addEventListener('DOMContentLoaded', function () {
-        requestAnimationFrame(function () {
-          requestAnimationFrame(function () {
-            document.documentElement.classList.remove('is-loading');
-          });
-        });
-      });
+        const saved = localStorage.getItem('w4b_theme');
+        if (saved === 'forest' || saved === 'bento') theme = saved;
+      } catch { /* Storage may be unavailable in private browsing. */ }
+      document.documentElement.dataset.theme = theme;
     })();
   </script>
 
-  <title x-text="lang === 'pl' ? 'Projekty &amp; Realizacje - web4biz.pl | Archie' : 'Projects &amp; Builds - web4biz.pl | Archie'">Projekty &amp; Realizacje - web4biz.pl | Archie</title>
-  <meta name="description" content="Portfolio ośmiu stron, narzędzi i marek zbudowanych wokół realnych potrzeb klientów: web4biz.pl."/>
+  <title>Portfolio stron internetowych i aplikacji webowych | web4biz.pl</title>
+  <link rel="canonical" href="https://artur6789.github.io/web4biz/projects.html">
+  <link rel="alternate" hreflang="pl" href="https://artur6789.github.io/web4biz/projects.html">
+  <link rel="alternate" hreflang="en" href="https://artur6789.github.io/web4biz/projects-en.html">
+  <link rel="alternate" hreflang="x-default" href="https://artur6789.github.io/web4biz/projects.html">
+  <meta property="og:site_name" content="web4biz.pl">
+  <meta property="og:type" content="website">
+  <meta name="description" content="Zobacz osiem realizacji, od kalkulatora transportu po stronę piekarni. Filtruj projekty i sprawdź, jak rozwiązują konkretne problemy klientów.">
+  <meta property="og:title" content="Portfolio stron internetowych i aplikacji webowych | web4biz.pl">
+  <meta property="og:description" content="Zobacz osiem realizacji, od kalkulatora transportu po stronę piekarni. Filtruj projekty i sprawdź, jak rozwiązują konkretne problemy klientów.">
+  <meta property="og:url" content="https://artur6789.github.io/web4biz/projects.html">
+  <meta property="og:locale" content="pl_PL">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Portfolio stron internetowych i aplikacji webowych | web4biz.pl">
+  <meta name="twitter:description" content="Zobacz osiem realizacji, od kalkulatora transportu po stronę piekarni. Filtruj projekty i sprawdź, jak rozwiązują konkretne problemy klientów.">
+
   <meta name="robots" content="index, follow"/>
-  <link rel="canonical" href="https://artur6789.github.io/web4biz/projects.html"/>
-  <link rel="alternate" hreflang="pl" href="https://artur6789.github.io/web4biz/projects.html"/>
-  <link rel="alternate" hreflang="en" href="https://artur6789.github.io/web4biz/projects.html?lang=en"/>
-  <link rel="alternate" hreflang="x-default" href="https://artur6789.github.io/web4biz/projects.html"/>
 
   <!-- Inline SVG Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23172019'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='800' font-size='26' fill='%23d8fa52'%3Ew4b%3C/text%3E%3C/svg%3E"/>
 
   <!-- OpenGraph & Social Preview -->
-  <meta property="og:type" content="website"/>
-  <meta property="og:url" content="https://artur6789.github.io/web4biz/projects.html"/>
-  <meta property="og:title" content="Projekty &amp; Realizacje - web4biz.pl | Archie"/>
-  <meta property="og:description" content="Portfolio 8 projektów: stron B2B, narzędzi online, szkoleń automotive i marek usługowych z opisami Case Study."/>
-  <meta property="og:locale" content="pl_PL"/>
-  <meta property="og:locale:alternate" content="en_US"/>
-  <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Projekty &amp; Realizacje - web4biz.pl"/>
-  <meta name="twitter:description" content="Zobacz realizacje B2B, interaktywne narzędzia webowe i aplikacje z pełnym opisem Case Study."/>
 
   <!-- Dane strukturalne Schema.org (CollectionPage + ItemList) -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    "name": "Projekty i Realizacje - web4biz.pl",
-    "url": "https://artur6789.github.io/web4biz/projects.html",
-    "description": "Portfolio 8 stron, narzędzi i marek zaprojektowanych w web4biz.pl.",
-    "isPartOf": {
-      "@type": "WebSite",
-      "name": "web4biz.pl",
-      "url": "https://artur6789.github.io/web4biz/"
-    },
-    "mainEntity": {
-      "@type": "ItemList",
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "AD REM T2 - Transport, logistyka i spedycja", "url": "https://artur6789.github.io/web4biz/case-study.html?project=adremt2" },
-        { "@type": "ListItem", "position": 2, "name": "Ad Rem Centrum Księgowe", "url": "https://artur6789.github.io/web4biz/case-study.html?project=ckadrem" },
-        { "@type": "ListItem", "position": 3, "name": "PM Classics", "url": "https://artur6789.github.io/web4biz/case-study.html?project=pmclassics" },
-        { "@type": "ListItem", "position": 4, "name": "KUBATURA - Relokacje Biur i Archiwów", "url": "https://artur6789.github.io/web4biz/case-study.html?project=kubatura" },
-        { "@type": "ListItem", "position": 5, "name": "玄 GEMBA - Diagnostyka Lean & Six Sigma", "url": "https://artur6789.github.io/web4biz/case-study.html?project=gemba" },
-        { "@type": "ListItem", "position": 6, "name": "BDC Academy - szkolenia Automotive Contact Center", "url": "https://artur6789.github.io/web4biz/case-study.html?project=bdcacademy" },
-        { "@type": "ListItem", "position": 7, "name": "HAUHAUS - kameralne psiedszkole", "url": "https://artur6789.github.io/web4biz/case-study.html?project=hauhaus" },
-        { "@type": "ListItem", "position": 8, "name": "PIEC - Niegrzeczny chleb", "url": "https://artur6789.github.io/web4biz/case-study.html?project=piec" }
-      ]
-    }
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Portfolio stron internetowych i aplikacji webowych | web4biz.pl",
+  "description": "Zobacz osiem realizacji, od kalkulatora transportu po stronę piekarni. Filtruj projekty i sprawdź, jak rozwiązują konkretne problemy klientów.",
+  "inLanguage": "pl",
+  "url": "https://artur6789.github.io/web4biz/projects.html",
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "AD REM T2 - Transport, logistyka i spedycja",
+        "url": "https://artur6789.github.io/web4biz/case-adremt2-pl.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Ad Rem Centrum Księgowe",
+        "url": "https://artur6789.github.io/web4biz/case-ckadrem-pl.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "PM Classics",
+        "url": "https://artur6789.github.io/web4biz/case-pmclassics-pl.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "KUBATURA - Relokacje Biur i Archiwów",
+        "url": "https://artur6789.github.io/web4biz/case-kubatura-pl.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 5,
+        "name": "玄 GEMBA - Diagnostyka Lean & Six Sigma",
+        "url": "https://artur6789.github.io/web4biz/case-gemba-pl.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 6,
+        "name": "BDC Academy - szkolenia dla BDC w automotive",
+        "url": "https://artur6789.github.io/web4biz/case-bdcacademy-pl.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 7,
+        "name": "HAUHAUS - kameralne psiedszkole",
+        "url": "https://artur6789.github.io/web4biz/case-hauhaus-pl.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 8,
+        "name": "PIEC® - Niegrzeczny chleb",
+        "url": "https://artur6789.github.io/web4biz/case-piec-pl.html"
+      }
+    ]
   }
+}
   </script>
 
-  <!-- Google Fonts: Space Grotesk + DM Sans + JetBrains Mono (display=swap keeps text visible while fonts load) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Space+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet"/>
+<link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/space-grotesk-latin-wght-normal.woff2">
+  <link rel="stylesheet" href="assets/fonts/fonts.css">
 
   <!-- Wspólne dane projektów + Alpine.js -->
   <script src="projects-data.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.17.5/dist/cdn.min.js"></script>
+  <script defer src="vendor/alpine-3.17.5.min.js"></script>
 
   <style>
     /* ═══════════════════════════════════════════════════════════════════
@@ -105,8 +138,8 @@
       --btn-radius: 6px;
       --ease-out-quart: cubic-bezier(0.22, 1, 0.36, 1);
       --ease-out-snappy: cubic-bezier(0.215, 0.61, 0.355, 1);
-      --display: 'Space Grotesk', sans-serif;
-      --sans: 'DM Sans', sans-serif;
+      --display: 'Space Grotesk', Arial, sans-serif;
+      --sans: 'DM Sans', Arial, sans-serif;
       --mono: 'JetBrains Mono', monospace;
     }
 
@@ -148,8 +181,8 @@
 
     *, *::before, *::after { box-sizing: border-box; }
     [x-cloak] { display: none !important; }
-    html.is-loading,
-    html.is-loading * { transition: none !important; }
+    html:not(.theme-selected) body,
+    html:not(.theme-selected) :is(.hero-section, .case-masthead, .archive-masthead, .portfolio-nav) { transition: none; }
     html { scroll-behavior: smooth; scroll-padding-top: 5rem; background: var(--bg); }
     body {
       margin: 0;
@@ -623,7 +656,7 @@
     }
 
     /* ═══════════════════════════════════════════════════════════════════
-       4. MINIATURY PROJEKTÓW (SPÓJNE Z index.html — CZYSTA KARTA PM CLASSICS)
+       4. MINIATURY PROJEKTÓW (SPÓJNE Z index.html - CZYSTA KARTA PM CLASSICS)
        ═══════════════════════════════════════════════════════════════════ */
     .route-map-graphic { display: block; width: 100%; height: 100%; }
     .route-map-land { fill: #e1e7de; }
@@ -703,7 +736,7 @@
       letter-spacing: 0.05em;
     }
 
-    /* Czysty, ciemny gradient ze złotym światłem — identyczny z index.html */
+    /* Czysty, ciemny gradient ze złotym światłem - identyczny z index.html */
     .pm-mini-preview {
       height: 100%;
       position: relative;
@@ -808,25 +841,25 @@
     .preview-hauhaus { background:#102c26; color:#f5f1e6; } .preview-hauhaus em { color:#f6a55c; }
     .preview-piec { background:#f0e8dc; color:#201815; } .preview-piec em { color:#c4432e; }
   </style>
+  <link rel="stylesheet" href="project-previews.css"/>
+  <link rel="stylesheet" href="portfolio-layout.css"/>
+  <script src="project-previews.js"></script>
+  <script src="seo.js"></script>
 </head>
 
 <body>
-
-  <!-- ═══ MASTHEAD + NAWIGACJA + MOBILE DRAWER ═══ -->
-  <section class="archive-masthead" id="top">
-    <div class="page-wrap">
-
-      <header class="nav-wrap">
-        <a href="index.html" class="wordmark">
+  <div class="portfolio-nav"><div class="page-wrap">
+<header class="nav-wrap">
+        <a href="index.html?lang=pl" :href="web4bizSeo.link('index.html', lang)" class="wordmark">
           web<span class="wordmark-accent">4</span>biz<span>.pl</span>
           <span class="wordmark-sub">by archie.</span>
         </a>
 
         <nav class="nav-links" :aria-label="lang === 'pl' ? 'Główna nawigacja' : 'Main navigation'">
-          <a href="projects.html" class="is-current" x-text="navProjectsLabel">Projekty (5)</a>
-          <a href="index.html#estimator" x-text="lang === 'pl' ? 'Pakiety i wycena' : 'Tiers & Pricing'">Pakiety i wycena</a>
-          <a href="index.html#about" x-text="lang === 'pl' ? 'Podejście' : 'Approach'">Podejście</a>
-          <a href="index.html#contact" x-text="lang === 'pl' ? 'Kontakt' : 'Contact'">Kontakt</a>
+          <a href="projects.html?lang=pl" :href="web4bizSeo.link('projects.html', lang)" class="is-current" x-text="navProjectsLabel">Projekty (8)</a>
+          <a href="index.html?lang=pl#estimator" :href="web4bizSeo.link('index.html#estimator', lang)" x-text="lang === 'pl' ? 'Pakiety i wycena' : 'Tiers & Pricing'">Pakiety i wycena</a>
+          <a href="index.html?lang=pl#how-i-work" :href="web4bizSeo.link('index.html#how-i-work', lang)" x-text="lang === 'pl' ? 'Jak pracuję' : 'How I work'">Jak pracuję</a>
+          <a href="index.html?lang=pl#contact" :href="web4bizSeo.link('index.html#contact', lang)" x-text="lang === 'pl' ? 'Kontakt' : 'Contact'">Kontakt</a>
         </nav>
 
         <div class="nav-actions">
@@ -839,7 +872,7 @@
               :class="direction === 'editorial' ? 'is-active' : ''"
               @click="setDirection('editorial')"
               :title="lang === 'pl' ? 'Widok 01: Jasny (Lime & Paper)' : 'View 01: Light (Lime & Paper)'"
-              aria-label="Widok 01">
+              :aria-label="lang === 'pl' ? 'Widok 01' : 'View 01'">
               <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
                 <circle cx="10" cy="10" r="3.6"/>
                 <path d="M10 2v2.2M10 15.8V18M18 10h-2.2M4.2 10H2M15.66 4.34l-1.56 1.56M5.9 14.1l-1.56 1.56M15.66 15.66l-1.56-1.56M5.9 5.9 4.34 4.34"/>
@@ -850,7 +883,7 @@
               :class="direction === 'forest' ? 'is-active' : ''"
               @click="setDirection('forest')"
               :title="lang === 'pl' ? 'Widok 03: Półmrok (Forest & Brass)' : 'View 03: Dusk (Forest & Brass)'"
-              aria-label="Widok 03">
+              :aria-label="lang === 'pl' ? 'Widok 03' : 'View 03'">
               <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="10" cy="10" r="6.5"/>
                 <path d="M10 3.5a6.5 6.5 0 0 1 0 13V3.5Z" fill="currentColor"/>
@@ -861,20 +894,20 @@
               :class="direction === 'bento' ? 'is-active' : ''"
               @click="setDirection('bento')"
               :title="lang === 'pl' ? 'Widok 02: Nocny (Obsidian & Cyan)' : 'View 02: Night (Obsidian & Cyan)'"
-              aria-label="Widok 02">
+              :aria-label="lang === 'pl' ? 'Widok 02' : 'View 02'">
               <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M16.8 12.4A6.8 6.8 0 0 1 7.6 3.2a6.9 6.9 0 1 0 9.2 9.2Z"/>
               </svg>
             </button>
           </div>
 
-          <a href="index.html#estimator" class="nav-cta tactile">
+          <a href="index.html?lang=pl#estimator" :href="web4bizSeo.link('index.html#estimator', lang)" class="nav-cta tactile">
             <span x-text="lang === 'pl' ? 'Wyceń projekt' : 'Start a project'">Wyceń projekt</span>
             <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
           </a>
 
           <!-- Przycisk menu na urządzeniach mobilnych (<= 720px) -->
-          <button type="button" class="mobile-menu-btn tactile"
+          <button type="button" class="mobile-menu-btn tactile" aria-controls="portfolio-mobile-menu"
             @click="mobileMenuOpen = !mobileMenuOpen"
             :aria-expanded="mobileMenuOpen"
             :aria-label="lang === 'pl' ? 'Otwórz menu nawigacji' : 'Toggle navigation menu'">
@@ -889,31 +922,38 @@
       </header>
 
       <!-- Panel Nawigacji Mobilnej (Drawer) -->
-      <nav class="mobile-drawer" x-show="mobileMenuOpen" x-cloak
+      <nav id="portfolio-mobile-menu" class="mobile-drawer" @click.outside="if (!$event.target.closest('.mobile-menu-btn')) mobileMenuOpen = false" x-show="mobileMenuOpen" x-cloak
            :aria-label="lang === 'pl' ? 'Menu mobilne' : 'Mobile navigation'">
-        <a href="index.html" @click="mobileMenuOpen = false">
+        <a href="index.html?lang=pl" :href="web4bizSeo.link('index.html', lang)" @click="mobileMenuOpen = false">
           <span x-text="lang === 'pl' ? 'Strona główna' : 'Homepage'">Strona główna</span>
           <span aria-hidden="true">←</span>
         </a>
-        <a href="index.html#estimator" @click="mobileMenuOpen = false">
+        <a href="index.html?lang=pl#estimator" :href="web4bizSeo.link('index.html#estimator', lang)" @click="mobileMenuOpen = false">
           <span x-text="lang === 'pl' ? 'Pakiety i wycena' : 'Tiers & Pricing'">Pakiety i wycena</span>
           <span aria-hidden="true">→</span>
         </a>
-        <a href="index.html#about" @click="mobileMenuOpen = false">
-          <span x-text="lang === 'pl' ? 'Podejście' : 'Approach'">Podejście</span>
+        <a href="index.html?lang=pl#how-i-work" :href="web4bizSeo.link('index.html#how-i-work', lang)" @click="mobileMenuOpen = false">
+          <span x-text="lang === 'pl' ? 'Jak pracuję' : 'How I work'">Jak pracuję</span>
           <span aria-hidden="true">→</span>
         </a>
-        <a href="index.html#contact" @click="mobileMenuOpen = false">
+        <a href="index.html?lang=pl#contact" :href="web4bizSeo.link('index.html#contact', lang)" @click="mobileMenuOpen = false">
           <span x-text="lang === 'pl' ? 'Kontakt' : 'Contact'">Kontakt</span>
           <span aria-hidden="true">→</span>
         </a>
-        <a href="index.html#estimator" class="mobile-drawer-cta tactile" @click="mobileMenuOpen = false">
+        <a href="index.html?lang=pl#estimator" :href="web4bizSeo.link('index.html#estimator', lang)" class="mobile-drawer-cta tactile" @click="mobileMenuOpen = false">
           <span x-text="lang === 'pl' ? 'Wyceń projekt' : 'Start a project'">Wyceń projekt</span>
           <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
         </a>
       </nav>
+  </div></div>
 
-      <a href="index.html" class="back-link tactile">
+  <!-- ═══ MASTHEAD + NAWIGACJA + MOBILE DRAWER ═══ -->
+  <section class="archive-masthead" id="top">
+    <div class="page-wrap">
+
+      
+
+      <a href="index.html?lang=pl" :href="web4bizSeo.link('index.html', lang)" class="back-link tactile">
         <span aria-hidden="true">←</span>
         <span x-text="lang === 'pl' ? 'Powrót na stronę główną' : 'Back to homepage'">Powrót na stronę główną</span>
       </a>
@@ -952,25 +992,22 @@
               x-text="f.label[lang]"></button>
           </template>
         </div>
-        <span class="results-meta tabular" x-text="resultsCounterLabel">ZREALIZOWANE: 05 PROJEKTÓW</span>
+        <span class="results-meta tabular" x-text="resultsCounterLabel">ZREALIZOWANE: 08 PROJEKTÓW</span>
       </div>
 
       <!-- Stos projektów - jednakowe rozmiary, jeden pod drugim -->
       <div class="projects-stack">
 
         <!-- ═══ 01. AD REM T2 ═══ -->
-        <article class="project-row-card" x-show="matchesFilter('adremt2')">
-          <a href="case-study.html?project=adremt2" class="row-art-box">
-            <div class="art-route-split">
-              <div class="art-route-map-box">
-                <div class="art-micro-header">
-                  <span x-text="lang === 'pl' ? 'EUROPA / KIERUNKI' : 'EUROPE / ROUTES'">EUROPA / KIERUNKI</span>
-                  <span style="color:#d90429;" x-text="lang === 'pl' ? '◉ WARSZAWA / BAZA' : '◉ WARSAW / HUB'">◉ WARSZAWA / BAZA</span>
-                </div>
-                <svg class="route-map-graphic" viewBox="0 0 900 520" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:30px 0 0; height:calc(100% - 30px);">
-                  <path class="route-map-land" d="m101 76 41-25 34 8 24-23 39 12 28 31 34-8 30 18 27-9 30 21 41-12 30 22 43-5 24 23 43-2 23 29 40 14 13 32-19 25-35 7-5 30-28 15-12 34-34 12-15 32-39 6-20 27-37-4-20-26-31-5-18-24-36-2-19-24-31-4-13-24-32-14-10-25-32-13-15-28-35-9-9-28-31-6-12-24 20-26Z"/>
-                  <path class="route-map-land route-map-land-secondary" d="m73 256 38 7 28 27-10 34-33 20-30-21-9-34Zm209 172 31-22 35 9 8 22-27 21-34-7Zm286 24 32-18 25 10-12 25-31 8Zm-75-436 34-13 30 15-13 25-32-4Z"/>
-                  <g class="route-map-borders">
+        <article class="project-row-card" x-show="matchesFilter('adremt2')" x-data="{project: WEB4BIZ_DATA.projects.find(item => item.id === 'adremt2')}">
+          <a class="row-art-box preview-link" href="case-adremt2-pl.html" :href="web4bizSeo.link('case-study.html?project=adremt2', lang)" :aria-label="project.cardTitle[lang] + ' - case study'"
+             x-html="projectPreview(project.id, lang)"><div class="pv pv-adremt2" lang="pl" aria-hidden="true">
+      <div class="pv-canvas"><div class="pv-route-map">
+      <div class="pv-top"><span>Europa / kierunki</span><span>WARSZAWA / BAZA</span></div>
+      <svg viewBox="0 0 760 490" aria-hidden="true">
+                  <path class="pv-map-land" d="m101 76 41-25 34 8 24-23 39 12 28 31 34-8 30 18 27-9 30 21 41-12 30 22 43-5 24 23 43-2 23 29 40 14 13 32-19 25-35 7-5 30-28 15-12 34-34 12-15 32-39 6-20 27-37-4-20-26-31-5-18-24-36-2-19-24-31-4-13-24-32-14-10-25-32-13-15-28-35-9-9-28-31-6-12-24 20-26Z"/>
+                  <path class="pv-map-land pv-map-land-secondary" d="m73 256 38 7 28 27-10 34-33 20-30-21-9-34Zm209 172 31-22 35 9 8 22-27 21-34-7Zm286 24 32-18 25 10-12 25-31 8Zm-75-436 34-13 30 15-13 25-32-4Z"/>
+                  <g class="pv-map-borders">
                     <path d="m199 79 21 48 39 22 25-19 34 26-9 47 28 26-10 37-31 17 2 41-32 19-17 42"/>
                     <path d="m263 79 20 52 38 25 37-12 26 29-8 37 34 22-9 34-36 17 1 43-28 22"/>
                     <path d="m344 91 11 42 39 23 19 39-22 30 27 25-7 39 28 26-17 39"/>
@@ -978,164 +1015,126 @@
                     <path d="m493 105 18 46 36 13 15 40-20 26 26 27-12 40 26 20"/>
                     <path d="m568 126 23 37 36 11 15 31-16 33 27 31-16 37"/>
                   </g>
-                  <path class="route-map-poland" d="m480 193 30-14 34 8 18 25 31 7 7 33-17 25 5 31-26 20-31-8-20 13-27-15-17-25-24-8-5-27 18-20Z"/>
-                  <line x1="534" y1="235" x2="284" y2="287" stroke="#d90429" stroke-width="3" stroke-dasharray="6 4" stroke-linecap="round"/>
-                  <g class="route-map-cities">
-                    <circle cx="367" cy="252" r="6"/><circle cx="284" cy="287" r="7"/>
+                  <path class="pv-map-poland" d="m480 193 30-14 34 8 18 25 31 7 7 33-17 25 5 31-26 20-31-8-20 13-27-15-17-25-24-8-5-27 18-20Z"/>
+                  <g class="pv-map-cities">
+                    <circle cx="534" cy="235" r="7"/><circle cx="367" cy="252" r="6"/><circle cx="284" cy="287" r="6"/>
                     <circle cx="412" cy="353" r="6"/><circle cx="225" cy="226" r="6"/><circle cx="319" cy="238" r="6"/>
                   </g>
-                  <circle class="route-map-start" cx="534" cy="235" r="10"/>
-                  <text class="route-map-label" x="550" y="240" x-text="lang === 'pl' ? 'WARSZAWA' : 'WARSAW'">WARSZAWA</text>
+                  <circle class="pv-map-start" cx="534" cy="235" r="10"/>
+                  <text class="pv-map-label" x="550" y="240">WARSZAWA / BAZA</text>
                 </svg>
-              </div>
-              <div class="art-route-panel">
-                <span style="font:600 10px var(--mono); color:#d90429;" x-text="lang === 'pl' ? '↳ PODGLĄD RELACJI' : '↳ ROUTE PREVIEW'">↳ PODGLĄD RELACJI</span>
-                <h4 style="margin:0; font:700 20px/1.05 var(--display);" x-text="lang === 'pl' ? 'Dokąd jedziemy?' : 'Choose destination'">Dokąd jedziemy?</h4>
-                <p x-text="lang === 'pl' ? 'Wybierz miasto docelowe na mapie Europy i przejdź do wyceny trasy z Warszawy.' : 'Pick a destination city on the Europe map to estimate road distance from Warsaw.'">Wybierz miasto docelowe na mapie Europy i przejdź do wyceny trasy z Warszawy.</p>
-                <span style="font:600 10px var(--mono); color:#555b53;" x-text="lang === 'pl' ? '◷ Dyspozytor 24/7 · 0 PLN API' : '◷ 24/7 Dispatcher · Zero API Cost'">◷ Dyspozytor 24/7 · 0 PLN API</span>
-              </div>
-            </div>
-          </a>
-
+    </div>
+    <div class="pv-route-copy">
+      <small>Podgląd trasy</small>
+      <strong>Dokąd jedziemy?</strong>
+      <p>Wybierz miasto docelowe na mapie i sprawdź trasę z Warszawy.</p>
+      <small class="pv-highlight">Dyspozytor 24/7</small>
+    </div></div>
+    </div></a>
           <div class="row-body">
             <div>
-              <div class="row-top-meta tabular">
-                <span class="row-index" x-text="lang === 'pl' ? '01 / TRANSPORT & TSL' : '01 / B2B LOGISTICS'">01 / TRANSPORT &amp; TSL</span>
-                <span class="row-year">2026</span>
-              </div>
-              <div class="project-tags">
-                <span>Vanilla JS · SVG · GeoJSON</span>
-                <span x-text="lang === 'pl' ? 'Kalkulator Tras' : 'Route Calculator'">Kalkulator Tras</span>
-              </div>
-              <h2 x-text="lang === 'pl' ? 'AD REM T2 - Transport, logistyka i spedycja' : 'AD REM T2 - Transport, Logistics & Freight'">AD REM T2 - Transport, logistyka i spedycja</h2>
-              <p x-text="lang === 'pl' ? 'Interaktywna mapa Europy pozwala wskazać miasto, sprawdzić dystans drogowy z Warszawy i wysłać sprecyzowane zapytanie do dyspozytora - bez płatnych API mapowych.' : 'Interactive European vector map lets visitors pick a destination, calculate road distance from Warsaw, and send a pre-populated freight enquiry with zero recurring map API costs.'">Interaktywna mapa Europy pozwala wskazać miasto, sprawdzić dystans drogowy z Warszawy i wysłać sprecyzowane zapytanie do dyspozytora - bez płatnych API mapowych.</p>
+              <dl class="project-facts">
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Branża' : 'Industry'">Branża</dt>
+                  <dd x-text="project.industry[lang]">Transport i spedycja</dd>
+                </div>
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Technologia' : 'Technology'">Technologia</dt>
+                  <dd x-text="project.technology[lang]">JavaScript · SVG · GeoJSON</dd>
+                </div>
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Narzędzie' : 'Tool'">Narzędzie</dt>
+                  <dd x-text="project.tool[lang]">Kalkulator trasy</dd>
+                </div>
+              </dl>
+              <h2 x-text="project.cardTitle[lang]">AD REM T2 - Transport, logistyka i spedycja</h2>
+              <p x-text="project.cardDesc[lang]">Klient wybiera kierunek na mapie, sprawdza trasę z Warszawy i przenosi ją do zapytania o przewóz.</p>
             </div>
             <div class="row-actions">
-              <a href="case-study.html?project=adremt2" class="btn-card-primary tactile">
-                <span x-text="lang === 'pl' ? 'Czytaj Case Study' : 'Read Case Study'">Czytaj Case Study</span>
-                <span aria-hidden="true">→</span>
-              </a>
-              <a href="https://adremt2.pl/index2.html" target="_blank" rel="noopener noreferrer" class="btn-card-secondary tactile">
-                <span x-text="lang === 'pl' ? 'Otwórz stronę' : 'Open live site'">Otwórz stronę</span>
-                <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
-              </a>
+              <a class="btn-card-primary tactile" href="case-adremt2-pl.html" :href="web4bizSeo.link('case-study.html?project=adremt2', lang)"><span x-text="lang === 'pl' ? 'Zobacz realizację' : 'Read case study'">Zobacz realizację</span> →</a>
+              <a class="btn-card-secondary tactile" href="https://adremt2.pl/index2.html" :href="web4bizSeo.link('https://adremt2.pl/index2.html', lang)" target="_blank" rel="noopener noreferrer"><span x-text="project.liveLabel[lang]">Otwórz projekt</span> ↗</a>
             </div>
           </div>
         </article>
 
         <!-- ═══ 02. CK AD REM ═══ -->
-        <article class="project-row-card" x-show="matchesFilter('ckadrem')">
-          <a href="case-study.html?project=ckadrem" class="row-art-box">
-            <div class="ck-mini-preview">
-              <div class="ck-mini-nav">
-                <span x-text="lang === 'pl' ? 'Ad Rem · CENTRUM KSIĘGOWE' : 'Ad Rem · ACCOUNTING CENTRE'">Ad Rem · CENTRUM KSIĘGOWE</span>
-                <span x-text="lang === 'pl' ? '22 LATA · WARSZAWA' : '22 YEARS · WARSAW'">22 LATA · WARSZAWA</span>
-              </div>
-              <p style="margin:0 0 10px; font:600 10.5px var(--mono); color:#d90429; letter-spacing:0.08em;" x-text="lang === 'pl' ? '● AD REM / DO RZECZY · B2B & NGO' : '● AD REM / TO THE POINT · B2B & NGO'">● AD REM / DO RZECZY · B2B &amp; NGO</p>
-              <h4 style="margin:0 0 12px; font:700 32px/1.02 var(--display); letter-spacing:-0.05em; max-width:440px;">
-                <span x-text="lang === 'pl' ? 'Księgowość, która pozwala Ci ' : 'Accounting that lets you '">Księgowość, która pozwala Ci </span>
-                <span style="color:#d90429;" x-text="lang === 'pl' ? 'spać spokojnie.' : 'sleep well.'">spać spokojnie.</span>
-              </h4>
-              <p style="margin:0 0 18px; font-size:13px; color:#4a4a4a; max-width:410px; line-height:1.55;" x-text="lang === 'pl' ? 'Osobne ścieżki konwersji dla spółek prawa handlowego, JDG (KPiR) oraz fundacji i stowarzyszeń.' : 'Dedicated conversion paths for LLCs, sole proprietors, and foundations/associations (NGOs).'">Osobne ścieżki konwersji dla spółek prawa handlowego, JDG (KPiR) oraz fundacji i stowarzyszeń.</p>
-              <div style="display:flex; gap:10px;">
-                <span style="padding:8px 16px; border-radius:var(--btn-radius); background:#d90429; color:#fff; font:700 11px var(--sans);" x-text="lang === 'pl' ? 'Umów konsultację' : 'Book consultation'">Umów konsultację</span>
-                <span style="padding:8px 16px; border-radius:var(--btn-radius); border:1px solid #d90429; color:#d90429; font:700 11px var(--sans);" x-text="lang === 'pl' ? 'Oferta NGO →' : 'NGO Offer →'">Oferta NGO →</span>
-              </div>
-            </div>
-          </a>
-
+        <article class="project-row-card" x-show="matchesFilter('ckadrem')" x-data="{project: WEB4BIZ_DATA.projects.find(item => item.id === 'ckadrem')}">
+          <a class="row-art-box preview-link" href="case-ckadrem-pl.html" :href="web4bizSeo.link('case-study.html?project=ckadrem', lang)" :aria-label="project.cardTitle[lang] + ' - case study'"
+             x-html="projectPreview(project.id, lang)"><div class="pv pv-ckadrem" lang="pl" aria-hidden="true">
+      <div class="pv-canvas"><div class="pv-top"><span>Ad Rem · Centrum księgowe</span><span>Warszawa</span></div>
+      <div class="pv-ck-copy"><small>B2B &amp; NGO</small>
+      <strong>Księgowość, która pozwala Ci <em>spać spokojnie.</em></strong>
+      <p>Obsługa przedsiębiorców, spółek, fundacji i stowarzyszeń.</p></div>
+      <div class="pv-ck-actions"><b>Umów konsultację</b><span>Oferta dla NGO</span></div></div>
+    </div></a>
           <div class="row-body">
             <div>
-              <div class="row-top-meta tabular">
-                <span class="row-index" x-text="lang === 'pl' ? '02 / FINANSE & KSIĘGOWOŚĆ' : '02 / FINANCE & ACCOUNTING'">02 / FINANSE &amp; KSIĘGOWOŚĆ</span>
-                <span class="row-year">2025</span>
-              </div>
-              <div class="project-tags">
-                <span>Bootstrap 5 · Meta Pixel</span>
-                <span x-text="lang === 'pl' ? 'Segmentacja B2B / NGO' : 'B2B / NGO Funnels'">Segmentacja B2B / NGO</span>
-              </div>
-              <h2 x-text="lang === 'pl' ? 'Ad Rem Centrum Księgowe' : 'Ad Rem Accounting Centre'">Ad Rem Centrum Księgowe</h2>
-              <p x-text="lang === 'pl' ? 'Serwis korporacyjny porządkujący pełną księgowość, KPiR, kadry i ZUS z wyraźnym rozdzieleniem oferty dla firm oraz organizacji pozarządowych (NGO).' : 'Corporate website structuring full bookkeeping, tax ledgers, and ZUS filings with dedicated conversion paths for businesses and non-profit organizations.'">Serwis korporacyjny porządkujący pełną księgowość, KPiR, kadry i ZUS z wyraźnym rozdzieleniem oferty dla firm oraz organizacji pozarządowych (NGO).</p>
+              <dl class="project-facts">
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Branża' : 'Industry'">Branża</dt>
+                  <dd x-text="project.industry[lang]">Księgowość</dd>
+                </div>
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Technologia' : 'Technology'">Technologia</dt>
+                  <dd x-text="project.technology[lang]">Bootstrap 5</dd>
+                </div>
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Narzędzie' : 'Tool'">Narzędzie</dt>
+                  <dd x-text="project.tool[lang]">Dobór usług księgowych</dd>
+                </div>
+              </dl>
+              <h2 x-text="project.cardTitle[lang]">Ad Rem Centrum Księgowe</h2>
+              <p x-text="project.cardDesc[lang]">Osobne ścieżki dla firm i organizacji społecznych prowadzą od rodzaju działalności do właściwej usługi księgowej.</p>
             </div>
             <div class="row-actions">
-              <a href="case-study.html?project=ckadrem" class="btn-card-primary tactile">
-                <span x-text="lang === 'pl' ? 'Czytaj Case Study' : 'Read Case Study'">Czytaj Case Study</span>
-                <span aria-hidden="true">→</span>
-              </a>
-              <a href="https://ck-adrem.pl" target="_blank" rel="noopener noreferrer" class="btn-card-secondary tactile">
-                <span x-text="lang === 'pl' ? 'Otwórz stronę' : 'Open live site'">Otwórz stronę</span>
-                <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
-              </a>
+              <a class="btn-card-primary tactile" href="case-ckadrem-pl.html" :href="web4bizSeo.link('case-study.html?project=ckadrem', lang)"><span x-text="lang === 'pl' ? 'Zobacz realizację' : 'Read case study'">Zobacz realizację</span> →</a>
+              <a class="btn-card-secondary tactile" href="https://ck-adrem.pl" :href="web4bizSeo.link('https://ck-adrem.pl', lang)" target="_blank" rel="noopener noreferrer"><span x-text="project.liveLabel[lang]">Otwórz projekt</span> ↗</a>
             </div>
           </div>
         </article>
 
         <!-- ═══ 03. PM CLASSICS (CZYSTA CIEMNA KARTA BEZ OBRAZKA Z WIKIPEDII) ═══ -->
-        <article class="project-row-card" x-show="matchesFilter('pmclassics')">
-          <a href="case-study.html?project=pmclassics" class="row-art-box">
-            <div class="pm-mini-preview">
-              <div style="display:flex; justify-content:space-between; align-items:center; font:500 10.5px var(--mono); letter-spacing:0.08em; color:#dfbd78;">
-                <span>PM CLASSICS</span>
-                <span>PL · EN · NO | EUR · PLN · NOK</span>
-              </div>
-              <div>
-                <div style="font:500 10.5px var(--mono); letter-spacing:0.12em; opacity:0.88;"
-                  x-text="lang === 'pl' ? 'SZTUKA RENOWACJI' : 'THE ART OF RESTORATION'">SZTUKA RENOWACJI</div>
-                <div style="margin:8px 0 0; font:600 38px/0.94 var(--display); letter-spacing:-0.05em;">
-                  <span x-text="lang === 'pl' ? 'Drugie życie ' : 'Second '">Drugie życie </span>
-                  <i style="color:#dfbd78; font-weight:400;" x-text="lang === 'pl' ? 'klasyków.' : 'chapters.'">klasyków.</i>
-                </div>
-              </div>
-              <div style="font:500 10.5px var(--mono); letter-spacing:0.08em; color:#e4e4e7;"
-                x-text="lang === 'pl' ? 'WIRTUALNY GARAŻ · 3 WALUTY' : 'VIRTUAL GARAGE · 3 CURRENCIES'">WIRTUALNY GARAŻ · 3 WALUTY</div>
-            </div>
-          </a>
-
+        <article class="project-row-card" x-show="matchesFilter('pmclassics')" x-data="{project: WEB4BIZ_DATA.projects.find(item => item.id === 'pmclassics')}">
+          <a class="row-art-box preview-link" href="case-pmclassics-pl.html" :href="web4bizSeo.link('case-study.html?project=pmclassics', lang)" :aria-label="project.cardTitle[lang] + ' - case study'"
+             x-html="projectPreview(project.id, lang)"><div class="pv pv-pmclassics" lang="pl" aria-hidden="true">
+      <div class="pv-canvas"><div class="pv-top"><span>PM Classics</span><span>PL · EN · NO</span></div>
+      <div class="pv-pm-copy"><small>Sztuka renowacji</small>
+        <strong>Drugie życie<br><em>klasyków.</em></strong></div>
+      <div class="pv-top"><span>Wirtualny garaż</span><span>EUR · PLN · NOK</span></div></div>
+    </div></a>
           <div class="row-body">
             <div>
-              <div class="row-top-meta tabular">
-                <span class="row-index" x-text="lang === 'pl' ? '03 / AUTOMOTIVE & RENOWACJA' : '03 / CLASSIC AUTOMOTIVE'">03 / AUTOMOTIVE &amp; RENOWACJA</span>
-                <span class="row-year">2026</span>
-              </div>
-              <div class="project-tags">
-                <span>Tailwind CSS · Alpine.js</span>
-                <span>PL · EN · NO</span>
-                <span>EUR · PLN · NOK</span>
-              </div>
-              <h2>PM Classics</h2>
-              <p x-text="lang === 'pl' ? 'Wielojęzyczna platforma renowacji klasyków z filtrowanym wirtualnym garażem, przelicznikiem trzech walut w czasie rzeczywistym i 3-etapowym briefem.' : 'Trilingual classic vehicle restoration platform with a filterable virtual garage, live 3-currency switcher (EUR/PLN/NOK), and a 3-step restoration brief.'">Wielojęzyczna platforma renowacji klasyków z filtrowanym wirtualnym garażem, przelicznikiem trzech walut w czasie rzeczywistym i 3-etapowym briefem.</p>
+              <dl class="project-facts">
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Branża' : 'Industry'">Branża</dt>
+                  <dd x-text="project.industry[lang]">Motoryzacja klasyczna</dd>
+                </div>
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Technologia' : 'Technology'">Technologia</dt>
+                  <dd x-text="project.technology[lang]">Alpine.js · Tailwind CSS</dd>
+                </div>
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Narzędzie' : 'Tool'">Narzędzie</dt>
+                  <dd x-text="project.tool[lang]">Katalog z briefem</dd>
+                </div>
+              </dl>
+              <h2 x-text="project.cardTitle[lang]">PM Classics</h2>
+              <p x-text="project.cardDesc[lang]">Kolekcjoner filtruje pojazdy, porównuje ceny w wybranej walucie i przenosi konkretny model do zapytania.</p>
             </div>
             <div class="row-actions">
-              <a href="case-study.html?project=pmclassics" class="btn-card-primary tactile">
-                <span x-text="lang === 'pl' ? 'Czytaj Case Study' : 'Read Case Study'">Czytaj Case Study</span>
-                <span aria-hidden="true">→</span>
-              </a>
-              <a href="pmclassics.html" class="btn-card-secondary tactile">
-                <span x-text="lang === 'pl' ? 'Otwórz stronę' : 'Open live site'">Otwórz stronę</span>
-                <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
-              </a>
+              <a class="btn-card-primary tactile" href="case-pmclassics-pl.html" :href="web4bizSeo.link('case-study.html?project=pmclassics', lang)"><span x-text="lang === 'pl' ? 'Zobacz realizację' : 'Read case study'">Zobacz realizację</span> →</a>
+              <a class="btn-card-secondary tactile" href="pmclassics.html?lang=pl" :href="web4bizSeo.link('pmclassics.html', lang)" ><span x-text="project.liveLabel[lang]">Otwórz projekt</span> ↗</a>
             </div>
           </div>
         </article>
 
         <!-- ═══ 04. KUBATURA B2B ═══ -->
-        <article class="project-row-card" x-show="matchesFilter('kubatura')">
-          <a href="case-study.html?project=kubatura" class="row-art-box" style="background-color:#f4f5f7; background-image:linear-gradient(rgba(24,26,31,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(24,26,31,0.045) 1px, transparent 1px); background-size:28px 28px; color:#181a1f; padding:22px 26px; display:flex; flex-direction:column; justify-content:space-between;">
-            <div style="display:flex; justify-content:space-between; align-items:center; font:600 10px var(--mono); letter-spacing:0.05em;">
-              <span style="display:inline-flex; align-items:center; gap:6px; font-weight:700;">
-                <span style="padding:2px 6px; border-radius:3px; background:#ea580c; color:#ffffff;">B2B</span>
-                KUBATURA.
-              </span>
-              <span style="color:#ea580c;">24 m³ / 3.5t · OCP 1M PLN</span>
-            </div>
-
-            <div style="font:800 24px/1.02 var(--display); letter-spacing:-0.04em;">
-              <span style="color:#ea580c;" x-text="lang === 'pl' ? 'Przeprowadzka biura w weekend.' : 'Office relocation over one weekend.'">Przeprowadzka biura w weekend.</span><br/>
-              <span style="color:#373c47;" x-text="lang === 'pl' ? 'Zero przestoju w pracy.' : 'Zero operational downtime.'">Zero przestoju w pracy.</span>
-            </div>
-
-            <div style="background:#ffffff; border:1px solid rgba(24,26,31,0.18); border-radius:8px; padding:12px 14px 9px; box-shadow:0 8px 22px rgba(24,26,31,0.08);" class="tabular">
-              <svg viewBox="0 0 460 114" style="width:100%; height:auto; max-height:132px; display:block;" aria-hidden="true">
+        <article class="project-row-card" x-show="matchesFilter('kubatura')" x-data="{project: WEB4BIZ_DATA.projects.find(item => item.id === 'kubatura')}">
+          <a class="row-art-box preview-link" href="case-kubatura-pl.html" :href="web4bizSeo.link('case-study.html?project=kubatura', lang)" :aria-label="project.cardTitle[lang] + ' - case study'"
+             x-html="projectPreview(project.id, lang)"><div class="pv pv-kubatura" lang="pl" aria-hidden="true">
+      <div class="pv-canvas"><div class="pv-top"><span><b>B2B</b> KUBATURA.</span><span>24 m³ / 3,5 t</span></div>
+      <strong class="pv-truck-title"><em>Przeprowadzka biura w weekend.</em><br>W poniedziałek wracacie do pracy.</strong>
+      <div class="pv-truck-panel"><svg viewBox="0 0 460 114" aria-hidden="true">
                 <line x1="6" y1="101" x2="454" y2="101" stroke="#cbd5e1" stroke-width="2"/>
                 <path d="M10 99 L42 84 H54 V90 L16 101 Z" fill="#ea580c"/>
                 <rect x="22" y="69" width="17" height="14" rx="2" fill="#ea580c"/>
@@ -1168,123 +1167,180 @@
                 <circle cx="384" cy="95" r="12" fill="#181a1f" stroke="#ffffff" stroke-width="2.5"/>
                 <circle cx="384" cy="95" r="4.5" fill="#94a3b8"/>
               </svg>
-              <div style="margin-top:6px; padding-top:6px; border-top:1px solid rgba(24,26,31,0.09); display:flex; justify-content:space-between; font:600 9.5px var(--mono); color:#5a606e;">
-                <span>ŁADUNEK: <strong style="color:#ea580c;">19.8 m³ (83%)</strong></span>
-                <span>MASA: <strong style="color:#059669;">1 980 kg</strong> · PT 17 → PN 08</span>
-              </div>
-            </div>
-          </a>
-
+        <div class="pv-top"><span>Ładunek · 19,8 m³ (83%)</span><span>Masa · 1 980 kg</span></div>
+      </div></div>
+    </div></a>
           <div class="row-body">
             <div>
-              <div class="row-top-meta tabular">
-                <span class="row-index" x-text="lang === 'pl' ? '04 / RELOKACJE B2B' : '04 / B2B RELOCATION'">04 / RELOKACJE B2B</span>
-                <span class="row-year">2026</span>
-              </div>
-              <div class="project-tags">
-                <span>Alpine.js · SVG · Schema.org</span>
-                <span x-text="lang === 'pl' ? 'Kalkulator m³ / kg' : 'm³ / kg Estimator'">Kalkulator m³ / kg</span>
-              </div>
-              <h2 x-text="lang === 'pl' ? 'KUBATURA - Relokacje Biur i Archiwów' : 'KUBATURA - Corporate Office Relocation'">KUBATURA - Relokacje Biur i Archiwów</h2>
-              <p x-text="lang === 'pl' ? 'Platforma B2B dla weekendowych relokacji biur (Piątek 17:00 → Poniedziałek 08:00) z interaktywnym kalkulatorem kubatury (m³), masy (kg) oraz przekrojem kontenera 24 m³.' : 'Weekend B2B office relocation platform (Friday 17:00 → Monday 08:00) featuring a live cargo volume (m³), payload (kg), and 24 m³ box-truck cutaway estimator.'">Platforma B2B dla weekendowych relokacji biur (Piątek 17:00 → Poniedziałek 08:00) z interaktywnym kalkulatorem kubatury (m³), masy (kg) oraz przekrojem kontenera 24 m³.</p>
+              <dl class="project-facts">
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Branża' : 'Industry'">Branża</dt>
+                  <dd x-text="project.industry[lang]">Przeprowadzki biur</dd>
+                </div>
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Technologia' : 'Technology'">Technologia</dt>
+                  <dd x-text="project.technology[lang]">Alpine.js · SVG</dd>
+                </div>
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Narzędzie' : 'Tool'">Narzędzie</dt>
+                  <dd x-text="project.tool[lang]">Kalkulator ładunku</dd>
+                </div>
+              </dl>
+              <h2 x-text="project.cardTitle[lang]">KUBATURA - Relokacje Biur i Archiwów</h2>
+              <p x-text="project.cardDesc[lang]">Kalkulator sprawdza objętość i masę wyposażenia biura, szacuje liczbę kursów i przygotowuje listę do wyceny.</p>
             </div>
             <div class="row-actions">
-              <a href="case-study.html?project=kubatura" class="btn-card-primary tactile">
-                <span x-text="lang === 'pl' ? 'Czytaj Case Study' : 'Read Case Study'">Czytaj Case Study</span>
-                <span aria-hidden="true">→</span>
-              </a>
-              <a href="kubatura.html" class="btn-card-secondary tactile">
-                <span x-text="lang === 'pl' ? 'Otwórz stronę' : 'Open live site'">Otwórz stronę</span>
-                <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
-              </a>
+              <a class="btn-card-primary tactile" href="case-kubatura-pl.html" :href="web4bizSeo.link('case-study.html?project=kubatura', lang)"><span x-text="lang === 'pl' ? 'Zobacz realizację' : 'Read case study'">Zobacz realizację</span> →</a>
+              <a class="btn-card-secondary tactile" href="kubatura.html?lang=pl" :href="web4bizSeo.link('kubatura.html', lang)" ><span x-text="project.liveLabel[lang]">Otwórz projekt</span> ↗</a>
             </div>
           </div>
         </article>
 
         <!-- ═══ 05. 玄 GEMBA ═══ -->
-        <article class="project-row-card" x-show="matchesFilter('gemba')">
-          <a href="case-study.html?project=gemba" class="row-art-box" style="background-color:#f9f8f3; background-image:linear-gradient(#ebe8df 1px, transparent 1px), linear-gradient(90deg, #ebe8df 1px, transparent 1px); background-size:36px 36px; color:#161e21; display:flex; flex-direction:column; justify-content:space-between;">
-            <div style="padding:26px 32px 20px; display:flex; flex-direction:column; justify-content:space-between; flex:1;">
-              <div style="display:flex; justify-content:space-between; align-items:center; font:600 10.5px var(--mono); letter-spacing:0.1em; color:#5b6568;">
-                <span style="display:inline-flex; align-items:center; gap:7px;">
-                  <i style="width:7px; height:7px; background:#b8432e; display:inline-block;"></i>
-                  LEAN THINKING · TPS · SIX SIGMA
-                </span>
-                <span style="color:#b8432e; font-weight:700;">BASE44</span>
-              </div>
-
-              <div style="margin:14px 0;">
-                <div style="font:700 34px/0.96 var(--display); letter-spacing:-0.05em; color:#161e21;">
-                  <span x-text="lang === 'pl' ? 'Opisz problem.' : 'Describe the problem.'">Opisz problem.</span><br/>
-                  <span style="color:#b8432e;" x-text="lang === 'pl' ? 'Otrzymaj metodę.' : 'Get the method.'">Otrzymaj metodę.</span>
-                </div>
-                <p style="margin:10px 0 0; font-size:12.5px; line-height:1.5; color:#5b6568; max-width:420px;"
-                  x-text="lang === 'pl' ? 'Naturalny opis problemu procesowego tłumaczony na straty Muda/Mura/Muri, konkretne narzędzie Lean oraz 5-fazowy plan działania.' : 'Plain-language operational issues translated into Muda/Mura/Muri waste, matched to a Lean/Six Sigma method and a 5-phase execution plan.'">Naturalny opis problemu procesowego tłumaczony na straty Muda/Mura/Muri, konkretne narzędzie Lean oraz 5-fazowy plan działania.</p>
-              </div>
-
-              <div style="display:flex; gap:32px; padding-top:12px; border-top:1px solid #e2dfd5;" class="tabular">
-                <div>
-                  <strong style="font:700 18px/1 var(--display); color:#161e21; display:block;">47</strong>
-                  <span style="font:500 9px var(--mono); color:#6e777a; letter-spacing:0.06em;" x-text="lang === 'pl' ? 'METOD' : 'METHODS'">METOD</span>
-                </div>
-                <div>
-                  <strong style="font:700 18px/1 var(--display); color:#161e21; display:block;">70+</strong>
-                  <span style="font:500 9px var(--mono); color:#6e777a; letter-spacing:0.06em;" x-text="lang === 'pl' ? 'POJĘĆ' : 'TERMS'">POJĘĆ</span>
-                </div>
-                <div>
-                  <strong style="font:700 18px/1 var(--display); color:#161e21; display:block;">5</strong>
-                  <span style="font:500 9px var(--mono); color:#6e777a; letter-spacing:0.06em;" x-text="lang === 'pl' ? 'FAZ PLANU' : 'PHASES PER PLAN'">FAZ PLANU</span>
-                </div>
-              </div>
-            </div>
-
-            <div style="background:#151c1f; color:#ffffff; padding:12px 32px; display:flex; justify-content:space-between; align-items:center; font:500 11px var(--sans); border-top:1px solid #dfdcd2;">
-              <span><b style="color:#b8432e; font-weight:500; margin-right:4px;">改善</b>Kaizen</span>
-              <span><b style="color:#b8432e; font-weight:500; margin-right:4px;">無駄</b>Muda</span>
-              <span><b style="color:#b8432e; font-weight:500; margin-right:4px;">自働化</b>Jidoka</span>
-              <span><b style="color:#b8432e; font-weight:500; margin-right:4px;">平準化</b>Heijunka</span>
-            </div>
-          </a>
-
+        <article class="project-row-card" x-show="matchesFilter('gemba')" x-data="{project: WEB4BIZ_DATA.projects.find(item => item.id === 'gemba')}">
+          <a class="row-art-box preview-link" href="case-gemba-pl.html" :href="web4bizSeo.link('case-study.html?project=gemba', lang)" :aria-label="project.cardTitle[lang] + ' - case study'"
+             x-html="projectPreview(project.id, lang)"><div class="pv pv-gemba" lang="pl" aria-hidden="true">
+      <div class="pv-canvas"><div class="pv-gemba-story">
+      <small><i></i>Myślenie Lean · TPS · Six Sigma</small>
+      <div><strong>Opisz problem.<em>Znajdź metodę.</em></strong>
+        <p>Opisz, co nie działa w pracy. GEMBA dobierze metodę i przeprowadzi Cię przez kolejne kroki.</p></div>
+      <div class="pv-gemba-stats"><div><b>47</b><small>Metod</small></div><div><b>70+</b><small>Pojęć</small></div><div><b>5</b><small>Etapów</small></div></div>
+    </div>
+    <div class="pv-gemba-form">
+      <div class="pv-top"><span>Opisz problem</span><span>Dyktuj</span></div>
+      <div class="pv-gemba-input"><span>Co nie działa w pracy?</span><span>Gdzie to się dzieje? (opcjonalnie)</span></div>
+      <div class="pv-gemba-options"><small>Wybierz przykład</small><div><span>Przestoje na każdej zmianie</span><span>Zamówienia czekają tygodniami</span><span>Ten sam defekt wraca</span></div></div>
+      <div class="pv-gemba-submit"><span>Pisz własnymi słowami.</span><b>Dobierz metodę</b></div>
+    </div></div>
+    </div></a>
           <div class="row-body">
             <div>
-              <div class="row-top-meta tabular">
-                <span class="row-index" x-text="lang === 'pl' ? '05 / APLIKACJA DIAGNOSTYCZNA' : '05 / DIAGNOSTIC WEB APP'">05 / APLIKACJA DIAGNOSTYCZNA</span>
-                <span class="row-year">2026</span>
-              </div>
-              <div class="project-tags">
-                <span>React · Tailwind CSS</span>
-                <span>Lean · TPS · Six Sigma</span>
-              </div>
-              <h2 x-text="lang === 'pl' ? '玄 GEMBA - Diagnostyka Lean & Six Sigma' : '玄 GEMBA - Lean & Six Sigma Workspace'">玄 GEMBA - Diagnostyka Lean &amp; Six Sigma</h2>
-              <p x-text="lang === 'pl' ? 'Aplikacja webowa tłumacząca codzienne problemy w pracy na straty procesowe (Muda, Mura, Muri), dobierająca właściwą z 47 metod Lean i prowadząca przez 5-fazowy plan wdrożenia.' : 'Diagnostic web app translating workplace problems into process waste, matching them to 47 Lean/Six Sigma methods and guiding execution through a 5-phase workspace.'">Aplikacja webowa tłumacząca codzienne problemy w pracy na straty procesowe (Muda, Mura, Muri), dobierająca właściwą z 47 metod Lean i prowadząca przez 5-fazowy plan wdrożenia.</p>
+              <dl class="project-facts">
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Branża' : 'Industry'">Branża</dt>
+                  <dd x-text="project.industry[lang]">Doskonalenie procesów</dd>
+                </div>
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Technologia' : 'Technology'">Technologia</dt>
+                  <dd x-text="project.technology[lang]">React · Tailwind CSS</dd>
+                </div>
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Narzędzie' : 'Tool'">Narzędzie</dt>
+                  <dd x-text="project.tool[lang]">Dobór metody Lean</dd>
+                </div>
+              </dl>
+              <h2 x-text="project.cardTitle[lang]">玄 GEMBA - Diagnostyka Lean &amp; Six Sigma</h2>
+              <p x-text="project.cardDesc[lang]">Zespół opisuje problem własnymi słowami, poznaje sugerowaną metodę Lean i otwiera plan pracy nad usprawnieniem.</p>
             </div>
             <div class="row-actions">
-              <a href="case-study.html?project=gemba" class="btn-card-primary tactile">
-                <span x-text="lang === 'pl' ? 'Czytaj Case Study' : 'Read Case Study'">Czytaj Case Study</span>
-                <span aria-hidden="true">→</span>
-              </a>
-              <a href="https://lean-guide-flow.base44.app" target="_blank" rel="noopener noreferrer" class="btn-card-secondary tactile">
-                <span x-text="lang === 'pl' ? 'Otwórz aplikację' : 'Open live app'">Otwórz aplikację</span>
-                <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
-              </a>
+              <a class="btn-card-primary tactile" href="case-gemba-pl.html" :href="web4bizSeo.link('case-study.html?project=gemba', lang)"><span x-text="lang === 'pl' ? 'Zobacz realizację' : 'Read case study'">Zobacz realizację</span> →</a>
+              <a class="btn-card-secondary tactile" href="https://lean-guide-flow.base44.app" :href="web4bizSeo.link('https://lean-guide-flow.base44.app', lang)" target="_blank" rel="noopener noreferrer"><span x-text="project.liveLabel[lang]">Otwórz aplikację</span> ↗</a>
             </div>
           </div>
         </article>
 
-        <article class="project-row-card" x-show="matchesFilter('bdcacademy')">
-          <a href="case-study.html?project=bdcacademy" class="row-art-box portfolio-preview preview-bdc"><div class="preview-topline"><span>BDC ACADEMY · AUTOMOTIVE</span><span>06 / 08</span></div><div><p class="preview-kicker">SZKOLENIA DLA DEALERÓW</p><strong>BUILD<br/>BETTER<br/><em>BDC.</em></strong></div><div class="preview-bottomline"><span>SALES · SERVICE · F&amp;I</span><span>→</span></div></a>
-          <div class="row-body"><div><div class="row-top-meta tabular"><span class="row-index">06 / AUTOMOTIVE B2B</span><span class="row-year">2026</span></div><div class="project-tags"><span>HTML · CSS · JavaScript</span><span>Dealer Training</span></div><h2>BDC Academy — szkolenia dla BDC</h2><p x-text="lang === 'pl' ? 'Programy dla sprzedaży, serwisu, części, F&I i liderów BDC w salonach dealerskich.' : 'Training for dealership sales, service, parts, F&I and BDC leadership teams.'">Programy dla sprzedaży, serwisu, części, F&amp;I i liderów BDC w salonach dealerskich.</p></div><div class="row-actions"><a href="case-study.html?project=bdcacademy" class="btn-card-primary tactile"><span x-text="lang === 'pl' ? 'Czytaj Case Study' : 'Read Case Study'">Czytaj Case Study</span><span aria-hidden="true">→</span></a><a href="bdc-academy.html" class="btn-card-secondary tactile"><span x-text="lang === 'pl' ? 'Otwórz stronę' : 'Open project'">Otwórz stronę</span><span aria-hidden="true">↗</span></a></div></div>
+        <article class="project-row-card" x-show="matchesFilter('bdcacademy')" x-data="{project: WEB4BIZ_DATA.projects.find(item => item.id === 'bdcacademy')}">
+          <a class="row-art-box preview-link" href="case-bdcacademy-pl.html" :href="web4bizSeo.link('case-study.html?project=bdcacademy', lang)" :aria-label="project.cardTitle[lang] + ' - case study'"
+             x-html="projectPreview(project.id, lang)"><div class="pv pv-bdcacademy" lang="pl" aria-hidden="true">
+      <div class="pv-canvas"><div class="pv-top"><span>BDC Academy</span><span>Motoryzacja</span></div>
+      <div class="pv-bdc-copy"><small>Szkolenia dla dealerów</small>
+        <strong>Zbuduj<br>lepsze <em>BDC.</em></strong></div>
+      <div class="pv-top"><span>Sprzedaż · Serwis · Finanse</span><span>BDC Academy</span></div></div>
+    </div></a>
+          <div class="row-body">
+            <div>
+              <dl class="project-facts">
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Branża' : 'Industry'">Branża</dt>
+                  <dd x-text="project.industry[lang]">Szkolenia dla dealerów</dd>
+                </div>
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Technologia' : 'Technology'">Technologia</dt>
+                  <dd x-text="project.technology[lang]">HTML · CSS · Alpine.js</dd>
+                </div>
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Narzędzie' : 'Tool'">Narzędzie</dt>
+                  <dd x-text="project.tool[lang]">Dobór szkoleń</dd>
+                </div>
+              </dl>
+              <h2 x-text="project.cardTitle[lang]">BDC Academy - szkolenia dla BDC w automotive</h2>
+              <p x-text="project.cardDesc[lang]">Kierownik BDC dobiera moduły dla swojego zespołu i przygotowuje jedno zapytanie z wybranymi szkoleniami i formą zajęć.</p>
+            </div>
+            <div class="row-actions">
+              <a class="btn-card-primary tactile" href="case-bdcacademy-pl.html" :href="web4bizSeo.link('case-study.html?project=bdcacademy', lang)"><span x-text="lang === 'pl' ? 'Zobacz realizację' : 'Read case study'">Zobacz realizację</span> →</a>
+              <a class="btn-card-secondary tactile" href="bdc-academy.html?lang=pl" :href="web4bizSeo.link('bdc-academy.html', lang)" ><span x-text="project.liveLabel[lang]">Otwórz stronę</span> ↗</a>
+            </div>
+          </div>
         </article>
 
-        <article class="project-row-card" x-show="matchesFilter('hauhaus')">
-          <a href="case-study.html?project=hauhaus" class="row-art-box portfolio-preview preview-hauhaus"><div class="preview-topline"><span>HAUHAUS · WARSZAWA</span><span>07 / 08</span></div><div><p class="preview-kicker">PSIEDSZKOLE · OGRÓD · OPIEKA</p><strong>Spokojna<br/>głowa.<br/><em>Szczęśliwy pies.</em></strong></div><div class="preview-bottomline"><span>800 m² · PODGLĄD LIVE</span><span>♥</span></div></a>
-          <div class="row-body"><div><div class="row-top-meta tabular"><span class="row-index">07 / USŁUGA LOKALNA</span><span class="row-year">2026</span></div><div class="project-tags"><span>HTML · Tailwind · Alpine.js</span><span>Local service</span></div><h2>HAUHAUS — kameralne psiedszkole</h2><p x-text="lang === 'pl' ? 'Warszawska opieka nad psami z ogrodem 800 m², podglądem na żywo i wsparciem specjalistów.' : 'Warsaw dog daycare with an 800 m² garden, live camera access and specialist support.'">Warszawska opieka nad psami z ogrodem 800 m², podglądem na żywo i wsparciem specjalistów.</p></div><div class="row-actions"><a href="case-study.html?project=hauhaus" class="btn-card-primary tactile"><span x-text="lang === 'pl' ? 'Czytaj Case Study' : 'Read Case Study'">Czytaj Case Study</span><span aria-hidden="true">→</span></a><a href="hauhaus.html" class="btn-card-secondary tactile"><span x-text="lang === 'pl' ? 'Otwórz stronę' : 'Open project'">Otwórz stronę</span><span aria-hidden="true">↗</span></a></div></div>
+        <article class="project-row-card" x-show="matchesFilter('hauhaus')" x-data="{project: WEB4BIZ_DATA.projects.find(item => item.id === 'hauhaus')}">
+          <a class="row-art-box preview-link" href="case-hauhaus-pl.html" :href="web4bizSeo.link('case-study.html?project=hauhaus', lang)" :aria-label="project.cardTitle[lang] + ' - case study'"
+             x-html="projectPreview(project.id, lang)"><div class="pv pv-hauhaus" lang="pl" aria-hidden="true">
+      <div class="pv-canvas"><div class="pv-top"><span>Hauhaus</span><span>Warszawa</span></div>
+      <div class="pv-hau-copy"><small>Psiedszkole z ogrodem</small>
+        <strong>Spokojna głowa.<br><em>Szczęśliwy pies.</em></strong></div>
+      <div class="pv-top"><span>Ogród · 800 m²</span><span>Podgląd na żywo</span></div></div>
+    </div></a>
+          <div class="row-body">
+            <div>
+              <dl class="project-facts">
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Branża' : 'Industry'">Branża</dt>
+                  <dd x-text="project.industry[lang]">Opieka nad psami</dd>
+                </div>
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Technologia' : 'Technology'">Technologia</dt>
+                  <dd x-text="project.technology[lang]">HTML · CSS · Alpine.js</dd>
+                </div>
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Narzędzie' : 'Tool'">Narzędzie</dt>
+                  <dd x-text="project.tool[lang]">Planer opieki</dd>
+                </div>
+              </dl>
+              <h2 x-text="project.cardTitle[lang]">HAUHAUS - kameralne psiedszkole</h2>
+              <p x-text="project.cardDesc[lang]">Opiekun poznaje rytm dnia, dobiera wariant pobytu i przenosi profil psa do formularza dnia adaptacyjnego.</p>
+            </div>
+            <div class="row-actions">
+              <a class="btn-card-primary tactile" href="case-hauhaus-pl.html" :href="web4bizSeo.link('case-study.html?project=hauhaus', lang)"><span x-text="lang === 'pl' ? 'Zobacz realizację' : 'Read case study'">Zobacz realizację</span> →</a>
+              <a class="btn-card-secondary tactile" href="hauhaus.html?lang=pl" :href="web4bizSeo.link('hauhaus.html', lang)" ><span x-text="project.liveLabel[lang]">Otwórz stronę</span> ↗</a>
+            </div>
+          </div>
         </article>
 
-        <article class="project-row-card" x-show="matchesFilter('piec')">
-          <a href="case-study.html?project=piec" class="row-art-box portfolio-preview preview-piec"><div class="preview-topline"><span>PIEC® · NIEGRZECZNY CHLEB</span><span>08 / 08</span></div><div><p class="preview-kicker">MĄKA / WODA / ZAKWAS / CZAS</p><strong>NIEGRZECZNY<br/><em>CHLEB.</em></strong></div><div class="preview-bottomline"><span>48 H · SOURDOUGH</span><span>↗</span></div></a>
-          <div class="row-body"><div><div class="row-top-meta tabular"><span class="row-index">08 / MARKA KONSUMENCKA</span><span class="row-year">2026</span></div><div class="project-tags"><span>Framer</span><span>Brand website</span></div><h2>PIEC® — Niegrzeczny chleb</h2><p x-text="lang === 'pl' ? 'Strona rzemieślniczej piekarni zakwasowej: długa fermentacja, proste składniki i cztery linie wypieków.' : 'Craft sourdough bakery site built around slow fermentation, simple ingredients and four bakery lines.'">Strona rzemieślniczej piekarni zakwasowej: długa fermentacja, proste składniki i cztery linie wypieków.</p></div><div class="row-actions"><a href="case-study.html?project=piec" class="btn-card-primary tactile"><span x-text="lang === 'pl' ? 'Czytaj Case Study' : 'Read Case Study'">Czytaj Case Study</span><span aria-hidden="true">→</span></a><a href="https://rotating-baguette-637711.framer.app/" target="_blank" rel="noopener noreferrer" class="btn-card-secondary tactile"><span x-text="lang === 'pl' ? 'Otwórz projekt' : 'Open live project'">Otwórz projekt</span><span aria-hidden="true">↗</span></a></div></div>
+        <article class="project-row-card" x-show="matchesFilter('piec')" x-data="{project: WEB4BIZ_DATA.projects.find(item => item.id === 'piec')}">
+          <a class="row-art-box preview-link" href="case-piec-pl.html" :href="web4bizSeo.link('case-study.html?project=piec', lang)" :aria-label="project.cardTitle[lang] + ' - case study'"
+             x-html="projectPreview(project.id, lang)"><div class="pv pv-piec" lang="pl" aria-hidden="true">
+      <div class="pv-canvas"><div class="pv-top pv-piec-head"><b><img src="assets/piec-logo.png" alt="">PIEC®</b>
+      <small>Piekarnia dla niepokornych</small></div>
+      <div class="pv-piec-copy"><small>Rzemieślnicza piekarnia na zakwasie</small>
+        <strong>Niegrzeczny<br>chleb.</strong>
+        <p>Bez skrótów. Po prostu dobry chleb.</p></div>
+      <div class="pv-piec-range"><div><b>Buntownik</b><small>Na zakwasie</small></div><div><b>Croissant Chaos</b><small>Maślany</small></div><div><b>Brioche Baby</b><small>Słodka</small></div><div><b>Bagietki Rebel</b><small>Chrupiące</small></div></div></div>
+    </div></a>
+          <div class="row-body">
+            <div>
+              <dl class="project-facts">
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Branża' : 'Industry'">Branża</dt>
+                  <dd x-text="project.industry[lang]">Piekarnictwo rzemieślnicze</dd>
+                </div>
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Technologia' : 'Technology'">Technologia</dt>
+                  <dd x-text="project.technology[lang]">Framer</dd>
+                </div>
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Narzędzie' : 'Tool'">Narzędzie</dt>
+                  <dd x-text="project.tool[lang]">Katalog wypieków</dd>
+                </div>
+              </dl>
+              <h2 x-text="project.cardTitle[lang]">PIEC® - Niegrzeczny chleb</h2>
+              <p x-text="project.cardDesc[lang]">Wyraziste nazwy i typografia budują tożsamość PIEC®, a czytelne kategorie pokazują klientowi, jakie wypieki kryją się za marką.</p>
+            </div>
+            <div class="row-actions">
+              <a class="btn-card-primary tactile" href="case-piec-pl.html" :href="web4bizSeo.link('case-study.html?project=piec', lang)"><span x-text="lang === 'pl' ? 'Zobacz realizację' : 'Read case study'">Zobacz realizację</span> →</a>
+              <a class="btn-card-secondary tactile" href="https://rotating-baguette-637711.framer.app/" :href="web4bizSeo.link('https://rotating-baguette-637711.framer.app/', lang)" target="_blank" rel="noopener noreferrer"><span x-text="project.liveLabel[lang]">Otwórz projekt</span> ↗</a>
+            </div>
+          </div>
         </article>
 
       </div>
@@ -1302,7 +1358,7 @@
         <h2 style="margin:0; font:600 clamp(1.9rem, 3.6vw, 3.1rem)/1.02 var(--display); letter-spacing:-0.06em;"
           x-text="lang === 'pl' ? 'Porozmawiajmy o narzędziu dla Twojej firmy.' : 'Let’s build a tool tailored to your business.'">Porozmawiajmy o narzędziu dla Twojej firmy.</h2>
       </div>
-      <a href="index.html#estimator" class="btn-primary tactile">
+      <a href="index.html?lang=pl#estimator" :href="web4bizSeo.link('index.html#estimator', lang)" class="btn-primary tactile">
         <span x-text="lang === 'pl' ? 'Wybierz pakiet i wyceń projekt' : 'Choose a tier & get a quote'">Wybierz pakiet i wyceń projekt</span>
         <span aria-hidden="true">→</span>
       </a>
@@ -1339,8 +1395,8 @@
       ];
 
       return {
-        direction: localStorage.getItem('w4b_theme') || 'editorial',
-        lang: new URLSearchParams(window.location.search).get('lang') === 'en' ? 'en' : (localStorage.getItem('lang') === 'en' ? 'en' : 'pl'),
+        direction: document.documentElement.dataset.theme,
+        lang: web4bizSeo.language(),
         mobileMenuOpen: false,
         activeFilter: 'all',
         projectsList: sharedProjects,
@@ -1388,35 +1444,20 @@
         },
 
         setDirection(dir) {
+          document.documentElement.classList.add('theme-selected');
           this.direction = dir;
-          localStorage.setItem('w4b_theme', dir);
+          try { localStorage.setItem('w4b_theme', dir); } catch { /* Keep the selection for this visit. */ }
         },
 
         toggleLang() {
           this.lang = this.lang === 'pl' ? 'en' : 'pl';
           localStorage.setItem('lang', this.lang);
-          const nextUrl = new URL(window.location.href);
-          if (this.lang === 'en') nextUrl.searchParams.set('lang', 'en');
-          else nextUrl.searchParams.delete('lang');
-          window.history.replaceState({}, '', nextUrl);
+          web4bizSeo.updateUrl('projects', this.lang);
           this.updateDocumentMetadata();
         },
 
         updateDocumentMetadata() {
-          document.documentElement.lang = this.lang;
-          document.title = this.lang === 'pl' ? 'Projekty i realizacje | web4biz.pl' : 'Selected Work & Projects | web4biz.pl';
-          const description = this.lang === 'pl'
-            ? 'Portfolio stron B2B, narzędzi online, szkoleń automotive i marek usługowych.'
-            : 'A portfolio of B2B websites, online tools, automotive training and service brands.';
-          const pageUrl = new URL('https://artur6789.github.io/web4biz/projects.html');
-          if (this.lang === 'en') pageUrl.searchParams.set('lang', 'en');
-          document.querySelector('link[rel="canonical"]')?.setAttribute('href', pageUrl.href);
-          document.querySelector('meta[property="og:url"]')?.setAttribute('content', pageUrl.href);
-          document.querySelector('meta[name="description"]')?.setAttribute('content', description);
-          document.querySelector('meta[property="og:title"]')?.setAttribute('content', document.title);
-          document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
-          document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', document.title);
-          document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', description);
+          web4bizSeo.apply('projects', this.lang);
         }
       };
     }

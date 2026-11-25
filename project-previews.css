@@ -1,0 +1,127 @@
+/* A common artboard fits inside each host. Each em below is one hundredth
+   of the fitted width, keeping both translations inside the same frame. */
+.pv {
+  --paper: #fff;
+  --type: #171a1d;
+  --accent: #171a1d;
+  display: grid;
+  place-items: center;
+  container-type: size;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  background: var(--paper);
+  color: var(--type);
+  text-align: left;
+  text-transform: none;
+  letter-spacing: normal;
+  font-family: var(--sans, Arial), sans-serif;
+  pointer-events: none;
+}
+.pv *, .pv *::before, .pv *::after { box-sizing: border-box; }
+.pv .pv-canvas {
+  width: min(100cqw, 185cqh);
+  height: min(100cqh, 54.05cqw);
+  min-width: 0;
+  font-size: min(1cqw, 1.85cqh);
+  line-height: 1.25;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 3.6em 4em;
+}
+.pv .pv-top, .pv small {
+  margin: 0;
+  color: inherit;
+  font: 550 1.1em/1.25 var(--mono, monospace);
+  letter-spacing: .085em;
+  text-transform: uppercase;
+}
+.pv .pv-top { display: flex; justify-content: space-between; align-items: center; gap: 1em; }
+.pv p { margin: 0; color: inherit; font: 400 1.8em/1.5 var(--sans, Arial), sans-serif; }
+.pv strong { display: block; font-family: var(--display, Arial), sans-serif; font-weight: 700; letter-spacing: -.055em; }
+.pv em { color: var(--accent); font-style: normal; }
+.pv .pv-highlight { color: var(--accent); }
+
+.pv-adremt2 { --paper: #edf1ec; --type: #18201c; --accent: #ce1035; }
+.pv-adremt2 .pv-canvas { padding: 0; display: grid; grid-template-columns: 58% 42%; }
+.pv-route-map { min-width: 0; display: flex; flex-direction: column; padding: 2.6em 1.7em; }
+.pv-route-map .pv-top { color: #535f58; }
+.pv-route-map svg { display: block; width: 100%; flex: 1 1 0; min-height: 0; }
+.pv .pv-map-land { fill: #dce4da; }
+.pv .pv-map-land-secondary { fill: #d6ded3; }
+.pv .pv-map-borders { fill: none; stroke: #c0cdbf; stroke-width: 1.5; }
+.pv .pv-map-poland { stroke: #ce1035; fill: #dfc1bc; stroke-width: 3; stroke-linejoin: round; }
+.pv .pv-map-label { fill: #18201c; stroke: #fff; stroke-width: 3px; paint-order: stroke; font: 700 14px Arial, sans-serif; }
+.pv-route-copy { display: flex; flex-direction: column; justify-content: center; gap: 1.8em; padding: 3.7em; border-left: .35em solid var(--accent); background: #fff; }
+.pv-route-copy strong { font-size: 4.1em; line-height: 1; }
+.pv-route-copy p { color: #515d61; }
+
+.pv-kubatura { --paper: #f4f5f7; --accent: #d9520e; }
+.pv-kubatura .pv-canvas, .pv-gemba .pv-canvas {
+  background-image: linear-gradient(90deg, rgba(30,39,42,.055) 1px, transparent 1px), linear-gradient(rgba(30,39,42,.055) 1px, transparent 1px);
+  background-size: 4.8em 4.8em;
+}
+.pv-kubatura .pv-canvas { justify-content: center; gap: 2.5em; }
+.pv-kubatura .pv-top b { background: #d9520e; border-radius: .35em; color: #fff; padding: .4em .65em; }
+.pv .pv-truck-title { font-size: 4.65em; line-height: 1.03; }
+.pv-truck-panel { background: #fff; border: 1px solid #d5d8db; box-shadow: 0 1em 2em rgb(20 23 27 / 7%); border-radius: .9em; padding: 1.3em 2em; }
+.pv-truck-panel svg { display: block; width: 100%; height: 17em; }
+.pv-truck-panel .pv-top { border-top: 1px solid #d5d8db; padding-top: .65em; color: #515969; }
+
+.pv-gemba { --paper: #eeebe5; --type: #19252c; --accent: #ad422e; }
+.pv-gemba .pv-canvas { display: grid; grid-template-columns: minmax(0,.79fr) minmax(0,1.21fr); gap: 3.1em; padding: 3.5em; }
+.pv-gemba-story { min-width: 0; display: flex; flex-direction: column; justify-content: space-between; }
+.pv-gemba-story > small { font-size: 1em; color: #4b5d63; }
+.pv-gemba-story i { display: inline-block; width: .75em; height: .75em; background: var(--accent); margin-right: .8em; }
+.pv-gemba-story strong { max-width: 10em; font-size: 4.7em; line-height: 1.01; }
+.pv-gemba-story strong em { display: block; }
+.pv-gemba-story p { margin-top: .95em; font-size: 1.55em; color: #4f6067; }
+.pv-gemba-stats { display: grid; grid-template-columns: repeat(3,1fr); border-top: 1px solid #cbc8c0; padding-top: 1.15em; }
+.pv-gemba-stats b { display: block; font: 600 2.75em/1 var(--display, Arial),sans-serif; }
+.pv-gemba-stats small { font-size: .95em; color: #4f6067; }
+.pv-gemba-form { display: grid; grid-template-rows: auto 1fr auto auto; min-width: 0; color: #4c5e68; background: #faf9f5; border: 1px solid #d5d0c7; box-shadow: 0 1.2em 3em rgb(43 40 35 / 8%); }
+.pv-gemba-form .pv-top { border-bottom: 1px solid #d5d0c7; padding: 1.7em; font-size: 1em; }
+.pv-gemba-form .pv-top span:last-child { border: 1px solid #d5d0c7; padding: .3em .65em; }
+.pv-gemba-input { display: flex; flex-direction: column; justify-content: space-between; padding: 1.7em; gap: 1em; }
+.pv-gemba-input span:first-child { font-size: 2.2em; }
+.pv-gemba-input span:last-child { font-size: 1.45em; color: #64757e; border-top: 1px dotted #d5d0c7; padding-top: .65em; }
+.pv-gemba-options { background: #f2efe9; border-block: 1px solid #d5d0c7; padding: 1.3em 1.7em; }
+.pv-gemba-options small { font-size: 1em; }
+.pv-gemba-options > div { display: flex; flex-wrap: wrap; gap: .55em; margin-top: .7em; }
+.pv-gemba-options span { font-size: 1.17em; background: #faf9f5; padding: .35em .6em; border: 1px solid #d5d0c7; }
+.pv-gemba-submit { display: flex; align-items: center; justify-content: space-between; gap: .8em; padding: 1.25em 1.7em; }
+.pv-gemba-submit span { font-size: 1.12em; }
+.pv-gemba-submit b { font: 600 1.05em var(--mono,monospace); text-transform: uppercase; padding: .75em 1em; background: #ebe8e0; }
+
+.pv-piec { --paper: #150e0a; --type: #fff0dd; --accent: #f04433; background: radial-gradient(ellipse at 84% 48%, #2a1610, var(--paper) 75%); }
+.pv-piec .pv-piec-head { font-size: 1em; border-bottom: 1px solid #49372c; padding-bottom: 1.5em; }
+.pv-piec-head b { display: flex; align-items: center; gap: .32em; font: 800 3.6em/1 var(--display, Arial),sans-serif; letter-spacing: -.065em; }
+.pv-piec-head img { display: block; width: 1.2em; height: 1.2em; object-fit: contain; }
+.pv-piec .pv-piec-copy small, .pv-piec .pv-piec-head small { color: #c7b7a5; }
+.pv-piec-copy strong { color: var(--accent); margin-block: .1em; font-size: 7.75em; line-height: .91; text-transform: uppercase; letter-spacing: -.075em; }
+.pv-piec-copy p { color: #d6c7b5; font-size: 1.55em; }
+.pv-piec-range { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: .85em; }
+.pv-piec-range > div { padding: 1.1em .9em; border: 1px solid #49372c; background: rgb(255 238 216 / 3%); }
+.pv-piec-range b { display:block; font-size: 1.38em; text-transform: uppercase; }
+.pv-piec-range small { display: block; margin-top: .5em; font-size: .96em; color: #ff7a64; }
+
+.pv-ckadrem { --paper: #fff; --accent: #c51936; }
+.pv-ckadrem .pv-top { padding-bottom: 1em; border-bottom: 1px solid #d7d6d3; }
+.pv-ck-copy small { color: var(--accent); }
+.pv-ck-copy strong { max-width: 12em; font-size: 5.5em; line-height: 1.04; margin-block: .13em .23em; }
+.pv-ck-copy p { color: #535455; max-width: 34em; }
+.pv-ck-actions { display: flex; align-items: center; gap: 1.4em; }
+.pv-ck-actions > * { border: 1px solid var(--accent); color: var(--accent); font-weight: 650; font-size: 1.45em; border-radius: .3em; padding: .65em 1.25em; }
+.pv-ck-actions b { background: var(--accent); color: #fff; }
+
+.pv-pmclassics { --paper: #171719; --type: #f4f0e8; --accent: #dfbd78; }
+.pv-pmclassics .pv-top:first-child { color: var(--accent); }
+.pv-pm-copy { border-left: .23em solid var(--accent); padding-left: 2.5em; }
+.pv-pm-copy strong { font-size: 7.2em; line-height: 1.01; margin-top: .12em; }
+.pv-pm-copy em { font: italic 500 1.1em/.99 Georgia,serif; }
+.pv-bdcacademy { --paper: #d8fa52; --type: #172019; --accent: #3d6430; }
+.pv-bdc-copy strong { margin-top: .1em; font-size: 9em; line-height: .96; text-transform: uppercase; }
+.pv-hauhaus { --paper: #102c26; --type: #f5f1e6; --accent: #f6a55c; }
+.pv-hau-copy strong { margin-top: .15em; font-size: 6.9em; line-height: 1.03; }
+.pv-bdcacademy .pv-top:last-child, .pv-hauhaus .pv-top:last-child, .pv-pmclassics .pv-top:last-child { border-top: 1px solid currentColor; padding-top: 1em; }

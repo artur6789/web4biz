@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="pl" :lang="lang" x-data="caseStudyApp()" :data-theme="direction" @keydown.escape.window="mobileMenuOpen = false" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style id="initial-colors">
+    html { color-scheme: light; background-color: #f4f2e9; color: #172019; }
+    html[data-theme="forest"] { color-scheme: dark; background-color: #141a16; color: #f0f2e9; }
+    html[data-theme="bento"] { color-scheme: dark; background-color: #07090b; color: #f4f6f8; }
+  </style>
+  <script>
+    (() => {
+      let theme = 'editorial';
+      try {
+        const saved = localStorage.getItem('w4b_theme');
+        if (saved === 'forest' || saved === 'bento') theme = saved;
+      } catch { /* Storage may be unavailable in private browsing. */ }
+      document.documentElement.dataset.theme = theme;
+    })();
+  </script>
+
+  <title>KUBATURA - Planowanie przeprowadzki biura | web4biz.pl</title>
+  <link rel="canonical" href="https://artur6789.github.io/web4biz/case-kubatura-pl.html">
+  <link rel="alternate" hreflang="pl" href="https://artur6789.github.io/web4biz/case-kubatura-pl.html">
+  <link rel="alternate" hreflang="en" href="https://artur6789.github.io/web4biz/case-kubatura-en.html">
+  <link rel="alternate" hreflang="x-default" href="https://artur6789.github.io/web4biz/case-kubatura-pl.html">
+  <meta property="og:site_name" content="web4biz.pl">
+  <meta property="og:type" content="article">
+  <meta name="description" content="Osoba planująca przeprowadzkę biura wpisuje liczbę mebli i sprzętu, sprawdza objętość oraz masę ładunku i dołącza listę do zapytania o wycenę.">
+  <meta property="og:title" content="KUBATURA - Planowanie przeprowadzki biura | web4biz.pl">
+  <meta property="og:description" content="Osoba planująca przeprowadzkę biura wpisuje liczbę mebli i sprzętu, sprawdza objętość oraz masę ładunku i dołącza listę do zapytania o wycenę.">
+  <meta property="og:url" content="https://artur6789.github.io/web4biz/case-kubatura-pl.html">
+  <meta property="og:locale" content="pl_PL">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="KUBATURA - Planowanie przeprowadzki biura | web4biz.pl">
+  <meta name="twitter:description" content="Osoba planująca przeprowadzkę biura wpisuje liczbę mebli i sprzętu, sprawdza objętość oraz masę ładunku i dołącza listę do zapytania o wycenę.">
+
+  <meta name="robots" content="index, follow"/>
+
+  <!-- Inline SVG Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23172019'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='800' font-size='26' fill='%23d8fa52'%3Ew4b%3C/text%3E%3C/svg%3E"/>
+
+  <!-- OpenGraph & Social Preview -->
+
+  <!-- Dane strukturalne Schema.org (WebPage + BreadcrumbList) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "KUBATURA - Relokacje Biur i Archiwów Bez Przestoju",
+      "description": "Osoba planująca przeprowadzkę biura wpisuje liczbę mebli i sprzętu, sprawdza objętość oraz masę ładunku i dołącza listę do zapytania o wycenę.",
+      "inLanguage": "pl",
+      "mainEntityOfPage": "https://artur6789.github.io/web4biz/case-kubatura-pl.html",
+      "author": {
+        "@type": "Person",
+        "name": "Artur Załuska"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "web4biz.pl",
+        "url": "https://artur6789.github.io/web4biz/"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "web4biz.pl",
+          "item": "https://artur6789.github.io/web4biz/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Projekty",
+          "item": "https://artur6789.github.io/web4biz/projects.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "KUBATURA",
+          "item": "https://artur6789.github.io/web4biz/case-kubatura-pl.html"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+
+<link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/space-grotesk-latin-wght-normal.woff2">
+  <link rel="stylesheet" href="assets/fonts/fonts.css">
+
+  <!-- Wspólne źródło danych projektów + Alpine.js -->
+  <script src="projects-data.js"></script>
+  <script defer src="vendor/alpine-3.17.5.min.js"></script>
+
+  <link rel="stylesheet" href="assets/case-study.css">
+  <link rel="stylesheet" href="project-previews.css"/>
+  <link rel="stylesheet" href="portfolio-layout.css"/>
+  <script src="project-previews.js"></script>
+  <script src="seo.js"></script>
+</head>
+
+<body>
+  <div class="portfolio-nav"><div class="page-wrap">
+<div class="nav-wrap">
+        <a href="index.html?lang=pl" :href="web4bizSeo.link('index.html', lang)" class="wordmark">
+          web<span class="wordmark-accent">4</span>biz<span>.pl</span>
+          <span class="wordmark-sub">by archie.</span>
+        </a>
+
+        <nav class="nav-links" :aria-label="lang === 'pl' ? 'Główna nawigacja' : 'Main navigation'">
+          <a href="projects.html?lang=pl" :href="web4bizSeo.link('projects.html', lang)" class="is-current" x-text="navProjectsLabel">Projekty (8)</a>
+          <a href="index.html?lang=pl#estimator" :href="web4bizSeo.link('index.html#estimator', lang)" x-text="lang === 'pl' ? 'Pakiety i wycena' : 'Tiers & Pricing'">Pakiety i wycena</a>
+          <a href="index.html?lang=pl#how-i-work" :href="web4bizSeo.link('index.html#how-i-work', lang)" x-text="lang === 'pl' ? 'Jak pracuję' : 'How I work'">Jak pracuję</a>
+          <a href="index.html?lang=pl#contact" :href="web4bizSeo.link('index.html#contact', lang)" x-text="lang === 'pl' ? 'Kontakt' : 'Contact'">Kontakt</a>
+        </nav>
+
+        <div class="nav-actions">
+          <button type="button" class="lang-btn tactile" @click="toggleLang()"
+            :aria-label="lang === 'pl' ? 'Switch to English' : 'Zmień język na polski'"
+            x-text="lang === 'pl' ? 'EN' : 'PL'">EN</button>
+
+          <div class="theme-dock" role="group" :aria-label="lang === 'pl' ? 'Wybierz motyw kolorystyczny' : 'Choose color theme'">
+            <button type="button" class="theme-icon-btn tactile"
+              :class="direction === 'editorial' ? 'is-active' : ''"
+              @click="setDirection('editorial')"
+              :title="lang === 'pl' ? 'Widok 01: Jasny (Lime & Paper)' : 'View 01: Light (Lime & Paper)'"
+              :aria-label="lang === 'pl' ? 'Widok 01' : 'View 01'">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                <circle cx="10" cy="10" r="3.6"/>
+                <path d="M10 2v2.2M10 15.8V18M18 10h-2.2M4.2 10H2M15.66 4.34l-1.56 1.56M5.9 14.1l-1.56 1.56M15.66 15.66l-1.56-1.56M5.9 5.9 4.34 4.34"/>
+              </svg>
+            </button>
+
+            <button type="button" class="theme-icon-btn tactile"
+              :class="direction === 'forest' ? 'is-active' : ''"
+              @click="setDirection('forest')"
+              :title="lang === 'pl' ? 'Widok 03: Półmrok (Forest & Brass)' : 'View 03: Dusk (Forest & Brass)'"
+              :aria-label="lang === 'pl' ? 'Widok 03' : 'View 03'">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="10" cy="10" r="6.5"/>
+                <path d="M10 3.5a6.5 6.5 0 0 1 0 13V3.5Z" fill="currentColor"/>
+              </svg>
+            </button>
+
+            <button type="button" class="theme-icon-btn tactile"
+              :class="direction === 'bento' ? 'is-active' : ''"
+              @click="setDirection('bento')"
+              :title="lang === 'pl' ? 'Widok 02: Nocny (Obsidian & Cyan)' : 'View 02: Night (Obsidian & Cyan)'"
+              :aria-label="lang === 'pl' ? 'Widok 02' : 'View 02'">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16.8 12.4A6.8 6.8 0 0 1 7.6 3.2a6.9 6.9 0 1 0 9.2 9.2Z"/>
+              </svg>
+            </button>
+          </div>
+
+          <a href="index.html?lang=pl#estimator" :href="web4bizSeo.link('index.html#estimator', lang)" class="nav-cta tactile">
+            <span x-text="lang === 'pl' ? 'Wyceń projekt' : 'Start a project'">Wyceń projekt</span>
+            <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
+          </a>
+
+          <!-- Przycisk menu na urządzeniach mobilnych (<= 720px) -->
+          <button type="button" class="mobile-menu-btn tactile" aria-controls="portfolio-mobile-menu"
+            @click="mobileMenuOpen = !mobileMenuOpen"
+            :aria-expanded="mobileMenuOpen"
+            :aria-label="lang === 'pl' ? 'Otwórz menu nawigacji' : 'Toggle navigation menu'">
+            <svg x-show="!mobileMenuOpen" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+              <path d="M3 5.5h14M3 10h14M3 14.5h14"/>
+            </svg>
+            <svg x-show="mobileMenuOpen" x-cloak viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+              <path d="M4.5 4.5l11 11M15.5 4.5l-11 11"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Panel Nawigacji Mobilnej (Drawer) -->
+      <nav id="portfolio-mobile-menu" class="mobile-drawer" @click.outside="if (!$event.target.closest('.mobile-menu-btn')) mobileMenuOpen = false" x-show="mobileMenuOpen" x-cloak
+           :aria-label="lang === 'pl' ? 'Menu mobilne' : 'Mobile navigation'">
+        <a href="index.html?lang=pl" :href="web4bizSeo.link('index.html', lang)" @click="mobileMenuOpen = false">
+          <span x-text="lang === 'pl' ? 'Strona główna' : 'Homepage'">Strona główna</span>
+          <span aria-hidden="true">←</span>
+        </a>
+        <a href="projects.html?lang=pl" :href="web4bizSeo.link('projects.html', lang)" @click="mobileMenuOpen = false">
+          <span x-text="navProjectsLabel">Projekty (8)</span>
+          <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
+        </a>
+        <a href="index.html?lang=pl#estimator" :href="web4bizSeo.link('index.html#estimator', lang)" @click="mobileMenuOpen = false">
+          <span x-text="lang === 'pl' ? 'Pakiety i wycena' : 'Tiers & Pricing'">Pakiety i wycena</span>
+          <span aria-hidden="true">→</span>
+        </a>
+        <a href="index.html?lang=pl#how-i-work" :href="web4bizSeo.link('index.html#how-i-work', lang)" @click="mobileMenuOpen = false">
+          <span x-text="lang === 'pl' ? 'Jak pracuję' : 'How I work'">Jak pracuję</span>
+          <span aria-hidden="true">→</span>
+        </a>
+        <a href="index.html?lang=pl#contact" :href="web4bizSeo.link('index.html#contact', lang)" @click="mobileMenuOpen = false">
+          <span x-text="lang === 'pl' ? 'Kontakt' : 'Contact'">Kontakt</span>
+          <span aria-hidden="true">→</span>
+        </a>
+        <a href="index.html?lang=pl#estimator" :href="web4bizSeo.link('index.html#estimator', lang)" class="mobile-drawer-cta tactile" @click="mobileMenuOpen = false">
+          <span x-text="lang === 'pl' ? 'Wyceń projekt' : 'Start a project'">Wyceń projekt</span>
+          <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
+        </a>
+      </nav>
+  </div></div>
+
+  <!-- Reading Progress Bar -->
+  <div class="progress-bar" :style="`transform: scaleX(${scrollProgress})`" aria-hidden="true"></div>
+
+  <!-- ═══ CASE STUDY MASTHEAD + HEADER + MOBILE DRAWER ═══ -->
+  <header class="case-masthead" id="top">
+    <div class="page-wrap">
+
+      <!-- Main Navigation -->
+      
+
+      <!-- Back Link + Quick Project Switcher (WCAG tabs + obsługa strzałek + historia pushState) -->
+      <div class="masthead-top-bar">
+        <a href="projects.html?lang=pl" :href="web4bizSeo.link('projects.html', lang)" class="back-link tactile">
+          <span aria-hidden="true">←</span>
+          <span x-text="backProjectsLabel">Wszystkie projekty (8)</span>
+        </a>
+
+        <div class="project-switcher" role="tablist" x-ref="switcherList" :aria-label="lang === 'pl' ? 'Przełącz Case Study' : 'Switch Case Study'">
+          <template x-for="(id, idx) in projectOrder" :key="id">
+            <button type="button" class="switch-pill tactile"
+              role="tab"
+              :aria-selected="projectId === id"
+              :tabindex="projectId === id ? 0 : -1"
+              :class="projectId === id ? 'is-active' : ''"
+              @click="selectProject(id)"
+              @keydown="onSwitcherKeydown($event, idx)"
+              x-text="String(idx + 1).padStart(2, '0') + ' · ' + cases[id].shortName[lang]"></button>
+          </template>
+        </div>
+      </div>
+
+      <p class="case-kicker" x-text="lang === 'pl' ? 'Realizacja' : 'Case study'">Realizacja</p>
+      <h1 class="case-title" x-text="currentCase.shortName[lang]">KUBATURA</h1>
+      <dl class="project-facts case-facts">
+        <div><dt x-text="lang === 'pl' ? 'Branża' : 'Industry'">Branża</dt><dd x-text="currentCase.industry[lang]">Przeprowadzki biur</dd></div>
+        <div><dt x-text="lang === 'pl' ? 'Technologia' : 'Technology'">Technologia</dt><dd x-text="currentCase.technology[lang]">Alpine.js · SVG</dd></div>
+        <div><dt x-text="lang === 'pl' ? 'Narzędzie' : 'Tool'">Narzędzie</dt><dd x-text="currentCase.tool[lang]">Kalkulator ładunku</dd></div>
+      </dl>
+      <p class="case-subtitle" x-text="currentCase.subtitle[lang]">Osoba planująca przeprowadzkę biura wpisuje liczbę mebli i sprzętu, sprawdza objętość oraz masę ładunku i dołącza listę do zapytania o wycenę.</p>
+
+      <div class="case-preview-stage">
+        <div class="case-preview" role="img" :aria-label="currentCase.cardTitle[lang]" x-html="projectPreview(projectId, lang)"><div class="pv pv-kubatura" lang="pl" aria-hidden="true">
+      <div class="pv-canvas"><div class="pv-top"><span><b>B2B</b> KUBATURA.</span><span>24 m³ / 3,5 t</span></div>
+      <strong class="pv-truck-title"><em>Przeprowadzka biura w weekend.</em><br>W poniedziałek wracacie do pracy.</strong>
+      <div class="pv-truck-panel"><svg viewBox="0 0 460 114" aria-hidden="true">
+                <line x1="6" y1="101" x2="454" y2="101" stroke="#cbd5e1" stroke-width="2"/>
+                <path d="M10 99 L42 84 H54 V90 L16 101 Z" fill="#ea580c"/>
+                <rect x="22" y="69" width="17" height="14" rx="2" fill="#ea580c"/>
+                <line x1="25" y1="73" x2="36" y2="73" stroke="#ffffff" stroke-width="1.5"/>
+                <rect x="54" y="8" width="272" height="82" rx="3" fill="#f8f9fb" stroke="#181a1f" stroke-width="2"/>
+                <g stroke="#e2e8f0" stroke-width="1">
+                  <line x1="108" y1="8" x2="108" y2="90"/>
+                  <line x1="162" y1="8" x2="162" y2="90"/>
+                  <line x1="216" y1="8" x2="216" y2="90"/>
+                  <line x1="270" y1="8" x2="270" y2="90"/>
+                  <line x1="54" y1="35" x2="326" y2="35"/>
+                  <line x1="54" y1="63" x2="326" y2="63"/>
+                </g>
+                <rect x="275" y="66" width="46" height="21" rx="2" fill="#181a1f"/>
+                <rect x="221" y="66" width="46" height="21" rx="2" fill="#ea580c"/>
+                <rect x="167" y="66" width="46" height="21" rx="2" fill="#181a1f"/>
+                <rect x="113" y="66" width="46" height="21" rx="2" fill="#181a1f"/>
+                <rect x="59" y="66" width="46" height="21" rx="2" fill="#ea580c"/>
+                <rect x="275" y="39" width="46" height="21" rx="2" fill="#ea580c"/>
+                <rect x="221" y="39" width="46" height="21" rx="2" fill="#181a1f"/>
+                <rect x="167" y="39" width="46" height="21" rx="2" fill="#ea580c"/>
+                <rect x="113" y="39" width="46" height="21" rx="2" fill="#181a1f"/>
+                <rect x="275" y="12" width="46" height="20" rx="2" fill="#181a1f"/>
+                <rect x="221" y="12" width="46" height="20" rx="2" fill="#181a1f"/>
+                <path d="M330 90 H426 V58 L400 28 H330 Z" fill="#181a1f"/>
+                <path d="M344 36 H392 L412 56 H344 Z" fill="#334155"/>
+                <rect x="330" y="66" width="96" height="6" fill="#ea580c"/>
+                <circle cx="108" cy="95" r="12" fill="#181a1f" stroke="#ffffff" stroke-width="2.5"/>
+                <circle cx="108" cy="95" r="4.5" fill="#94a3b8"/>
+                <circle cx="384" cy="95" r="12" fill="#181a1f" stroke="#ffffff" stroke-width="2.5"/>
+                <circle cx="384" cy="95" r="4.5" fill="#94a3b8"/>
+              </svg>
+        <div class="pv-top"><span>Ładunek · 19,8 m³ (83%)</span><span>Masa · 1 980 kg</span></div>
+      </div></div>
+    </div></div>
+      </div>
+      <details class="case-demo" x-ref="demo" x-show="['adremt2','kubatura','gemba'].includes(projectId)" x-cloak>
+        <summary x-text="({adremt2:{pl:'Sprawdź trasę',en:'Try the route planner'},kubatura:{pl:'Sprawdź ładunek',en:'Try the load planner'},gemba:{pl:'Dobierz metodę Lean',en:'Try the method finder'}})[projectId]?.[lang]">Sprawdź ładunek</summary>
+        <div class="case-hero-art"><div class="case-art-frame">
+          <div x-show="projectId === 'adremt2'" x-cloak class="art-route-split">
+            <div class="art-route-map-box">
+              <div class="art-micro-header">
+                <span style="display:inline-flex; align-items:center; gap:6px;">
+                  <i style="width:7px; height:7px; border-radius:50%; background:#d90429; display:inline-block;"></i>
+                  <span x-text="lang === 'pl' ? 'INTERAKTYWNA MAPA TRAS - KLIKNIJ LUB NAJEDŹ NA MIASTO' : 'INTERACTIVE ROUTE MAP - HOVER OR CLICK ANY CITY'">INTERAKTYWNA MAPA TRAS - KLIKNIJ LUB NAJEDŹ NA MIASTO</span>
+                </span>
+                <span style="color:#d90429; font-weight:700;" x-text="lang === 'pl' ? '◉ WARSZAWA (BAZA)' : '◉ WARSAW (HUB)'">◉ WARSZAWA (BAZA)</span>
+              </div>
+
+              <svg class="route-map-graphic" viewBox="0 0 900 520" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:32px 0 0; height:calc(100% - 32px);">
+                <path class="route-map-land" d="m101 76 41-25 34 8 24-23 39 12 28 31 34-8 30 18 27-9 30 21 41-12 30 22 43-5 24 23 43-2 23 29 40 14 13 32-19 25-35 7-5 30-28 15-12 34-34 12-15 32-39 6-20 27-37-4-20-26-31-5-18-24-36-2-19-24-31-4-13-24-32-14-10-25-32-13-15-28-35-9-9-28-31-6-12-24 20-26Z"/>
+                <path class="route-map-land route-map-land-secondary" d="m73 256 38 7 28 27-10 34-33 20-30-21-9-34Zm209 172 31-22 35 9 8 22-27 21-34-7Zm286 24 32-18 25 10-12 25-31 8Zm-75-436 34-13 30 15-13 25-32-4Z"/>
+                <g class="route-map-borders">
+                  <path d="m199 79 21 48 39 22 25-19 34 26-9 47 28 26-10 37-31 17 2 41-32 19-17 42"/>
+                  <path d="m263 79 20 52 38 25 37-12 26 29-8 37 34 22-9 34-36 17 1 43-28 22"/>
+                  <path d="m344 91 11 42 39 23 19 39-22 30 27 25-7 39 28 26-17 39"/>
+                  <path d="m419 103 20 39 34 16 15 38-18 33 25 27-6 39 31 18"/>
+                  <path d="m493 105 18 46 36 13 15 40-20 26 26 27-12 40 26 20"/>
+                  <path d="m568 126 23 37 36 11 15 31-16 33 27 31-16 37"/>
+                  <path d="m134 167 44 14 21 31-14 34 20 27-7 33m-83-16 49 9 27 30 42 9 20 29"/>
+                </g>
+                <path class="route-map-poland" d="m480 193 30-14 34 8 18 25 31 7 7 33-17 25 5 31-26 20-31-8-20 13-27-15-17-25-24-8-5-27 18-20Z"/>
+
+                <g>
+                  <line class="route-corridor-idle" x1="534" y1="235" x2="295" y2="235"/>
+                  <line class="route-corridor-idle" x1="534" y1="235" x2="418" y2="222"/>
+                  <line class="route-corridor-idle" x1="534" y1="235" x2="375" y2="365"/>
+                  <line class="route-corridor-idle" x1="534" y1="235" x2="245" y2="285"/>
+                  <line class="route-corridor-idle" x1="534" y1="235" x2="468" y2="318"/>
+                  <line class="route-corridor-idle" x1="534" y1="235" x2="438" y2="270"/>
+                  <line class="route-corridor-idle" x1="534" y1="235" x2="485" y2="120"/>
+                  <line class="route-corridor-idle" x1="534" y1="235" x2="155" y2="395"/>
+                </g>
+
+                <line class="route-corridor-active" x1="534" y1="235" :x2="activeCity.x" :y2="activeCity.y"/>
+                <circle class="map-pulse-ring" :cx="activeCity.x" :cy="activeCity.y" r="11"/>
+
+                <g class="map-hub-group" :class="selectedCityIdx === 0 ? 'is-selected' : ''" @click="selectedCityIdx = 0" @mouseenter="selectedCityIdx = 0">
+                  <circle class="map-hub-dot" cx="295" cy="235" r="7"/>
+                  <text class="map-hub-name" x="283" y="223" text-anchor="end">Rotterdam</text>
+                </g>
+                <g class="map-hub-group" :class="selectedCityIdx === 1 ? 'is-selected' : ''" @click="selectedCityIdx = 1" @mouseenter="selectedCityIdx = 1">
+                  <circle class="map-hub-dot" cx="418" cy="222" r="7"/>
+                  <text class="map-hub-name" x="418" y="207" text-anchor="middle">Berlin</text>
+                </g>
+                <g class="map-hub-group" :class="selectedCityIdx === 2 ? 'is-selected' : ''" @click="selectedCityIdx = 2" @mouseenter="selectedCityIdx = 2">
+                  <circle class="map-hub-dot" cx="375" cy="365" r="7"/>
+                  <text class="map-hub-name" x="375" y="386" text-anchor="middle" x-text="lang === 'pl' ? 'Mediolan' : 'Milan'">Mediolan</text>
+                </g>
+                <g class="map-hub-group" :class="selectedCityIdx === 3 ? 'is-selected' : ''" @click="selectedCityIdx = 3" @mouseenter="selectedCityIdx = 3">
+                  <circle class="map-hub-dot" cx="245" cy="285" r="7"/>
+                  <text class="map-hub-name" x="233" y="290" text-anchor="end" x-text="lang === 'pl' ? 'Paryż' : 'Paris'">Paryż</text>
+                </g>
+                <g class="map-hub-group" :class="selectedCityIdx === 4 ? 'is-selected' : ''" @click="selectedCityIdx = 4" @mouseenter="selectedCityIdx = 4">
+                  <circle class="map-hub-dot" cx="468" cy="318" r="7"/>
+                  <text class="map-hub-name" x="480" y="323" text-anchor="start" x-text="lang === 'pl' ? 'Wiedeń' : 'Vienna'">Wiedeń</text>
+                </g>
+                <g class="map-hub-group" :class="selectedCityIdx === 5 ? 'is-selected' : ''" @click="selectedCityIdx = 5" @mouseenter="selectedCityIdx = 5">
+                  <circle class="map-hub-dot" cx="438" cy="270" r="7"/>
+                  <text class="map-hub-name" x="426" y="274" text-anchor="end" x-text="lang === 'pl' ? 'Praga' : 'Prague'">Praga</text>
+                </g>
+                <g class="map-hub-group" :class="selectedCityIdx === 6 ? 'is-selected' : ''" @click="selectedCityIdx = 6" @mouseenter="selectedCityIdx = 6">
+                  <circle class="map-hub-dot" cx="485" cy="120" r="7"/>
+                  <text class="map-hub-name" x="485" y="105" text-anchor="middle" x-text="lang === 'pl' ? 'Sztokholm' : 'Stockholm'">Sztokholm</text>
+                </g>
+                <g class="map-hub-group" :class="selectedCityIdx === 7 ? 'is-selected' : ''" @click="selectedCityIdx = 7" @mouseenter="selectedCityIdx = 7">
+                  <circle class="map-hub-dot" cx="155" cy="395" r="7"/>
+                  <text class="map-hub-name" x="155" y="415" text-anchor="middle" x-text="lang === 'pl' ? 'Madryt' : 'Madrid'">Madryt</text>
+                </g>
+
+                <g :transform="`translate(${(534 + activeCity.x) / 2}, ${(235 + activeCity.y) / 2 - 10})`" style="pointer-events:none;">
+                  <rect x="-42" y="-12" width="84" height="22" rx="4" fill="#172019" stroke="#ffffff" stroke-width="1.5"/>
+                  <text x="0" y="3" text-anchor="middle" fill="#d8fa52" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" x-text="activeCity.km + ' km'">1 180 km</text>
+                </g>
+
+                <circle class="map-pulse-ring" cx="534" cy="235" r="10"/>
+                <circle class="route-map-start" cx="534" cy="235" r="10"/>
+                <text class="route-map-label" x="550" y="240" x-text="lang === 'pl' ? 'WARSZAWA' : 'WARSAW'">WARSZAWA</text>
+              </svg>
+            </div>
+
+            <div class="art-route-panel">
+              <div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                  <span style="font:600 10px var(--mono); color:#d90429;" x-text="lang === 'pl' ? '↳ KALKULATOR TRASY I FLOTY' : '↳ ROUTE & FLEET CALCULATOR'">↳ KALKULATOR TRASY I FLOTY</span>
+                  <span style="font:600 9.5px var(--mono); color:#555b53;" x-text="activeCity.country.split(' · ')[0] + ' · ' + new Intl.DisplayNames([lang], {type: 'region'}).of(activeCity.country.slice(0,2))">NL · Holandia</span>
+                </div>
+                <h3 style="margin:0 0 8px; font:700 22px/1.05 var(--display); color:#172019;" x-text="lang === 'pl' ? 'Dokąd jedziemy?' : 'Where to next?'">Dokąd jedziemy?</h3>
+
+                <div class="fleet-switch" style="margin-bottom:10px;">
+                  <button type="button" class="fleet-btn" :class="fleetType === 'bus' ? 'is-active' : ''" @click="fleetType = 'bus'"
+                    x-text="lang === 'pl' ? 'BUS EXPRESS (1.5t)' : 'EXPRESS VAN (1.5t)'">BUS EXPRESS (1.5t)</button>
+                  <button type="button" class="fleet-btn" :class="fleetType === 'ftl' ? 'is-active' : ''" @click="fleetType = 'ftl'"
+                    x-text="lang === 'pl' ? 'NACZEPA FTL (24t)' : 'FTL SEMI-TRUCK (24t)'">NACZEPA FTL (24t)</button>
+                </div>
+
+                <div style="display:flex; flex-wrap:wrap; gap:4px;">
+                  <template x-for="(city, cIdx) in heroCities" :key="city.id">
+                    <button type="button" class="hero-chip"
+                      :class="selectedCityIdx === cIdx ? 'is-active' : ''"
+                      @click="selectedCityIdx = cIdx"
+                      x-text="city.name[lang]"></button>
+                  </template>
+                </div>
+              </div>
+
+              <div class="tabular" style="padding:10px 12px; background:#f8f9f7; border:1px solid #e1e4de; border-radius:5px; font:600 11.5px/1.45 var(--mono); color:#172019;">
+                <div style="display:flex; justify-content:space-between; color:#555b53; font-size:9.5px; margin-bottom:3px;">
+                  <span x-text="lang === 'pl' ? 'WYBRANA RELACJA:' : 'SELECTED CORRIDOR:'">WYBRANA RELACJA:</span>
+                  <span x-text="fleetType === 'bus' ? 'DOOR-TO-DOOR EXPRESS' : 'FTL 13.6M STANDARD'">DOOR-TO-DOOR EXPRESS</span>
+                </div>
+                <div style="font-size:13px; font-weight:700;">
+                  <span x-text="(lang === 'pl' ? 'Warszawa → ' : 'Warsaw → ') + activeCity.name[lang]">Warszawa → Rotterdam</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; margin-top:4px; padding-top:4px; border-top:1px dashed #d5d8d2;">
+                  <span><b style="color:#d90429;" x-text="activeCity.km + ' km'">1 180 km</b> <small style="color:#555b53;" x-text="'(' + activeCity.highway + ')'">(A2 · A1)</small></span>
+                  <span style="color:#172019;" x-text="(lang === 'pl' ? 'Czas: ' : 'ETA: ') + (fleetType === 'bus' ? activeCity.busTime : activeCity.ftlTime).replace('prom', lang === 'pl' ? 'prom' : 'ferry').replace('2 kier.', lang === 'pl' ? '2 kier.' : '2 drivers')">Czas: 12h 30m</span>
+                </div>
+              </div>
+
+              <div style="display:flex; justify-content:space-between; align-items:center; font:600 10px var(--mono); color:#5a5a5a;">
+                <span x-text="lang === 'pl' ? '◷ Dyspozytor 24/7 · 0 PLN API' : '◷ 24/7 Dispatcher · 0 EUR API'">◷ Dyspozytor 24/7 · 0 PLN API</span>
+                <a href="https://adremt2.pl/index2.html" target="_blank" rel="noopener noreferrer" class="icon-link" style="color:#d90429; text-decoration:underline;"><span x-text="lang === 'pl' ? 'Pełna mapa' : 'Full map'">Pełna mapa</span><svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Artwork 2: CK AD REM Accounting -->
+          <div x-show="projectId === 'kubatura'" x-cloak class="kubatura-split">
+
+            <!-- Lewa scena: Pełnowymiarowy przekrój ciężarówki 24 m³ -->
+            <div style="position:relative; padding:14px 18px 10px; display:flex; flex-direction:column; justify-content:space-between; min-height:0; background:radial-gradient(circle at 52% 48%, #f8f9fb 0%, #e6e9ef 100%); overflow:hidden;">
+              <div style="display:flex; justify-content:space-between; align-items:center; font:600 10px var(--mono); letter-spacing:0.04em; color:#4b525e; flex-shrink:0;">
+                <span style="display:inline-flex; align-items:center; gap:6px;">
+                  <i style="width:7px; height:7px; border-radius:50%; background:#ea580c; display:inline-block;"></i>
+                  <span x-text="lang === 'pl' ? 'KLIKNIJ MODUŁY W KONTENERZE LUB UŻYJ KALKULATORA →' : 'CLICK CARGO SLOTS IN TRUCK OR USE SIMULATOR →'">KLIKNIJ MODUŁY W KONTENERZE LUB UŻYJ KALKULATORA →</span>
+                </span>
+                <span style="color:#059669; font-weight:700;">● OCP 1M PLN</span>
+              </div>
+
+              <svg viewBox="0 0 680 310" preserveAspectRatio="xMidYMid meet"
+                   style="flex:1; min-height:0; width:100%; height:100%; display:block;" role="img"
+                   :aria-label="lang === 'pl' ? 'Interaktywny przekrój ciężarówki kontenerowej 24 m³' : 'Interactive 24 m³ box truck cutaway'">
+
+                <g stroke="rgba(24,26,31,0.05)" stroke-width="1">
+                  <line x1="24" y1="64" x2="654" y2="64"/>
+                  <line x1="24" y1="124" x2="654" y2="124"/>
+                  <line x1="24" y1="184" x2="654" y2="184"/>
+                  <line x1="24" y1="244" x2="654" y2="244"/>
+                </g>
+
+                <g stroke="#64748b" stroke-width="1.2">
+                  <line x1="118" y1="24" x2="118" y2="56" stroke-dasharray="3 3"/>
+                  <line x1="484" y1="24" x2="484" y2="56" stroke-dasharray="3 3"/>
+                  <line x1="124" y1="34" x2="478" y2="34"/>
+                </g>
+                <rect x="206" y="23" width="190" height="20" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+                <text x="301" y="37" text-anchor="middle" fill="#373c47" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700">
+                  4 800 mm · KONTENER 24.0 m³
+                </text>
+
+                <line x1="18" y1="283" x2="662" y2="283" stroke="#94a3b8" stroke-width="2"/>
+                <ellipse cx="364" cy="286" rx="276" ry="4" fill="rgba(24,26,31,0.13)"/>
+
+                <line x1="118" y1="262" x2="68" y2="267" stroke="#475569" stroke-width="4" stroke-linecap="round"/>
+                <path d="M24 281 L118 244 V253 L32 283 Z" fill="#ea580c"/>
+
+                <g transform="translate(40, 230) rotate(-20)">
+                  <rect x="0" y="34" width="42" height="5" rx="1.5" fill="#181a1f"/>
+                  <circle cx="8" cy="42" r="4" fill="#181a1f"/>
+                  <circle cx="34" cy="42" r="4" fill="#181a1f"/>
+                  <rect x="3" y="16" width="36" height="17" rx="2" fill="#181a1f"/>
+                  <rect x="18" y="16" width="6" height="8" fill="#ea580c"/>
+                  <rect x="3" y="-2" width="36" height="17" rx="2" fill="#ea580c"/>
+                  <line x1="8" y1="3" x2="34" y2="3" stroke="#ffffff" stroke-width="1.5"/>
+                </g>
+
+                <rect x="118" y="244" width="366" height="10" fill="#181a1f"/>
+                <rect x="248" y="254" width="114" height="14" rx="3" fill="#334155"/>
+                <rect x="118" y="64" width="366" height="180" rx="4" fill="#ffffff" stroke="#181a1f" stroke-width="2.5"/>
+
+                <g stroke="#e2e8f0" stroke-width="1">
+                  <line x1="191" y1="64" x2="191" y2="244"/>
+                  <line x1="264" y1="64" x2="264" y2="244"/>
+                  <line x1="337" y1="64" x2="337" y2="244"/>
+                  <line x1="410" y1="64" x2="410" y2="244"/>
+                  <line x1="118" y1="124" x2="484" y2="124"/>
+                  <line x1="118" y1="184" x2="484" y2="184"/>
+                </g>
+
+                <!-- 15 Klikalnych Modułów Ładunkowych -->
+                <g style="cursor:pointer;" @click="setKubaturaTargetSlots(1)"><rect x="415" y="189" width="63" height="49" rx="3" :fill="kubaturaActiveSlots >= 1 ? '#181a1f' : '#f1f5f9'" :stroke="kubaturaActiveSlots >= 1 ? 'none' : '#cbd5e1'" stroke-dasharray="3 2" style="transition:fill 150ms ease;"/><line x1="422" y1="197" x2="471" y2="197" stroke="#ea580c" stroke-width="2" :style="{ opacity: kubaturaActiveSlots >= 1 ? 1 : 0 }"/></g>
+                <g style="cursor:pointer;" @click="setKubaturaTargetSlots(2)"><rect x="342" y="189" width="63" height="49" rx="3" :fill="kubaturaActiveSlots >= 2 ? '#181a1f' : '#f1f5f9'" :stroke="kubaturaActiveSlots >= 2 ? 'none' : '#cbd5e1'" stroke-dasharray="3 2" style="transition:fill 150ms ease;"/><line x1="349" y1="197" x2="398" y2="197" stroke="#ea580c" stroke-width="2" :style="{ opacity: kubaturaActiveSlots >= 2 ? 1 : 0 }"/></g>
+                <g style="cursor:pointer;" @click="setKubaturaTargetSlots(3)"><rect x="269" y="189" width="63" height="49" rx="3" :fill="kubaturaActiveSlots >= 3 ? '#ea580c' : '#f1f5f9'" :stroke="kubaturaActiveSlots >= 3 ? 'none' : '#cbd5e1'" stroke-dasharray="3 2" style="transition:fill 150ms ease;"/><line x1="276" y1="197" x2="325" y2="197" stroke="#ffffff" stroke-width="2" :style="{ opacity: kubaturaActiveSlots >= 3 ? 1 : 0 }"/></g>
+                <g style="cursor:pointer;" @click="setKubaturaTargetSlots(4)"><rect x="196" y="189" width="63" height="49" rx="3" :fill="kubaturaActiveSlots >= 4 ? '#181a1f' : '#f1f5f9'" :stroke="kubaturaActiveSlots >= 4 ? 'none' : '#cbd5e1'" stroke-dasharray="3 2" style="transition:fill 150ms ease;"/><line x1="203" y1="197" x2="252" y2="197" stroke="#ea580c" stroke-width="2" :style="{ opacity: kubaturaActiveSlots >= 4 ? 1 : 0 }"/></g>
+                <g style="cursor:pointer;" @click="setKubaturaTargetSlots(5)"><rect x="123" y="189" width="63" height="49" rx="3" :fill="kubaturaActiveSlots >= 5 ? '#181a1f' : '#f1f5f9'" :stroke="kubaturaActiveSlots >= 5 ? 'none' : '#cbd5e1'" stroke-dasharray="3 2" style="transition:fill 150ms ease;"/><line x1="130" y1="197" x2="179" y2="197" stroke="#ea580c" stroke-width="2" :style="{ opacity: kubaturaActiveSlots >= 5 ? 1 : 0 }"/></g>
+
+                <g style="cursor:pointer;" @click="setKubaturaTargetSlots(6)"><rect x="415" y="129" width="63" height="49" rx="3" :fill="kubaturaActiveSlots >= 6 ? '#ea580c' : '#f1f5f9'" :stroke="kubaturaActiveSlots >= 6 ? 'none' : '#cbd5e1'" stroke-dasharray="3 2" style="transition:fill 150ms ease;"/><line x1="422" y1="137" x2="471" y2="137" stroke="#ffffff" stroke-width="2" :style="{ opacity: kubaturaActiveSlots >= 6 ? 1 : 0 }"/></g>
+                <g style="cursor:pointer;" @click="setKubaturaTargetSlots(7)"><rect x="342" y="129" width="63" height="49" rx="3" :fill="kubaturaActiveSlots >= 7 ? '#181a1f' : '#f1f5f9'" :stroke="kubaturaActiveSlots >= 7 ? 'none' : '#cbd5e1'" stroke-dasharray="3 2" style="transition:fill 150ms ease;"/><line x1="349" y1="137" x2="398" y2="137" stroke="#ea580c" stroke-width="2" :style="{ opacity: kubaturaActiveSlots >= 7 ? 1 : 0 }"/></g>
+                <g style="cursor:pointer;" @click="setKubaturaTargetSlots(8)"><rect x="269" y="129" width="63" height="49" rx="3" :fill="kubaturaActiveSlots >= 8 ? '#181a1f' : '#f1f5f9'" :stroke="kubaturaActiveSlots >= 8 ? 'none' : '#cbd5e1'" stroke-dasharray="3 2" style="transition:fill 150ms ease;"/><line x1="276" y1="137" x2="325" y2="137" stroke="#ea580c" stroke-width="2" :style="{ opacity: kubaturaActiveSlots >= 8 ? 1 : 0 }"/></g>
+                <g style="cursor:pointer;" @click="setKubaturaTargetSlots(9)"><rect x="196" y="129" width="63" height="49" rx="3" :fill="kubaturaActiveSlots >= 9 ? '#ea580c' : '#f1f5f9'" :stroke="kubaturaActiveSlots >= 9 ? 'none' : '#cbd5e1'" stroke-dasharray="3 2" style="transition:fill 150ms ease;"/><line x1="203" y1="137" x2="252" y2="137" stroke="#ffffff" stroke-width="2" :style="{ opacity: kubaturaActiveSlots >= 9 ? 1 : 0 }"/></g>
+                <g style="cursor:pointer;" @click="setKubaturaTargetSlots(10)"><rect x="123" y="129" width="63" height="49" rx="3" :fill="kubaturaActiveSlots >= 10 ? (kubaturaOverload ? '#dc2626' : '#181a1f') : '#f1f5f9'" :stroke="kubaturaActiveSlots >= 10 ? 'none' : '#cbd5e1'" stroke-dasharray="3 2" style="transition:fill 150ms ease;"/><line x1="130" y1="137" x2="179" y2="137" stroke="#ea580c" stroke-width="2" :style="{ opacity: kubaturaActiveSlots >= 10 ? 1 : 0 }"/></g>
+
+                <g style="cursor:pointer;" @click="setKubaturaTargetSlots(11)"><rect x="415" y="69" width="63" height="49" rx="3" :fill="kubaturaActiveSlots >= 11 ? (kubaturaOverload ? '#dc2626' : '#181a1f') : '#f1f5f9'" :stroke="kubaturaActiveSlots >= 11 ? 'none' : '#cbd5e1'" stroke-dasharray="3 2" style="transition:fill 150ms ease;"/><line x1="422" y1="77" x2="471" y2="77" stroke="#ea580c" stroke-width="2" :style="{ opacity: kubaturaActiveSlots >= 11 ? 1 : 0 }"/></g>
+                <g style="cursor:pointer;" @click="setKubaturaTargetSlots(12)"><rect x="342" y="69" width="63" height="49" rx="3" :fill="kubaturaActiveSlots >= 12 ? (kubaturaOverload ? '#dc2626' : '#ea580c') : '#f1f5f9'" :stroke="kubaturaActiveSlots >= 12 ? 'none' : '#cbd5e1'" stroke-dasharray="3 2" style="transition:fill 150ms ease;"/><line x1="349" y1="77" x2="398" y2="77" stroke="#ffffff" stroke-width="2" :style="{ opacity: kubaturaActiveSlots >= 12 ? 1 : 0 }"/></g>
+                <g style="cursor:pointer;" @click="setKubaturaTargetSlots(13)"><rect x="269" y="69" width="63" height="49" rx="3" :fill="kubaturaActiveSlots >= 13 ? (kubaturaOverload ? '#dc2626' : '#181a1f') : '#f1f5f9'" :stroke="kubaturaActiveSlots >= 13 ? 'none' : '#cbd5e1'" stroke-dasharray="3 2" style="transition:fill 150ms ease;"/><line x1="276" y1="77" x2="325" y2="77" stroke="#ea580c" stroke-width="2" :style="{ opacity: kubaturaActiveSlots >= 13 ? 1 : 0 }"/></g>
+                <g style="cursor:pointer;" @click="setKubaturaTargetSlots(14)"><rect x="196" y="69" width="63" height="49" rx="3" :fill="kubaturaActiveSlots >= 14 ? (kubaturaOverload ? '#dc2626' : '#181a1f') : '#f1f5f9'" :stroke="kubaturaActiveSlots >= 14 ? 'none' : '#cbd5e1'" stroke-dasharray="3 2" style="transition:fill 150ms ease;"/><line x1="203" y1="77" x2="252" y2="77" stroke="#ea580c" stroke-width="2" :style="{ opacity: kubaturaActiveSlots >= 14 ? 1 : 0 }"/></g>
+                <g style="cursor:pointer;" @click="setKubaturaTargetSlots(15)"><rect x="123" y="69" width="63" height="49" rx="3" :fill="kubaturaActiveSlots >= 15 ? (kubaturaOverload ? '#dc2626' : '#ea580c') : '#f1f5f9'" :stroke="kubaturaActiveSlots >= 15 ? 'none' : '#cbd5e1'" stroke-dasharray="3 2" style="transition:fill 150ms ease;"/><line x1="130" y1="77" x2="179" y2="77" stroke="#ffffff" stroke-width="2" :style="{ opacity: kubaturaActiveSlots >= 15 ? 1 : 0 }"/></g>
+
+                <!-- Kabina Ciężarówki -->
+                <path d="M488 64 C530 64 562 84 580 116 H488 Z" fill="#181a1f"/>
+                <path d="M488 116 H580 L618 168 L646 182 V254 H488 Z" fill="#181a1f"/>
+                <path d="M508 126 H570 L600 168 H508 Z" fill="#334155" stroke="#475569" stroke-width="1.5"/>
+                <path d="M522 168 V144 C522 139 529 139 531 144 L535 168 Z" fill="#1e293b"/>
+                <rect x="578" y="134" width="7" height="22" rx="2" fill="#ea580c"/>
+                <rect x="488" y="198" width="158" height="8" fill="#ea580c"/>
+                <path d="M634 214 H646 V226 H630 Z" fill="#fbbf24"/>
+
+                <!-- Koła -->
+                <circle cx="190" cy="262" r="23" fill="#eef1ed"/>
+                <circle cx="190" cy="262" r="20" fill="#181a1f"/>
+                <circle cx="190" cy="262" r="9" fill="#94a3b8"/>
+                <circle cx="190" cy="262" r="3.5" fill="#181a1f"/>
+
+                <circle cx="576" cy="262" r="23" fill="#eef1ed"/>
+                <circle cx="576" cy="262" r="20" fill="#181a1f"/>
+                <circle cx="576" cy="262" r="9" fill="#94a3b8"/>
+                <circle cx="576" cy="262" r="3.5" fill="#181a1f"/>
+              </svg>
+            </div>
+
+            <!-- Prawy panel interaktywnego symulatora m³ i kg -->
+            <div class="kubatura-panel tabular" style="background:#ffffff; border-left:3px solid #ea580c; padding:12px 16px; display:flex; flex-direction:column; justify-content:space-between; gap:6px; min-height:0;">
+              <div>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <span style="font:600 9px var(--mono); color:#ea580c; letter-spacing:0.05em;" x-text="lang === 'pl' ? '↳ SYMULATOR ŁADUNKU 24 m³' : '↳ 24 m³ CARGO SIMULATOR'">↳ SYMULATOR ŁADUNKU 24 m³</span>
+                  <button type="button" @click="applyKubaturaPreset('clear')" style="border:0; background:none; padding:0; font:600 9px var(--mono); color:#64748b; cursor:pointer; text-decoration:underline;" x-text="lang === 'pl' ? 'Wyzeruj ↺' : 'Reset ↺'">Wyzeruj ↺</button>
+                </div>
+
+                <!-- 3 szybkie presety -->
+                <div style="display:flex; flex-wrap:wrap; gap:4px; margin-top:5px;">
+                  <button type="button" class="hero-chip" style="padding:3px 8px; font-size:9.5px;" :style="kubaturaPreset === 'small' ? 'background:#ea580c; border-color:#ea580c; color:#fff;' : ''" @click="applyKubaturaPreset('small')" x-text="lang === 'pl' ? 'Biuro 15 os.' : '15 Desks'">Biuro 15 os.</button>
+                  <button type="button" class="hero-chip" style="padding:3px 8px; font-size:9.5px;" :style="kubaturaPreset === 'corp' ? 'background:#ea580c; border-color:#ea580c; color:#fff;' : ''" @click="applyKubaturaPreset('corp')" x-text="lang === 'pl' ? 'Piętro 50 os.' : '50 Desks'">Piętro 50 os.</button>
+                  <button type="button" class="hero-chip" style="padding:3px 8px; font-size:9.5px;" :style="kubaturaPreset === 'archive' ? 'background:#ea580c; border-color:#ea580c; color:#fff;' : ''" @click="applyKubaturaPreset('archive')" x-text="lang === 'pl' ? 'Archiwum RODO' : 'GDPR Archive'">Archiwum RODO</button>
+                </div>
+              </div>
+
+              <!-- Interaktywne liczniki + / - -->
+              <div style="display:grid; gap:4px;">
+                <template x-for="kItem in kubaturaItems" :key="kItem.id">
+                  <div style="display:flex; align-items:center; justify-content:space-between; padding:4px 8px; background:#f8f9fb; border:1px solid #e2e8f0; border-radius:5px;">
+                    <div style="line-height:1.15;">
+                      <strong style="display:block; font-size:10.5px; color:#181a1f;" x-text="kItem.name[lang]"></strong>
+                      <span style="font:500 9px var(--mono); color:#64748b;" x-text="kItem.m3 + ' m³ · ' + kItem.kg + ' kg'"></span>
+                    </div>
+                    <div style="display:inline-flex; align-items:center; gap:4px;">
+                      <button type="button" @click="kubaturaPreset = 'custom'; kItem.qty = Math.max(0, kItem.qty - 1)"
+                        style="width:22px; height:22px; border-radius:4px; border:1px solid #cbd5e1; background:#ffffff; font:700 12px var(--mono); cursor:pointer; display:grid; place-items:center;">−</button>
+                      <span style="min-width:18px; text-align:center; font:700 11px var(--mono);" x-text="kItem.qty"></span>
+                      <button type="button" @click="kubaturaPreset = 'custom'; kItem.qty += 1"
+                        style="width:22px; height:22px; border-radius:4px; border:1px solid #cbd5e1; background:#ffffff; font:700 12px var(--mono); cursor:pointer; display:grid; place-items:center;">+</button>
+                    </div>
+                  </div>
+                </template>
+              </div>
+
+              <!-- Paski postępu m³ oraz kg -->
+              <div style="padding:8px 10px; background:#f4f5f7; border:1px solid rgba(24,26,31,0.12); border-radius:6px; display:grid; gap:7px; font:600 10px var(--mono);">
+                <div>
+                  <div style="display:flex; justify-content:space-between; margin-bottom:3px;">
+                    <span style="color:#5a606e;" x-text="lang === 'pl' ? 'KUBATURA:' : 'VOLUME:'">KUBATURA:</span>
+                    <strong style="color:#ea580c;" x-text="kubaturaTotalM3.toFixed(1) + ' m³ (' + kubaturaVolPct + '%)'">19.7 m³ (82%)</strong>
+                  </div>
+                  <div style="height:5px; border-radius:99px; background:#e2e8f0; overflow:hidden;">
+                    <div :style="`width:${Math.min(100, kubaturaVolPct)}%; height:100%; background:#ea580c; transition:width 200ms ease;`"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div style="display:flex; justify-content:space-between; margin-bottom:3px;">
+                    <span style="color:#5a606e;" x-text="lang === 'pl' ? 'MASA (3.5t DMC):' : 'PAYLOAD (3.5t):'">MASA (3.5t DMC):</span>
+                    <strong :style="kubaturaOverload ? 'color:#dc2626;' : 'color:#059669;'" x-text="kubaturaTotalKg.toLocaleString('pl-PL') + ' kg (' + kubaturaKgPct + '%)'">1885 kg (54%)</strong>
+                  </div>
+                  <div style="height:5px; border-radius:99px; background:#e2e8f0; overflow:hidden;">
+                    <div :style="`width:${Math.min(100, kubaturaKgPct)}%; height:100%; background:${kubaturaOverload ? '#dc2626' : '#059669'}; transition:width 200ms ease;`"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Artwork 5: 玄 GEMBA - Authentic App UI -->
+          <div x-show="projectId === 'gemba'" x-cloak style="height:100%; position:relative; background-color:#f9f8f3; background-image:linear-gradient(#ebe8df 1px, transparent 1px), linear-gradient(90deg, #ebe8df 1px, transparent 1px); background-size:44px 44px; color:#161e21; overflow:hidden;">
+
+            <div class="gemba-case-grid" style="height:calc(100% - 42px); display:grid; grid-template-columns:1.05fr 0.95fr; gap:24px; padding:24px 32px 18px; align-items:center;">
+
+              <div style="display:flex; flex-direction:column; justify-content:space-between; height:100%;">
+                <div style="display:inline-flex; align-items:center; gap:8px; font:600 10px var(--mono); letter-spacing:0.12em; color:#5b6568;">
+                  <i style="width:7px; height:7px; background:#b8432e; display:inline-block;"></i>
+                  <span>LEAN THINKING · TPS · SIX SIGMA</span>
+                </div>
+
+                <div style="margin:6px 0;">
+                  <div style="font:700 clamp(1.9rem, 3.6vw, 3.1rem)/0.96 var(--display); letter-spacing:-0.05em; color:#161e21;">
+                    <span x-text="lang === 'pl' ? 'Opisz problem.' : 'Describe the problem.'">Opisz problem.</span><br/>
+                    <span style="color:#b8432e;" x-text="lang === 'pl' ? 'Otrzymaj metodę.' : 'Get the method.'">Otrzymaj metodę.</span>
+                  </div>
+                  <p style="margin:10px 0 0; font:400 12px/1.5 var(--sans); color:#5b6568; max-width:410px;"
+                    x-text="lang === 'pl' ? 'Zapisz, co szwankuje w pracy. Gemba nazywa stojące za tym marnotrawstwo, dobiera narzędzie Lean lub Six Sigma i prowadzi Cię krok po kroku.' : 'Write down what is going wrong at work. Gemba names the waste behind it, chooses the Lean or Six Sigma tool that fits, and walks you through the steps.'">Zapisz, co szwankuje w pracy. Gemba nazywa stojące za tym marnotrawstwo, dobiera narzędzie Lean lub Six Sigma i prowadzi Cię krok po kroku.</p>
+                </div>
+
+                <div style="display:flex; gap:32px; padding-top:10px; border-top:1px solid #dfdcd2;" class="tabular">
+                  <div>
+                    <strong style="font:700 18px/1 var(--display); color:#161e21; display:block;">47</strong>
+                    <span style="font:500 9px var(--mono); color:#6e777a; letter-spacing:0.06em;" x-text="lang === 'pl' ? 'METOD' : 'METHODS'">METOD</span>
+                  </div>
+                  <div>
+                    <strong style="font:700 18px/1 var(--display); color:#161e21; display:block;">70+</strong>
+                    <span style="font:500 9px var(--mono); color:#6e777a; letter-spacing:0.06em;" x-text="lang === 'pl' ? 'POJĘĆ' : 'TERMS'">POJĘĆ</span>
+                  </div>
+                  <div>
+                    <strong style="font:700 18px/1 var(--display); color:#161e21; display:block;">5</strong>
+                    <span style="font:500 9px var(--mono); color:#6e777a; letter-spacing:0.06em;" x-text="lang === 'pl' ? 'FAZ PLANU' : 'PHASES PER PLAN'">FAZ PLANU</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Prawa kolumna: Interaktywne białe okno diagnostyczne GEMBA -->
+              <div style="background:#ffffff; border:1px solid #dfdcd2; padding:16px 18px; box-shadow:0 8px 24px rgba(22,30,33,0.05); display:flex; flex-direction:column; gap:9px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; font:600 9.5px var(--mono); letter-spacing:0.1em; color:#5b6568;">
+                  <span x-text="lang === 'pl' ? 'OPISZ PROBLEM / KLIKNIJ OBJAW' : 'DESCRIBE THE PROBLEM / TRY ONE'">OPISZ PROBLEM / KLIKNIJ OBJAW</span>
+                  <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="padding:3px 7px; border:1px solid #dfdcd2; color:#161e21;">VOICE INPUT</span>
+                    <span style="color:#b8432e; font-weight:700;">01</span>
+                  </div>
+                </div>
+
+                <template x-for="(g, gIdx) in gembaDemos" :key="g.id">
+                  <button type="button" class="gemba-chip"
+                    :class="gembaDemoIdx === gIdx ? 'is-active' : ''"
+                    @click="gembaDemoIdx = gIdx"
+                    x-text="g.symptom[lang]"></button>
+                </template>
+
+                <div style="padding-top:10px; border-top:1px solid #ece9e0; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:6px; font:600 10px var(--mono);">
+                  <span style="color:#5b6568;" x-text="gembaDemos[gembaDemoIdx].waste[lang]">Strata: Oczekiwanie (Muda)</span>
+                  <span style="color:#b8432e;" x-text="'→ ' + gembaDemos[gembaDemoIdx].method[lang]">→ SMED (Shingo)</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Dolny pasek: Ciemny moduł Glossary (#151C1F) -->
+            <div class="gemba-case-glossary" style="position:absolute; left:0; right:0; bottom:0; height:42px; background:#151c1f; color:#ffffff; padding:0 32px; display:flex; justify-content:space-between; align-items:center; border-top:1px solid #dfdcd2;">
+              <span style="font:500 9.5px var(--mono); letter-spacing:0.12em; color:#9ba3a7;" x-text="lang === 'pl' ? 'SŁOWNIK TPS / LEAN:' : 'GLOSSARY · SHOP FLOOR:'">SŁOWNIK TPS / LEAN:</span>
+              <div style="display:flex; gap:24px; font-size:11px;">
+                <span><b style="color:#b8432e; font-weight:500; margin-right:5px;">改善</b>Kaizen</span>
+                <span><b style="color:#b8432e; font-weight:500; margin-right:5px;">無駄</b>Muda</span>
+                <span><b style="color:#b8432e; font-weight:500; margin-right:5px;">自働化</b>Jidoka</span>
+                <span><b style="color:#b8432e; font-weight:500; margin-right:5px;">平準化</b>Heijunka</span>
+              </div>
+            </div>
+
+          </div>
+
+
+
+        </div></div>
+      </details>
+
+    </div>
+  </header>
+
+  <main>
+
+<!-- ═══ EDITORIAL CASE STUDY CONTENT ═══ -->
+    <section class="section-pad">
+      <div class="page-wrap case-content-layout">
+
+        <!-- Sticky Table of Contents Aside -->
+        <aside class="case-content-aside">
+          <p class="case-kicker" x-text="lang === 'pl' ? 'STRUKTURA CASE STUDY' : 'CASE STUDY STRUCTURE'">STRUKTURA CASE STUDY</p>
+          <ol>
+            <template x-for="(sec, idx) in currentCase.sections[lang]" :key="sec.heading">
+              <li>
+                <a :href="'#case-section-' + (idx + 1)">
+                  <span x-text="'0' + (idx + 1)"></span>
+                  <strong style="font-weight:500;" x-text="sec.heading"></strong>
+                </a>
+              </li>
+            </template>
+          </ol>
+        </aside>
+
+        <!-- Main Prose Column -->
+        <div class="case-prose"><noscript><section id="case-section-1"><h2>Pełny samochód ma dwa ograniczenia</h2><p>Biurka szybko zajmują przestrzeń, a pełne szafy aktowe mogą wyczerpać limit masy, zanim auto będzie pełne. Przy samej liczbie stanowisk trudno ocenić skalę relokacji albo przygotować pytania na wizję lokalną.</p></section>
+<section id="case-section-2"><h2>Dwa pomiary przy każdej zmianie listy</h2><p>Po zmianie liczby przedmiotów kalkulator przelicza metry sześcienne, kilogramy i orientacyjną liczbę kursów. Przekrój skrzyni ładunkowej pokazuje, co oznacza kolejna szafa lub sejf. Gotowe zestawy wyposażenia ułatwiają rozpoczęcie obliczeń.</p></section>
+<section id="case-section-3"><h2>Konkretna lista na wizję lokalną</h2><p>Zestawienie można przenieść do zapytania. Klient i ekipa zaczynają rozmowę od listy wyposażenia, masy i objętości. Podczas wizji mogą skupić się na szczegółach budynku, takich jak winda i dostęp do załadunku.</p></section></noscript>
+          <template x-for="(sec, idx) in currentCase.sections[lang]" :key="sec.heading">
+            <section :id="'case-section-' + (idx + 1)">
+              <span class="case-section-number" x-text="'0' + (idx + 1)"></span>
+              <h2 x-text="sec.heading"></h2>
+              <p x-text="sec.body"></p>
+              <template x-if="sec.bullets && sec.bullets.length">
+                <ul>
+                  <template x-for="b in sec.bullets" :key="b">
+                    <li x-text="b"></li>
+                  </template>
+                </ul>
+              </template>
+            </section>
+          </template>
+
+          <div style="display:flex; flex-wrap:wrap; align-items:center; gap:14px; padding-top:8px;">
+            <a :href="web4bizSeo.link(currentCase.url, lang)"
+               :target="currentCase.url.startsWith('http') ? '_blank' : '_self'"
+               :rel="currentCase.url.startsWith('http') ? 'noopener noreferrer' : ''"
+               class="btn-live tactile">
+              <span x-text="lang === 'pl' ? 'Otwórz działający projekt' : 'Visit live project'">Otwórz działający projekt</span>
+              <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
+            </a>
+
+            <a href="index.html?lang=pl#estimator" :href="web4bizSeo.link('index.html#estimator', lang)" class="btn-case-secondary tactile">
+              <span x-text="lang === 'pl' ? 'Zamów podobne rozwiązanie' : 'Request a similar build'">Zamów podobne rozwiązanie</span>
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══ NEXT PROJECT BANNER ═══ -->
+    <a href="case-gemba-pl.html" :href="'case-study.html?project=' + nextProjectId"
+       @click.prevent="selectProject(nextProjectId); window.scrollTo({top: 0, behavior: 'smooth'})"
+       class="case-next">
+      <span>
+        <b x-text="lang === 'pl' ? 'KOLEJNY PROJEKT CASE STUDY' : 'NEXT PROJECT CASE STUDY'">KOLEJNY PROJEKT CASE STUDY</b>
+        <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
+      </span>
+      <strong x-text="cases[nextProjectId].title[lang]">玄 GEMBA - Diagnostyka Lean, TPS &amp; Six Sigma</strong>
+    </a>
+
+  </main>
+
+  <footer style="background:var(--bg-alt); color:var(--ink); border-top:1px solid var(--line); padding:32px 0; font:500 11px var(--mono);">
+    <div class="page-wrap" style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px;">
+      <span><strong>web4biz.pl</strong> · Independent Digital Practice by Archie</span>
+      <div style="display:flex; flex-wrap:wrap; align-items:center; gap:16px;">
+        <a href="https://www.linkedin.com/in/artur-zaluska/" target="_blank" rel="noopener noreferrer" class="icon-link" style="opacity:0.85;"><span>LinkedIn</span><svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg></a>
+        <a href="https://www.instagram.com/agilearchie/" target="_blank" rel="noopener noreferrer" class="icon-link" style="opacity:0.85;"><span>Instagram</span><svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg></a>
+        <span style="color:#899188;">© 2026 Archie.</span>
+        <a href="#top" x-text="lang === 'pl' ? '↑ Na górę' : '↑ Back to top'">↑ Na górę</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/case-study.js"></script>
+</body>
+</html>

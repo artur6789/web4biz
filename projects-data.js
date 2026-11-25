@@ -1,811 +1,717 @@
-/**
- * web4biz.pl — Wspólne źródło danych projektów (Single Source of Truth)
- * Używane przez: index.html, projects.html oraz case-study.html.
- * Liczniki, filtry i Case Study korzystają z tej wspólnej bazy. Przy dodaniu
- * projektu dodaj również jego indywidualną kartę na stronie głównej i w archiwum.
- */
+// Bilingual project content for the homepage, portfolio and case studies.
 window.WEB4BIZ_DATA = {
-  brand: {
-    name: 'web4biz.pl',
-    author: 'Artur Załuska (Archie)',
-    email: 'artur.zaluska@gmail.com',
-    linkedin: 'https://www.linkedin.com/in/artur-zaluska/',
-    instagram: 'https://www.instagram.com/agilearchie/',
-    
+  "brand": {
+    "name": "web4biz.pl",
+    "author": "Artur Załuska (Archie)",
+    "email": "artur.zaluska@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/artur-zaluska/",
+    "instagram": "https://www.instagram.com/agilearchie/"
   },
-
-  filters: [
-    { id: 'b2b',   label: { pl: 'Strony B2B & SEO',     en: 'B2B & SEO Websites' } },
-    { id: 'tools', label: { pl: 'Dodatkowe narzędzia',  en: 'Custom Web Tools' } },
-    { id: 'react', label: { pl: 'Aplikacje React',      en: 'React Apps' } }
+  "filters": [
+    {
+      "id": "b2b",
+      "label": {
+        "pl": "Strony B2B & SEO",
+        "en": "B2B & SEO Websites"
+      }
+    },
+    {
+      "id": "tools",
+      "label": {
+        "pl": "Dodatkowe narzędzia",
+        "en": "Custom Web Tools"
+      }
+    },
+    {
+      "id": "react",
+      "label": {
+        "pl": "Aplikacje webowe",
+        "en": "Web apps"
+      }
+    },
+    {
+      "id": "brand",
+      "label": {
+        "pl": "Marki i usługi lokalne",
+        "en": "Consumer brands and local services"
+      }
+    }
   ],
-
-  projects: [
+  "projects": [
     {
-      id: 'adremt2',
-      num: '01',
-      year: '2026',
-      categories: ['b2b', 'tools'],
-      url: 'https://adremt2.pl/index2.html',
-      external: true,
-      shortName: { pl: 'AD REM T2', en: 'AD REM T2' },
-      cardTitle: {
-        pl: 'AD REM T2 - Transport, logistyka i spedycja',
-        en: 'AD REM T2 - Transport, Logistics & Freight'
+      "id": "adremt2",
+      "num": "01",
+      "year": "2026",
+      "categories": [
+        "b2b",
+        "tools"
+      ],
+      "url": "https://adremt2.pl/index2.html",
+      "external": true,
+      "shortName": {
+        "pl": "AD REM T2",
+        "en": "AD REM T2"
       },
-      cardDesc: {
-        pl: 'Interaktywna mapa Europy pozwala wskazać miasto, sprawdzić dystans drogowy z Warszawy i wysłać sprecyzowane zapytanie do dyspozytora.',
-        en: 'Interactive European vector map lets visitors pick a destination, calculate road distance from Warsaw, and send a pre-populated freight enquiry.'
+      "cardTitle": {
+        "pl": "AD REM T2 - Transport, logistyka i spedycja",
+        "en": "AD REM T2 - Transport, Logistics & Freight"
       },
-      liveLabel: { pl: 'Otwórz projekt', en: 'Open live site' },
-      title: {
-        pl: 'Transport, logistyka i spedycja (AD REM T2)',
-        en: 'Transport, Logistics & Freight Forwarding (AD REM T2)'
+      "cardDesc": {
+        "pl": "Klient wybiera kierunek na mapie, sprawdza trasę z Warszawy i przenosi ją do zapytania o przewóz.",
+        "en": "A shipper picks a destination, checks the route from Warsaw and carries it into a freight enquiry."
       },
-      subtitle: {
-        pl: 'Strona transportowa B2B, która prowadzi klienta od wyboru miasta na mapie Europy do sprecyzowanego zapytania o przewóz.',
-        en: 'A B2B transport platform taking visitors from selecting a city on the European map to a pre-populated freight enquiry.'
+      "liveLabel": {
+        "pl": "Otwórz projekt",
+        "en": "Open live site"
       },
-      tag: { pl: '01 · Transport / TSL', en: '01 · Transport / Logistics' },
-      pageType: { pl: 'Strona usługowa B2B + kalkulator trasy', en: 'B2B service site + route calculator' },
-      keyFeatures: { pl: 'Mapa Europy SVG · wybór trasy · szybka wycena', en: 'SVG Europe map · route selection · quote flow' },
-      duration: { pl: '3 tygodnie', en: '3 weeks' },
-      technology: 'Vanilla JS · SVG · GeoJSON',
-      stats: {
-        pl: [
-          ['3', 'Obszary usług transportowych i spedycyjnych'],
-          ['MAPA SVG', 'Wybór miasta i kalkulacja trasy z Warszawy'],
-          ['0 PLN', 'Stałych kosztów zewnętrznych API mapowych'],
-          ['24/7', 'Bezpośredni kontakt z dyspozytorem']
-        ],
-        en: [
-          ['3', 'Core transport & forwarding service pillars'],
-          ['SVG MAP', 'Interactive city & route selection from Warsaw'],
-          ['0 EUR', 'Recurring third-party map API fees'],
-          ['24/7', 'Direct dispatcher contact workflow']
-        ]
+      "title": {
+        "pl": "Transport, logistyka i spedycja (AD REM T2)",
+        "en": "Transport, Logistics & Freight Forwarding (AD REM T2)"
       },
-      sections: {
-        pl: [
+      "subtitle": {
+        "pl": "Klient wybiera miasto docelowe i rodzaj pojazdu, sprawdza szacowany czas przejazdu z Warszawy i wysyła dyspozytorowi trasę do wyceny.",
+        "en": "A freight buyer picks a destination and vehicle type, checks the estimated journey from Warsaw, and sends the route to dispatch for a quote."
+      },
+      "tag": {
+        "pl": "01 · Transport / TSL",
+        "en": "01 · Transport / Logistics"
+      },
+      "technology": {
+        "pl": "JavaScript · SVG · GeoJSON",
+        "en": "JavaScript · SVG · GeoJSON"
+      },
+      "sections": {
+        "pl": [
           {
-            heading: 'Usługi widoczne i uporządkowane od pierwszego ekranu',
-            body: 'Strona porządkuje transport ekspresowy, spedycję drogową i logistykę kontraktową jako odrębne, łatwe do porównania ścieżki wejścia. Każda prowadzi prosto do parametrów potrzebnych przed zleceniem przewozu.'
+            "heading": "Co dyspozytor musi wiedzieć na początku?",
+            "body": "Samo pytanie o cenę przewozu niewiele mówi dyspozytorowi. Potrzebuje co najmniej informacji, dokąd ma jechać pojazd. Strona wykorzystuje bazę w Warszawie jako stały punkt startowy, a klientowi oddaje pierwszą istotną decyzję: wybór celu."
           },
           {
-            heading: 'Mapa Europy SVG jako interaktywne narzędzie wyboru trasy',
-            body: 'Zamiast zaczynać od pustego formularza kontaktowego, klient wskazuje miasto docelowe na interaktywnej mapie Europy powyżej, sprawdza szacowany dystans oraz czas przejazdu (Bus Express lub FTL 24t) z bazy w Warszawie i jednym kliknięciem przechodzi do wyceny wybranej relacji.',
-            bullets: [
-              'Autorski silnik wektorowy SVG + GeoJSON działający natychmiast w przeglądarce bez opłat za Google Maps API.',
-              'Automatyczne przeniesienie wybranej trasy do formularza zapytania ofertowego.',
-              'Czytelna prezentacja transportu krajowego i międzynarodowego door-to-door.'
-            ]
+            "heading": "Dystans i czas przy wybranym mieście",
+            "body": "Wskazanie miasta na mapie aktualizuje podgląd relacji. Klient może porównać orientacyjny czas przejazdu busem ekspresowym i zestawem ciężarowym. Mapa wektorowa działa w przeglądarce, więc jej wyświetlanie nie wymaga płatnego interfejsu mapowego."
           },
           {
-            heading: 'Odpowiedzi na kluczowe pytania spedycyjne przed kontaktem',
-            body: 'Sekcje o flocie, ubezpieczeniu OCP, monitoringu GPS oraz całodobowym kontakcie z dyspozytorem budują zaufanie decydenta B2B i skracają czas potrzebny na sfinalizowanie zlecenia.'
+            "heading": "Od wyboru kierunku do wyceny",
+            "body": "Wybrana relacja trafia do zapytania. Klient może uzupełnić szczegóły ładunku bez ponownego wpisywania trasy, a dyspozytor ma punkt wyjścia do sprawdzenia dostępności i ustalenia ceny."
           }
         ],
-        en: [
+        "en": [
           {
-            heading: 'Services structured clearly from the first viewport',
-            body: 'The platform organizes express transport, road freight forwarding, and contract logistics into distinct, easy-to-compare entry points, guiding dispatchers and B2B buyers directly to operational details.'
+            "heading": "What does dispatch need first?",
+            "body": "A request for a price gives dispatch little to work with until the destination is known. The site uses the Warsaw base as the starting point and asks the buyer to make the first routing decision by picking a destination."
           },
           {
-            heading: 'An interactive SVG Europe map built around route selection',
-            body: 'Instead of facing a blank contact form, visitors pick a destination city on the interactive European map above, preview the road distance and transit ETA from the Warsaw hub, and proceed to an enquiry pre-populated with their route.',
-            bullets: [
-              'Custom SVG + GeoJSON vector engine running client-side with zero recurring Google Maps API costs.',
-              'Seamless transfer of selected route parameters into the freight quote form.',
-              'Clear breakdown of domestic and international door-to-door transport.'
-            ]
+            "heading": "Distance and timing alongside the chosen city",
+            "body": "Selecting a city updates the route panel. A buyer can compare indicative travel times for an express van and a full truckload. The vector map runs in the browser without a paid map service."
           },
           {
-            heading: 'Answering critical logistics questions before first contact',
-            body: 'Dedicated sections covering fleet capabilities, carrier liability insurance (OCP), GPS tracking, and 24/7 dispatcher availability establish immediate operational trust.'
+            "heading": "From a destination to a quote request",
+            "body": "The selected route carries into the enquiry. The buyer can add cargo details without typing the route again, and dispatch has a starting point for checking availability and preparing a price."
           }
         ]
+      },
+      "industry": {
+        "pl": "Transport i spedycja",
+        "en": "Freight and logistics"
+      },
+      "tool": {
+        "pl": "Kalkulator trasy",
+        "en": "Route estimator"
+      },
+      "seoTopic": {
+        "pl": "Wycena transportu",
+        "en": "Freight enquiries"
       }
     },
-
     {
-      id: 'ckadrem',
-      num: '02',
-      year: '2024–2025',
-      categories: ['b2b'],
-      url: 'https://ck-adrem.pl',
-      external: true,
-      shortName: { pl: 'CK Ad Rem', en: 'CK Ad Rem' },
-      cardTitle: {
-        pl: 'Ad Rem Centrum Księgowe',
-        en: 'Ad Rem Accounting Centre'
+      "id": "ckadrem",
+      "num": "02",
+      "year": "2024–2025",
+      "categories": [
+        "b2b"
+      ],
+      "url": "https://ck-adrem.pl",
+      "external": true,
+      "shortName": {
+        "pl": "CK Ad Rem",
+        "en": "CK Ad Rem"
       },
-      cardDesc: {
-        pl: 'Serwis porządkujący pełną księgowość, KPiR, kadry i ZUS z wyraźnym rozdzieleniem oferty dla firm oraz organizacji pozarządowych (NGO).',
-        en: 'Corporate website structuring full bookkeeping, tax ledgers, and ZUS filings with dedicated conversion paths for businesses and NGOs.'
+      "cardTitle": {
+        "pl": "Ad Rem Centrum Księgowe",
+        "en": "Ad Rem Accounting Centre"
       },
-      liveLabel: { pl: 'Otwórz projekt', en: 'Open live site' },
-      title: {
-        pl: 'Ad Rem Centrum Księgowe',
-        en: 'Ad Rem Accounting Centre'
+      "cardDesc": {
+        "pl": "Osobne ścieżki dla firm i organizacji społecznych prowadzą od rodzaju działalności do właściwej usługi księgowej.",
+        "en": "Separate routes for businesses and non-profits lead visitors from their type of organisation to the accounting service they need."
       },
-      subtitle: {
-        pl: 'Serwis korporacyjny porządkujący obsługę spółek, przedsiębiorców (KPiR) oraz fundacji i stowarzyszeń (NGO).',
-        en: 'A corporate service website separating business accounting from the dedicated offer for foundations and associations (NGOs).'
+      "liveLabel": {
+        "pl": "Otwórz projekt",
+        "en": "Open live site"
       },
-      tag: { pl: '02 · Finanse / Usługi B2B', en: '02 · Finance / B2B Services' },
-      pageType: { pl: 'Serwis usługowy z segmentacją oferty', en: 'Service website with segmented funnels' },
-      keyFeatures: { pl: 'Ścieżki B2B i NGO · KPiR i ZUS · Meta Pixel', en: 'B2B & NGO paths · bookkeeping · Meta Pixel' },
-      duration: { pl: '4 tygodnie', en: '4 weeks' },
-      technology: 'Bootstrap 5 · Meta Pixel · SEO',
-      stats: {
-        pl: [
-          ['22 LATA', 'Doświadczenia rynkowego biura w Warszawie'],
-          ['B2B + NGO', 'Osobna oferta dla firm oraz fundacji i stowarzyszeń'],
-          ['KPiR / ZUS', 'Konkretna lista zadań przekazywanych biuru'],
-          ['PIXEL', 'Analityka konwersji i pomiar interakcji']
-        ],
-        en: [
-          ['22 YEARS', 'Of established accounting heritage in Warsaw'],
-          ['B2B + NGO', 'Separate pathways for businesses and non-profits'],
-          ['LEDGER / ZUS', 'Task-oriented breakdown of accounting services'],
-          ['PIXEL', 'Full Meta Pixel conversion tracking integration']
-        ]
+      "title": {
+        "pl": "Ad Rem Centrum Księgowe",
+        "en": "Ad Rem Accounting Centre"
       },
-      sections: {
-        pl: [
+      "subtitle": {
+        "pl": "Właściciel firmy lub członek zarządu fundacji wybiera typ organizacji, znajduje potrzebną usługę księgową i może skontaktować się z biurem bezpośrednio przy jej opisie.",
+        "en": "Business owners and non-profit teams choose their organisation type, find the accounting task they need help with, and contact the practice from that service description."
+      },
+      "tag": {
+        "pl": "02 · Finanse / Usługi B2B",
+        "en": "02 · Finance / B2B Services"
+      },
+      "technology": {
+        "pl": "Bootstrap 5",
+        "en": "Bootstrap 5"
+      },
+      "sections": {
+        "pl": [
           {
-            heading: 'Dwie wyraźne ścieżki przez ofertę: Biznes oraz NGO',
-            body: 'Układ strony od samego początku rozróżnia obsługę firm (spółki prawa handlowego, jednoosobowe działalności) od specjalistycznej księgowości dla fundacji i stowarzyszeń. Dzięki temu każdy klient trafia od razu do właściwej sekcji.'
+            "heading": "Firma i fundacja szukają innych odpowiedzi",
+            "body": "Przedsiębiorca może potrzebować obsługi płac albo prowadzenia księgi przychodów i rozchodów. Fundacja musi też ustalić, czy biuro zajmie się rozliczeniem dotacji. Jedna długa lista usług utrudnia obu osobom sprawdzenie, czy trafiły pod dobry adres."
           },
           {
-            heading: 'Lista usług opisana językiem konkretnych zadań',
-            body: 'Zamiast ogólników strona precyzyjnie nazywa sprawy, które przedsiębiorca może powierzyć biuru - od wsparcia przy rejestracji działalności po pełne księgi, KPiR oraz bieżące rozliczenia ZUS i kadry.',
-            bullets: [
-              'Pomoc przy zakładaniu działalności gospodarczej i wyborze formy opodatkowania.',
-              'Prowadzenie KPiR, pełnej księgowości spółek oraz ewidencji VAT.',
-              'Kompleksowa obsługa kadr, płac i rozliczeń ZUS.',
-              'Dedykowany moduł dla organizacji pozarządowych (dotacje, granty, sprawozdania).'
-            ]
+            "heading": "Oferta według rodzaju organizacji",
+            "body": "Strona rozdziela ofertę dla biznesu i NGO. W każdej ścieżce wymienia zadania, które można przekazać biuru: od kadr i ZUS po sprawozdawczość fundacji. Klient może przejrzeć tylko te tematy, które dotyczą jego działalności."
           },
           {
-            heading: 'Wezwania do działania przy właściwej usłudze i pomiar Meta Pixel',
-            body: 'Punkty kontaktu towarzyszą bezpośrednio opisom poszczególnych usług, a wdrożenie analityki Meta Pixel oraz optymalizacja kanoniczna wspierają pozyskiwanie klientów z kampanii.'
+            "heading": "Kontakt w momencie wyboru",
+            "body": "Wezwania do kontaktu znajdują się przy opisach usług. Osoba zainteresowana obsługą konkretnego zadania może od razu przejść do konsultacji i nazwać temat rozmowy językiem, którego właśnie użyło biuro."
           }
         ],
-        en: [
+        "en": [
           {
-            heading: 'Two distinct pathways through the service offer: Business & NGO',
-            body: 'The information architecture separates corporate and sole-proprietor bookkeeping from specialized accounting for foundations and associations, eliminating decision friction.'
+            "heading": "Two audiences arrive with different questions",
+            "body": "A business owner may need payroll or a revenue and expense ledger. A foundation board may first need to know whether the practice handles grant reporting. A single undifferentiated service list makes both answers hard to find."
           },
           {
-            heading: 'Services framed as concrete tasks handed over to experts',
-            body: 'Rather than vague slogans, the website names the exact responsibilities clients can delegate - from company registration to tax books, payroll, and ZUS filings.',
-            bullets: [
-              'Guided support when registering a new business and selecting tax models.',
-              'Full corporate accounting, revenue-and-expense ledgers (KPiR), and VAT records.',
-              'End-to-end payroll, HR administration, and ZUS compliance.',
-              'Dedicated non-profit & NGO accounting (grants, subsidies, statutory reporting).'
-            ]
+            "heading": "Organising services by client type",
+            "body": "The site gives companies and non-profits their own routes. Each names the work the practice can take on, from payroll and social insurance filings to foundation reporting. Visitors can read the responsibilities relevant to their organisation."
           },
           {
-            heading: 'Contextual calls to action paired with Meta Pixel analytics',
-            body: 'Consultation triggers sit directly beside relevant service descriptions, backed by Meta Pixel event tracking to measure campaign conversion efficiency.'
+            "heading": "Enquiries at the point of decision",
+            "body": "Contact links sit beside service descriptions. Once a visitor finds an appropriate service, they can reach the practice and use the same terms to explain what they want to discuss."
           }
         ]
+      },
+      "industry": {
+        "pl": "Księgowość",
+        "en": "Accounting"
+      },
+      "tool": {
+        "pl": "Dobór usług księgowych",
+        "en": "Accounting service guide"
+      },
+      "seoTopic": {
+        "pl": "Oferta księgowa B2B i NGO",
+        "en": "Accounting for businesses and NGOs"
       }
     },
-
     {
-      id: 'pmclassics',
-      num: '03',
-      year: '2026',
-      categories: ['tools'],
-      url: 'pmclassics.html',
-      external: false,
-      shortName: { pl: 'PM Classics', en: 'PM Classics' },
-      cardTitle: { pl: 'PM Classics', en: 'PM Classics' },
-      cardDesc: {
-        pl: 'Wielojęzyczna platforma renowacji klasyków z filtrowanym garażem, przelicznikiem walut i 3-etapowym briefem.',
-        en: 'Trilingual classic vehicle restoration platform with a filterable garage, live currency switcher, and 3-step brief.'
+      "id": "pmclassics",
+      "num": "03",
+      "year": "2026",
+      "categories": [
+        "tools"
+      ],
+      "url": "pmclassics.html",
+      "external": false,
+      "shortName": {
+        "pl": "PM Classics",
+        "en": "PM Classics"
       },
-      liveLabel: { pl: 'Otwórz projekt', en: 'Open live site' },
-      title: {
-        pl: 'PM Classics - Renowacja i Kolekcja Klasyków',
-        en: 'PM Classics - Classic Vehicle Restoration & Garage'
+      "cardTitle": {
+        "pl": "PM Classics",
+        "en": "PM Classics"
       },
-      subtitle: {
-        pl: 'Wielojęzyczna platforma łącząca wirtualny garaż klasyków, przelicznik trzech walut (EUR/PLN/NOK) i 3-etapowy brief renowacji.',
-        en: 'A trilingual platform combining a filterable virtual garage, three-currency live pricing (EUR/PLN/NOK), and a 3-step restoration brief.'
+      "cardDesc": {
+        "pl": "Kolekcjoner filtruje pojazdy, porównuje ceny w wybranej walucie i przenosi konkretny model do zapytania.",
+        "en": "Collectors filter vehicles, compare prices in their preferred currency and carry a specific model into an enquiry."
       },
-      tag: { pl: '03 · Klasyki / Dodatkowe narzędzia', en: '03 · Classic Automotive / Custom Tools' },
-      pageType: { pl: 'Katalog pojazdów + konfigurator briefu', en: 'Vehicle inventory + project brief configurator' },
-      keyFeatures: { pl: 'Wirtualny garaż · 3 waluty · brief 3-krokowy', en: 'Virtual garage · 3 currencies · 3-step brief' },
-      duration: { pl: '3 tygodnie', en: '3 weeks' },
-      technology: 'Tailwind CSS · Alpine.js · Multi-Currency',
-      stats: {
-        pl: [
-          ['PL · EN · NO', 'Natychmiastowe przełączanie 3 języków'],
-          ['3 WALUTY', 'Dynamiczny przelicznik EUR · PLN · NOK'],
-          ['GARAŻ', 'Filtrowany stock aut i motocykli z lat 60./70.'],
-          ['3 KROKI', 'Interaktywny brief wyceny i renowacji']
-        ],
-        en: [
-          ['PL · EN · NO', 'Instant switching across 3 native languages'],
-          ['3 CURRENCIES', 'Live price conversion in EUR · PLN · NOK'],
-          ['GARAGE', 'Filterable 1960s/70s car & motorcycle stock'],
-          ['3 STEPS', 'Interactive restoration & sourcing brief']
-        ]
+      "liveLabel": {
+        "pl": "Otwórz projekt",
+        "en": "Open live site"
       },
-      sections: {
-        pl: [
+      "title": {
+        "pl": "PM Classics - Renowacja i Kolekcja Klasyków",
+        "en": "PM Classics - Classic Vehicle Restoration & Garage"
+      },
+      "subtitle": {
+        "pl": "Kolekcjoner wybiera samochód lub usługę warsztatu, podaje budżet i przygotowuje zapytanie o zakup, sprowadzenie albo renowację pojazdu.",
+        "en": "A collector chooses a vehicle or workshop service, sets a budget, and prepares an enquiry about buying, sourcing or restoring a classic."
+      },
+      "tag": {
+        "pl": "03 · Klasyki / Dodatkowe narzędzia",
+        "en": "03 · Classic Automotive / Custom Tools"
+      },
+      "technology": {
+        "pl": "Alpine.js · Tailwind CSS",
+        "en": "Alpine.js · Tailwind CSS"
+      },
+      "sections": {
+        "pl": [
           {
-            heading: 'Katalog pojazdów zaprojektowany jak wirtualny garaż kolekcjonera',
-            body: 'Prezentacja klasyków (Volvo Amazon, Opel Manta, Simca, DAF, Moto Guzzi, Lambretta) łączy autentyczne fotografie z filtrami statusu (dostępny od ręki / w trakcie renowacji). Klient jednym kliknięciem przechodzi od wybranego egzemplarza prosto do rozmowy o nim.'
+            "heading": "Trzy powody wizyty w jednym warsztacie",
+            "body": "Kupujący może przyjść po samochód z oferty, szukać innego modelu albo mieć już pojazd do renowacji. W pierwszym przypadku liczą się dostępność i cena. W pozostałych warsztat musi poznać założenia zlecenia."
           },
           {
-            heading: 'Przelicznik walut i wielojęzyczność bez przeładowania strony',
-            body: 'Ponieważ marka obsługuje kolekcjonerów z Polski, Europy Zachodniej i Norwegii, zmiana języka (PL/EN/NO) oraz waluty (EUR/PLN/NOK) odbywa się błyskawicznie w pamięci przeglądarki.',
-            bullets: [
-              'Pełna lokalizacja na język polski, angielski i norweski (Bokmål) z zapisem w localStorage.',
-              'Dynamiczne przeliczanie cen całego garażu między EUR, PLN i NOK ze stabilną typografią (tabular-nums).',
-              'Błyskawiczne filtrowanie pojazdów po kategorii i statusie bez przeładowań strony.'
-            ]
+            "heading": "Katalog dla kolekcjonera z zagranicy",
+            "body": "Filtry pozwalają zawęzić katalog według kategorii i statusu pojazdu. Język i walutę wybiera się osobno. Dzięki temu kolekcjoner może przeczytać ofertę po norwesku i nadal porównywać ceny w euro, złotych lub koronach norweskich."
           },
           {
-            heading: '3-krokowy brief prowadzący przez projekt renowacji lub importu',
-            body: 'Zamiast zwykłego pola tekstowego zastosowano interaktywny konfigurator: klient wybiera cel (zakup ze stocku / poszukiwanie w Europie / renowacja), typ pojazdu oraz budżet, co dostarcza właścicielowi warsztatu kompletny kontekst przed pierwszą rozmową.'
+            "heading": "Model trafia prosto do zapytania",
+            "body": "Wybranie pojazdu do zapytania przenosi jego rocznik, nazwę i wyświetlaną cenę do notatki. Przy sprowadzeniu lub renowacji formularz zbiera rodzaj usługi, kategorię pojazdu i budżet. Każdy wariant daje warsztatowi inny, przydatny zestaw informacji."
           }
         ],
-        en: [
+        "en": [
           {
-            heading: 'An inventory that works like a collector’s virtual garage',
-            body: 'Showcasing characterful 1960s and 70s European classics (Volvo Amazon, Opel Manta, Simca, DAF, Moto Guzzi, Lambretta) with instant category and build-status filters lets buyers move directly from a specific vehicle into an enquiry.'
+            "heading": "Three reasons to visit the same workshop",
+            "body": "A collector may want a listed vehicle, help finding a particular model or restoration work on a vehicle they own. Stock and price matter for the first enquiry. For the other two, the workshop needs a description of the work."
           },
           {
-            heading: 'Multi-currency pricing and localization without page reloads',
-            body: 'Built for Polish, Western European, and Norwegian collectors, language (PL/EN/NO) and currency (EUR/PLN/NOK) switching happens instantaneously client-side.',
-            bullets: [
-              'Complete Polish, English, and Norwegian localization persisted in localStorage.',
-              'Live conversion across EUR, PLN, and NOK using tabular numerals for zero layout shift.',
-              'Instant client-side filtering across vehicle categories and build stages.'
-            ]
+            "heading": "Making stock comparable across markets",
+            "body": "Filters narrow the catalogue by vehicle category and status. Language and currency are independent, so a collector can read the listing in Norwegian and still compare displayed prices in euros, złoty or Norwegian kroner."
           },
           {
-            heading: 'A 3-step brief guiding restoration and sourcing enquiries',
-            body: 'The interactive configurator captures the service type, vehicle category, and target budget before submission, ensuring every incoming lead contains actionable workshop context.'
+            "heading": "Carrying the listing into the brief",
+            "body": "An enquiry from a listing includes the year, model and displayed price in its notes. For sourcing or restoration, the brief asks for the service, vehicle category and budget. The workshop can see which conversation the customer wants to have."
           }
         ]
+      },
+      "industry": {
+        "pl": "Motoryzacja klasyczna",
+        "en": "Classic vehicles"
+      },
+      "tool": {
+        "pl": "Katalog z briefem",
+        "en": "Inventory and enquiry builder"
+      },
+      "seoTopic": {
+        "pl": "Katalog klasyków",
+        "en": "Classic vehicle catalogue"
       }
     },
-
     {
-      id: 'kubatura',
-      num: '04',
-      year: '2026',
-      categories: ['b2b', 'tools'],
-      url: 'kubatura.html',
-      external: false,
-      shortName: { pl: 'KUBATURA', en: 'KUBATURA' },
-      cardTitle: {
-        pl: 'KUBATURA - Relokacje Biur i Archiwów',
-        en: 'KUBATURA - Corporate Office Relocation'
+      "id": "kubatura",
+      "num": "04",
+      "year": "2026",
+      "categories": [
+        "b2b",
+        "tools"
+      ],
+      "url": "kubatura.html",
+      "external": false,
+      "shortName": {
+        "pl": "KUBATURA",
+        "en": "KUBATURA"
       },
-      cardDesc: {
-        pl: 'Strona B2B dla weekendowych relokacji biur z interaktywnym kalkulatorem kubatury (m³), masy (kg) i przekrojem kontenera 24 m³.',
-        en: 'Weekend B2B office relocation platform with a live cargo volume (m³), payload (kg), and 24 m³ box-truck cutaway estimator.'
+      "cardTitle": {
+        "pl": "KUBATURA - Relokacje Biur i Archiwów",
+        "en": "KUBATURA - Corporate Office Relocation"
       },
-      liveLabel: { pl: 'Otwórz projekt', en: 'Open live site' },
-      title: {
-        pl: 'KUBATURA - Relokacje Biur i Archiwów Bez Przestoju',
-        en: 'KUBATURA - Zero-Downtime Corporate Office Relocation'
+      "cardDesc": {
+        "pl": "Kalkulator sprawdza objętość i masę wyposażenia biura, szacuje liczbę kursów i przygotowuje listę do wyceny.",
+        "en": "A load planner checks office inventory against volume and weight limits, estimates trips and prepares an itemised quote brief."
       },
-      subtitle: {
-        pl: 'Jak zamienić stresującą przeprowadzkę firmy w policzalną operację weekendową - i odsiać przypadkowe zapytania jeszcze przed wizją lokalną.',
-        en: 'Turning a high-risk corporate move into a predictable weekend operation-and qualifying B2B leads before the first site survey.'
+      "liveLabel": {
+        "pl": "Otwórz projekt",
+        "en": "Open live site"
       },
-      tag: { pl: '04 · Logistyka B2B / Kalkulator Floty', en: '04 · B2B Logistics / Fleet Estimator' },
-      pageType: { pl: 'Platforma ofertowa B2B + estymator ładunku SVG', en: 'B2B service platform + SVG cargo estimator' },
-      keyFeatures: { pl: 'Przekrój kontenera 24 m³ · pomiar m³ i kg', en: '24 m³ truck cutaway · m³ & kg tracking' },
-      duration: { pl: '2 tygodnie', en: '2 weeks' },
-      technology: 'Alpine.js · Interactive SVG · Schema.org',
-      stats: {
-        pl: [
-          ['24 m³ / 3.5t', 'Przekrój kontenera SVG zapełniający się na żywo'],
-          ['m³ vs KG', 'Równoległy pomiar objętości i limitu wagowego DMC'],
-          ['1 MLN PLN', 'Polisa OCP i plombowane pojemniki RODO na pierwszym ekranie'],
-          ['PT 17 → PN 08', 'Minutowy protokół relokacji z poniedziałkową asystą IT']
-        ],
-        en: [
-          ['24 m³ / 3.5t', 'Live interactive SVG box-truck cutaway visualization'],
-          ['m³ vs KG', 'Dual cargo volume and gross payload limit tracking'],
-          ['1M PLN', 'All-risk carrier insurance & numbered GDPR seals upfront'],
-          ['FRI 17 → MON 08', 'Minute-by-minute weekend protocol with Day-1 IT support']
-        ]
+      "title": {
+        "pl": "KUBATURA - Relokacje Biur i Archiwów Bez Przestoju",
+        "en": "KUBATURA - Zero-Downtime Corporate Office Relocation"
       },
-      sections: {
-        pl: [
+      "subtitle": {
+        "pl": "Osoba planująca przeprowadzkę biura wpisuje liczbę mebli i sprzętu, sprawdza objętość oraz masę ładunku i dołącza listę do zapytania o wycenę.",
+        "en": "An office manager enters the furniture and equipment quantities, checks load volume and weight, and includes the itemised list in a request for a quote."
+      },
+      "tag": {
+        "pl": "04 · Logistyka B2B / Kalkulator Floty",
+        "en": "04 · B2B Logistics / Fleet Estimator"
+      },
+      "technology": {
+        "pl": "Alpine.js · SVG",
+        "en": "Alpine.js · SVG"
+      },
+      "sections": {
+        "pl": [
           {
-            heading: 'Dlaczego strony firm przeprowadzkowych przegrywają kontrakty B2B',
-            body: 'Większość firm przeprowadzkowych wygląda w sieci identycznie: stockowe zdjęcia uśmiechniętych panów z kartonem i ogólniki o „szybkim i tanim transporcie”. Tymczasem Office Manager albo Dyrektor Administracyjny, który przenosi 60-osobowe biuro, nie szuka taniego busa. Boi się jednego scenariusza: że w poniedziałek o 8:00 zespół usiądzie przy niepodłączonych monitorach, a segregatory kadrowe i księgowe zaginą między piętrami.'
+            "heading": "Pełny samochód ma dwa ograniczenia",
+            "body": "Biurka szybko zajmują przestrzeń, a pełne szafy aktowe mogą wyczerpać limit masy, zanim auto będzie pełne. Przy samej liczbie stanowisk trudno ocenić skalę relokacji albo przygotować pytania na wizję lokalną."
           },
           {
-            heading: 'Zero-Downtime zamiast obietnic - architektura zaufania od pierwszego ekranu',
-            body: 'Zamiast lania wody o „wieloletnim doświadczeniu”, pierwszy ekran KUBATURY stawia twarde warunki operacyjne: start w piątek o 17:00, gotowość stanowisk w poniedziałek o 8:00, polisa OCP na 1 000 000 PLN oraz numerowane plomby bezpieczeństwa na pojemnikach RODO. Komunikat rozbity na dwa kontrastowe wersy - logistyczny pomarańcz i techniczny grafit - od razu oddziela relokacje korporacyjne od przeprowadzek mieszkań.'
+            "heading": "Dwa pomiary przy każdej zmianie listy",
+            "body": "Po zmianie liczby przedmiotów kalkulator przelicza metry sześcienne, kilogramy i orientacyjną liczbę kursów. Przekrój skrzyni ładunkowej pokazuje, co oznacza kolejna szafa lub sejf. Gotowe zestawy wyposażenia ułatwiają rozpoczęcie obliczeń."
           },
           {
-            heading: 'Fizyka ładunku w SVG: dlaczego liczymy jednocześnie m³ oraz kg',
-            body: 'W relokacjach biurowych o liczbie kursów rzadko decyduje sama objętość mebli. Metalowe szafy aktowe wypełnione papierem, szafy serwerowe RACK i kasy pancerne wyczerpują limit ładowności auta (3 500 kg DMC) na długo przed zapełnieniem 24 m³ paki. Zbudowałem interaktywny przekrój meblowozu w SVG, który reaguje na każde kliknięcie i wizualizuje oba ograniczenia naraz.',
-            bullets: [
-              'Presety jednym kliknięciem (Biuro 15 stanowisk, Piętro korporacyjne 50 stanowisk, Archiwum RODO + Serwerownia) pozwalają oszacować skalę operacji w 5 sekund.',
-              'Uwzględnienie tarcia budynkowego: piętro załadunku, dostępność windy towarowej oraz dystans automatycznie korygują wielkość ekipy techników i budżet.',
-              'Wizualizacja 15 modułów wewnątrz kontenera 4,8 m × 2,2 m × 2,3 m ostrzega zmianą koloru, gdy masa ładunku zbliża się do limitu DMC.'
-            ]
-          },
-          {
-            heading: 'Kwalifikacja zapytań przed pierwszym kontaktem',
-            body: 'Zwykły formularz „Zapytaj o wycenę” generuje dziesiątki telefonów o pojedynczą kanapę. Tutaj przycisk pod kalkulatorem jednym kliknięciem przenosi gotową specyfikację (kubaturę, masę, liczbę kontenerów 24 m³ oraz pełną listę pozycji) prosto do formularza wizji lokalnej. Całość uzupełnia godzinowy harmonogram weekendowy z poniedziałkowym dyżurem Day-1 Support oraz dane Schema.org (MovingCompany + FAQPage) wspierające czytelne indeksowanie lokalnej oferty.'
+            "heading": "Konkretna lista na wizję lokalną",
+            "body": "Zestawienie można przenieść do zapytania. Klient i ekipa zaczynają rozmowę od listy wyposażenia, masy i objętości. Podczas wizji mogą skupić się na szczegółach budynku, takich jak winda i dostęp do załadunku."
           }
         ],
-        en: [
+        "en": [
           {
-            heading: 'Why standard moving websites lose corporate contracts',
-            body: 'Most moving company websites look identical: stock photos of smiling guys holding cardboard boxes and vague promises of “fast, affordable transport.” An Office or Facility Manager relocating a 60-person floor is not shopping for a cheap van. They are losing sleep over one risk: Monday at 8:00 AM arriving with unpatched workstations and misplaced HR or tax files.'
+            "heading": "A moving truck has two limits",
+            "body": "Desks take up space quickly. Loaded filing cabinets can use up the weight allowance while there is still room in the vehicle. A desk count alone gives a facilities manager little basis for planning a move or a site survey."
           },
           {
-            heading: 'Operational guarantees over fluff - engineering trust above the fold',
-            body: 'Instead of generic claims about “years of experience,” KUBATURA leads with hard operational SLAs: Friday 17:00 kickoff, Monday 08:00 desk readiness, 1,000,000 PLN all-risk carrier insurance, and numbered security seals on HDPE archive crates. Split dual-tone typography in safety orange and industrial graphite immediately signals commercial engineering rather than residential moving.'
+            "heading": "Recalculating weight and volume together",
+            "body": "Changing item quantities recalculates cubic metres, kilograms and estimated trips. A cargo-bay illustration gives each added cabinet or safe a visible consequence. Inventory presets give the planner a place to start."
           },
           {
-            heading: 'Cargo physics in SVG: why the estimator tracks both m³ and kg',
-            body: 'In office relocations, furniture volume is rarely the real bottleneck. Loaded steel filing cabinets, server RACKs, and fireproof safes hit a box truck’s 3,500 kg gross payload limit long before filling its 24 m³ cargo bay. I built a live SVG container cutaway that calculates both constraints simultaneously and animates load distribution in real time.',
-            bullets: [
-              'One-click presets (15-Desk Office, 50-Desk Corporate Floor, GDPR Archive + Server Room) benchmark project scale in five seconds.',
-              'Building friction inputs-floor level, freight elevator access, and route distance-dynamically adjust crew headcount and fee estimates.',
-              'Fifteen modular cargo blocks inside the 4.8m × 2.2m × 2.3m bay shift color to flag payload overload before a truck is ever dispatched.'
-            ]
-          },
-          {
-            heading: 'Qualifying enquiries before first contact',
-            body: 'A blank “Request a Quote” form invites residential tyre-kickers. KUBATURA’s estimator transfers the itemized manifest-total volume, weight, required 24 m³ trips, and equipment list-straight into the site survey brief with a single click. Paired with a minute-by-minute weekend timeline (including Monday morning Day-1 floor support) and MovingCompany + FAQPage structured data to describe the local service clearly for search engines.'
+            "heading": "An inventory for the survey",
+            "body": "The inventory carries into the enquiry with its weight and volume estimates. The client and moving team can review the same list, then use the survey to investigate building-specific issues such as lift access and loading space."
           }
         ]
+      },
+      "industry": {
+        "pl": "Przeprowadzki biur",
+        "en": "Office relocations"
+      },
+      "tool": {
+        "pl": "Kalkulator ładunku",
+        "en": "Load planner"
+      },
+      "seoTopic": {
+        "pl": "Planowanie przeprowadzki biura",
+        "en": "Office move planning"
       }
     },
-
     {
-      id: 'gemba',
-      num: '05',
-      year: '2026',
-      categories: ['tools', 'react'],
-      url: 'https://lean-guide-flow.base44.app',
-      external: true,
-      shortName: { pl: '玄 GEMBA', en: '玄 GEMBA' },
-      cardTitle: {
-        pl: '玄 GEMBA - Diagnostyka Lean & Six Sigma',
-        en: '玄 GEMBA - Lean & Six Sigma Workspace'
+      "id": "gemba",
+      "num": "05",
+      "year": "2026",
+      "categories": [
+        "tools",
+        "react"
+      ],
+      "url": "https://lean-guide-flow.base44.app",
+      "external": true,
+      "shortName": {
+        "pl": "玄 GEMBA",
+        "en": "玄 GEMBA"
       },
-      cardDesc: {
-        pl: 'Aplikacja tłumacząca problemy z pracy na straty procesowe (Muda, Mura, Muri), dobierająca właściwą z 47 metod Lean i prowadząca przez 5-etapowy plan działań.',
-        en: 'Diagnostic web app translating workplace problems into process waste, matching them to 47 Lean/Six Sigma methods and a 5-phase action workspace.'
+      "cardTitle": {
+        "pl": "玄 GEMBA - Diagnostyka Lean & Six Sigma",
+        "en": "玄 GEMBA - Lean & Six Sigma Workspace"
       },
-      liveLabel: { pl: 'Otwórz aplikację', en: 'Open live app' },
-      title: {
-        pl: '玄 GEMBA - Diagnostyka Lean, TPS & Six Sigma',
-        en: '玄 GEMBA - Lean, TPS & Six Sigma Diagnostic Workspace'
+      "cardDesc": {
+        "pl": "Zespół opisuje problem własnymi słowami, poznaje sugerowaną metodę Lean i otwiera plan pracy nad usprawnieniem.",
+        "en": "A team describes a problem in its own words, reviews a suggested Lean method and opens a plan for working through it."
       },
-      subtitle: {
-        pl: 'Aplikacja webowa, która tłumaczy opis problemu z codziennej pracy na straty procesowe (Muda, Mura, Muri), dobiera właściwą z 47 metod Lean i prowadzi przez 5-fazowy plan usprawnień.',
-        en: 'An interactive web workspace that translates plain-language workplace problems into process waste, selects the right tool from 47 Lean/Six Sigma methods, and guides execution across 5 phases.'
+      "liveLabel": {
+        "pl": "Otwórz aplikację",
+        "en": "Open live app"
       },
-      tag: { pl: '05 · Dodatkowe narzędzia / Lean & Six Sigma', en: '05 · Custom Web Tools / Lean & Six Sigma' },
-      pageType: { pl: 'Aplikacja diagnostyczna + Workspace procesowy', en: 'Diagnostic web app + process workspace' },
-      keyFeatures: { pl: 'Diagnoza problemu · 47 metod · 70+ pojęć · Workspace', en: 'Problem diagnosis · 47 methods · 70+ terms · Workspace' },
-      duration: { pl: '3 tygodnie', en: '3 weeks' },
-      technology: 'React · Tailwind CSS · Lean / TPS Engine',
-      stats: {
-        pl: [
-          ['47 METOD', 'Skatalogowane narzędzia Lean, TPS i Six Sigma (VSM, SMED, 5S, DMAIC)'],
-          ['70+ POJĘĆ', 'Praktyczny słownik japońskich terminów produkcyjnych i procesowych'],
-          ['5 FAZ', 'Ustrukturyzowany plan wdrożenia i kontroli dla każdego problemu'],
-          ['0 ŻARGONU', 'Diagnoza na podstawie naturalnego opisu objawów z miejsca pracy']
-        ],
-        en: [
-          ['47 METHODS', 'Curated Lean, TPS & Six Sigma toolkit (VSM, SMED, 5S, DMAIC)'],
-          ['70+ TERMS', 'Plain-language dictionary of Japanese shop-floor concepts'],
-          ['5 PHASES', 'Structured observation, data, countermeasure & check roadmap'],
-          ['NO JARGON', 'Diagnoses operational issues from plain-English descriptions']
-        ]
+      "title": {
+        "pl": "玄 GEMBA - Diagnostyka Lean, TPS & Six Sigma",
+        "en": "玄 GEMBA - Lean, TPS & Six Sigma Diagnostic Workspace"
       },
-      sections: {
-        pl: [
+      "subtitle": {
+        "pl": "Zespół opisuje problem i miejsce jego występowania, a aplikacja proponuje metodę Lean i pokazuje kolejne kroki pracy nad usprawnieniem.",
+        "en": "An operations team describes a problem and where it happens, then reviews a suggested Lean method and a step-by-step plan for tackling it."
+      },
+      "tag": {
+        "pl": "05 · Dodatkowe narzędzia / Lean & Six Sigma",
+        "en": "05 · Custom Web Tools / Lean & Six Sigma"
+      },
+      "technology": {
+        "pl": "React · Tailwind CSS",
+        "en": "React · Tailwind CSS"
+      },
+      "sections": {
+        "pl": [
           {
-            heading: 'Odwrócenie najczęstszego błędu: najpierw diagnoza problemu, potem narzędzie',
-            body: 'Większość inicjatyw Lean kończy się niepowodzeniem, ponieważ zespół wybiera modne narzędzie zanim dobrze zrozumie źródło problemu. 玄 GEMBA odwraca ten proces: użytkownik opisuje własnymi słowami, co szwankuje na stanowisku pracy lub w procesie, a system sam identyfikuje rodzaj marnotrawstwa (Muda), zmienności (Mura) lub przeciążenia (Muri).'
+            "heading": "Punktem wyjścia jest obserwacja",
+            "body": "Osoba, która widzi długi przestój przy przezbrojeniu maszyny, potrafi opisać objaw. Może jednak nie znać nazwy metody usprawnienia. Pierwszy ekran prosi o opis zdarzenia i pozwala dopisać, gdzie ono występuje."
           },
           {
-            heading: 'Cztery zintegrowane moduły: Diagnose, Toolkit, Glossary i Workspace',
-            body: 'Aplikacja łączy interaktywną diagnostykę z kompletną bazą wiedzy Systemu Produkcyjnego Toyoty (TPS) oraz Six Sigma, pozwalając przejść od zgłoszenia problemu do trwałego standardu w jednym miejscu.',
-            bullets: [
-              'Diagnose: Tłumaczenie symptomów i częstotliwości występowania problemu na konkretne przyczyny i rekomendowaną metodę.',
-              'Toolkit (47 metod): Precyzyjny katalog metod (m.in. Value Stream Mapping, 5 Whys, SMED, Kanban, DMAIC, 5S) z określeniem czasu wdrożenia i zastosowania.',
-              'Glossary (70+ pojęć): Przejrzysty słownik terminów japońskich (Kaizen, Muda, Jidoka, Heijunka, Poka-yoke, Andon) napisany prostym, praktycznym językiem.',
-              'Workspace (5 faz planu): Interaktywna przestrzeń robocza prowadząca krok po kroku przez obserwację, zbieranie danych, wdrożenie środka zaradczego i weryfikację.'
-            ]
+            "heading": "Od opisu do metody",
+            "body": "Przykładowe problemy pokazują, jak szczegółowy opis wystarczy na początek. Aplikacja łączy objaw z możliwym rodzajem straty i proponuje metodę. Zespół może otworzyć jej instrukcję lub sprawdzić nieznane pojęcie w słowniku."
           },
           {
-            heading: 'Przełożenie praktyki Lean Green Belt na użyteczny produkt cyfrowy',
-            body: 'Projekt stanowi bezpośrednie połączenie moich kompetencji procesowych (Lean Green Belt, Agile Delivery Lead) z inżynierią frontendową - pokazuje, jak złożoną metodykę operacyjną można zamknąć w intuicyjnym narzędziu webowym, które oszczędza czas liderów i zespołów.'
+            "heading": "Co zrobić po otrzymaniu wskazówki?",
+            "body": "Plan pracy dzieli usprawnienie na etapy, od obserwacji i zebrania danych po sprawdzenie wprowadzonej zmiany. Dzięki temu zespół może zweryfikować sugestię na miejscu i zdecydować, czy rozwiązanie warto utrzymać."
           }
         ],
-        en: [
+        "en": [
           {
-            heading: 'Reversing why Lean fails: understand the problem before picking the tool',
-            body: 'Process improvement fails when teams pick a trendy tool before diagnosing the root issue. 玄 GEMBA starts the other way around: users describe the symptom, frequency, and location in plain language, and the engine translates it into underlying waste (Muda), unevenness (Mura), or overburden (Muri).'
+            "heading": "Start with what the team can observe",
+            "body": "Someone who sees a long stoppage during a changeover can describe what happened, even if they have never heard of SMED. The opening screen asks for that observation and provides an optional field for where it occurs."
           },
           {
-            heading: 'Four cohesive modules: Diagnose, Toolkit, Glossary, and Workspace',
-            body: 'The platform bridges interactive root-cause diagnosis with a structured Toyota Production System (TPS) and Six Sigma reference library.',
-            bullets: [
-              'Diagnose: Matches plain-language workplace complaints to the specific method that addresses the root cause.',
-              'Toolkit (47 methods): Actionable guides for VSM, 5 Whys, SMED, Kanban, DMAIC, and 5S with clear timeframes and category filters.',
-              'Glossary (70+ terms): Shop-floor Japanese terminology (Kaizen, Muda, Jidoka, Heijunka, Poka-yoke) explained without academic fluff.',
-              'Workspace (5 phases per plan): A step-by-step checklist covering observation, data collection, countermeasures, and standard verification.'
-            ]
+            "heading": "Connect the symptom to a method",
+            "body": "Example problems show how much detail is enough to begin. The app links the symptom to a possible source of waste and suggests a method. The team can read its instructions or look up an unfamiliar term in the glossary."
           },
           {
-            heading: 'Turning Lean Green Belt domain expertise into software',
-            body: 'Built at the intersection of operational consulting (Lean Green Belt, Agile Delivery) and frontend engineering, 玄 GEMBA demonstrates how complex B2B methodologies can be transformed into self-serve digital products.'
+            "heading": "Give the recommendation a next step",
+            "body": "The workspace breaks improvement into stages, from observation and data collection through checking the change. The team can test the suggestion in its own workplace and decide whether the new approach is worth keeping."
           }
         ]
+      },
+      "industry": {
+        "pl": "Doskonalenie procesów",
+        "en": "Process improvement"
+      },
+      "tool": {
+        "pl": "Dobór metody Lean",
+        "en": "Lean method finder"
+      },
+      "seoTopic": {
+        "pl": "Dobór metody Lean",
+        "en": "Lean method selection"
       }
     },
-{
-  "id": "bdcacademy",
-  "num": "06",
-  "year": "2026",
-  "categories": [
-    "b2b"
-  ],
-  "url": "bdc-academy.html",
-  "external": false,
-  "shortName": {
-    "pl": "BDC Academy",
-    "en": "BDC Academy"
-  },
-  "cardTitle": {
-    "pl": "BDC Academy — szkolenia dla BDC w automotive",
-    "en": "BDC Academy — automotive BDC training"
-  },
-  "cardDesc": {
-    "pl": "Programy szkoleniowe dla zespołów sprzedaży, serwisu, części, F&I oraz liderów BDC w salonach dealerskich.",
-    "en": "Training programmes for dealer sales, service, parts, F&I and BDC leadership teams."
-  },
-  "liveLabel": {
-    "pl": "Otwórz stronę",
-    "en": "Open project"
-  },
-  "title": {
-    "pl": "BDC Academy — szkolenia Automotive Contact Center",
-    "en": "BDC Academy — Automotive Contact Centre Training"
-  },
-  "subtitle": {
-    "pl": "Katalog specjalistycznych programów szkoleniowych dla działów BDC w branży dealerskiej.",
-    "en": "A focused catalogue of specialist training programmes for dealership Business Development Centre teams."
-  },
-  "tag": {
-    "pl": "06 · Automotive / B2B",
-    "en": "06 · Automotive / B2B"
-  },
-  "pageType": {
-    "pl": "Strona usługowa B2B + katalog szkoleń",
-    "en": "B2B service website + training catalogue"
-  },
-  "keyFeatures": {
-    "pl": "7 ścieżek szkoleniowych · czytelne grupowanie oferty",
-    "en": "7 training tracks · structured offer navigation"
-  },
-  "duration": null,
-  "technology": "HTML · CSS · JavaScript",
-  "stats": {
-    "pl": [
-      [
-        "7 ŚCIEŻEK",
-        "Programy dla kluczowych ról w BDC"
+    {
+      "id": "bdcacademy",
+      "num": "06",
+      "year": "2026",
+      "categories": [
+        "b2b"
       ],
-      [
-        "SPRZEDAŻ",
-        "Obsługa leadów i domykanie wizyt"
-      ],
-      [
-        "SERWIS",
-        "Kontakt z klientem posprzedażowym"
-      ],
-      [
-        "F&I",
-        "Wsparcie procesu finansowania"
-      ]
-    ],
-    "en": [
-      [
-        "7 TRACKS",
-        "Programmes for key dealership BDC roles"
-      ],
-      [
-        "SALES",
-        "Lead handling and appointment conversion"
-      ],
-      [
-        "SERVICE",
-        "Customer contact after the sale"
-      ],
-      [
-        "F&I",
-        "Support for finance and insurance workflows"
-      ]
-    ]
-  },
-  "sections": {
-    "pl": [
-      {
-        "heading": "Oferta uporządkowana według funkcji w salonie",
-        "body": "Strona rozdziela szkolenia dla sprzedaży, serwisu, części, F&I, domykania wizyt oraz kierowników BDC, dzięki czemu odwiedzający szybciej odnajduje program powiązany z rolą i zadaniem zespołu."
+      "url": "bdc-academy.html",
+      "external": false,
+      "shortName": {
+        "pl": "BDC Academy",
+        "en": "BDC Academy"
       },
-      {
-        "heading": "Treść zaprojektowana dla konkretnego odbiorcy B2B",
-        "body": "Zamiast ogólnego opisu szkoleń strona nazywa obszary pracy dealerów i przedstawia ofertę w języku automotive contact center. To daje dobrą bazę do dalszego rozwijania stron poszczególnych programów i kwalifikowania zapytań."
+      "cardTitle": {
+        "pl": "BDC Academy - szkolenia dla BDC w automotive",
+        "en": "BDC Academy - automotive BDC training"
       },
-      {
-        "heading": "Szkolenie połączone z codziennym procesem",
-        "body": "Programy są podzielone według ról i etapów kontaktu z klientem. Dzięki temu organizacja może dobrać szkolenie do konkretnego zadania zespołu, a nie tylko do ogólnej kategorii stanowiska."
+      "cardDesc": {
+        "pl": "Kierownik BDC dobiera moduły dla swojego zespołu i przygotowuje jedno zapytanie z wybranymi szkoleniami i formą zajęć.",
+        "en": "A dealership manager selects modules for the team and prepares one enquiry with the chosen programmes and training format."
+      },
+      "liveLabel": {
+        "pl": "Otwórz stronę",
+        "en": "Open project"
+      },
+      "title": {
+        "pl": "BDC Academy - szkolenia Automotive Contact Center",
+        "en": "BDC Academy - Automotive Contact Centre Training"
+      },
+      "subtitle": {
+        "pl": "Kierownik zespołu BDC wybiera moduły i formę szkolenia, a strona przygotowuje wiadomość e-mail z programem do omówienia z trenerem.",
+        "en": "A dealership BDC manager selects modules and a training format, then opens an email draft with the programme they want to discuss."
+      },
+      "tag": {
+        "pl": "06 · Automotive / B2B",
+        "en": "06 · Automotive / B2B"
+      },
+      "technology": {
+        "pl": "HTML · CSS · Alpine.js",
+        "en": "HTML · CSS · Alpine.js"
+      },
+      "sections": {
+        "pl": [
+          {
+            "heading": "Dobór szkolenia do pracy działu",
+            "body": "Obsługa zapytań o samochód, umawianie wizyt w serwisie i prowadzenie zespołu wymagają innych umiejętności. Kierownik BDC może potrzebować kilku tematów naraz i musi ustalić, które dotyczą konkretnych osób."
+          },
+          {
+            "heading": "Wybór kilku modułów bez utraty listy",
+            "body": "Katalog rozdziela programy dla specjalistów, szkolenia z domykania wizyt i komunikacji oraz program dla kierowników. Przy każdej karcie można dodać lub usunąć moduł. Wspólna lista zachowuje wybór podczas przeglądania kolejnych kategorii."
+          },
+          {
+            "heading": "Od zaznaczonych tematów do wiadomości",
+            "body": "Formularz łączy wybrane moduły z nazwą stacji i preferowaną formą szkolenia. Otwiera gotową wiadomość w programie pocztowym, gdzie kierownik może jeszcze dopisać kontekst i sprawdzić listę przed wysłaniem."
+          }
+        ],
+        "en": [
+          {
+            "heading": "Matching training to a department’s work",
+            "body": "Handling a vehicle enquiry, booking a service visit and managing a team call for different skills. A BDC manager may need several topics at once and has to work out which programmes apply to which people."
+          },
+          {
+            "heading": "Building a programme across categories",
+            "body": "The catalogue separates department-specific training, appointment and communication skills, and management. Each card can be added or removed. A shared selection keeps the choices together while the manager browses the other categories."
+          },
+          {
+            "heading": "Turning the selection into an email",
+            "body": "The form combines the selected modules, dealership name and preferred format. It opens a draft in the manager’s email app so they can check the list and add context before sending it."
+          }
+        ]
+      },
+      "industry": {
+        "pl": "Szkolenia dla dealerów",
+        "en": "Dealership training"
+      },
+      "tool": {
+        "pl": "Dobór szkoleń",
+        "en": "Training brief builder"
+      },
+      "seoTopic": {
+        "pl": "Konfigurator szkoleń BDC",
+        "en": "BDC training selector"
       }
-    ],
-    "en": [
-      {
-        "heading": "An offer organised around dealership roles",
-        "body": "The site separates training for sales, service, parts, F&I, appointment conversion and BDC managers so visitors can find the programme relevant to their team and responsibilities."
+    },
+    {
+      "id": "hauhaus",
+      "num": "07",
+      "year": "2026",
+      "categories": [
+        "brand"
+      ],
+      "url": "hauhaus.html",
+      "external": false,
+      "shortName": {
+        "pl": "HAUHAUS",
+        "en": "HAUHAUS"
       },
-      {
-        "heading": "Content for a specific B2B audience",
-        "body": "Instead of generic training language, the page names dealership workflows and frames the offer for automotive contact-centre teams. This creates a clear foundation for programme detail pages and better-qualified enquiries."
+      "cardTitle": {
+        "pl": "HAUHAUS - kameralne psiedszkole",
+        "en": "HAUHAUS - neighbourhood dog daycare"
       },
-      {
-        "heading": "Training connected to daily workflows",
-        "body": "The offer is divided by role and by stage of customer contact. This helps a dealership match a programme to a team’s actual responsibilities instead of selecting only by job-title category."
+      "cardDesc": {
+        "pl": "Opiekun poznaje rytm dnia, dobiera wariant pobytu i przenosi profil psa do formularza dnia adaptacyjnego.",
+        "en": "Owners explore a typical day, choose a care plan and transfer their dog’s profile into an introductory visit form."
+      },
+      "liveLabel": {
+        "pl": "Otwórz stronę",
+        "en": "Open project"
+      },
+      "title": {
+        "pl": "HAUHAUS - psiedszkole, ogród i opieka nad psami",
+        "en": "HAUHAUS - dog daycare, garden and care"
+      },
+      "subtitle": {
+        "pl": "Opiekun podaje potrzeby psa, dietę i częstotliwość pobytu, wybiera plan opieki i przenosi profil psa do formularza wizyty adaptacyjnej.",
+        "en": "A dog owner enters their dog’s needs, diet and visit frequency, chooses a daycare plan, and carries the profile into the introductory visit form."
+      },
+      "tag": {
+        "pl": "07 · Marka lokalna / Warszawa",
+        "en": "07 · Local service / Warsaw"
+      },
+      "technology": {
+        "pl": "HTML · CSS · Alpine.js",
+        "en": "HTML · CSS · Alpine.js"
+      },
+      "sections": {
+        "pl": [
+          {
+            "heading": "Co właściciel chce wiedzieć przed wizytą?",
+            "body": "Przed zapisaniem psa opiekun chce wiedzieć, jak wygląda dzień, kiedy pies odpoczywa i jak zostaną uwzględnione jego potrzeby. Dlatego prezentacja usługi prowadzi przez rozkład dnia i strefy opieki, zanim prosi o dane do kontaktu."
+          },
+          {
+            "heading": "Plan pobytu dla konkretnego psa",
+            "body": "Planer uwzględnia m.in. wielkość psa, częstotliwość pobytu i dietę. Zmiana ustawień aktualizuje profil. Właściciel może porównać warianty i zobaczyć, jakie informacje przydadzą się przy pierwszej rozmowie z opiekunami."
+          },
+          {
+            "heading": "Profil gotowy do pierwszego spotkania",
+            "body": "Jednym przyciskiem można przenieść grupę, wagę, dietę i tryb pobytu do formularza adaptacyjnego. W wersji demonstracyjnej właściciel może uzupełnić preferowany dzień i przejść całą ścieżkę przygotowania zgłoszenia."
+          }
+        ],
+        "en": [
+          {
+            "heading": "What does an owner need before a first visit?",
+            "body": "Before arranging a visit, an owner needs to picture a typical day, including rest and how individual needs are handled. The site introduces the routine and care zones before asking the owner for contact details."
+          },
+          {
+            "heading": "Planning around an individual dog",
+            "body": "The planner takes the dog’s size, attendance frequency and diet into account. Changing an option updates the profile, so an owner can compare plans and see which details will matter in a first conversation with the carers."
+          },
+          {
+            "heading": "Reusing the profile for the first visit",
+            "body": "One action transfers the group, weight, diet and attendance plan into the introductory visit form. In the demo, the owner can add a preferred day and go through the complete enquiry flow."
+          }
+        ]
+      },
+      "industry": {
+        "pl": "Opieka nad psami",
+        "en": "Dog daycare"
+      },
+      "tool": {
+        "pl": "Planer opieki",
+        "en": "Daycare planner"
+      },
+      "seoTopic": {
+        "pl": "Planer opieki nad psem",
+        "en": "Dog daycare planner"
       }
-    ]
-  }
-},
-{
-  "id": "hauhaus",
-  "num": "07",
-  "year": "2026",
-  "categories": [
-    "brand"
-  ],
-  "url": "hauhaus.html",
-  "external": false,
-  "shortName": {
-    "pl": "HAUHAUS",
-    "en": "HAUHAUS"
-  },
-  "cardTitle": {
-    "pl": "HAUHAUS — kameralne psiedszkole",
-    "en": "HAUHAUS — neighbourhood dog daycare"
-  },
-  "cardDesc": {
-    "pl": "Warszawskie psiedszkole z ogrodem 800 m², podglądem na żywo i opieką behawiorysty oraz weterynarza.",
-    "en": "A Warsaw dog daycare with an 800 m² garden, live camera access, and on-site behaviourist and veterinary support."
-  },
-  "liveLabel": {
-    "pl": "Otwórz stronę",
-    "en": "Open project"
-  },
-  "title": {
-    "pl": "HAUHAUS — psiedszkole, ogród i opieka nad psami",
-    "en": "HAUHAUS — dog daycare, garden and care"
-  },
-  "subtitle": {
-    "pl": "Strona lokalnej usługi opieki nad psami, która pokazuje warunki pobytu, codzienny rytm i dostępne wsparcie specjalistów.",
-    "en": "A local dog-care website presenting the daycare environment, daily routine and specialist support."
-  },
-  "tag": {
-    "pl": "07 · Marka lokalna / Warszawa",
-    "en": "07 · Local service / Warsaw"
-  },
-  "pageType": {
-    "pl": "Strona lokalnej usługi + prezentacja oferty",
-    "en": "Local service website + offer presentation"
-  },
-  "keyFeatures": {
-    "pl": "Ogród 800 m² · podgląd na żywo · nosework",
-    "en": "800 m² garden · live camera · nosework"
-  },
-  "duration": null,
-  "technology": "HTML · CSS · Alpine.js",
-  "stats": {
-    "pl": [
-      [
-        "800 m²",
-        "Ogród do aktywności na zewnątrz"
+    },
+    {
+      "id": "piec",
+      "num": "08",
+      "year": "2026",
+      "categories": [
+        "brand"
       ],
-      [
-        "NA ŻYWO",
-        "Podgląd dla opiekunów"
-      ],
-      [
-        "NOSEWORK",
-        "Zajęcia węchowe"
-      ],
-      [
-        "SPECJALIŚCI",
-        "Behawiorysta i weterynarz na miejscu"
-      ]
-    ],
-    "en": [
-      [
-        "800 m²",
-        "Outdoor garden space"
-      ],
-      [
-        "LIVE",
-        "Camera access for owners"
-      ],
-      [
-        "NOSEWORK",
-        "Scent-work activities"
-      ],
-      [
-        "SPECIALISTS",
-        "On-site behaviourist and vet"
-      ]
-    ]
-  },
-  "sections": {
-    "pl": [
-      {
-        "heading": "Najpierw odpowiedź na pytanie: czy mój pies będzie tu bezpieczny?",
-        "body": "Strona od razu komunikuje charakter opieki, przestrzeń do aktywności oraz dostęp do podglądu na żywo. To pomaga opiekunowi ocenić miejsce przed pierwszym kontaktem."
+      "url": "https://rotating-baguette-637711.framer.app/",
+      "external": true,
+      "shortName": {
+        "pl": "PIEC®",
+        "en": "PIEC®"
       },
-      {
-        "heading": "Usługa pokazana przez konkretne elementy dnia",
-        "body": "Ogród, nosework, świeża kuchnia oraz wsparcie behawiorysty i weterynarza zamieniają ogólną obietnicę opieki w czytelny obraz tego, czego można oczekiwać."
+      "cardTitle": {
+        "pl": "PIEC® - Niegrzeczny chleb",
+        "en": "PIEC® - No-Nonsense Sourdough"
       },
-      {
-        "heading": "Lokalna marka z wyraźnym tonem",
-        "body": "Lekki, przyjazny język i charakterystyczne określenie „psiedszkole” nadają stronie własny głos, przy jednoczesnym zachowaniu praktycznych informacji dla właściciela psa."
+      "cardDesc": {
+        "pl": "Wyraziste nazwy i typografia budują tożsamość PIEC®, a czytelne kategorie pokazują klientowi, jakie wypieki kryją się za marką.",
+        "en": "PIEC® pairs distinctive names and typography with clear product categories so visitors can recognise the bakery and explore its range."
+      },
+      "liveLabel": {
+        "pl": "Otwórz projekt",
+        "en": "Open live project"
+      },
+      "title": {
+        "pl": "PIEC® - Niegrzeczny chleb",
+        "en": "PIEC® - No-Nonsense Sourdough Bakery"
+      },
+      "subtitle": {
+        "pl": "Klient piekarni przegląda cztery kategorie wypieków i sprawdza odpowiedzi o skład i zakwas, żeby wybrać coś dla siebie.",
+        "en": "A bakery customer explores four product categories and finds answers about ingredients and sourdough to help choose a bake."
+      },
+      "tag": {
+        "pl": "08 · Marka / Żywność",
+        "en": "08 · Brand / Food"
+      },
+      "technology": {
+        "pl": "Framer",
+        "en": "Framer"
+      },
+      "sections": {
+        "pl": [
+          {
+            "heading": "Co kryje się za nazwą wypieku?",
+            "body": "Nazwy takie jak Buntownik czy Brioche Baby mają wyróżniać piekarnię. Dla osoby, która widzi je po raz pierwszy, sama nazwa nie zawsze wyjaśnia, co znajdzie w ofercie. Strona musi pomóc jej rozpoznać kategorię, zachowując sposób, w jaki mówi marka."
+          },
+          {
+            "heading": "Cztery linie w jednym układzie",
+            "body": "Chleb, croissanty, brioszki i bagietki mają wspólną strukturę prezentacji. Logo, duże nagłówki i kontrastowe kolory pozostają rozpoznawalne, a podział na linie daje odwiedzającemu prosty sposób przejścia przez ofertę."
+          },
+          {
+            "heading": "Odpowiedzi dostępne podczas wyboru",
+            "body": "Po rozpoznaniu interesującej kategorii klient może sprawdzić informacje o wypiekach oraz odpowiedzi na pytania o skład i zakwas. Marka zachowuje charakter, a osoba odwiedzająca stronę ma konkretne podstawy do wyboru produktu."
+          }
+        ],
+        "en": [
+          {
+            "heading": "What does a product name tell a new customer?",
+            "body": "Names such as Buntownik and Brioche Baby give the bakery a distinct voice. On a first visit, a name alone may tell a customer little about the product. The site has to make the category recognisable while keeping the bakery’s own language."
+          },
+          {
+            "heading": "One layout for four product lines",
+            "body": "Bread, croissants, brioche and baguettes follow a common layout. The logo, large headings and contrasting colours tie the lines together, while the categories give visitors an immediate way to navigate the range."
+          },
+          {
+            "heading": "Answering questions while customers browse",
+            "body": "Once a visitor identifies a category, the product information and FAQ cover practical questions about ingredients and sourdough. Customers can move from recognising the brand to deciding which part of the range interests them."
+          }
+        ]
+      },
+      "industry": {
+        "pl": "Piekarnictwo rzemieślnicze",
+        "en": "Artisan bakery"
+      },
+      "tool": {
+        "pl": "Katalog wypieków",
+        "en": "Bakery range guide"
+      },
+      "seoTopic": {
+        "pl": "Strona marki piekarniczej",
+        "en": "Bakery brand website"
       }
-    ],
-    "en": [
-      {
-        "heading": "Answering the first question: will my dog be safe here?",
-        "body": "The page quickly communicates the care model, outdoor space and live camera access, helping owners assess the daycare before getting in touch."
-      },
-      {
-        "heading": "Making the service tangible",
-        "body": "The garden, nosework, fresh kitchen and on-site behaviourist and vet turn a general promise of care into a clearer picture of what a dog’s day can include."
-      },
-      {
-        "heading": "A local brand with a recognisable voice",
-        "body": "The warm tone and distinctive naming give the service its own character while keeping practical information easy for dog owners to find."
-      }
-    ]
-  }
-},
-{
-  "id": "piec",
-  "num": "08",
-  "year": "2026",
-  "categories": [
-    "brand"
-  ],
-  "url": "https://rotating-baguette-637711.framer.app/",
-  "external": true,
-  "shortName": {
-    "pl": "PIEC®",
-    "en": "PIEC®"
-  },
-  "cardTitle": {
-    "pl": "PIEC® — Niegrzeczny chleb",
-    "en": "PIEC® — No-Nonsense Sourdough"
-  },
-  "cardDesc": {
-    "pl": "Marka rzemieślniczej piekarni zakwasowej oparta na długiej fermentacji, prostych składnikach i odważnym tonie.",
-    "en": "A craft sourdough bakery brand built around slow fermentation, simple ingredients and a bold voice."
-  },
-  "liveLabel": {
-    "pl": "Otwórz projekt",
-    "en": "Open live project"
-  },
-  "title": {
-    "pl": "PIEC® — Niegrzeczny chleb",
-    "en": "PIEC® — No-Nonsense Sourdough Bakery"
-  },
-  "subtitle": {
-    "pl": "Marka piekarni rzemieślniczej, która opowiada o zakwasie, czasie i wypiekach z charakterem.",
-    "en": "A craft bakery brand built around sourdough, time and baked goods with character."
-  },
-  "tag": {
-    "pl": "08 · Marka / Żywność",
-    "en": "08 · Brand / Food"
-  },
-  "pageType": {
-    "pl": "Strona marki + katalog wypieków",
-    "en": "Brand website + bakery range"
-  },
-  "keyFeatures": {
-    "pl": "48 godzin fermentacji · 4 linie wypieków · FAQ",
-    "en": "48-hour fermentation · 4 bakery lines · FAQ"
-  },
-  "duration": null,
-  "technology": "Framer · Responsive CMS site",
-  "stats": {
-    "pl": [
-      [
-        "48 GODZIN",
-        "Fermentacja zakwasu"
-      ],
-      [
-        "4 LINIE",
-        "Chleb, croissanty, brioche i bagietki"
-      ],
-      [
-        "4 SKŁADNIKI",
-        "Prosty skład komunikowany na stronie"
-      ],
-      [
-        "1 GŁOS",
-        "Wyrazista, konsekwentna osobowość marki"
-      ]
-    ],
-    "en": [
-      [
-        "48 HOURS",
-        "Sourdough fermentation"
-      ],
-      [
-        "4 LINES",
-        "Bread, croissants, brioche and baguettes"
-      ],
-      [
-        "4 INGREDIENTS",
-        "Simple ingredients highlighted on site"
-      ],
-      [
-        "1 VOICE",
-        "Distinctive, consistent brand personality"
-      ]
-    ]
-  },
-  "sections": {
-    "pl": [
-      {
-        "heading": "Marka zbudowana wokół własnego charakteru",
-        "body": "Hasło „Niegrzeczny chleb” od razu ustawia ton. Mocna typografia, kontrast i krótkie komunikaty sprawiają, że marka jest łatwa do zapamiętania."
-      },
-      {
-        "heading": "Proces rzemieślniczy jako główna opowieść",
-        "body": "Długi czas fermentacji i ręczna praca są pokazane jako konkretne etapy: wyrabianie, fermentacja, pieczenie i przełamanie bochenka. Strona przekłada sposób produkcji na historię marki."
-      },
-      {
-        "heading": "Wypieki mają własne nazwy i role",
-        "body": "Buntownik, Croissant Chaos, Brioche Baby i Bagietki Rebel porządkują ofertę w cztery rozpoznawalne linie. FAQ odpowiada na podstawowe pytania o zakwas, skład i asortyment."
-      }
-    ],
-    "en": [
-      {
-        "heading": "A brand with a clear point of view",
-        "body": "The “Niegrzeczny chleb” (“naughty bread”) line sets the tone immediately. Strong typography, contrast and concise copy make the identity easy to recognise."
-      },
-      {
-        "heading": "The craft process becomes the story",
-        "body": "Long fermentation and hands-on baking are presented as clear stages: kneading, fermentation, baking and breaking the loaf. The site turns the process into the brand narrative."
-      },
-      {
-        "heading": "A bakery range with its own character",
-        "body": "Buntownik, Croissant Chaos, Brioche Baby and Bagietki Rebel organise the offer into four memorable lines. The FAQ answers basic questions about sourdough, ingredients and products."
-      }
-    ]
-  }
-}
+    }
   ]
 };

@@ -1,0 +1,79 @@
+/* The header sits outside the hero so its containing block is the viewport. */
+:root { --nav-height: 74px; scroll-padding-top: calc(var(--nav-height) + 16px); }
+body { padding-top: var(--nav-height); }
+.portfolio-nav {
+  position: fixed; inset: 0 0 auto; z-index: 100;
+  background: var(--hero-bg); color: var(--hero-ink);
+  border-bottom: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+}
+.portfolio-nav .nav-wrap { margin: 0; height: var(--nav-height); border: 0; }
+.portfolio-nav .mobile-drawer {
+  margin: 0 0 12px; max-height: calc(100dvh - var(--nav-height) - 14px);
+  overflow-y: auto; overscroll-behavior: contain;
+}
+.hero-section, .case-masthead, .archive-masthead { padding-top: clamp(32px, 4vw, 60px); }
+.case-content-aside { top: calc(var(--nav-height) + 20px); }
+.progress-bar { z-index: 110; }
+.project-facts { display: flex; flex-wrap: wrap; align-items: stretch; gap: 6px; margin: 0 0 20px; }
+.project-facts > div { padding: 6px 9px; border: 1px solid var(--line); border-radius: 4px; min-width: 0; }
+.project-facts dt { color: var(--muted); font: 500 .625rem/1.35 var(--mono); }
+.project-facts dd { margin: 2px 0 0; font: 500 .75rem/1.35 var(--sans); color: var(--ink); }
+.preview-link { display: block; padding: 0; min-width: 0; }
+.preview-link:focus-visible { outline: 3px solid var(--signal); outline-offset: 3px; }
+.project-footer .icon-link { color: var(--signal); }
+.row-art-box.preview-link { min-height: 0; height: auto; align-self: stretch; position: relative; }
+.row-art-box.preview-link > .pv { position: absolute; inset: 0; }
+.case-preview-stage { margin-block: clamp(22px, 3vw, 42px); }
+.case-preview {
+  width: min(100%, 1020px); aspect-ratio: 1.85; margin-inline: auto; overflow: hidden;
+  border-radius: var(--card-radius); border: 1px solid var(--line);
+}
+.case-meta-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+.case-stat strong { color: var(--signal); font: 600 .72rem/1.45 var(--mono); letter-spacing: .045em; text-transform: uppercase; }
+.case-stat span { max-width: none; color: var(--ink); font: 500 1rem/1.45 var(--sans); }
+.case-demo { margin: 0 0 24px; }
+.case-demo summary { width: fit-content; cursor: pointer; color: var(--hero-ink); font: 600 1rem/1.5 var(--sans); text-decoration: underline; text-underline-offset: .2em; }
+.case-demo .case-hero-art { margin-top: 12px; }
+.service-row, .service-row:hover {
+  grid-template-columns: minmax(3ch, .15fr) minmax(0,1fr) minmax(0,1.03fr);
+  gap: clamp(16px,2.6vw,42px); padding-inline: clamp(12px,2vw,28px);
+  transition: background-color 200ms ease;
+}
+.service-row > * { min-width: 0; }
+.service-row h3 { text-wrap: balance; overflow-wrap: anywhere; }
+.service-row p { overflow-wrap: break-word; }
+@media (max-width: 960px) {
+  .row-art-box.preview-link { aspect-ratio: 1.85; }
+}
+@media (min-width: 721px) and (max-width: 960px) {
+  .portfolio-nav .nav-links, .portfolio-nav .nav-cta { display: none; }
+  .portfolio-nav .mobile-menu-btn { display: grid; }
+}
+@media (min-width: 961px) {
+  .portfolio-nav .mobile-drawer { display: none !important; }
+}
+@media (max-width: 720px) {
+  :root { --nav-height: 60px; }
+  .project-card .project-art-box.preview-link {
+    width: calc(100% - 24px); height: auto; min-height: 0; aspect-ratio: 1.85;
+    margin: 12px; position: relative;
+  }
+  .project-card .project-art-box.preview-link > .pv { position: absolute; inset: 0; }
+  .case-meta-grid { grid-template-columns: minmax(0,1fr); gap: 16px; }
+  .service-row, .service-row:hover {
+    grid-template-columns: 2.5ch minmax(0,1fr);
+    grid-template-areas: 'number title' '. description';
+    gap: 8px 14px; padding: 24px 8px;
+  }
+  .service-row .service-number { grid-area: number; }
+  .service-row h3 { grid-area: title; }
+  .service-row p { grid-area: description; }
+}
+/* Reserve the same space for each service, including a wrapped heading. */
+.service-list { display: grid; grid-auto-rows: 1fr; }
+
+.case-facts { margin: 20px 0; }
+.case-facts > div { background: color-mix(in srgb, var(--hero-bg) 92%, var(--hero-ink)); border-color: color-mix(in srgb, var(--hero-ink) 20%, transparent); }
+.case-facts dt { color: var(--hero-muted); }
+.case-facts dd { color: var(--hero-ink); }
+.case-facts + .case-subtitle { max-width: 64ch; margin-top: 0; }

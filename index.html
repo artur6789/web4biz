@@ -3,45 +3,44 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <!-- Natychmiastowe ustawienie motywu przed pierwszym rysowaniem strony (zero mignięcia tła) -->
+  <style id="initial-colors">
+    html { color-scheme: light; background-color: #f4f2e9; color: #172019; }
+    html[data-theme="forest"] { color-scheme: dark; background-color: #141a16; color: #f0f2e9; }
+    html[data-theme="bento"] { color-scheme: dark; background-color: #07090b; color: #f4f6f8; }
+  </style>
   <script>
-    (function () {
+    (() => {
+      let theme = 'editorial';
       try {
-        var theme = localStorage.getItem('w4b_theme') || 'editorial';
-        document.documentElement.setAttribute('data-theme', theme);
-      } catch (e) {}
-      document.documentElement.classList.add('is-loading');
-      window.addEventListener('DOMContentLoaded', function () {
-        requestAnimationFrame(function () {
-          requestAnimationFrame(function () {
-            document.documentElement.classList.remove('is-loading');
-          });
-        });
-      });
+        const saved = localStorage.getItem('w4b_theme');
+        if (saved === 'forest' || saved === 'bento') theme = saved;
+      } catch { /* Storage may be unavailable in private browsing. */ }
+      document.documentElement.dataset.theme = theme;
     })();
   </script>
 
-  <title>Strony B2B i narzędzia webowe | Archie</title>
-  <meta name="description" content="Strony B2B i praktyczne narzędzia online, które pomagają klientom wybrać właściwą usługę i przekazać zespołowi potrzebny kontekst."/>
+  <title>Strony internetowe, narzędzia i aplikacje dla firm | web4biz.pl</title>
+  <link rel="canonical" href="https://artur6789.github.io/web4biz/">
+  <link rel="alternate" hreflang="pl" href="https://artur6789.github.io/web4biz/">
+  <link rel="alternate" hreflang="en" href="https://artur6789.github.io/web4biz/index-en.html">
+  <link rel="alternate" hreflang="x-default" href="https://artur6789.github.io/web4biz/">
+  <meta property="og:site_name" content="web4biz.pl">
+  <meta property="og:type" content="website">
+  <meta name="description" content="Projektuję strony B2B, narzędzia online i aplikacje webowe. Zobacz realizacje, poznaj sposób współpracy i sprawdź, jaki zakres pasuje do Twojej firmy.">
+  <meta property="og:title" content="Strony internetowe, narzędzia i aplikacje dla firm | web4biz.pl">
+  <meta property="og:description" content="Projektuję strony B2B, narzędzia online i aplikacje webowe. Zobacz realizacje, poznaj sposób współpracy i sprawdź, jaki zakres pasuje do Twojej firmy.">
+  <meta property="og:url" content="https://artur6789.github.io/web4biz/">
+  <meta property="og:locale" content="pl_PL">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Strony internetowe, narzędzia i aplikacje dla firm | web4biz.pl">
+  <meta name="twitter:description" content="Projektuję strony B2B, narzędzia online i aplikacje webowe. Zobacz realizacje, poznaj sposób współpracy i sprawdź, jaki zakres pasuje do Twojej firmy.">
+
   <meta name="robots" content="index, follow"/>
-  <link rel="canonical" href="https://artur6789.github.io/web4biz/"/>
-  <link rel="alternate" hreflang="pl" href="https://artur6789.github.io/web4biz/"/>
-  <link rel="alternate" hreflang="en" href="https://artur6789.github.io/web4biz/?lang=en"/>
-  <link rel="alternate" hreflang="x-default" href="https://artur6789.github.io/web4biz/"/>
 
   <!-- Inline SVG Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23172019'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='800' font-size='26' fill='%23d8fa52'%3Ew4b%3C/text%3E%3C/svg%3E"/>
 
   <!-- OpenGraph & Social Preview -->
-  <meta property="og:type" content="website"/>
-  <meta property="og:url" content="https://artur6789.github.io/web4biz/"/>
-  <meta property="og:title" content="Strony B2B i narzędzia webowe | Archie"/>
-  <meta property="og:description" content="Strony B2B i praktyczne narzędzia online, które pomagają klientom wybrać właściwą usługę i przekazać zespołowi potrzebny kontekst."/>
-  <meta property="og:locale" content="pl_PL"/>
-  <meta property="og:locale:alternate" content="en_US"/>
-  <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Strony B2B i narzędzia webowe | Archie"/>
-  <meta name="twitter:description" content="Strony B2B i praktyczne narzędzia online, które pomagają klientom wybrać właściwą usługę i przekazać zespołowi potrzebny kontekst."/>
 
   <!-- Dane strukturalne Schema.org (SEO + wyszukiwarki AI / GEO) -->
   <script type="application/ld+json">
@@ -78,14 +77,12 @@
   }
   </script>
 
-  <!-- Google Fonts: Space Grotesk + DM Sans + JetBrains Mono (display=swap keeps text visible while fonts load) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Space+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet"/>
+<link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/space-grotesk-latin-wght-normal.woff2">
+  <link rel="stylesheet" href="assets/fonts/fonts.css">
 
   <!-- Wspólne dane projektów + Alpine.js (bez zbędnego GSAP) -->
   <script src="projects-data.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.17.5/dist/cdn.min.js"></script>
+  <script defer src="vendor/alpine-3.17.5.min.js"></script>
 
   <style>
     /* ═══════════════════════════════════════════════════════════════════
@@ -111,8 +108,8 @@
       --btn-radius: 6px;
       --ease-out-quart: cubic-bezier(0.22, 1, 0.36, 1);
       --ease-out-snappy: cubic-bezier(0.215, 0.61, 0.355, 1);
-      --display: 'Space Grotesk', sans-serif;
-      --sans: 'DM Sans', sans-serif;
+      --display: 'Space Grotesk', Arial, sans-serif;
+      --sans: 'DM Sans', Arial, sans-serif;
       --mono: 'JetBrains Mono', monospace;
     }
 
@@ -154,8 +151,8 @@
 
     *, *::before, *::after { box-sizing: border-box; }
     [x-cloak] { display: none !important; }
-    html.is-loading,
-    html.is-loading * { transition: none !important; }
+    html:not(.theme-selected) body,
+    html:not(.theme-selected) :is(.hero-section, .case-masthead, .archive-masthead, .portfolio-nav) { transition: none; }
     html { scroll-behavior: smooth; scroll-padding-top: 5rem; background: var(--bg); }
     body {
       margin: 0;
@@ -1030,53 +1027,6 @@
       transition: transform 650ms var(--ease-out-quart), filter 650ms var(--ease-out-quart);
     }
     .project-card:hover .project-art-box { transform: scale(1.012); filter: saturate(1.04); }
-    .kubatura-preview { gap: 0; }
-    .kubatura-preview-copy { margin-top: -8px; font: 800 clamp(22px, 2.1vw, 27px)/1.08 var(--display); letter-spacing: -.04em; }
-    .kubatura-truck-panel { position: relative; top: -28px; margin-bottom: -28px; padding: 10px 12px 7px !important; }
-    .kubatura-truck-art { max-height: 116px; }
-    .gemba-preview { display: block; overflow: hidden; padding: 0; background: #eeebe5; color: #15212a; }
-    .gemba-screen { display: grid; grid-template-columns: minmax(0, .76fr) minmax(0, 1.24fr); gap: clamp(16px, 2.4vw, 34px); width: 100%; height: 100%; padding: clamp(18px, 2.5vw, 36px); background-image: linear-gradient(rgba(21,33,42,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(21,33,42,.045) 1px, transparent 1px); background-size: 48px 48px; }
-    .gemba-story { display: flex; min-width: 0; flex-direction: column; justify-content: space-between; }
-    .gemba-brandline, .gemba-label, .gemba-stat span, .gemba-form-top, .gemba-form-foot { font-family: var(--mono); text-transform: uppercase; letter-spacing: .12em; }
-    .gemba-brandline { display: flex; align-items: center; gap: 8px; color: #5c6970; font-size: 8px; }
-    .gemba-brand-dot { width: 7px; height: 7px; background: #b8432e; }
-    .gemba-story-main { margin-block: 18px; }
-    .gemba-label { margin: 0 0 13px; color: #69757a; font-size: 8px; }
-    .gemba-story h4 { max-width: 340px; margin: 0; font: 700 clamp(23px, 3.05vw, 42px)/.98 var(--display); letter-spacing: -.065em; }
-    .gemba-story h4 span { color: #b8432e; }
-    .gemba-story-copy { max-width: 340px; margin: 16px 0 0; color: #53626c; font: 400 clamp(10px, 1.04vw, 14px)/1.55 var(--sans); }
-    .gemba-stats { display: flex; gap: clamp(12px, 2.2vw, 30px); padding-top: 12px; border-top: 1px solid rgba(21,33,42,.16); }
-    .gemba-stat strong { display: block; font: 600 clamp(16px, 1.7vw, 22px)/1 var(--display); }
-    .gemba-stat span { display: block; margin-top: 6px; color: #68747a; font-size: 7px; }
-    .gemba-app { display: grid; min-width: 0; grid-template-rows: auto minmax(0,1fr) auto auto; overflow: hidden; border: 1px solid #d5d1ca; background: #fbfaf7; box-shadow: 0 12px 28px rgba(29,36,39,.11); }
-    .gemba-form-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 38px; padding: 0 13px; border-bottom: 1px solid #d8d4cd; color: #52616a; font-size: 7px; }
-    .gemba-dictate { padding: 5px 7px; border: 1px solid #d8d4cd; color: #53616a; white-space: nowrap; }
-    .gemba-inputs { display: grid; grid-template-rows: minmax(66px,1fr) auto; min-height: 0; padding: 14px 14px 0; }
-    .gemba-problem { color: #77838a; font: 400 clamp(12px, 1.4vw, 18px)/1.4 var(--sans); }
-    .gemba-location { padding: 10px 0; border-top: 1px dotted #d8d4cd; color: #77838a; font: 400 clamp(10px, 1.15vw, 14px)/1.4 var(--sans); }
-    .gemba-suggestions { padding: 11px 14px; border-block: 1px solid #d8d4cd; background: #f4f1ec; }
-    .gemba-suggestions-title { margin: 0 0 8px; color: #69757a; font: 500 7px var(--mono); letter-spacing: .14em; }
-    .gemba-chips { display: flex; flex-wrap: wrap; gap: 5px; }
-    .gemba-chip { padding: 5px 7px; border: 1px solid #d8d4cd; background: #fbfaf7; color: #52616a; font: 400 clamp(8px, .82vw, 10px)/1.25 var(--sans); }
-    .gemba-form-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 14px; color: #53616a; font-size: 7px; letter-spacing: .08em; }
-    .gemba-submit { padding: 8px 10px; background: #e8e4dd; color: #38454b; white-space: nowrap; }
-    .piec-preview { display: block; overflow: hidden; padding: 0; background: #100b08; color: #fff0dc; }
-    .piec-site-card { position: relative; display: flex; height: 100%; min-height: 0; flex-direction: column; justify-content: space-between; overflow: hidden; padding: clamp(16px, 2.2vw, 30px); background: radial-gradient(ellipse at 78% 45%, rgba(240,48,36,.17), transparent 35%), linear-gradient(135deg, #100b08 0%, #1a100b 55%, #0d0907 100%); }
-    .piec-site-card::after { position: absolute; inset: 0; z-index: 0; border: 1px solid rgba(255,240,220,.1); content: ''; pointer-events: none; }
-    .piec-site-head, .piec-site-copy, .piec-site-products { position: relative; z-index: 1; }
-    .piec-site-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,240,220,.16); }
-    .piec-brand { display: inline-flex; align-items: center; gap: 8px; color: #fff0dc; font: 800 clamp(16px, 1.9vw, 23px)/1 var(--display); letter-spacing: -.06em; }
-    .piec-brand img { display: block; width: clamp(22px, 2.4vw, 30px); height: clamp(22px, 2.4vw, 30px); object-fit: contain; }
-    .piec-site-nav { color: rgba(255,240,220,.68); font: 500 7px var(--mono); letter-spacing: .12em; text-transform: uppercase; }
-    .piec-site-copy { margin-block: auto; padding-block: 18px 22px; }
-    .piec-site-kicker { margin: 0 0 9px; color: rgba(255,240,220,.66); font: 500 7px var(--mono); letter-spacing: .16em; text-transform: uppercase; }
-    .piec-site-copy h4 { max-width: 680px; margin: 0; color: #fff0dc; font: 800 clamp(32px, 5vw, 68px)/.82 var(--display); letter-spacing: -.085em; text-transform: uppercase; }
-    .piec-site-copy h4 span { color: #f03224; }
-    .piec-site-copy p { max-width: 350px; margin: 13px 0 0; color: rgba(255,240,220,.7); font: 500 clamp(9px, 1vw, 12px)/1.45 var(--sans); }
-    .piec-site-products { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 6px; }
-    .piec-product { min-width: 0; padding: 9px 9px 8px; border: 1px solid rgba(255,240,220,.16); background: rgba(255,240,220,.04); }
-    .piec-product b { display: block; overflow: hidden; color: #fff0dc; font: 700 clamp(8px, 1vw, 11px)/1.15 var(--display); letter-spacing: -.02em; text-overflow: ellipsis; white-space: nowrap; }
-    .piec-product span { display: block; margin-top: 5px; color: #f03224; font: 500 6px var(--mono); letter-spacing: .12em; text-transform: uppercase; }
     .art-route-split { grid-template-columns: minmax(0,1.45fr) minmax(175px,1fr); }
     .art-route-panel { padding: clamp(18px,2vw,32px); }
     .what-i-do-section, .how-i-work-section { background: var(--bg); color: var(--ink); border-top: 1px solid var(--line); }
@@ -1130,25 +1080,6 @@
       .project-body h3 { font-size: clamp(1.8rem,8vw,2.5rem); }
       .project-body p { font-size: 14px; }
       .project-card .project-art-box { height: 310px; min-height: 310px; margin: 0 12px 12px; }
-      .gemba-screen { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); gap: 9px; padding: 11px; }
-      .gemba-brandline, .gemba-label, .gemba-story-copy, .gemba-stats { display: none; }
-      .gemba-story-main { margin: 0; }
-      .gemba-label, .gemba-brandline, .gemba-stat span, .gemba-form-top, .gemba-form-foot, .gemba-suggestions-title { font-size: 6px; }
-      .gemba-story h4 { font-size: clamp(21px, 6vw, 29px); line-height: .94; }
-      .gemba-app { grid-template-rows: 30px minmax(0,1fr) auto 36px; }
-      .gemba-inputs { padding: 10px 10px 0; }
-      .gemba-suggestions { padding: 8px 10px; }
-      .gemba-chip { padding: 4px 5px; font-size: 7px; }
-      .gemba-form-foot { padding: 8px 10px; }
-      .gemba-form-foot > span:first-child { max-width: 55%; }
-      .piec-site-card { padding: 15px; }
-      .piec-brand { font-size: 16px; }
-      .piec-brand img { width: 22px; height: 22px; }
-      .piec-site-copy h4 { font-size: clamp(30px, 8vw, 45px); }
-      .piec-site-copy p { font-size: 9px; }
-      .piec-product { padding: 7px 6px; }
-      .piec-product b { font-size: 7px; }
-      .piec-product span { font-size: 5px; }
       .project-card .art-route-split { grid-template-columns: 1fr; }
       .project-card .art-route-map-box { min-height: 310px; }
       .project-card .art-route-panel { display: none; }
@@ -1166,23 +1097,22 @@
       .project-card, .project-art-box, .service-row, .process-row { transition: none; }
     }
   </style>
+  <link rel="stylesheet" href="project-previews.css"/>
+  <link rel="stylesheet" href="portfolio-layout.css"/>
+  <script src="project-previews.js"></script>
+  <script src="seo.js"></script>
 </head>
 
 <body>
-
-  <!-- ═══ HERO SECTION + NAWIGACJA + MOBILE DRAWER ═══ -->
-  <section class="hero-section" id="top">
-    <div class="page-wrap">
-
-      <!-- Main Navigation -->
-      <header class="nav-wrap">
+  <div class="portfolio-nav"><div class="page-wrap">
+<header class="nav-wrap">
         <a href="#top" class="wordmark">
           web<span class="wordmark-accent">4</span>biz<span>.pl</span>
           <span class="wordmark-sub">by archie.</span>
         </a>
 
         <nav class="nav-links" :aria-label="lang === 'pl' ? 'Główna nawigacja' : 'Main navigation'">
-          <a href="projects.html" x-text="navProjectsLabel">Projekty (5)</a>
+          <a href="projects.html?lang=pl" :href="web4bizSeo.link('projects.html', lang)" x-text="navProjectsLabel">Projekty (8)</a>
           <a href="#what-i-do" x-text="t.navEstimator">Co robię</a>
           <a href="#how-i-work" x-text="t.navAbout">Jak pracuję</a>
           <a href="#contact" x-text="t.navContact">Kontakt</a>
@@ -1200,7 +1130,7 @@
               :class="direction === 'editorial' ? 'is-active' : ''"
               @click="setDirection('editorial')"
               :title="lang === 'pl' ? 'Widok 01: Jasny (Lime & Paper)' : 'View 01: Light (Lime & Paper)'"
-              aria-label="Widok 01">
+              :aria-label="lang === 'pl' ? 'Widok 01' : 'View 01'">
               <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
                 <circle cx="10" cy="10" r="3.6"/>
                 <path d="M10 2v2.2M10 15.8V18M18 10h-2.2M4.2 10H2M15.66 4.34l-1.56 1.56M5.9 14.1l-1.56 1.56M15.66 15.66l-1.56-1.56M5.9 5.9 4.34 4.34"/>
@@ -1211,7 +1141,7 @@
               :class="direction === 'forest' ? 'is-active' : ''"
               @click="setDirection('forest')"
               :title="lang === 'pl' ? 'Widok 03: Półmrok (Forest & Brass)' : 'View 03: Dusk (Forest & Brass)'"
-              aria-label="Widok 03">
+              :aria-label="lang === 'pl' ? 'Widok 03' : 'View 03'">
               <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="10" cy="10" r="6.5"/>
                 <path d="M10 3.5a6.5 6.5 0 0 1 0 13V3.5Z" fill="currentColor"/>
@@ -1222,7 +1152,7 @@
               :class="direction === 'bento' ? 'is-active' : ''"
               @click="setDirection('bento')"
               :title="lang === 'pl' ? 'Widok 02: Nocny (Obsidian & Cyan)' : 'View 02: Night (Obsidian & Cyan)'"
-              aria-label="Widok 02">
+              :aria-label="lang === 'pl' ? 'Widok 02' : 'View 02'">
               <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M16.8 12.4A6.8 6.8 0 0 1 7.6 3.2a6.9 6.9 0 1 0 9.2 9.2Z"/>
               </svg>
@@ -1235,7 +1165,7 @@
           </a>
 
           <!-- Przycisk menu na urządzeniach mobilnych (<= 720px) -->
-          <button type="button" class="mobile-menu-btn tactile"
+          <button type="button" class="mobile-menu-btn tactile" aria-controls="portfolio-mobile-menu"
             @click="mobileMenuOpen = !mobileMenuOpen"
             :aria-expanded="mobileMenuOpen"
             :aria-label="lang === 'pl' ? 'Otwórz menu nawigacji' : 'Toggle navigation menu'">
@@ -1250,10 +1180,10 @@
       </header>
 
       <!-- Panel Nawigacji Mobilnej (Drawer) -->
-      <nav class="mobile-drawer" x-show="mobileMenuOpen" x-cloak
+      <nav id="portfolio-mobile-menu" class="mobile-drawer" @click.outside="if (!$event.target.closest('.mobile-menu-btn')) mobileMenuOpen = false" x-show="mobileMenuOpen" x-cloak
            :aria-label="lang === 'pl' ? 'Menu mobilne' : 'Mobile navigation'">
-        <a href="projects.html" @click="mobileMenuOpen = false">
-          <span x-text="navProjectsLabel">Projekty (5)</span>
+        <a href="projects.html?lang=pl" :href="web4bizSeo.link('projects.html', lang)" @click="mobileMenuOpen = false">
+          <span x-text="navProjectsLabel">Projekty (8)</span>
           <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
         </a>
         <a href="#what-i-do" @click="mobileMenuOpen = false">
@@ -1273,6 +1203,14 @@
           <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
         </a>
       </nav>
+  </div></div>
+
+  <!-- ═══ HERO SECTION + NAWIGACJA + MOBILE DRAWER ═══ -->
+  <section class="hero-section" id="top">
+    <div class="page-wrap">
+
+      <!-- Main Navigation -->
+      
 
       <!-- 2-Column Hero Layout (wypełniony tekst domyślny pod SEO/GEO i zero CLS) -->
       <div class="hero-grid">
@@ -1346,7 +1284,7 @@
 
       <!-- Full project archive -->
       <div class="filter-bar">
-        <a href="projects.html" class="filter-pill filter-cta tactile">
+        <a href="projects.html?lang=pl" :href="web4bizSeo.link('projects.html', lang)" class="filter-pill filter-cta tactile">
           <span x-text="lang === 'pl' ? 'Wszystkie projekty' : 'All projects'">Wszystkie projekty</span>
           <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
         </a>
@@ -1358,18 +1296,15 @@
       <div class="project-grid">
 
         <!-- 01. AD REM T2 -->
-        <article class="project-card" data-reveal>
-          <a href="case-study.html?project=adremt2" class="project-art-box">
-            <div class="art-route-split">
-              <div class="art-route-map-box">
-                <div class="art-micro-header">
-                  <span x-text="lang === 'pl' ? 'EUROPA / KIERUNKI' : 'EUROPE / ROUTES'">EUROPA / KIERUNKI</span>
-                  <span x-text="lang === 'pl' ? '◉ WARSZAWA / BAZA' : '◉ WARSAW / HUB'">◉ WARSZAWA / BAZA</span>
-                </div>
-                <svg class="route-map-graphic" viewBox="0 0 900 520" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:28px 0 0; height:calc(100% - 28px);">
-                  <path class="route-map-land" d="m101 76 41-25 34 8 24-23 39 12 28 31 34-8 30 18 27-9 30 21 41-12 30 22 43-5 24 23 43-2 23 29 40 14 13 32-19 25-35 7-5 30-28 15-12 34-34 12-15 32-39 6-20 27-37-4-20-26-31-5-18-24-36-2-19-24-31-4-13-24-32-14-10-25-32-13-15-28-35-9-9-28-31-6-12-24 20-26Z"/>
-                  <path class="route-map-land route-map-land-secondary" d="m73 256 38 7 28 27-10 34-33 20-30-21-9-34Zm209 172 31-22 35 9 8 22-27 21-34-7Zm286 24 32-18 25 10-12 25-31 8Zm-75-436 34-13 30 15-13 25-32-4Z"/>
-                  <g class="route-map-borders">
+        <article class="project-card" data-reveal x-data="{project: WEB4BIZ_DATA.projects.find(item => item.id === 'adremt2')}">
+          <a class="project-art-box preview-link" href="case-adremt2-pl.html" :href="web4bizSeo.link('case-study.html?project=adremt2', lang)" :aria-label="project.cardTitle[lang] + ' - case study'"
+             x-html="projectPreview(project.id, lang)"><div class="pv pv-adremt2" lang="pl" aria-hidden="true">
+      <div class="pv-canvas"><div class="pv-route-map">
+      <div class="pv-top"><span>Europa / kierunki</span><span>WARSZAWA / BAZA</span></div>
+      <svg viewBox="0 0 760 490" aria-hidden="true">
+                  <path class="pv-map-land" d="m101 76 41-25 34 8 24-23 39 12 28 31 34-8 30 18 27-9 30 21 41-12 30 22 43-5 24 23 43-2 23 29 40 14 13 32-19 25-35 7-5 30-28 15-12 34-34 12-15 32-39 6-20 27-37-4-20-26-31-5-18-24-36-2-19-24-31-4-13-24-32-14-10-25-32-13-15-28-35-9-9-28-31-6-12-24 20-26Z"/>
+                  <path class="pv-map-land pv-map-land-secondary" d="m73 256 38 7 28 27-10 34-33 20-30-21-9-34Zm209 172 31-22 35 9 8 22-27 21-34-7Zm286 24 32-18 25 10-12 25-31 8Zm-75-436 34-13 30 15-13 25-32-4Z"/>
+                  <g class="pv-map-borders">
                     <path d="m199 79 21 48 39 22 25-19 34 26-9 47 28 26-10 37-31 17 2 41-32 19-17 42"/>
                     <path d="m263 79 20 52 38 25 37-12 26 29-8 37 34 22-9 34-36 17 1 43-28 22"/>
                     <path d="m344 91 11 42 39 23 19 39-22 30 27 25-7 39 28 26-17 39"/>
@@ -1377,58 +1312,55 @@
                     <path d="m493 105 18 46 36 13 15 40-20 26 26 27-12 40 26 20"/>
                     <path d="m568 126 23 37 36 11 15 31-16 33 27 31-16 37"/>
                   </g>
-                  <path class="route-map-poland" d="m480 193 30-14 34 8 18 25 31 7 7 33-17 25 5 31-26 20-31-8-20 13-27-15-17-25-24-8-5-27 18-20Z"/>
-                  <g class="route-map-cities">
+                  <path class="pv-map-poland" d="m480 193 30-14 34 8 18 25 31 7 7 33-17 25 5 31-26 20-31-8-20 13-27-15-17-25-24-8-5-27 18-20Z"/>
+                  <g class="pv-map-cities">
                     <circle cx="534" cy="235" r="7"/><circle cx="367" cy="252" r="6"/><circle cx="284" cy="287" r="6"/>
                     <circle cx="412" cy="353" r="6"/><circle cx="225" cy="226" r="6"/><circle cx="319" cy="238" r="6"/>
                   </g>
-                  <circle class="route-map-start" cx="534" cy="235" r="10"/>
-                  <text class="route-map-label" x="550" y="240" x-text="lang === 'pl' ? 'WARSZAWA / BAZA' : 'WARSAW / HUB'">WARSZAWA / BAZA</text>
+                  <circle class="pv-map-start" cx="534" cy="235" r="10"/>
+                  <text class="pv-map-label" x="550" y="240">WARSZAWA / BAZA</text>
                 </svg>
-              </div>
-              <div class="art-route-panel">
-                <span style="font:500 10.5px var(--mono); color:#686a64;" x-text="lang === 'pl' ? '↳ PODGLĄD RELACJI' : '↳ ROUTE PREVIEW'">↳ PODGLĄD RELACJI</span>
-                <h4 style="margin:0; font:700 18px/1 var(--display);" x-text="lang === 'pl' ? 'Dokąd jedziemy?' : 'Choose destination'">Dokąd jedziemy?</h4>
-                <p x-text="lang === 'pl' ? 'Wybierz miasto docelowe na mapie Europy i przejdź do wyceny trasy z Warszawy.' : 'Pick a destination city on the Europe map to estimate road distance from Warsaw.'">Wybierz miasto docelowe na mapie Europy i przejdź do wyceny trasy z Warszawy.</p>
-                <span style="font:500 10.5px var(--mono); color:#d90429;" x-text="lang === 'pl' ? '◷ Dyspozytor 24/7 · 0 PLN kosztów API' : '◷ 24/7 Dispatcher · Zero Map API Cost'">◷ Dyspozytor 24/7 · 0 PLN kosztów API</span>
-              </div>
-            </div>
-          </a>
+    </div>
+    <div class="pv-route-copy">
+      <small>Podgląd trasy</small>
+      <strong>Dokąd jedziemy?</strong>
+      <p>Wybierz miasto docelowe na mapie i sprawdź trasę z Warszawy.</p>
+      <small class="pv-highlight">Dyspozytor 24/7</small>
+    </div></div>
+    </div></a>
           <div class="project-body">
             <div>
-              <div class="project-tags">
-                <span x-text="lang === 'pl' ? '01 / Transport & TSL' : '01 / B2B Logistics'">01 / Transport &amp; TSL</span>
-                <span>Vanilla JS · SVG · GeoJSON</span>
-                <span x-text="lang === 'pl' ? 'Kalkulator Tras' : 'Route Calculator'">Kalkulator Tras</span>
-              </div>
-              <h3 x-text="lang === 'pl' ? 'AD REM T2 - Transport, logistyka i spedycja' : 'AD REM T2 - Transport, Logistics & Freight'">AD REM T2 - Transport, logistyka i spedycja</h3>
-              <p x-text="lang === 'pl' ? 'Interaktywna mapa Europy pozwala wskazać miasto, sprawdzić dystans drogowy z Warszawy i wysłać sprecyzowane zapytanie do dyspozytora.' : 'Interactive European vector map lets visitors pick a destination, calculate road distance from Warsaw, and send a pre-populated freight enquiry.'">Interaktywna mapa Europy pozwala wskazać miasto, sprawdzić dystans drogowy z Warszawy i wysłać sprecyzowane zapytanie do dyspozytora.</p>
+              <dl class="project-facts">
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Branża' : 'Industry'">Branża</dt>
+                  <dd x-text="project.industry[lang]">Transport i spedycja</dd>
+                </div>
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Technologia' : 'Technology'">Technologia</dt>
+                  <dd x-text="project.technology[lang]">JavaScript · SVG · GeoJSON</dd>
+                </div>
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Narzędzie' : 'Tool'">Narzędzie</dt>
+                  <dd x-text="project.tool[lang]">Kalkulator trasy</dd>
+                </div>
+              </dl>
+              <h3 x-text="project.cardTitle[lang]">AD REM T2 - Transport, logistyka i spedycja</h3>
+              <p x-text="project.cardDesc[lang]">Klient wybiera kierunek na mapie, sprawdza trasę z Warszawy i przenosi ją do zapytania o przewóz.</p>
             </div>
             <div class="project-footer">
-              <a href="case-study.html?project=adremt2" class="tactile" x-text="lang === 'pl' ? 'Case study →' : 'Case study →'">Case study →</a>
-              <a href="https://adremt2.pl/index2.html" target="_blank" rel="noopener noreferrer" class="icon-link" style="color:var(--signal);"><span x-text="lang === 'pl' ? 'Otwórz projekt' : 'Open live site'">Otwórz projekt</span><svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg></a>
+              <a class="tactile" href="case-adremt2-pl.html" :href="web4bizSeo.link('case-study.html?project=adremt2', lang)"><span x-text="lang === 'pl' ? 'Zobacz realizację' : 'Read case study'">Zobacz realizację</span> →</a>
+              <a class="icon-link" href="https://adremt2.pl/index2.html" :href="web4bizSeo.link('https://adremt2.pl/index2.html', lang)" target="_blank" rel="noopener noreferrer"><span x-text="project.liveLabel[lang]">Otwórz projekt</span> ↗</a>
             </div>
           </div>
         </article>
 
         <!-- 02. KUBATURA B2B -->
-        <article class="project-card" data-reveal>
-          <a href="case-study.html?project=kubatura" class="project-art-box kubatura-preview" style="background-color:#f4f5f7; background-image:linear-gradient(rgba(24,26,31,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(24,26,31,0.045) 1px, transparent 1px); background-size:28px 28px; color:#181a1f; padding:15px 18px; display:flex; flex-direction:column; justify-content:space-between;">
-            <div style="display:flex; justify-content:space-between; align-items:center; font:600 9.5px var(--mono); letter-spacing:0.05em;">
-              <span style="display:inline-flex; align-items:center; gap:6px; font-weight:700;">
-                <span style="padding:2px 5px; border-radius:3px; background:#ea580c; color:#ffffff;">B2B</span>
-                KUBATURA.
-              </span>
-              <span style="color:#ea580c;">24 m³ / 3.5t · OCP 1M</span>
-            </div>
-
-            <div class="kubatura-preview-copy">
-              <span style="color:#ea580c;" x-text="lang === 'pl' ? 'Przeprowadzka biura w weekend.' : 'Office relocation over one weekend.'">Przeprowadzka biura w weekend.</span><br/>
-              <span style="color:#373c47;" x-text="lang === 'pl' ? 'Zero przestoju w pracy.' : 'Zero operational downtime.'">Zero przestoju w pracy.</span>
-            </div>
-
-            <div style="background:#ffffff; border:1px solid rgba(24,26,31,0.18); border-radius:8px; padding:8px 10px 6px; box-shadow:0 8px 20px rgba(24,26,31,0.07);" class="tabular kubatura-truck-panel">
-              <svg viewBox="0 0 460 114" class="kubatura-truck-art" style="width:100%; height:auto; display:block;" aria-hidden="true">
+        <article class="project-card" data-reveal x-data="{project: WEB4BIZ_DATA.projects.find(item => item.id === 'kubatura')}">
+          <a class="project-art-box preview-link" href="case-kubatura-pl.html" :href="web4bizSeo.link('case-study.html?project=kubatura', lang)" :aria-label="project.cardTitle[lang] + ' - case study'"
+             x-html="projectPreview(project.id, lang)"><div class="pv pv-kubatura" lang="pl" aria-hidden="true">
+      <div class="pv-canvas"><div class="pv-top"><span><b>B2B</b> KUBATURA.</span><span>24 m³ / 3,5 t</span></div>
+      <strong class="pv-truck-title"><em>Przeprowadzka biura w weekend.</em><br>W poniedziałek wracacie do pracy.</strong>
+      <div class="pv-truck-panel"><svg viewBox="0 0 460 114" aria-hidden="true">
                 <line x1="6" y1="101" x2="454" y2="101" stroke="#cbd5e1" stroke-width="2"/>
                 <path d="M10 99 L42 84 H54 V90 L16 101 Z" fill="#ea580c"/>
                 <rect x="22" y="69" width="17" height="14" rx="2" fill="#ea580c"/>
@@ -1461,104 +1393,113 @@
                 <circle cx="384" cy="95" r="12" fill="#181a1f" stroke="#ffffff" stroke-width="2.5"/>
                 <circle cx="384" cy="95" r="4.5" fill="#94a3b8"/>
               </svg>
-
-              <div style="margin-top:4px; padding-top:4px; border-top:1px solid rgba(24,26,31,0.09); display:flex; justify-content:space-between; font:600 9px var(--mono); color:#5a606e;">
-                <span>ŁADUNEK: <strong style="color:#ea580c;">19.8 m³ (83%)</strong></span>
-                <span>MASA: <strong style="color:#059669;">1 980 kg</strong> · PT 17 → PN 08</span>
-              </div>
-            </div>
-          </a>
-
+        <div class="pv-top"><span>Ładunek · 19,8 m³ (83%)</span><span>Masa · 1 980 kg</span></div>
+      </div></div>
+    </div></a>
           <div class="project-body">
             <div>
-              <div class="project-tags">
-                <span x-text="lang === 'pl' ? '02 / Relokacje B2B' : '02 / B2B Relocation'">02 / Relokacje B2B</span>
-                <span x-text="lang === 'pl' ? 'Kalkulator m³ / kg · SVG' : 'm³ / kg Calc · SVG'">Kalkulator m³ / kg · SVG</span>
-              </div>
-              <h3 x-text="lang === 'pl' ? 'KUBATURA - Relokacje Biur i Archiwów' : 'KUBATURA - Corporate Office Relocation'">KUBATURA - Relokacje Biur i Archiwów</h3>
-              <p x-text="lang === 'pl' ? 'Strona B2B dla weekendowych relokacji biur z interaktywnym kalkulatorem kubatury (m³), masy (kg) i przekrojem kontenera 24 m³.' : 'Weekend B2B office relocation platform with a live cargo volume (m³), payload (kg), and 24 m³ box-truck cutaway estimator.'">Strona B2B dla weekendowych relokacji biur z interaktywnym kalkulatorem kubatury (m³), masy (kg) i przekrojem kontenera 24 m³.</p>
+              <dl class="project-facts">
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Branża' : 'Industry'">Branża</dt>
+                  <dd x-text="project.industry[lang]">Przeprowadzki biur</dd>
+                </div>
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Technologia' : 'Technology'">Technologia</dt>
+                  <dd x-text="project.technology[lang]">Alpine.js · SVG</dd>
+                </div>
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Narzędzie' : 'Tool'">Narzędzie</dt>
+                  <dd x-text="project.tool[lang]">Kalkulator ładunku</dd>
+                </div>
+              </dl>
+              <h3 x-text="project.cardTitle[lang]">KUBATURA - Relokacje Biur i Archiwów</h3>
+              <p x-text="project.cardDesc[lang]">Kalkulator sprawdza objętość i masę wyposażenia biura, szacuje liczbę kursów i przygotowuje listę do wyceny.</p>
             </div>
             <div class="project-footer">
-              <a href="case-study.html?project=kubatura" class="tactile" x-text="lang === 'pl' ? 'Case study →' : 'Case study →'">Case study →</a>
-              <a href="kubatura.html" class="icon-link" style="color:var(--signal);"><span x-text="lang === 'pl' ? 'Otwórz projekt' : 'Open live site'">Otwórz projekt</span><svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg></a>
+              <a class="tactile" href="case-kubatura-pl.html" :href="web4bizSeo.link('case-study.html?project=kubatura', lang)"><span x-text="lang === 'pl' ? 'Zobacz realizację' : 'Read case study'">Zobacz realizację</span> →</a>
+              <a class="icon-link" href="kubatura.html?lang=pl" :href="web4bizSeo.link('kubatura.html', lang)" ><span x-text="project.liveLabel[lang]">Otwórz projekt</span> ↗</a>
             </div>
           </div>
         </article>
 
         <!-- 03. 玄 GEMBA - LEAN PROBLEM-SOLVING WORKSPACE -->
-        <article class="project-card" data-reveal>
-          <a href="case-study.html?project=gemba" class="project-art-box gemba-preview" :aria-label="lang === 'pl' ? 'Podgląd aplikacji GEMBA do rozwiązywania problemów Lean' : 'GEMBA Lean problem-solving app preview'">
-            <div class="gemba-screen">
-              <div class="gemba-story">
-                <div class="gemba-brandline"><span class="gemba-brand-dot"></span><span>LEAN THINKING · TPS · SIX SIGMA</span></div>
-                <div class="gemba-story-main">
-                  <p class="gemba-label" x-text="lang === 'pl' ? 'NARZĘDZIE DO DOSKONALENIA PRACY' : 'LEAN THINKING · TPS · SIX SIGMA'">NARZĘDZIE DO DOSKONALENIA PRACY</p>
-                  <h4><span x-text="lang === 'pl' ? 'Opisz problem.' : 'Describe the problem.'">Opisz problem.</span><br/><span x-text="lang === 'pl' ? 'Znajdź metodę.' : 'Get the method.'">Znajdź metodę.</span></h4>
-                  <p class="gemba-story-copy" x-text="lang === 'pl' ? 'Opisz, co nie działa. GEMBA pomaga nazwać źródło problemu i dobrać praktyczne kroki usprawnienia.' : 'Describe what is going wrong. GEMBA helps name the source of the problem and choose practical improvement steps.'">Opisz, co nie działa. GEMBA pomaga nazwać źródło problemu i dobrać praktyczne kroki usprawnienia.</p>
-                </div>
-                <div class="gemba-stats">
-                  <div class="gemba-stat"><strong>47</strong><span x-text="lang === 'pl' ? 'METOD' : 'METHODS'">METOD</span></div>
-                  <div class="gemba-stat"><strong>70+</strong><span x-text="lang === 'pl' ? 'POJĘĆ' : 'TERMS'">POJĘĆ</span></div>
-                  <div class="gemba-stat"><strong>5</strong><span x-text="lang === 'pl' ? 'ETAPÓW' : 'STEPS'">ETAPÓW</span></div>
-                </div>
-              </div>
-              <div class="gemba-app">
-                <div class="gemba-form-top"><span x-text="lang === 'pl' ? 'OPISZ PROBLEM' : 'DESCRIBE THE PROBLEM'">OPISZ PROBLEM</span><span class="gemba-dictate">◉ <span x-text="lang === 'pl' ? 'DYKTUJ' : 'DICTATE'">DYKTUJ</span></span><span style="color:#b8432e">01</span></div>
-                <div class="gemba-inputs">
-                  <div class="gemba-problem" x-text="lang === 'pl' ? 'Co nie działa w pracy?' : 'What is going wrong at work?'">Co nie działa w pracy?</div>
-                  <div class="gemba-location" x-text="lang === 'pl' ? 'Gdzie to się dzieje? (opcjonalnie)' : 'Where does it happen? (optional)'">Gdzie to się dzieje? (opcjonalnie)</div>
-                </div>
-                <div class="gemba-suggestions">
-                  <p class="gemba-suggestions-title" x-text="lang === 'pl' ? 'WYPRÓBUJ PRZYKŁAD' : 'TRY ONE'">WYPRÓBUJ PRZYKŁAD</p>
-                  <div class="gemba-chips">
-                    <span class="gemba-chip" x-text="lang === 'pl' ? 'Linia zatrzymuje się co zmianę' : 'The line stops every shift'">Linia zatrzymuje się co zmianę</span>
-                    <span class="gemba-chip" x-text="lang === 'pl' ? 'Zamówienia czekają tygodniami' : 'Orders take weeks to ship'">Zamówienia czekają tygodniami</span>
-                    <span class="gemba-chip" x-text="lang === 'pl' ? 'Ten sam defekt wraca na kontroli' : 'The same defect keeps returning'">Ten sam defekt wraca na kontroli</span>
-                  </div>
-                </div>
-                <div class="gemba-form-foot"><span x-text="lang === 'pl' ? 'Pisz własnymi słowami. Bez żargonu Lean.' : 'Use your own words. No Lean jargon needed.'">Pisz własnymi słowami. Bez żargonu Lean.</span><span class="gemba-submit" x-text="lang === 'pl' ? 'DOBIERZ METODĘ →' : 'FIND MY METHOD →'">DOBIERZ METODĘ →</span></div>
-              </div>
-            </div>
-          </a>
-
+        <article class="project-card" data-reveal x-data="{project: WEB4BIZ_DATA.projects.find(item => item.id === 'gemba')}">
+          <a class="project-art-box preview-link" href="case-gemba-pl.html" :href="web4bizSeo.link('case-study.html?project=gemba', lang)" :aria-label="project.cardTitle[lang] + ' - case study'"
+             x-html="projectPreview(project.id, lang)"><div class="pv pv-gemba" lang="pl" aria-hidden="true">
+      <div class="pv-canvas"><div class="pv-gemba-story">
+      <small><i></i>Myślenie Lean · TPS · Six Sigma</small>
+      <div><strong>Opisz problem.<em>Znajdź metodę.</em></strong>
+        <p>Opisz, co nie działa w pracy. GEMBA dobierze metodę i przeprowadzi Cię przez kolejne kroki.</p></div>
+      <div class="pv-gemba-stats"><div><b>47</b><small>Metod</small></div><div><b>70+</b><small>Pojęć</small></div><div><b>5</b><small>Etapów</small></div></div>
+    </div>
+    <div class="pv-gemba-form">
+      <div class="pv-top"><span>Opisz problem</span><span>Dyktuj</span></div>
+      <div class="pv-gemba-input"><span>Co nie działa w pracy?</span><span>Gdzie to się dzieje? (opcjonalnie)</span></div>
+      <div class="pv-gemba-options"><small>Wybierz przykład</small><div><span>Przestoje na każdej zmianie</span><span>Zamówienia czekają tygodniami</span><span>Ten sam defekt wraca</span></div></div>
+      <div class="pv-gemba-submit"><span>Pisz własnymi słowami.</span><b>Dobierz metodę</b></div>
+    </div></div>
+    </div></a>
           <div class="project-body">
             <div>
-              <div class="project-tags">
-                <span x-text="lang === 'pl' ? '03 / Narzędzie Diagnostyczne' : '03 / Diagnostic Web App'">03 / Narzędzie Diagnostyczne</span>
-                <span>React</span>
-              </div>
-              <h3 x-text="lang === 'pl' ? '玄 GEMBA — Narzędzie Lean do rozwiązywania problemów' : '玄 GEMBA — Lean problem-solving workspace'">玄 GEMBA — Narzędzie Lean do rozwiązywania problemów</h3>
-              <p x-text="lang === 'pl' ? 'Aplikacja, która pomaga zdiagnozować problemy w pracy i dobrać odpowiednie podejście Lean.' : 'A diagnostic app that helps teams understand workplace problems and choose a practical Lean method.'">Aplikacja tłumacząca problemy z pracy na straty procesowe (Muda, Mura, Muri), dobierająca właściwą z 47 metod Lean i prowadząca przez 5-etapowy plan działań.</p>
+              <dl class="project-facts">
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Branża' : 'Industry'">Branża</dt>
+                  <dd x-text="project.industry[lang]">Doskonalenie procesów</dd>
+                </div>
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Technologia' : 'Technology'">Technologia</dt>
+                  <dd x-text="project.technology[lang]">React · Tailwind CSS</dd>
+                </div>
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Narzędzie' : 'Tool'">Narzędzie</dt>
+                  <dd x-text="project.tool[lang]">Dobór metody Lean</dd>
+                </div>
+              </dl>
+              <h3 x-text="project.cardTitle[lang]">玄 GEMBA - Diagnostyka Lean &amp; Six Sigma</h3>
+              <p x-text="project.cardDesc[lang]">Zespół opisuje problem własnymi słowami, poznaje sugerowaną metodę Lean i otwiera plan pracy nad usprawnieniem.</p>
             </div>
             <div class="project-footer">
-              <a href="case-study.html?project=gemba" class="tactile" x-text="lang === 'pl' ? 'Case study →' : 'Case study →'">Case study →</a>
-              <a href="https://lean-guide-flow.base44.app" target="_blank" rel="noopener noreferrer" class="icon-link" style="color:var(--signal);"><span x-text="lang === 'pl' ? 'Otwórz aplikację' : 'Open live app'">Otwórz aplikację</span><svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg></a>
+              <a class="tactile" href="case-gemba-pl.html" :href="web4bizSeo.link('case-study.html?project=gemba', lang)"><span x-text="lang === 'pl' ? 'Zobacz realizację' : 'Read case study'">Zobacz realizację</span> →</a>
+              <a class="icon-link" href="https://lean-guide-flow.base44.app" :href="web4bizSeo.link('https://lean-guide-flow.base44.app', lang)" target="_blank" rel="noopener noreferrer"><span x-text="project.liveLabel[lang]">Otwórz aplikację</span> ↗</a>
             </div>
           </div>
         </article>
 
         <!-- 04. PIEC -->
-        <article class="project-card" data-reveal>
-          <a href="case-study.html?project=piec" class="project-art-box piec-preview" :aria-label="lang === 'pl' ? 'Podgląd strony piekarni PIEC' : 'PIEC bakery website preview'">
-            <div class="piec-site-card">
-              <div class="piec-site-head">
-                <span class="piec-brand"><img src="https://framerusercontent.com/images/k6wcUBx45U8xW3pS3zVY18N0.svg?width=100&amp;height=100" alt=""/>PIEC®</span>
-                <span class="piec-site-nav" x-text="lang === 'pl' ? 'PIEKARNIA DLA NIEPOKORNYCH' : 'BAKERY FOR THE UNRULY'">PIEKARNIA DLA NIEPOKORNYCH</span>
-              </div>
-              <div class="piec-site-copy">
-                <p class="piec-site-kicker" x-text="lang === 'pl' ? 'PRAWDZIWY ZAKWAS · RĘCZNA ROBOTA · 48 GODZIN' : 'REAL SOURDOUGH · HANDMADE · 48 HOURS'">PRAWDZIWY ZAKWAS · RĘCZNA ROBOTA · 48 GODZIN</p>
-                <h4><span>NIEGRZECZNY</span><br/><span x-text="lang === 'pl' ? 'CHLEB.' : 'SOURDOUGH.'">CHLEB.</span></h4>
-                <p x-text="lang === 'pl' ? 'Bez kompromisów. Bez skrótów. Po prostu dobry chleb.' : 'No shortcuts. No compromises. Just seriously good bread.'">Bez kompromisów. Bez skrótów. Po prostu dobry chleb.</p>
-              </div>
-              <div class="piec-site-products" aria-hidden="true">
-                <div class="piec-product"><b>BUNTOWNIK</b><span x-text="lang === 'pl' ? 'NA ZAKWASIE' : 'SOURDOUGH'">NA ZAKWASIE</span></div>
-                <div class="piec-product"><b>CROISSANT CHAOS</b><span x-text="lang === 'pl' ? 'MAŚLANE' : 'BUTTERY'">MAŚLANE</span></div>
-                <div class="piec-product"><b>BRIOCHE BABY</b><span x-text="lang === 'pl' ? 'SŁODKIE' : 'SWEET'">SŁODKIE</span></div>
-                <div class="piec-product"><b>BAGIETKI REBEL</b><span x-text="lang === 'pl' ? 'CHRUPIĄCE' : 'CRUNCHY'">CHRUPIĄCE</span></div>
-              </div>
+        <article class="project-card" data-reveal x-data="{project: WEB4BIZ_DATA.projects.find(item => item.id === 'piec')}">
+          <a class="project-art-box preview-link" href="case-piec-pl.html" :href="web4bizSeo.link('case-study.html?project=piec', lang)" :aria-label="project.cardTitle[lang] + ' - case study'"
+             x-html="projectPreview(project.id, lang)"><div class="pv pv-piec" lang="pl" aria-hidden="true">
+      <div class="pv-canvas"><div class="pv-top pv-piec-head"><b><img src="assets/piec-logo.png" alt="">PIEC®</b>
+      <small>Piekarnia dla niepokornych</small></div>
+      <div class="pv-piec-copy"><small>Rzemieślnicza piekarnia na zakwasie</small>
+        <strong>Niegrzeczny<br>chleb.</strong>
+        <p>Bez skrótów. Po prostu dobry chleb.</p></div>
+      <div class="pv-piec-range"><div><b>Buntownik</b><small>Na zakwasie</small></div><div><b>Croissant Chaos</b><small>Maślany</small></div><div><b>Brioche Baby</b><small>Słodka</small></div><div><b>Bagietki Rebel</b><small>Chrupiące</small></div></div></div>
+    </div></a>
+          <div class="project-body">
+            <div>
+              <dl class="project-facts">
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Branża' : 'Industry'">Branża</dt>
+                  <dd x-text="project.industry[lang]">Piekarnictwo rzemieślnicze</dd>
+                </div>
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Technologia' : 'Technology'">Technologia</dt>
+                  <dd x-text="project.technology[lang]">Framer</dd>
+                </div>
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Narzędzie' : 'Tool'">Narzędzie</dt>
+                  <dd x-text="project.tool[lang]">Katalog wypieków</dd>
+                </div>
+              </dl>
+              <h3 x-text="project.cardTitle[lang]">PIEC® - Niegrzeczny chleb</h3>
+              <p x-text="project.cardDesc[lang]">Wyraziste nazwy i typografia budują tożsamość PIEC®, a czytelne kategorie pokazują klientowi, jakie wypieki kryją się za marką.</p>
             </div>
-          </a>
-          <div class="project-body"><div><div class="project-tags"><span>04 / MARKA KONSUMENCKA</span><span>BAKERY</span></div><h3 x-text="lang === 'pl' ? 'PIEC® — Niegrzeczny chleb' : 'PIEC® — No-Nonsense Sourdough'">PIEC® — Niegrzeczny chleb</h3><p x-text="lang === 'pl' ? 'Strona rzemieślniczej piekarni zakwasowej: długa fermentacja, proste składniki i cztery linie wypieków.' : 'Craft sourdough bakery site built around slow fermentation, simple ingredients and four bakery lines.'">Strona rzemieślniczej piekarni zakwasowej: długa fermentacja, proste składniki i cztery linie wypieków.</p></div><div class="project-footer"><a href="case-study.html?project=piec" class="tactile" x-text="lang === 'pl' ? 'Case study →' : 'Case study →'">Case study →</a><a href="https://rotating-baguette-637711.framer.app/" target="_blank" rel="noopener noreferrer" class="icon-link" style="color:var(--signal);"><span x-text="lang === 'pl' ? 'Otwórz projekt' : 'Open live project'">Otwórz projekt</span><span aria-hidden="true">↗</span></a></div></div>
+            <div class="project-footer">
+              <a class="tactile" href="case-piec-pl.html" :href="web4bizSeo.link('case-study.html?project=piec', lang)"><span x-text="lang === 'pl' ? 'Zobacz realizację' : 'Read case study'">Zobacz realizację</span> →</a>
+              <a class="icon-link" href="https://rotating-baguette-637711.framer.app/" :href="web4bizSeo.link('https://rotating-baguette-637711.framer.app/', lang)" target="_blank" rel="noopener noreferrer"><span x-text="project.liveLabel[lang]">Otwórz projekt</span> ↗</a>
+            </div>
+          </div>
         </article>
 
       </div>
@@ -1811,8 +1752,8 @@
       const projectsCount = sharedProjects.length || 5;
 
       return {
-        direction: localStorage.getItem('w4b_theme') || 'editorial',
-        lang: new URLSearchParams(window.location.search).get('lang') === 'en' ? 'en' : (localStorage.getItem('lang') === 'en' ? 'en' : 'pl'),
+        direction: document.documentElement.dataset.theme,
+        lang: web4bizSeo.language(),
         mobileMenuOpen: false,
         emailCopied: false,
         projectsCount: projectsCount,
@@ -1953,36 +1894,20 @@
         },
 
         setDirection(dir) {
+          document.documentElement.classList.add('theme-selected');
           this.direction = dir;
-          localStorage.setItem('w4b_theme', dir);
+          try { localStorage.setItem('w4b_theme', dir); } catch { /* Keep the selection for this visit. */ }
         },
 
         toggleLang() {
           this.lang = this.lang === 'pl' ? 'en' : 'pl';
           localStorage.setItem('lang', this.lang);
-          const nextUrl = new URL(window.location.href);
-          if (this.lang === 'en') nextUrl.searchParams.set('lang', 'en');
-          else nextUrl.searchParams.delete('lang');
-          window.history.replaceState({}, '', nextUrl);
+          web4bizSeo.updateUrl('index', this.lang);
           this.updateDocumentMetadata();
         },
 
         updateDocumentMetadata() {
-          const copy = this.copy[this.lang];
-          document.documentElement.lang = this.lang;
-          document.title = this.lang === 'pl'
-            ? 'Strony B2B i narzędzia webowe | Archie'
-            : 'B2B Websites & Web Tools | Archie';
-          const description = copy.heroIntro;
-          const pageUrl = new URL('https://artur6789.github.io/web4biz/');
-          if (this.lang === 'en') pageUrl.searchParams.set('lang', 'en');
-          document.querySelector('link[rel="canonical"]')?.setAttribute('href', pageUrl.href);
-          document.querySelector('meta[property="og:url"]')?.setAttribute('content', pageUrl.href);
-          document.querySelector('meta[name="description"]')?.setAttribute('content', description);
-          document.querySelector('meta[property="og:title"]')?.setAttribute('content', document.title);
-          document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
-          document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', document.title);
-          document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', description);
+          web4bizSeo.apply('index', this.lang);
         },
 
         async copyEmail() {

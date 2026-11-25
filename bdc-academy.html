@@ -1,20 +1,25 @@
 <!DOCTYPE html>
-<html lang="pl" x-data="bdcAcademy()" class="scroll-smooth">
+<html lang="pl" x-effect="web4bizSeo.apply('bdc-academy', lang)" x-data="bdcAcademy()" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BDC Academy — Szkolenia Automotive Contact Center dla Dealerów</title>
-  <meta name="description" content="Dedykowane szkolenia dla działów BDC w branży automotive: Sprzedaż, Serwis, Części, F&I, Domykanie wizyt oraz Kierownicy BDC. Wybierz program dla swojej stacji." />
+  <title>BDC Academy - szkolenia dla salonów dealerskich | web4biz.pl</title>
+  <meta name="description" content="Porównaj programy BDC dla sprzedaży, serwisu i kierowników. Wybierz szkolenia dla swojego zespołu dealerskiego i przygotuj zapytanie.">
+  <link rel="canonical" href="https://artur6789.github.io/web4biz/bdc-academy.html">
+  <link rel="alternate" hreflang="pl" href="https://artur6789.github.io/web4biz/bdc-academy.html">
+  <link rel="alternate" hreflang="en" href="https://artur6789.github.io/web4biz/bdc-academy.html?lang=en">
+  <link rel="alternate" hreflang="x-default" href="https://artur6789.github.io/web4biz/bdc-academy.html">
+  <meta property="og:site_name" content="web4biz.pl">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="BDC Academy - szkolenia dla salonów dealerskich | web4biz.pl">
+  <meta property="og:description" content="Porównaj programy BDC dla sprzedaży, serwisu i kierowników. Wybierz szkolenia dla swojego zespołu dealerskiego i przygotuj zapytanie.">
+  <meta property="og:url" content="https://artur6789.github.io/web4biz/bdc-academy.html">
+  <meta property="og:locale" content="pl_PL">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="BDC Academy - szkolenia dla salonów dealerskich | web4biz.pl">
+  <meta name="twitter:description" content="Porównaj programy BDC dla sprzedaży, serwisu i kierowników. Wybierz szkolenia dla swojego zespołu dealerskiego i przygotuj zapytanie.">
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://artur6789.github.io/web4biz/bdc-academy.html" />
-  <link rel="alternate" hreflang="pl" href="https://artur6789.github.io/web4biz/bdc-academy.html" />
-  <link rel="alternate" hreflang="en" href="https://artur6789.github.io/web4biz/bdc-academy.html?lang=en" />
-  <link rel="alternate" hreflang="x-default" href="https://artur6789.github.io/web4biz/bdc-academy.html" />
 
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="BDC Academy — High-Performance Automotive BDC Training" />
-  <meta property="og:description" content="Wybierz dedykowane szkolenia dla swojego zespołu BDC: Sprzedaż, Serwis, Części, F&I, Closing & Show-Rate oraz Leadership." />
-  <meta property="og:url" content="https://artur6789.github.io/web4biz/bdc-academy.html" />
 
   <!-- Structured Data (SEO / AEO / GEO) -->
   <script type="application/ld+json">
@@ -53,9 +58,10 @@
   </script>
 
   <!-- Fonts: Plus Jakarta Sans (Display & Body) + JetBrains Mono (Technical Labels) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+
+<link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/plus-jakarta-sans-latin-wght-normal.woff2">
+  <link rel="stylesheet" href="assets/fonts/fonts.css">
 
   <!-- GSAP + ScrollTrigger + Alpine.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -64,7 +70,7 @@
 
   <style>
     /* ═══════════════════════════════════════════════════════════════════
-       1. DESIGN TOKENS — CARBON OBSIDIAN & ELECTRIC CYAN (#06B6D4)
+       1. DESIGN TOKENS - CARBON OBSIDIAN & ELECTRIC CYAN (#06B6D4)
        ═══════════════════════════════════════════════════════════════════ */
     :root {
       --bg: #06080c;
@@ -720,6 +726,7 @@
       }
     }
   </style>
+  <script src="seo.js"></script>
 </head>
 
 <body>
@@ -865,8 +872,8 @@
             <h2 class="sec-h2" x-text="lang === 'pl' ? 'Trzy sposoby współpracy ze stacją.' : 'Three ways to train your dealership.'"></h2>
           </div>
           <p class="sec-desc" x-text="lang === 'pl'
-            ? 'Pracujemy na realnych leadach, nagraniach rozmów i procesach Twojego CRM — zero teoretycznych slajdów oderwanych od realiów salonu.'
-            : 'Every session is built around your dealership’s live leads, call recordings, and CRM workflow—zero generic theory.'"></p>
+            ? 'Pracujemy na realnych leadach, nagraniach rozmów i procesach Twojego CRM - zero teoretycznych slajdów oderwanych od realiów salonu.'
+            : 'Every session is built around your dealership’s live leads, call recordings, and CRM workflow-zero generic theory.'"></p>
         </div>
 
         <div class="formats-grid">
@@ -994,7 +1001,7 @@
   <script>
     function bdcAcademy() {
       return {
-        lang: localStorage.getItem('lang') === 'en' ? 'en' : 'pl',
+        lang: web4bizSeo.language(),
         navHidden: false,
         lastScrollY: 0,
         filter: 'all',
@@ -1225,6 +1232,7 @@
         toggleLang() {
           this.lang = this.lang === 'pl' ? 'en' : 'pl';
           localStorage.setItem('lang', this.lang);
+          web4bizSeo.updateUrl('bdc-academy', this.lang);
         },
 
         submitBooking() {
@@ -1234,8 +1242,8 @@
             .join('\n');
 
           const subject = this.lang === 'pl'
-            ? `Zapytanie o szkolenie BDC Academy — ${this.form.dealer}`
-            : `BDC Academy Training Enquiry — ${this.form.dealer}`;
+            ? `Zapytanie o szkolenie BDC Academy - ${this.form.dealer}`
+            : `BDC Academy Training Enquiry - ${this.form.dealer}`;
 
           const body = this.lang === 'pl'
             ? `Dzień dobry Arturze,\n\nZgłaszający / Dealer: ${this.form.dealer}\nE-mail: ${this.form.email}\nFormuła: ${this.form.format}\n\nWybrane programy szkoleniowe:\n${chosen || '• Do ustalenia podczas rozmowy'}\n\nDodatkowe informacje:\n${this.form.notes}`

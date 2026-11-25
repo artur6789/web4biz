@@ -1,20 +1,25 @@
 <!DOCTYPE html>
-<html lang="pl" x-data="modulorB2BApp()" class="scroll-smooth">
+<html lang="pl" x-effect="web4bizSeo.apply('kubatura', lang)" x-data="modulorB2BApp()" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KUBATURA B2B - Przeprowadzki Biur, Archiwów i Magazynów | Kalkulator Kubatury m³</title>
-  <meta name="description" content="Relokacje biur w weekend (Piątek 17:00 → Poniedziałek 08:00). Ubezpieczenie OCP 1 000 000 PLN, plombowane pojemniki RODO i interaktywny kalkulator kubatury m³ oraz ładowności kg." />
+  <title>KUBATURA - przeprowadzki biur i kalkulator ładunku | web4biz.pl</title>
+  <meta name="description" content="Zaplanuj relokację biura lub archiwum. Dodaj wyposażenie, sprawdź objętość i masę ładunku oraz przygotuj zapytanie o wizję lokalną.">
+  <link rel="canonical" href="https://artur6789.github.io/web4biz/kubatura.html">
+  <link rel="alternate" hreflang="pl" href="https://artur6789.github.io/web4biz/kubatura.html">
+  <link rel="alternate" hreflang="en" href="https://artur6789.github.io/web4biz/kubatura.html?lang=en">
+  <link rel="alternate" hreflang="x-default" href="https://artur6789.github.io/web4biz/kubatura.html">
+  <meta property="og:site_name" content="web4biz.pl">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="KUBATURA - przeprowadzki biur i kalkulator ładunku | web4biz.pl">
+  <meta property="og:description" content="Zaplanuj relokację biura lub archiwum. Dodaj wyposażenie, sprawdź objętość i masę ładunku oraz przygotuj zapytanie o wizję lokalną.">
+  <meta property="og:url" content="https://artur6789.github.io/web4biz/kubatura.html">
+  <meta property="og:locale" content="pl_PL">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="KUBATURA - przeprowadzki biur i kalkulator ładunku | web4biz.pl">
+  <meta name="twitter:description" content="Zaplanuj relokację biura lub archiwum. Dodaj wyposażenie, sprawdź objętość i masę ładunku oraz przygotuj zapytanie o wizję lokalną.">
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://web4biz.pl/kubatura.html" />
-  <link rel="alternate" hreflang="pl" href="https://web4biz.pl/kubatura.html" />
-  <link rel="alternate" hreflang="en" href="https://web4biz.pl/kubatura.html?lang=en" />
-  <link rel="alternate" hreflang="x-default" href="https://web4biz.pl/kubatura.html" />
 
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="KUBATURA B2B - Relokacje Biur, Archiwów RODO i Serwerowni" />
-  <meta property="og:description" content="Oblicz kubaturę (m³), ładowność (kg) i liczbę kursów floty w 30 sekund. Przeprowadzki firm bez przestoju w pracy." />
-  <meta property="og:url" content="https://web4biz.pl/kubatura.html" />
 
   <!-- Structured Data Graph: MovingCompany & FAQPage (SEO / AEO / GEO) -->
   <script type="application/ld+json">
@@ -23,9 +28,9 @@
     "@graph": [
       {
         "@type": "MovingCompany",
-        "@id": "https://web4biz.pl/kubatura.html#company",
+        "@id": "https://artur6789.github.io/web4biz/kubatura.html#company",
         "name": "KUBATURA B2B - Relokacje Biur i Magazynów",
-        "url": "https://web4biz.pl/kubatura.html",
+        "url": "https://artur6789.github.io/web4biz/kubatura.html",
         "description": "Commercial B2B office, archive (GDPR/RODO), and server room relocation services operating 24/7 on weekends with 1,000,000 PLN carrier liability insurance.",
         "areaServed": ["Warszawa", "Polska", "Unia Europejska"],
         "priceRange": "$$",
@@ -61,10 +66,11 @@
   }
   </script>
 
-  <!-- Google Fonts: Space Grotesk + Plus Jakarta Sans + JetBrains Mono -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+
+
+
+<link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/space-grotesk-latin-wght-normal.woff2">
+  <link rel="stylesheet" href="assets/fonts/fonts.css">
 
   <!-- GSAP + ScrollTrigger + Alpine.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -625,6 +631,7 @@
       }
     }
   </style>
+  <script src="seo.js"></script>
 </head>
 
 <body>
@@ -1111,7 +1118,7 @@
   <script>
     function modulorB2BApp() {
       return {
-        lang: localStorage.getItem('lang') === 'en' ? 'en' : 'pl',
+        lang: web4bizSeo.language(),
         navHidden: false,
         lastScrollY: 0,
 
@@ -1208,6 +1215,7 @@
         toggleLang() {
           this.lang = this.lang === 'pl' ? 'en' : 'pl';
           localStorage.setItem('lang', this.lang);
+          web4bizSeo.updateUrl('kubatura', this.lang);
         },
 
         submitSurvey() {

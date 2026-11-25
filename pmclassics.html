@@ -1,15 +1,30 @@
 <!DOCTYPE html>
-<html lang="pl" x-data="classicApp()" class="scroll-smooth dark">
+<html lang="pl" x-effect="web4bizSeo.apply('pmclassics', lang)" x-data="classicApp()" class="scroll-smooth dark">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PM Classics - Renowacja, Import & Klasyki z Duszą | Piotr Mantorski</title>
-  <meta name="description" content="PM Classics (Piotr Mantorski) - europejskie klasyki z charakterem (Volvo Amazon, Opel Manta, Simca, DAF) oraz klasyczne motocykle i skutery (Moto Guzzi, Lambretta). Renowacja i import PL / EN / NO."/>
+  <title>PM Classics - renowacja i import klasyków | web4biz.pl</title>
+  <meta name="description" content="Przeglądaj klasyczne samochody i motocykle PM Classics, porównaj ceny w dostępnych walutach i przygotuj zapytanie o import lub renowację.">
+  <link rel="canonical" href="https://artur6789.github.io/web4biz/pmclassics.html">
+  <link rel="alternate" hreflang="pl" href="https://artur6789.github.io/web4biz/pmclassics.html">
+  <link rel="alternate" hreflang="en" href="https://artur6789.github.io/web4biz/pmclassics.html?lang=en">
+  <link rel="alternate" hreflang="no" href="https://artur6789.github.io/web4biz/pmclassics.html?lang=no">
+  <link rel="alternate" hreflang="x-default" href="https://artur6789.github.io/web4biz/pmclassics.html">
+  <meta property="og:site_name" content="web4biz.pl">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="PM Classics - renowacja i import klasyków | web4biz.pl">
+  <meta property="og:description" content="Przeglądaj klasyczne samochody i motocykle PM Classics, porównaj ceny w dostępnych walutach i przygotuj zapytanie o import lub renowację.">
+  <meta property="og:url" content="https://artur6789.github.io/web4biz/pmclassics.html">
+  <meta property="og:locale" content="pl_PL">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="PM Classics - renowacja i import klasyków | web4biz.pl">
+  <meta name="twitter:description" content="Przeglądaj klasyczne samochody i motocykle PM Classics, porównaj ceny w dostępnych walutach i przygotuj zapytanie o import lub renowację.">
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
+
+
+<link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/playfair-display-latin-wght-normal.woff2">
+  <link rel="stylesheet" href="assets/fonts/fonts.css">
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -38,6 +53,7 @@
     ::-webkit-scrollbar-thumb { background: #C5A059; }
     .gold-gradient { background: linear-gradient(135deg, #C5A059 0%, #DFBD78 50%, #9E7B3B 100%); }
   </style>
+  <script src="seo.js"></script>
 </head>
 <body class="antialiased selection:bg-brass selection:text-obsidian">
 
@@ -353,7 +369,7 @@
   <script>
     function classicApp() {
       return {
-        lang: localStorage.getItem('pmc_lang') || 'pl',
+        lang: web4bizSeo.language(),
         currency: localStorage.getItem('pmc_curr') || 'EUR',
         stockFilter: 'all',
         sliderPos: 50,
@@ -743,6 +759,7 @@
         setLang(l) {
           this.lang = l;
           localStorage.setItem('pmc_lang', l);
+          web4bizSeo.updateUrl('pmclassics', this.lang);
           this.brief.service = this.t.formServiceOpts[0];
           this.brief.category = this.t.formCatOpts[0];
         },

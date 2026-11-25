@@ -3,82 +3,99 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <!-- Natychmiastowe ustawienie motywu przed pierwszym rysowaniem strony (zero mignięcia tła) -->
+  <style id="initial-colors">
+    html { color-scheme: light; background-color: #f4f2e9; color: #172019; }
+    html[data-theme="forest"] { color-scheme: dark; background-color: #141a16; color: #f0f2e9; }
+    html[data-theme="bento"] { color-scheme: dark; background-color: #07090b; color: #f4f6f8; }
+  </style>
   <script>
-    (function () {
+    (() => {
+      let theme = 'editorial';
       try {
-        var theme = localStorage.getItem('w4b_theme') || 'editorial';
-        document.documentElement.setAttribute('data-theme', theme);
-      } catch (e) {}
-      document.documentElement.classList.add('is-loading');
-      window.addEventListener('DOMContentLoaded', function () {
-        requestAnimationFrame(function () {
-          requestAnimationFrame(function () {
-            document.documentElement.classList.remove('is-loading');
-          });
-        });
-      });
+        const saved = localStorage.getItem('w4b_theme');
+        if (saved === 'forest' || saved === 'bento') theme = saved;
+      } catch { /* Storage may be unavailable in private browsing. */ }
+      document.documentElement.dataset.theme = theme;
     })();
   </script>
 
-  <title x-text="currentCase.title[lang] + ' - Case Study | web4biz.pl'">Case Study - web4biz.pl</title>
-  <meta name="description" content="Case study stron i narzędzi web4biz.pl: wyzwania, zakres prac, decyzje projektowe i funkcje wdrożonych rozwiązań."/>
+  <title>AD REM T2 - Wycena transportu | web4biz.pl</title>
+  <link rel="canonical" href="https://artur6789.github.io/web4biz/case-adremt2-pl.html">
+  <link rel="alternate" hreflang="pl" href="https://artur6789.github.io/web4biz/case-adremt2-pl.html">
+  <link rel="alternate" hreflang="en" href="https://artur6789.github.io/web4biz/case-adremt2-en.html">
+  <link rel="alternate" hreflang="x-default" href="https://artur6789.github.io/web4biz/case-adremt2-pl.html">
+  <meta property="og:site_name" content="web4biz.pl">
+  <meta property="og:type" content="article">
+  <meta name="description" content="Klient wybiera miasto docelowe i rodzaj pojazdu, sprawdza szacowany czas przejazdu z Warszawy i wysyła dyspozytorowi trasę do wyceny.">
+  <meta property="og:title" content="AD REM T2 - Wycena transportu | web4biz.pl">
+  <meta property="og:description" content="Klient wybiera miasto docelowe i rodzaj pojazdu, sprawdza szacowany czas przejazdu z Warszawy i wysyła dyspozytorowi trasę do wyceny.">
+  <meta property="og:url" content="https://artur6789.github.io/web4biz/case-adremt2-pl.html">
+  <meta property="og:locale" content="pl_PL">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="AD REM T2 - Wycena transportu | web4biz.pl">
+  <meta name="twitter:description" content="Klient wybiera miasto docelowe i rodzaj pojazdu, sprawdza szacowany czas przejazdu z Warszawy i wysyła dyspozytorowi trasę do wyceny.">
+
   <meta name="robots" content="index, follow"/>
-  <link rel="canonical" href="https://artur6789.github.io/web4biz/case-study.html?project=adremt2"/>
-  <link rel="alternate" hreflang="pl" href="https://artur6789.github.io/web4biz/case-study.html?project=adremt2"/>
-  <link rel="alternate" hreflang="en" href="https://artur6789.github.io/web4biz/case-study.html?project=adremt2&amp;lang=en"/>
-  <link rel="alternate" hreflang="x-default" href="https://artur6789.github.io/web4biz/case-study.html?project=adremt2"/>
 
   <!-- Inline SVG Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23172019'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='800' font-size='26' fill='%23d8fa52'%3Ew4b%3C/text%3E%3C/svg%3E"/>
 
   <!-- OpenGraph & Social Preview -->
-  <meta property="og:type" content="article"/>
-  <meta property="og:url" content="https://artur6789.github.io/web4biz/case-study.html?project=adremt2"/>
-  <meta property="og:title" content="Case Study - web4biz.pl | Archie"/>
-  <meta property="og:description" content="Analiza projektów B2B, interaktywnych kalkulatorów SVG/GeoJSON i aplikacji webowych zrealizowanych w web4biz.pl."/>
-  <meta property="og:locale" content="pl_PL"/>
-  <meta property="og:locale:alternate" content="en_US"/>
-  <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Case Study - web4biz.pl"/>
-  <meta name="twitter:description" content="Wyzwanie biznesowe, architektura i działające dema interaktywnych projektów web4biz.pl."/>
 
   <!-- Dane strukturalne Schema.org (WebPage + BreadcrumbList) -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebPage",
-        "name": "Case Study - web4biz.pl",
-        "url": "https://artur6789.github.io/web4biz/case-study.html",
-        "description": "Szczegółowe Case Study projektów B2B, kalkulatorów wycen i aplikacji webowych web4biz.pl.",
-        "isPartOf": {
-          "@type": "WebSite",
-          "name": "web4biz.pl",
-          "url": "https://artur6789.github.io/web4biz/"
-        }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "Transport, logistyka i spedycja (AD REM T2)",
+      "description": "Klient wybiera miasto docelowe i rodzaj pojazdu, sprawdza szacowany czas przejazdu z Warszawy i wysyła dyspozytorowi trasę do wyceny.",
+      "inLanguage": "pl",
+      "mainEntityOfPage": "https://artur6789.github.io/web4biz/case-adremt2-pl.html",
+      "author": {
+        "@type": "Person",
+        "name": "Artur Załuska"
       },
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "web4biz.pl", "item": "https://artur6789.github.io/web4biz/" },
-          { "@type": "ListItem", "position": 2, "name": "Projekty", "item": "https://artur6789.github.io/web4biz/projects.html" },
-          { "@type": "ListItem", "position": 3, "name": "Case Study", "item": "https://artur6789.github.io/web4biz/case-study.html" }
-        ]
+      "publisher": {
+        "@type": "Organization",
+        "name": "web4biz.pl",
+        "url": "https://artur6789.github.io/web4biz/"
       }
-    ]
-  }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "web4biz.pl",
+          "item": "https://artur6789.github.io/web4biz/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Projekty",
+          "item": "https://artur6789.github.io/web4biz/projects.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "AD REM T2",
+          "item": "https://artur6789.github.io/web4biz/case-adremt2-pl.html"
+        }
+      ]
+    }
+  ]
+}
   </script>
 
-  <!-- Google Fonts: Space Grotesk + DM Sans + JetBrains Mono (display=swap keeps text visible while fonts load) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Space+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet"/>
+<link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/space-grotesk-latin-wght-normal.woff2">
+  <link rel="stylesheet" href="assets/fonts/fonts.css">
 
   <!-- Wspólne źródło danych projektów + Alpine.js -->
   <script src="projects-data.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.17.5/dist/cdn.min.js"></script>
+  <script defer src="vendor/alpine-3.17.5.min.js"></script>
 
   <style>
     /* ═══════════════════════════════════════════════════════════════════
@@ -104,8 +121,8 @@
       --btn-radius: 6px;
       --ease-out-quart: cubic-bezier(0.22, 1, 0.36, 1);
       --ease-out-snappy: cubic-bezier(0.215, 0.61, 0.355, 1);
-      --display: 'Space Grotesk', sans-serif;
-      --sans: 'DM Sans', sans-serif;
+      --display: 'Space Grotesk', Arial, sans-serif;
+      --sans: 'DM Sans', Arial, sans-serif;
       --mono: 'JetBrains Mono', monospace;
     }
 
@@ -147,8 +164,8 @@
 
     *, *::before, *::after { box-sizing: border-box; }
     [x-cloak] { display: none !important; }
-    html.is-loading,
-    html.is-loading * { transition: none !important; }
+    html:not(.theme-selected) body,
+    html:not(.theme-selected) :is(.hero-section, .case-masthead, .archive-masthead, .portfolio-nav) { transition: none; }
     html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; background: var(--bg); }
     body {
       margin: 0;
@@ -711,7 +728,7 @@
       letter-spacing: 0.05em;
     }
 
-    /* Czysty, ciemny gradient ze złotym światłem — identyczny z index.html i projects.html */
+    /* Czysty, ciemny gradient ze złotym światłem - identyczny z index.html i projects.html */
     .pm-mini-preview {
       height: 100%;
       position: relative;
@@ -1025,29 +1042,25 @@
     .case-brand-piec { background:#f0e8dc; color:#201815; }
     @media(max-width:700px){ .case-brand-art{padding:20px; min-height:260px;} }
   </style>
+  <link rel="stylesheet" href="project-previews.css"/>
+  <link rel="stylesheet" href="portfolio-layout.css"/>
+  <script src="project-previews.js"></script>
+  <script src="seo.js"></script>
 </head>
 
 <body>
-
-  <!-- Reading Progress Bar -->
-  <div class="progress-bar" :style="`transform: scaleX(${scrollProgress})`" aria-hidden="true"></div>
-
-  <!-- ═══ CASE STUDY MASTHEAD + HEADER + MOBILE DRAWER ═══ -->
-  <header class="case-masthead" id="top">
-    <div class="page-wrap">
-
-      <!-- Main Navigation -->
-      <div class="nav-wrap">
-        <a href="index.html" class="wordmark">
+  <div class="portfolio-nav"><div class="page-wrap">
+<div class="nav-wrap">
+        <a href="index.html" :href="web4bizSeo.link('index.html', lang)" class="wordmark">
           web<span class="wordmark-accent">4</span>biz<span>.pl</span>
           <span class="wordmark-sub">by archie.</span>
         </a>
 
         <nav class="nav-links" :aria-label="lang === 'pl' ? 'Główna nawigacja' : 'Main navigation'">
-          <a href="projects.html" class="is-current" x-text="navProjectsLabel">Projekty (5)</a>
-          <a href="index.html#estimator" x-text="lang === 'pl' ? 'Pakiety i wycena' : 'Tiers & Pricing'">Pakiety i wycena</a>
-          <a href="index.html#about" x-text="lang === 'pl' ? 'Podejście' : 'Approach'">Podejście</a>
-          <a href="index.html#contact" x-text="lang === 'pl' ? 'Kontakt' : 'Contact'">Kontakt</a>
+          <a href="projects.html" :href="web4bizSeo.link('projects.html', lang)" class="is-current" x-text="navProjectsLabel">Projekty (8)</a>
+          <a href="index.html#estimator" :href="web4bizSeo.link('index.html#estimator', lang)" x-text="lang === 'pl' ? 'Pakiety i wycena' : 'Tiers & Pricing'">Pakiety i wycena</a>
+          <a href="index.html#how-i-work" :href="web4bizSeo.link('index.html#how-i-work', lang)" x-text="lang === 'pl' ? 'Jak pracuję' : 'How I work'">Jak pracuję</a>
+          <a href="index.html#contact" :href="web4bizSeo.link('index.html#contact', lang)" x-text="lang === 'pl' ? 'Kontakt' : 'Contact'">Kontakt</a>
         </nav>
 
         <div class="nav-actions">
@@ -1060,7 +1073,7 @@
               :class="direction === 'editorial' ? 'is-active' : ''"
               @click="setDirection('editorial')"
               :title="lang === 'pl' ? 'Widok 01: Jasny (Lime & Paper)' : 'View 01: Light (Lime & Paper)'"
-              aria-label="Widok 01">
+              :aria-label="lang === 'pl' ? 'Widok 01' : 'View 01'">
               <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
                 <circle cx="10" cy="10" r="3.6"/>
                 <path d="M10 2v2.2M10 15.8V18M18 10h-2.2M4.2 10H2M15.66 4.34l-1.56 1.56M5.9 14.1l-1.56 1.56M15.66 15.66l-1.56-1.56M5.9 5.9 4.34 4.34"/>
@@ -1071,7 +1084,7 @@
               :class="direction === 'forest' ? 'is-active' : ''"
               @click="setDirection('forest')"
               :title="lang === 'pl' ? 'Widok 03: Półmrok (Forest & Brass)' : 'View 03: Dusk (Forest & Brass)'"
-              aria-label="Widok 03">
+              :aria-label="lang === 'pl' ? 'Widok 03' : 'View 03'">
               <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="10" cy="10" r="6.5"/>
                 <path d="M10 3.5a6.5 6.5 0 0 1 0 13V3.5Z" fill="currentColor"/>
@@ -1082,20 +1095,20 @@
               :class="direction === 'bento' ? 'is-active' : ''"
               @click="setDirection('bento')"
               :title="lang === 'pl' ? 'Widok 02: Nocny (Obsidian & Cyan)' : 'View 02: Night (Obsidian & Cyan)'"
-              aria-label="Widok 02">
+              :aria-label="lang === 'pl' ? 'Widok 02' : 'View 02'">
               <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M16.8 12.4A6.8 6.8 0 0 1 7.6 3.2a6.9 6.9 0 1 0 9.2 9.2Z"/>
               </svg>
             </button>
           </div>
 
-          <a href="index.html#estimator" class="nav-cta tactile">
+          <a href="index.html#estimator" :href="web4bizSeo.link('index.html#estimator', lang)" class="nav-cta tactile">
             <span x-text="lang === 'pl' ? 'Wyceń projekt' : 'Start a project'">Wyceń projekt</span>
             <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
           </a>
 
           <!-- Przycisk menu na urządzeniach mobilnych (<= 720px) -->
-          <button type="button" class="mobile-menu-btn tactile"
+          <button type="button" class="mobile-menu-btn tactile" aria-controls="portfolio-mobile-menu"
             @click="mobileMenuOpen = !mobileMenuOpen"
             :aria-expanded="mobileMenuOpen"
             :aria-label="lang === 'pl' ? 'Otwórz menu nawigacji' : 'Toggle navigation menu'">
@@ -1110,39 +1123,50 @@
       </div>
 
       <!-- Panel Nawigacji Mobilnej (Drawer) -->
-      <nav class="mobile-drawer" x-show="mobileMenuOpen" x-cloak
+      <nav id="portfolio-mobile-menu" class="mobile-drawer" @click.outside="if (!$event.target.closest('.mobile-menu-btn')) mobileMenuOpen = false" x-show="mobileMenuOpen" x-cloak
            :aria-label="lang === 'pl' ? 'Menu mobilne' : 'Mobile navigation'">
-        <a href="index.html" @click="mobileMenuOpen = false">
+        <a href="index.html" :href="web4bizSeo.link('index.html', lang)" @click="mobileMenuOpen = false">
           <span x-text="lang === 'pl' ? 'Strona główna' : 'Homepage'">Strona główna</span>
           <span aria-hidden="true">←</span>
         </a>
-        <a href="projects.html" @click="mobileMenuOpen = false">
-          <span x-text="navProjectsLabel">Projekty (5)</span>
+        <a href="projects.html" :href="web4bizSeo.link('projects.html', lang)" @click="mobileMenuOpen = false">
+          <span x-text="navProjectsLabel">Projekty (8)</span>
           <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
         </a>
-        <a href="index.html#estimator" @click="mobileMenuOpen = false">
+        <a href="index.html#estimator" :href="web4bizSeo.link('index.html#estimator', lang)" @click="mobileMenuOpen = false">
           <span x-text="lang === 'pl' ? 'Pakiety i wycena' : 'Tiers & Pricing'">Pakiety i wycena</span>
           <span aria-hidden="true">→</span>
         </a>
-        <a href="index.html#about" @click="mobileMenuOpen = false">
-          <span x-text="lang === 'pl' ? 'Podejście' : 'Approach'">Podejście</span>
+        <a href="index.html#how-i-work" :href="web4bizSeo.link('index.html#how-i-work', lang)" @click="mobileMenuOpen = false">
+          <span x-text="lang === 'pl' ? 'Jak pracuję' : 'How I work'">Jak pracuję</span>
           <span aria-hidden="true">→</span>
         </a>
-        <a href="index.html#contact" @click="mobileMenuOpen = false">
+        <a href="index.html#contact" :href="web4bizSeo.link('index.html#contact', lang)" @click="mobileMenuOpen = false">
           <span x-text="lang === 'pl' ? 'Kontakt' : 'Contact'">Kontakt</span>
           <span aria-hidden="true">→</span>
         </a>
-        <a href="index.html#estimator" class="mobile-drawer-cta tactile" @click="mobileMenuOpen = false">
+        <a href="index.html#estimator" :href="web4bizSeo.link('index.html#estimator', lang)" class="mobile-drawer-cta tactile" @click="mobileMenuOpen = false">
           <span x-text="lang === 'pl' ? 'Wyceń projekt' : 'Start a project'">Wyceń projekt</span>
           <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
         </a>
       </nav>
+  </div></div>
+
+  <!-- Reading Progress Bar -->
+  <div class="progress-bar" :style="`transform: scaleX(${scrollProgress})`" aria-hidden="true"></div>
+
+  <!-- ═══ CASE STUDY MASTHEAD + HEADER + MOBILE DRAWER ═══ -->
+  <header class="case-masthead" id="top">
+    <div class="page-wrap">
+
+      <!-- Main Navigation -->
+      
 
       <!-- Back Link + Quick Project Switcher (WCAG tabs + obsługa strzałek + historia pushState) -->
       <div class="masthead-top-bar">
-        <a href="projects.html" class="back-link tactile">
+        <a href="projects.html" :href="web4bizSeo.link('projects.html', lang)" class="back-link tactile">
           <span aria-hidden="true">←</span>
-          <span x-text="backProjectsLabel">Wszystkie projekty (5)</span>
+          <span x-text="backProjectsLabel">Wszystkie projekty (8)</span>
         </a>
 
         <div class="project-switcher" role="tablist" x-ref="switcherList" :aria-label="lang === 'pl' ? 'Przełącz Case Study' : 'Switch Case Study'">
@@ -1159,19 +1183,21 @@
         </div>
       </div>
 
-      <!-- Kicker, H1 Title & Subtitle (z domyślnym polskim tekstem pod SEO i zero CLS) -->
-      <p class="case-kicker">
-        <span x-text="currentCase.tag[lang]">01 · Transport / TSL</span>
-        <span style="opacity:0.7;" x-text="' / ' + currentCase.year"> / 2026</span>
-      </p>
-      <h1 class="case-title" x-text="currentCase.title[lang]">Transport, logistyka i spedycja (AD REM T2)</h1>
-      <p class="case-subtitle" x-text="currentCase.subtitle[lang]">Strona transportowa B2B, która prowadzi klienta od wyboru miasta na mapie Europy do sprecyzowanego zapytania o przewóz.</p>
+      <p class="case-kicker" x-text="lang === 'pl' ? 'Realizacja' : 'Case study'">Realizacja</p>
+      <h1 class="case-title" x-text="currentCase.shortName[lang]">AD REM T2</h1>
+      <dl class="project-facts case-facts">
+        <div><dt x-text="lang === 'pl' ? 'Branża' : 'Industry'">Branża</dt><dd x-text="currentCase.industry[lang]">Transport i spedycja</dd></div>
+        <div><dt x-text="lang === 'pl' ? 'Technologia' : 'Technology'">Technologia</dt><dd x-text="currentCase.technology[lang]">JavaScript · SVG · GeoJSON</dd></div>
+        <div><dt x-text="lang === 'pl' ? 'Narzędzie' : 'Tool'">Narzędzie</dt><dd x-text="currentCase.tool[lang]">Kalkulator trasy</dd></div>
+      </dl>
+      <p class="case-subtitle" x-text="currentCase.subtitle[lang]">Klient wybiera miasto docelowe i rodzaj pojazdu, sprawdza szacowany czas przejazdu z Warszawy i wysyła dyspozytorowi trasę do wyceny.</p>
 
-      <!-- CASE HERO ARTWORK STAGE -->
-      <div class="case-hero-art" role="img" :aria-label="currentCase.title[lang]">
-        <div class="case-art-frame">
-
-          <!-- ═══ Artwork 1: AD REM T2 - INTERAKTYWNA MAPA 8 HUBÓW EUROPY + KALKULATOR FLOTY ═══ -->
+      <div class="case-preview-stage">
+        <div class="case-preview" role="img" :aria-label="currentCase.cardTitle[lang]" x-html="projectPreview(projectId, lang)"></div>
+      </div>
+      <details class="case-demo" x-ref="demo" x-show="['adremt2','kubatura','gemba'].includes(projectId)" x-cloak>
+        <summary x-text="({adremt2:{pl:'Sprawdź trasę',en:'Try the route planner'},kubatura:{pl:'Sprawdź ładunek',en:'Try the load planner'},gemba:{pl:'Dobierz metodę Lean',en:'Try the method finder'}})[projectId]?.[lang]"></summary>
+        <div class="case-hero-art"><div class="case-art-frame">
           <div x-show="projectId === 'adremt2'" x-cloak class="art-route-split">
             <div class="art-route-map-box">
               <div class="art-micro-header">
@@ -1258,7 +1284,7 @@
               <div>
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
                   <span style="font:600 10px var(--mono); color:#d90429;" x-text="lang === 'pl' ? '↳ KALKULATOR TRASY I FLOTY' : '↳ ROUTE & FLEET CALCULATOR'"></span>
-                  <span style="font:600 9.5px var(--mono); color:#555b53;" x-text="activeCity.country"></span>
+                  <span style="font:600 9.5px var(--mono); color:#555b53;" x-text="activeCity.country.split(' · ')[0] + ' · ' + new Intl.DisplayNames([lang], {type: 'region'}).of(activeCity.country.slice(0,2))"></span>
                 </div>
                 <h3 style="margin:0 0 8px; font:700 22px/1.05 var(--display); color:#172019;" x-text="lang === 'pl' ? 'Dokąd jedziemy?' : 'Where to next?'"></h3>
 
@@ -1289,7 +1315,7 @@
                 </div>
                 <div style="display:flex; justify-content:space-between; margin-top:4px; padding-top:4px; border-top:1px dashed #d5d8d2;">
                   <span><b style="color:#d90429;" x-text="activeCity.km + ' km'"></b> <small style="color:#555b53;" x-text="'(' + activeCity.highway + ')'"></small></span>
-                  <span style="color:#172019;" x-text="(lang === 'pl' ? 'Czas: ' : 'ETA: ') + (fleetType === 'bus' ? activeCity.busTime : activeCity.ftlTime)"></span>
+                  <span style="color:#172019;" x-text="(lang === 'pl' ? 'Czas: ' : 'ETA: ') + (fleetType === 'bus' ? activeCity.busTime : activeCity.ftlTime).replace('prom', lang === 'pl' ? 'prom' : 'ferry').replace('2 kier.', lang === 'pl' ? '2 kier.' : '2 drivers')"></span>
                 </div>
               </div>
 
@@ -1301,46 +1327,6 @@
           </div>
 
           <!-- Artwork 2: CK AD REM Accounting -->
-          <div x-show="projectId === 'ckadrem'" x-cloak class="ck-mini-preview">
-            <div class="ck-mini-nav">
-              <span x-text="lang === 'pl' ? 'Ad Rem · CENTRUM KSIĘGOWE' : 'Ad Rem · ACCOUNTING CENTRE'"></span>
-              <span style="color:#5a5a5a;" x-text="lang === 'pl' ? 'O FIRMIE · USŁUGI B2B · OFERTA NGO · CENNIK' : 'ABOUT · B2B SERVICES · NGO OFFER · PRICING'"></span>
-            </div>
-            <p style="margin:0 0 10px; font:600 10.5px var(--mono); color:#d90429; letter-spacing:0.08em;" x-text="lang === 'pl' ? '● AD REM / DO RZECZY · 22 LATA DOŚWIADCZENIA' : '● AD REM / TO THE POINT · 22 YEARS IN WARSAW'"></p>
-            <h3 style="margin:0 0 12px; font:700 clamp(1.8rem, 3.6vw, 3rem)/1.02 var(--display); letter-spacing:-0.05em; max-width:560px;">
-              <span x-text="lang === 'pl' ? 'Księgowość, która pozwala Ci ' : 'Accounting that lets you '"></span>
-              <span style="color:#d90429;" x-text="lang === 'pl' ? 'spać spokojnie.' : 'sleep well.'"></span>
-            </h3>
-            <p style="margin:0 0 20px; font-size:13px; color:#4a4a4a; max-width:500px; line-height:1.55;" x-text="lang === 'pl' ? 'Rodzinne biuro rachunkowe w Warszawie - osobne, czytelne ścieżki dla spółek prawa handlowego, jednoosobowych firm (KPiR) oraz fundacji i stowarzyszeń.' : 'Warsaw accounting practice featuring distinct conversion paths for LLCs, sole proprietors, and foundations/associations (NGOs).'"></p>
-            <div style="display:flex; gap:10px;">
-              <span style="padding:9px 18px; border-radius:var(--btn-radius); background:#d90429; color:#fff; font:700 11px var(--sans);" x-text="lang === 'pl' ? 'Umów konsultację' : 'Book consultation'"></span>
-              <span style="padding:9px 18px; border-radius:var(--btn-radius); border:1px solid #d90429; color:#d90429; font:700 11px var(--sans);" x-text="lang === 'pl' ? 'Oferta dla NGO →' : 'NGO Offer →'"></span>
-            </div>
-          </div>
-
-          <!-- Artwork 3: PM Classics (Czysta ciemna karta bez obrazka z Wikipedii) -->
-          <div x-show="projectId === 'pmclassics'" x-cloak class="pm-mini-preview">
-            <div style="display:flex; justify-content:space-between; align-items:center; font:500 10.5px var(--mono); letter-spacing:0.1em; color:#dfbd78;">
-              <span>PM CLASSICS</span>
-              <span>PL · EN · NO | EUR · PLN · NOK</span>
-            </div>
-            <div>
-              <span style="font:500 10.5px var(--mono); letter-spacing:0.12em; color:#e4e4e7;" x-text="lang === 'pl' ? 'SZTUKA RENOWACJI KLASYKÓW' : 'THE ART OF CLASSIC RESTORATION'"></span>
-              <h3 style="margin:8px 0 18px; font:600 clamp(2.2rem, 4.4vw, 3.8rem)/0.94 var(--display); letter-spacing:-0.05em;">
-                <span x-text="lang === 'pl' ? 'Drugie życie ' : 'Second '"></span>
-                <i style="color:#dfbd78; font-weight:400;" x-text="lang === 'pl' ? 'klasyków.' : 'chapters.'"></i>
-              </h3>
-              <span style="display:inline-block; padding:9px 16px; background:#c5a059; color:#0b0b0c; font:700 11px var(--mono); border-radius:var(--btn-radius);"
-                x-text="lang === 'pl' ? 'WIRTUALNY GARAŻ + 3-KROKOWY BRIEF RENOWACJI →' : 'VIRTUAL GARAGE + 3-STEP RESTORATION BRIEF →'">
-              </span>
-            </div>
-            <div style="display:flex; justify-content:space-between; font:500 10px var(--mono); letter-spacing:0.08em; color:#a1a1aa;">
-              <span x-text="lang === 'pl' ? 'KLASYKI LAT 60. I 70.' : '1960S & 70S EUROPEAN CLASSICS'"></span>
-              <span>EUR · PLN · NOK</span>
-            </div>
-          </div>
-
-          <!-- Artwork 4: KUBATURA B2B - Interaktywny Symulator Ciężarówki 24 m³ -->
           <div x-show="projectId === 'kubatura'" x-cloak class="kubatura-split">
 
             <!-- Lewa scena: Pełnowymiarowy przekrój ciężarówki 24 m³ -->
@@ -1560,7 +1546,7 @@
 
                 <div style="padding-top:10px; border-top:1px solid #ece9e0; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:6px; font:600 10px var(--mono);">
                   <span style="color:#5b6568;" x-text="gembaDemos[gembaDemoIdx].waste[lang]"></span>
-                  <span style="color:#b8432e;" x-text="'→ ' + gembaDemos[gembaDemoIdx].method"></span>
+                  <span style="color:#b8432e;" x-text="'→ ' + gembaDemos[gembaDemoIdx].method[lang]"></span>
                 </div>
               </div>
 
@@ -1580,56 +1566,16 @@
           </div>
 
 
-          <div x-show="['bdcacademy','hauhaus','piec'].includes(projectId)" x-cloak class="case-brand-art" :class="'case-brand-' + projectId" role="img" :aria-label="currentCase.title[lang]">
-            <div class="case-brand-topline"><span x-text="currentCase.tag[lang]">08 · Brand</span><span x-text="currentCase.year">2026</span></div>
-            <div class="case-brand-copy">
-              <p x-text="currentCase.keyFeatures[lang]">Key features</p>
-              <strong x-text="currentCase.shortName[lang]">Project</strong>
-              <span x-text="currentCase.subtitle[lang]">Project summary</span>
-            </div>
-            <div class="case-brand-bottomline"><span>WEB4BIZ · SELECTED WORK</span><span>08 / 08</span></div>
-          </div>
-        </div>
-      </div>
 
-      <!-- 4-Column Meta Grid -->
-      <div class="case-meta-grid tabular">
-        <div>
-          <span x-text="lang === 'pl' ? 'Typ projektu' : 'Project type'">Typ projektu</span>
-          <strong x-text="currentCase.pageType[lang]">Strona usługowa B2B + kalkulator trasy</strong>
-        </div>
-        <div>
-          <span x-text="lang === 'pl' ? 'Kluczowe funkcje' : 'Key features'">Kluczowe funkcje</span>
-          <strong x-text="currentCase.keyFeatures[lang]">Mapa Europy SVG · wybór trasy · szybka wycena</strong>
-        </div>
-        <div x-show="currentCase.duration">
-          <span x-text="lang === 'pl' ? 'Czas realizacji' : 'Timeline'">Czas realizacji</span>
-          <strong x-text="currentCase.duration && currentCase.duration[lang]">3 tygodnie</strong>
-        </div>
-        <div>
-          <span x-text="lang === 'pl' ? 'Technologie' : 'Technology'">Technologie</span>
-          <strong x-text="currentCase.technology">Vanilla JS · SVG · GeoJSON</strong>
-        </div>
-      </div>
+        </div></div>
+      </details>
 
     </div>
   </header>
 
   <main>
 
-    <!-- ═══ STATS BAR (4 METRYKI PROJEKTU) ═══ -->
-    <section class="case-stats-section tabular">
-      <div class="page-wrap case-stats-grid">
-        <template x-for="st in currentCase.stats[lang]" :key="st[0]">
-          <div class="case-stat">
-            <strong x-text="st[0]"></strong>
-            <span x-text="st[1]"></span>
-          </div>
-        </template>
-      </div>
-    </section>
-
-    <!-- ═══ EDITORIAL CASE STUDY CONTENT ═══ -->
+<!-- ═══ EDITORIAL CASE STUDY CONTENT ═══ -->
     <section class="section-pad">
       <div class="page-wrap case-content-layout">
 
@@ -1646,7 +1592,6 @@
               </li>
             </template>
           </ol>
-          <p class="case-aside-note" x-text="lang === 'pl' ? 'KLUCZOWA FUNKCJA / ŚCIEŻKA KONWERSJI UŻYTKOWNIKA' : 'KEY INTERACTION / USER CONVERSION JOURNEY'">KLUCZOWA FUNKCJA / ŚCIEŻKA KONWERSJI UŻYTKOWNIKA</p>
         </aside>
 
         <!-- Main Prose Column -->
@@ -1667,7 +1612,7 @@
           </template>
 
           <div style="display:flex; flex-wrap:wrap; align-items:center; gap:14px; padding-top:8px;">
-            <a :href="currentCase.url"
+            <a :href="web4bizSeo.link(currentCase.url, lang)"
                :target="currentCase.url.startsWith('http') ? '_blank' : '_self'"
                :rel="currentCase.url.startsWith('http') ? 'noopener noreferrer' : ''"
                class="btn-live tactile">
@@ -1675,7 +1620,7 @@
               <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
             </a>
 
-            <a href="index.html#estimator" class="btn-case-secondary tactile">
+            <a href="index.html#estimator" :href="web4bizSeo.link('index.html#estimator', lang)" class="btn-case-secondary tactile">
               <span x-text="lang === 'pl' ? 'Zamów podobne rozwiązanie' : 'Request a similar build'">Zamów podobne rozwiązanie</span>
               <span aria-hidden="true">→</span>
             </a>
@@ -1713,25 +1658,7 @@
   <script>
     function caseStudyApp() {
       const shared = window.WEB4BIZ_DATA || {};
-      const sharedProjects = Array.isArray(shared.projects) && shared.projects.length
-        ? shared.projects
-        : [
-            {
-              id: 'adremt2',
-              year: '2026',
-              url: 'https://adremt2.pl/index2.html',
-              shortName: { pl: 'AD REM T2', en: 'AD REM T2' },
-              title: { pl: 'Transport, logistyka i spedycja (AD REM T2)', en: 'Transport, Logistics & Freight Forwarding (AD REM T2)' },
-              subtitle: { pl: 'Załaduj plik projects-data.js w tym samym katalogu, aby wyświetlić pełną bazę Case Study.', en: 'Place projects-data.js in the same directory to load the full Case Study archive.' },
-              tag: { pl: '01 · Transport / TSL', en: '01 · Transport / Logistics' },
-              pageType: { pl: 'Strona usługowa B2B + kalkulator trasy', en: 'B2B service site + route calculator' },
-              keyFeatures: { pl: 'Mapa Europy SVG · wybór trasy · szybka wycena', en: 'SVG Europe map · route selection · quote flow' },
-              duration: { pl: '3 tygodnie', en: '3 weeks' },
-              technology: 'Vanilla JS · SVG · GeoJSON',
-              stats: { pl: [], en: [] },
-              sections: { pl: [], en: [] }
-            }
-          ];
+      const sharedProjects = shared.projects;
 
       const casesMap = {};
       const projectOrder = [];
@@ -1740,12 +1667,12 @@
         projectOrder.push(p.id);
       });
 
-      const requestedProject = new URLSearchParams(window.location.search).get('project');
+      const requestedProject = web4bizSeo.route().project;
       const initialProject = casesMap[requestedProject] ? requestedProject : projectOrder[0];
 
       return {
-        direction: localStorage.getItem('w4b_theme') || 'editorial',
-        lang: new URLSearchParams(window.location.search).get('lang') === 'en' ? 'en' : (localStorage.getItem('lang') === 'en' ? 'en' : 'pl'),
+        direction: document.documentElement.dataset.theme,
+        lang: web4bizSeo.language(),
         mobileMenuOpen: false,
         scrollProgress: 0,
         projectId: initialProject,
@@ -1776,7 +1703,7 @@
               en: '“Changeovers eat a whole afternoon of capacity”'
             },
             waste: { pl: 'Strata: Oczekiwanie (Muda)', en: 'Waste: Waiting (Muda)' },
-            method: 'SMED (Shingo)'
+            method: {pl:'SMED (Shingo)', en:'SMED (Shingo)'}
           },
           {
             id: 'defect',
@@ -1785,7 +1712,7 @@
               en: '“The same defect keeps coming back at inspection”'
             },
             waste: { pl: 'Strata: Defekty (Muda)', en: 'Waste: Defects (Muda)' },
-            method: '5 Whys + Poka-yoke'
+            method: {pl:'5 × dlaczego + poka-yoke', en:'5 Whys + poka-yoke'}
           }
         ],
 
@@ -1886,37 +1813,16 @@
         },
 
         updateDocumentTitle() {
-          if (!this.currentCase || !this.currentCase.title) return;
-          const title = `${this.currentCase.title[this.lang]} - Case Study | web4biz.pl`;
-          const description = this.currentCase.subtitle[this.lang];
-          const canonical = new URL('case-study.html', 'https://artur6789.github.io/web4biz/');
-          canonical.searchParams.set('project', this.projectId);
-          if (this.lang === 'en') canonical.searchParams.set('lang', 'en');
-          document.documentElement.lang = this.lang;
-          document.querySelector('link[hreflang="pl"]')?.setAttribute('href', `${canonical.origin}${canonical.pathname}?project=${encodeURIComponent(this.projectId)}`);
-          document.querySelector('link[hreflang="en"]')?.setAttribute('href', `${canonical.origin}${canonical.pathname}?project=${encodeURIComponent(this.projectId)}&lang=en`);
-          document.title = title;
-          document.querySelector('link[rel="canonical"]')?.setAttribute('href', canonical.href);
-          document.querySelector('meta[property="og:url"]')?.setAttribute('content', canonical.href);
-          document.querySelector('meta[name="description"]')?.setAttribute('content', description);
-          document.querySelector('meta[property="og:title"]')?.setAttribute('content', title);
-          document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
-          document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', title);
-          document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', description);
+          web4bizSeo.apply('case-study', this.lang, this.currentCase);
         },
 
         selectProject(id, pushHistory = true) {
           if (!this.cases[id]) return;
           this.projectId = id;
+          if (this.$refs.demo) this.$refs.demo.open = false;
           this.updateDocumentTitle();
 
-          if (pushHistory) {
-            const url = new URL(window.location);
-            if (url.searchParams.get('project') !== id) {
-              url.searchParams.set('project', id);
-              window.history.pushState({ project: id }, '', url);
-            }
-          }
+          if (pushHistory) web4bizSeo.updateUrl('case-study', this.lang, id, true);
         },
 
         onSwitcherKeydown(e, idx) {
@@ -1937,17 +1843,15 @@
         },
 
         setDirection(dir) {
+          document.documentElement.classList.add('theme-selected');
           this.direction = dir;
-          localStorage.setItem('w4b_theme', dir);
+          try { localStorage.setItem('w4b_theme', dir); } catch { /* Keep the selection for this visit. */ }
         },
 
         toggleLang() {
           this.lang = this.lang === 'pl' ? 'en' : 'pl';
           localStorage.setItem('lang', this.lang);
-          const nextUrl = new URL(window.location.href);
-          if (this.lang === 'en') nextUrl.searchParams.set('lang', 'en');
-          else nextUrl.searchParams.delete('lang');
-          window.history.replaceState({}, '', nextUrl);
+          web4bizSeo.updateUrl('case-study', this.lang, this.projectId);
           this.updateDocumentTitle();
         },
 
@@ -1955,7 +1859,8 @@
           this.updateDocumentTitle();
 
           window.addEventListener('popstate', () => {
-            const requested = new URLSearchParams(window.location.search).get('project');
+            this.lang = web4bizSeo.language();
+            const requested = web4bizSeo.route().project;
             const nextId = this.cases[requested] ? requested : this.projectOrder[0];
             this.selectProject(nextId, false);
           });

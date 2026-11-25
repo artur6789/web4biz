@@ -1,29 +1,36 @@
 <!DOCTYPE html>
-<html lang="pl" :lang="lang" x-data="hauhausApp()" @keydown.escape.window="mobileMenuOpen = false" class="scroll-smooth">
+<html lang="pl" x-effect="web4bizSeo.apply('hauhaus', lang)" :lang="lang" x-data="hauhausApp()" @keydown.escape.window="mobileMenuOpen = false" class="scroll-smooth">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title x-text="lang === 'pl' ? 'HAUHAUS — Kameralne Psiedszkole, Ogród & Opieka Weterynaryjna | Warszawa' : 'HAUHAUS — Boutique Dog Daycare, Garden & On-Site Vet Care | Warsaw'">HAUHAUS — Kameralne Psiedszkole, Ogród &amp; Opieka Weterynaryjna | Warszawa</title>
-  <meta name="description" content="Kameralne psiedszkole w Warszawie. Podgląd na żywo, ogród 800 m², zajęcia nosework, świeża Kuchnia HAUHAUS oraz behawiorysta i weterynarz na miejscu."/>
+  <title>HAUHAUS - psie przedszkole w Warszawie | web4biz.pl</title>
+  <meta name="description" content="Poznaj plan dnia, ogród i opiekę w warszawskim psim przedszkolu HAUHAUS. Sprawdź warunki pobytu i przygotuj wizytę adaptacyjną.">
+  <link rel="canonical" href="https://artur6789.github.io/web4biz/hauhaus.html">
+  <link rel="alternate" hreflang="pl" href="https://artur6789.github.io/web4biz/hauhaus.html">
+  <link rel="alternate" hreflang="en" href="https://artur6789.github.io/web4biz/hauhaus.html?lang=en">
+  <link rel="alternate" hreflang="x-default" href="https://artur6789.github.io/web4biz/hauhaus.html">
+  <meta property="og:site_name" content="web4biz.pl">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="HAUHAUS - psie przedszkole w Warszawie | web4biz.pl">
+  <meta property="og:description" content="Poznaj plan dnia, ogród i opiekę w warszawskim psim przedszkolu HAUHAUS. Sprawdź warunki pobytu i przygotuj wizytę adaptacyjną.">
+  <meta property="og:url" content="https://artur6789.github.io/web4biz/hauhaus.html">
+  <meta property="og:locale" content="pl_PL">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="HAUHAUS - psie przedszkole w Warszawie | web4biz.pl">
+  <meta name="twitter:description" content="Poznaj plan dnia, ogród i opiekę w warszawskim psim przedszkolu HAUHAUS. Sprawdź warunki pobytu i przygotuj wizytę adaptacyjną.">
   <meta name="robots" content="index, follow"/>
-  <link rel="canonical" href="https://artur6789.github.io/web4biz/hauhaus.html"/>
 
   <!-- Inline SVG Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%231F1B18'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia,serif' font-size='32' fill='%23F7F4EE'%3EH%3C/text%3E%3C/svg%3E"/>
 
   <!-- OpenGraph -->
-  <meta property="og:type" content="website"/>
-  <meta property="og:url" content="https://artur6789.github.io/web4biz/hauhaus.html"/>
-  <meta property="og:title" content="HAUHAUS — Spokojna głowa. Szczęśliwy pies."/>
-  <meta property="og:description" content="Kameralne psiedszkole w Warszawie: podgląd na żywo, ogród 800 m², nosework, Kuchnia HAUHAUS, behawiorysta i weterynarz na miejscu."/>
-  <meta property="og:locale" content="pl_PL"/>
 
   <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "name": "HAUHAUS — Kameralne Psiedszkole",
+    "name": "HAUHAUS - Kameralne Psiedszkole",
     "description": "Kameralne psiedszkole z ogrodem 800 m², zajęciami nosework, podglądem na żywo, świeżą kuchnią dla psów oraz behawiorystą i lekarzem weterynarii na miejscu.",
     "areaServed": "Warszawa",
     "openingHours": "Mo-Fr 07:30-19:00",
@@ -31,10 +38,11 @@
   }
   </script>
 
-  <!-- Google Fonts: Instrument Serif (Editorial Display) + Plus Jakarta Sans (Clean Modern UI) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+
+
+
+<link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/instrument-serif-latin-400-normal.woff2">
+  <link rel="stylesheet" href="assets/fonts/fonts.css">
 
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.17.5/dist/cdn.min.js"></script>
 
@@ -309,7 +317,7 @@
     }
 
     /* ═══════════════════════════════════════════════════════════════════
-       3. HERO — DIRECTION 2 (CENTERED EDITORIAL SERIF + FULL-WIDTH PHOTO)
+       3. HERO - DIRECTION 2 (CENTERED EDITORIAL SERIF + FULL-WIDTH PHOTO)
        ═══════════════════════════════════════════════════════════════════ */
     .hero {
       padding: 64px 0 88px;
@@ -619,7 +627,7 @@
     }
 
     /* ═══════════════════════════════════════════════════════════════════
-       5. DARK EDITORIAL BAND — WETERYNARZ, BEHAWIORYSTA & RYTM DNIA
+       5. DARK EDITORIAL BAND - WETERYNARZ, BEHAWIORYSTA & RYTM DNIA
        ═══════════════════════════════════════════════════════════════════ */
     .section-dark {
       background: var(--espresso-deep);
@@ -952,6 +960,7 @@
       .btn-dark, .btn-light, .btn-ghost { width: 100%; }
     }
   </style>
+  <script src="seo.js"></script>
 </head>
 
 <body>
@@ -1000,7 +1009,7 @@
 
   <main>
 
-    <!-- ═══ HERO — WARM EDITORIAL (KIERUNEK 2) ═══ -->
+    <!-- ═══ HERO - WARM EDITORIAL (KIERUNEK 2) ═══ -->
     <section class="hero">
       <div class="wrap">
         <div class="hero-head">
@@ -1029,7 +1038,7 @@
 
         <!-- Wide Rounded Editorial Hero Photograph + Subtle Floating Glass Pills -->
         <div class="hero-media">
-          <img src="/hauhaus-hero.jpg" alt="Minimalistyczna, słoneczna sala dzienna psiedszkola HAUHAUS z dwoma spokojnymi psami na lnianych poduszkach"/>
+          <img src="assets/hauhaus-hero.jpg" alt="Minimalistyczna, słoneczna sala dzienna psiedszkola HAUHAUS z dwoma spokojnymi psami na lnianych poduszkach"/>
 
           <div class="hero-float-bar">
             <div class="hero-float-group">
@@ -1168,15 +1177,15 @@
               <div class="care-card">
                 <h3 x-text="lang === 'pl' ? 'Weterynarz na miejscu i opieka kooperacyjna' : 'On-site veterinarian & cooperative care'">Weterynarz na miejscu i opieka kooperacyjna</h3>
                 <p x-text="lang === 'pl'
-                  ? 'Nasz lekarz weterynarii weryfikuje książeczki zdrowia, podaje leki o stałych porach, sprawdza opuszki łap i uszy po ogrodzie oraz oswaja psa z wagą i dotykiem w ramach treningu cooperative care — bez pośpiechu i zimnych stołów.'
-                  : 'Our resident vet verifies vaccination records, administers scheduled medication, checks paws and ears after garden play, and practices low-stress cooperative care handling.'">Nasz lekarz weterynarii weryfikuje książeczki zdrowia, podaje leki o stałych porach, sprawdza opuszki łap i uszy po ogrodzie oraz oswaja psa z wagą i dotykiem w ramach treningu cooperative care — bez pośpiechu i zimnych stołów.</p>
+                  ? 'Nasz lekarz weterynarii weryfikuje książeczki zdrowia, podaje leki o stałych porach, sprawdza opuszki łap i uszy po ogrodzie oraz oswaja psa z wagą i dotykiem w ramach treningu cooperative care - bez pośpiechu i zimnych stołów.'
+                  : 'Our resident vet verifies vaccination records, administers scheduled medication, checks paws and ears after garden play, and practices low-stress cooperative care handling.'">Nasz lekarz weterynarii weryfikuje książeczki zdrowia, podaje leki o stałych porach, sprawdza opuszki łap i uszy po ogrodzie oraz oswaja psa z wagą i dotykiem w ramach treningu cooperative care - bez pośpiechu i zimnych stołów.</p>
               </div>
 
               <div class="care-card">
                 <h3 x-text="lang === 'pl' ? 'Behawiorysta w każdej grupie i mądry nosework' : 'Behaviorist-led groups & calm nosework'">Behawiorysta w każdej grupie i mądry nosework</h3>
                 <p x-text="lang === 'pl'
-                  ? 'Grupy układamy według temperamentu, a nie wyłącznie wagi. 20 minut zorganizowanego noseworku na drewnianych skrzynkach i matach lnianych męczy psią głowę zdrowiej niż dwie godziny gonitwy — pies wraca do domu wyciszony, nie przebodźcowany.'
-                  : 'Groups are matched by temperament rather than size alone. Twenty minutes of structured nosework satisfies canine curiosity far better than frantic chasing—so dogs return calm, never overstimulated.'">Grupy układamy według temperamentu, a nie wyłącznie wagi. 20 minut zorganizowanego noseworku na drewnianych skrzynkach i matach lnianych męczy psią głowę zdrowiej niż dwie godziny gonitwy — pies wraca do domu wyciszony, nie przebodźcowany.</p>
+                  ? 'Grupy układamy według temperamentu, a nie wyłącznie wagi. 20 minut zorganizowanego noseworku na drewnianych skrzynkach i matach lnianych męczy psią głowę zdrowiej niż dwie godziny gonitwy - pies wraca do domu wyciszony, nie przebodźcowany.'
+                  : 'Groups are matched by temperament rather than size alone. Twenty minutes of structured nosework satisfies canine curiosity far better than frantic chasing-so dogs return calm, never overstimulated.'">Grupy układamy według temperamentu, a nie wyłącznie wagi. 20 minut zorganizowanego noseworku na drewnianych skrzynkach i matach lnianych męczy psią głowę zdrowiej niż dwie godziny gonitwy - pies wraca do domu wyciszony, nie przebodźcowany.</p>
               </div>
             </div>
           </div>
@@ -1220,8 +1229,8 @@
             </h2>
           </div>
           <p class="split-lead" x-text="lang === 'pl'
-            ? 'Gotujemy na miejscu z mięsa jakości human-grade i warzyw sezonowych, serwujemy zbilansowany BARF albo podajemy dokładnie odmierzoną karmę własną z domu — zawsze w spokojnych stanowiskach bez stresu.'
-            : 'We gently cook human-grade meals on-site, serve balanced BARF, or store and serve your own food from home—always in calm, separate feeding spaces.'">Gotujemy na miejscu z mięsa jakości human-grade i warzyw sezonowych, serwujemy zbilansowany BARF albo podajemy dokładnie odmierzoną karmę własną z domu — zawsze w spokojnych stanowiskach bez stresu.</p>
+            ? 'Gotujemy na miejscu z mięsa jakości human-grade i warzyw sezonowych, serwujemy zbilansowany BARF albo podajemy dokładnie odmierzoną karmę własną z domu - zawsze w spokojnych stanowiskach bez stresu.'
+            : 'We gently cook human-grade meals on-site, serve balanced BARF, or store and serve your own food from home-always in calm, separate feeding spaces.'">Gotujemy na miejscu z mięsa jakości human-grade i warzyw sezonowych, serwujemy zbilansowany BARF albo podajemy dokładnie odmierzoną karmę własną z domu - zawsze w spokojnych stanowiskach bez stresu.</p>
         </div>
 
         <div class="kitchen-grid">
@@ -1370,7 +1379,7 @@
                 <span style="font-size:12px; color:var(--stone); display:block;" x-text="recommendedGroup.badge[lang]"></span>
                 <strong style="font-family:var(--serif); font-size:38px; font-weight:400; line-height:1.05;" x-text="estimatedPriceLabel"></strong>
                 <span style="display:block; font-size:12px; color:var(--stone); margin-top:2px;"
-                      x-text="lang === 'pl' ? 'Wymagane aktualne szczepienia — weryfikacja przez weterynarza w dniu adaptacji.' : 'Up-to-date vaccinations required — verified by our on-site vet on trial day.'"></span>
+                      x-text="lang === 'pl' ? 'Wymagane aktualne szczepienia - weryfikacja przez weterynarza w dniu adaptacji.' : 'Up-to-date vaccinations required - verified by our on-site vet on trial day.'"></span>
               </div>
 
               <button type="button" class="btn-dark press" @click="transferPlanToBooking()">
@@ -1506,7 +1515,7 @@
   <script>
     function hauhausApp() {
       return {
-        lang: localStorage.getItem('lang') === 'en' ? 'en' : 'pl',
+        lang: web4bizSeo.language(),
         mobileMenuOpen: false,
 
         /* 1. Podgląd Live (3 strefy oparte o czyste fotografie w assets/) */
@@ -1606,6 +1615,7 @@
         toggleLang() {
           this.lang = this.lang === 'pl' ? 'en' : 'pl';
           localStorage.setItem('lang', this.lang);
+          web4bizSeo.updateUrl('hauhaus', this.lang);
         },
 
         toggleExclusion(id) {
@@ -1641,8 +1651,8 @@
               : 'Balanced recipe crafted with a veterinary nutritionist. Zero preservatives.';
           }
           return this.lang === 'pl'
-            ? `Uwzględniono ${count} indywidualne wykluczenia — osobna deska i miska z imieniem psa.`
-            : `${count} custom dietary preferences applied — dedicated prep board & named bowl.`;
+            ? `Uwzględniono ${count} indywidualne wykluczenia - osobna deska i miska z imieniem psa.`
+            : `${count} custom dietary preferences applied - dedicated prep board & named bowl.`;
         },
 
         get generatedMenu() {
@@ -1715,7 +1725,7 @@
               name: { pl: 'Grupa Towarzyska i Ogrodowa', en: 'Social Garden Group' },
               desc: { pl: 'Zrównoważona grupa dla przyjaznych psów. Wspólne spacery w ogrodzie 800 m², zabawy węchowe i pilnowane przerwy na odpoczynek.', en: 'Balanced group for friendly dogs. Shared garden exploration, scent games, and structured rest windows.' },
               balance: { nosework: 30, garden: 35, rest: 35 },
-              note: { pl: '„Świetna komunikacja w ogrodzie z dwoma innymi psami, bez nakręcania się. Miska zjedzona do czysta.”', en: '“Calm, polite play in the garden with two peers—no overarousal. Finished the entire bowl.”' }
+              note: { pl: '„Świetna komunikacja w ogrodzie z dwoma innymi psami, bez nakręcania się. Miska zjedzona do czysta.”', en: '“Calm, polite play in the garden with two peers-no overarousal. Finished the entire bowl.”' }
             },
             active: {
               code: 'GRUPA C · WĘCH & RUCH',
@@ -1723,7 +1733,7 @@
               name: { pl: 'Grupa Aktywna i Nosework Pro', en: 'Active & Nosework Pro Group' },
               desc: { pl: 'Dla psów pracujących i pełnych energii. Złożone zadania węchowe, ścieżka sensoryczna i świadome wyciszanie po wysiłku.', en: 'Built for high-drive dogs. Multi-stage scent puzzles, sensory balance paths, and guided decompression.' },
               balance: { nosework: 45, garden: 30, rest: 25 },
-              note: { pl: '„Dwie trudniejsze rundy noseworku pięknie wyciszyły energię — po 13:00 głęboki sen aż do odbioru.”', en: '“Two advanced nosework rounds channelled all that energy—slept deeply from 13:00 until pickup.”' }
+              note: { pl: '„Dwie trudniejsze rundy noseworku pięknie wyciszyły energię - po 13:00 głęboki sen aż do odbioru.”', en: '“Two advanced nosework rounds channelled all that energy-slept deeply from 13:00 until pickup.”' }
             },
             senior: {
               code: 'GRUPA D · SENIOR',
