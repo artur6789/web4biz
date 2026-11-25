@@ -5,12 +5,15 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
+const { createHash } = require('node:crypto');
 const root = path.join(__dirname, '..');
 const read = file => fs.readFileSync(path.join(root, file), 'utf8');
 const write = (file, content) => fs.writeFileSync(path.join(root, file), content);
 const seo = require('../seo.js');
 const dataContext = { window: {} };
-vm.runInNewContext(read('projects-data.js'), dataContext);
+const projectData = read('projects-data.js');
+const projectDataVersion = createHash('sha256').update(projectData).digest('hex').slice(0, 12);
+vm.runInNewContext(projectData, dataContext);
 vm.runInNewContext(read('project-previews.js'), dataContext);
 const projects = dataContext.window.WEB4BIZ_DATA.projects;
 const esc = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
@@ -123,7 +126,8 @@ function caseFallback(html, project, lang) {
 }
 
 for (const page of ['index', 'projects', 'case-study']) {
-  const original = read(page + '.html');
+  const original = read(page + '.html').replace(/src="projects-data\.js(?:\?v=[a-f0-9]+)?"/g,
+    'src="projects-data.js?v=' + projectDataVersion + '"');
   const { template, controller } = layers(original, page);
   if (page === 'case-study') {
     for (const project of projects) {
