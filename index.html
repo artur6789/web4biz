@@ -81,7 +81,7 @@
   <link rel="stylesheet" href="assets/fonts/fonts.css">
 
   <!-- Wspólne dane projektów + Alpine.js (bez zbędnego GSAP) -->
-  <script src="projects-data.js?v=a00ac224f877"></script>
+  <script src="projects-data.js?v=2c47110d2b48"></script>
   <script defer src="vendor/alpine-3.17.5.min.js"></script>
 
   <style>
@@ -1097,10 +1097,10 @@
       .project-card, .project-art-box, .service-row, .process-row { transition: none; }
     }
   </style>
-  <link rel="stylesheet" href="project-previews.css"/>
+  <link rel="stylesheet" href="project-previews.css?v=12f4e8fc15cf"/>
   <link rel="stylesheet" href="portfolio-layout.css"/>
-  <script src="project-previews.js"></script>
-  <script src="seo.js"></script>
+  <script src="project-previews.js?v=751e1e8f993c"></script>
+  <script src="seo.js?v=ad6a87c6c3b6"></script>
 </head>
 
 <body>
@@ -1112,7 +1112,7 @@
         </a>
 
         <nav class="nav-links" :aria-label="lang === 'pl' ? 'Główna nawigacja' : 'Main navigation'">
-          <a href="projects.html?lang=pl" :href="web4bizSeo.link('projects.html', lang)" x-text="navProjectsLabel">Projekty (8)</a>
+          <a href="projects.html?lang=pl" :href="web4bizSeo.link('projects.html', lang)" x-text="navProjectsLabel">Projekty (9)</a>
           <a href="#what-i-do" x-text="t.navEstimator">Co robię</a>
           <a href="#how-i-work" x-text="t.navAbout">Jak pracuję</a>
           <a href="#contact" x-text="t.navContact">Kontakt</a>
@@ -1183,7 +1183,7 @@
       <nav id="portfolio-mobile-menu" class="mobile-drawer" @click.outside="if (!$event.target.closest('.mobile-menu-btn')) mobileMenuOpen = false" x-show="mobileMenuOpen" x-cloak
            :aria-label="lang === 'pl' ? 'Menu mobilne' : 'Mobile navigation'">
         <a href="projects.html?lang=pl" :href="web4bizSeo.link('projects.html', lang)" @click="mobileMenuOpen = false">
-          <span x-text="navProjectsLabel">Projekty (8)</span>
+          <span x-text="navProjectsLabel">Projekty (9)</span>
           <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
         </a>
         <a href="#what-i-do" @click="mobileMenuOpen = false">

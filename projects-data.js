@@ -712,6 +712,91 @@ window.WEB4BIZ_DATA = {
         "pl": "Strona marki piekarniczej",
         "en": "Bakery brand website"
       }
+    },
+    {
+      "id": "more-dough",
+      "num": "09",
+      "year": "2026",
+      "categories": [
+        "brand",
+        "tools"
+      ],
+      "url": "demos/more-dough/index.html?blacha=pomidor%2Cpepperoni%2Cziemniak%2Cpomidor#blacha",
+      "external": false,
+      "shortName": {
+        "pl": "More Dough",
+        "en": "More Dough"
+      },
+      "cardTitle": {
+        "pl": "More Dough - pizzeria z kreatorem blachy",
+        "en": "More Dough - pizza shop and interactive tray"
+      },
+      "cardDesc": {
+        "pl": "Strona fikcyjnego okienka z pizzą. Wybierasz kawałki, widzisz cenę całej blachy i wysyłasz swój skład ekipie.",
+        "en": "A concept site for a street pizza counter. Pick your slices, see the tray total and send your combination to friends."
+      },
+      "liveLabel": {
+        "pl": "Wypróbuj blachę",
+        "en": "Try the tray (in Polish)"
+      },
+      "title": {
+        "pl": "More Dough - strona pizzerii i kreator blachy",
+        "en": "More Dough - pizza website and tray builder"
+      },
+      "subtitle": {
+        "pl": "Dla fikcyjnej pizzerii zaprojektowałem menu i kreator, w którym ekipa układa cztery kawałki na jednej blasze i udostępnia swój wybór linkiem.",
+        "en": "For a fictional pizza counter, I designed a menu and a tray builder that lets friends arrange four slices and share their selection with a link."
+      },
+      "tag": {
+        "pl": "09 · Gastronomia / Projekt koncepcyjny",
+        "en": "09 · Food & drink / Concept project"
+      },
+      "technology": {
+        "pl": "Astro · TypeScript · CSS",
+        "en": "Astro · TypeScript · CSS"
+      },
+      "sections": {
+        "pl": [
+          {
+            "heading": "Od menu do wspólnego wyboru",
+            "body": "Kto wpada tylko sprawdzić ofertę, od razu widzi trzy smaki, skład i cenę za kawałek. Kreator jest tuż pod menu. Pomaga ekipie ustalić wspólny wybór: można dodać do czterech kawałków, powtórzyć smak i od razu zobaczyć łączną cenę."
+          },
+          {
+            "heading": "Blacha z perspektywy klienta",
+            "body": "Pierwsza wersja miała cztery pola i zdjęcia z kart menu. Na blasze wyglądały jak osobne kafelki. Zmieniłem kadr na widok znad lady i przygotowałem osobne ujęcia smaków pod tym samym kątem. Kawałki wypełniają formę, wolne miejsca odsłaniają pergamin, a kliknięcie kawałka pozwala go zdjąć."
+          },
+          {
+            "heading": "Gotowy skład w jednym linku",
+            "body": "Astro generuje statyczne menu i karty smaków. Skrypt w przeglądarce przelicza cenę i zapisuje pozycje kawałków w adresie. Po otwarciu linku druga osoba widzi tę samą blachę, łącznie z pustymi miejscami. Demo działa bez konta i serwera aplikacji."
+          }
+        ],
+        "en": [
+          {
+            "heading": "From browsing the menu to choosing together",
+            "body": "Anyone checking the menu can find all three flavours, ingredients and prices at a glance. The builder sits just below it. Friends can put up to four slices on a tray, repeat a flavour and see the total as they go."
+          },
+          {
+            "heading": "A customer’s view of the tray",
+            "body": "The first version had four outlined slots and reused the menu photos. The slices felt like separate tiles. I reframed the tray from above the counter and created a matching view for each flavour. The slices fill the pan, unused spaces show the parchment, and clicking a slice removes it."
+          },
+          {
+            "heading": "One link carries the whole tray",
+            "body": "Astro generates the static menu and flavour pages. A browser script updates the total and stores each slice position in the URL. Opening the link restores the same layout, including any empty spaces. The demo runs without an account or application server."
+          }
+        ]
+      },
+      "industry": {
+        "pl": "Gastronomia",
+        "en": "Food & drink"
+      },
+      "tool": {
+        "pl": "Kreator blachy pizzy",
+        "en": "Shareable pizza tray builder"
+      },
+      "seoTopic": {
+        "pl": "Strona pizzerii i kreator blachy",
+        "en": "Pizza website and tray builder"
+      }
     }
   ]
 };

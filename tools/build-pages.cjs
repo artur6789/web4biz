@@ -13,6 +13,8 @@ const seo = require('../seo.js');
 const dataContext = { window: {} };
 const projectData = read('projects-data.js');
 const projectDataVersion = createHash('sha256').update(projectData).digest('hex').slice(0, 12);
+const sharedAssetVersions = Object.fromEntries(['project-previews.js', 'project-previews.css', 'seo.js']
+  .map(file => [file, createHash('sha256').update(read(file)).digest('hex').slice(0, 12)]));
 vm.runInNewContext(projectData, dataContext);
 vm.runInNewContext(read('project-previews.js'), dataContext);
 const projects = dataContext.window.WEB4BIZ_DATA.projects;
@@ -119,6 +121,8 @@ function caseFallback(html, project, lang) {
   const base = dataContext.window.projectPreview(project.id, lang);
   return html.replace(/(x-html="projectPreview\(projectId, lang\)">)<\/div>/, (_, tag) => tag + base + '</div>')
     .replace('<div class="case-prose">', '<div class="case-prose"><noscript>' + sections + '</noscript>')
+    .replace('<a :href="web4bizSeo.link(currentCase.url, lang)"',
+      '<a href="' + esc(seo.link(project.url, lang)) + '" :href="web4bizSeo.link(currentCase.url, lang)"')
     .replace(/(<a )(:href="[^"]*nextProjectId[^"]*")/, (_, start, bind) => {
       const i = projects.indexOf(project);
       return start + 'href="' + fileName(projects[(i + 1) % projects.length].id, lang) + '" ' + bind;
@@ -127,7 +131,9 @@ function caseFallback(html, project, lang) {
 
 for (const page of ['index', 'projects', 'case-study']) {
   const original = read(page + '.html').replace(/src="projects-data\.js(?:\?v=[a-f0-9]+)?"/g,
-    'src="projects-data.js?v=' + projectDataVersion + '"');
+    'src="projects-data.js?v=' + projectDataVersion + '"')
+    .replace(/\b(src|href)="(project-previews\.(?:css|js)|seo\.js)(?:\?v=[a-f0-9]+)?"/g,
+      (_, attr, file) => attr + '="' + file + '?v=' + sharedAssetVersions[file] + '"');
   const { template, controller } = layers(original, page);
   if (page === 'case-study') {
     for (const project of projects) {

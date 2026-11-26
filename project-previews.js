@@ -142,10 +142,26 @@
       ${row(t('Ogród · 800 m²', 'Garden · 800 m²'), t('Podgląd na żywo', 'Live camera'))}`;
   }
 
+  function moreDough(t) {
+    const asset = 'demos/more-dough/assets/img/blacha/';
+    const pieces = ['pomidor', 'pepperoni', 'ziemniak', 'pomidor'];
+    const options = [t('Pomidor, mordo', 'Tomato & basil'), 'Pepperoni', t('Ziemniak w mundurku', 'Potato & rosemary')];
+    return `<div class="pv-dough-copy">
+        <small>More Dough</small>
+        <strong>${t('Mordo, złóż blachę.', 'Build your pizza tray.')}</strong>
+        <div class="pv-dough-options">${options.map((name, index) =>
+          `<div><span>${name}</span><b>${[14, 18, 16][index]} zł</b></div>`).join('')}</div>
+      </div>
+      <div class="pv-dough-tray">
+        <img src="${asset}okienko-720.webp" alt="" width="720" height="720" loading="lazy">
+        ${pieces.map((name) => `<img class="pv-dough-piece" src="${asset}${name}-384.webp" alt="" width="384" height="384" loading="lazy">`).join('')}
+      </div>`;
+  }
+
   const render = new Map([
     ['adremt2', route], ['ckadrem', accounting], ['pmclassics', classics],
     ['kubatura', kubatura], ['gemba', gemba], ['bdcacademy', academy],
-    ['hauhaus', daycare], ['piec', piec]
+    ['hauhaus', daycare], ['piec', piec], ['more-dough', moreDough]
   ]);
 
   window.projectPreview = function projectPreview(id, language = 'pl') {

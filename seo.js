@@ -8,8 +8,8 @@ const web4bizSeo = (() => {
       en: ['Websites, tools and web apps for businesses', 'Explore B2B websites, online tools and web apps by Artur Załuska. See selected work, compare project options and discuss what your business needs.']
     },
     projects: {
-      pl: ['Portfolio stron internetowych i aplikacji webowych', 'Zobacz osiem realizacji, od kalkulatora transportu po stronę piekarni. Filtruj projekty i sprawdź, jak rozwiązują konkretne problemy klientów.'],
-      en: ['Website and web app portfolio', 'Explore eight projects, from a freight route calculator to a bakery website. Filter the portfolio and see how each design addresses a customer need.']
+      pl: ['Portfolio stron internetowych i aplikacji webowych', 'Zobacz realizacje, od planera tras po interaktywne menu pizzerii. Filtruj projekty i sprawdź, jak rozwiązują konkretne problemy klientów.'],
+      en: ['Website and web app portfolio', 'Explore projects ranging from a freight route calculator to an interactive pizza menu. Filter the portfolio and see how each design addresses a customer need.']
     },
     'bdc-academy': {
       pl: ['BDC Academy - szkolenia dla salonów dealerskich', 'Porównaj programy BDC dla sprzedaży, serwisu i kierowników. Wybierz szkolenia dla swojego zespołu dealerskiego i przygotuj zapytanie.'],
@@ -66,7 +66,11 @@ const web4bizSeo = (() => {
   function link(href, lang) {
     if (!href || href.startsWith('#') || /^(?:[a-z]+:|\/\/)/i.test(href)) return href;
     const url = new URL(href, base);
-    const file = url.pathname.split('/').pop() || 'index.html';
+    const rootPath = new URL(base).pathname;
+    if (!url.pathname.startsWith(rootPath)) return href;
+    const relativePath = url.pathname.slice(rootPath.length);
+    if (relativePath.includes('/')) return href;
+    const file = relativePath || 'index.html';
     const match = file.match(casePattern);
     const page = match || file === 'case-study.html' ? 'case-study' : file.replace(/(-en)?\.html$/, '');
     if (page !== 'case-study' && !pages[page]) return href;

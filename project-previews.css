@@ -125,3 +125,20 @@
 .pv-hauhaus { --paper: #102c26; --type: #f5f1e6; --accent: #f6a55c; }
 .pv-hau-copy strong { margin-top: .15em; font-size: 6.9em; line-height: 1.03; }
 .pv-bdcacademy .pv-top:last-child, .pv-hauhaus .pv-top:last-child, .pv-pmclassics .pv-top:last-child { border-top: 1px solid currentColor; padding-top: 1em; }
+
+.pv-more-dough { --paper: #1825ae; --type: #fffaf0; }
+.pv-more-dough .pv-canvas { display: grid; grid-template-columns: minmax(0, 1fr) 46em; gap: 4.1em; align-items: center; }
+.pv-dough-copy > small { font-size: 1.58em; font-weight: 750; }
+.pv-dough-copy > strong { margin: .35em 0; font-size: 5.55em; font-style: italic; line-height: .92; text-transform: uppercase; }
+.pv-dough-options { display: grid; gap: .5em; }
+.pv-dough-options > div { display: flex; justify-content: space-between; gap: .5em; padding: .5em .65em; background: #f2ab93; color: #181813; font-size: 1.55em; }
+.pv-dough-options > div:nth-child(2) { background: #ffe384; }
+.pv-dough-options > div:nth-child(3) { background: #dbe69f; }
+.pv-dough-options b { white-space: nowrap; }
+.pv-dough-tray { position: relative; aspect-ratio: 1; border: .25em solid #181813; box-shadow: .6em .6em #181813; overflow: hidden; }
+.pv-dough-tray > img { display: block; width: 100%; height: auto; }
+.pv-dough-tray > .pv-dough-piece { position: absolute; width: 42.4%; transform: translate(-50%, -50%); filter: drop-shadow(.2em .24em .2em #39221170); }
+.pv-dough-piece:nth-child(2) { left: 28.8%; top: 29.5%; }
+.pv-dough-piece:nth-child(3) { left: 70.9%; top: 29.5%; transform: translate(-50%, -50%) scaleX(-1); }
+.pv-dough-piece:nth-child(4) { left: 28.8%; top: 71.1%; }
+.pv-dough-piece:nth-child(5) { left: 70.9%; top: 71.1%; transform: translate(-50%, -50%) scaleX(-1); }

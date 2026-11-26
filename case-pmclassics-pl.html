@@ -94,14 +94,14 @@
   <link rel="stylesheet" href="assets/fonts/fonts.css">
 
   <!-- Wspólne źródło danych projektów + Alpine.js -->
-  <script src="projects-data.js?v=a00ac224f877"></script>
+  <script src="projects-data.js?v=2c47110d2b48"></script>
   <script defer src="vendor/alpine-3.17.5.min.js"></script>
 
   <link rel="stylesheet" href="assets/case-study.css">
-  <link rel="stylesheet" href="project-previews.css"/>
+  <link rel="stylesheet" href="project-previews.css?v=12f4e8fc15cf"/>
   <link rel="stylesheet" href="portfolio-layout.css"/>
-  <script src="project-previews.js"></script>
-  <script src="seo.js"></script>
+  <script src="project-previews.js?v=751e1e8f993c"></script>
+  <script src="seo.js?v=ad6a87c6c3b6"></script>
 </head>
 
 <body>
@@ -113,7 +113,7 @@
         </a>
 
         <nav class="nav-links" :aria-label="lang === 'pl' ? 'Główna nawigacja' : 'Main navigation'">
-          <a href="projects.html?lang=pl" :href="web4bizSeo.link('projects.html', lang)" class="is-current" x-text="navProjectsLabel">Projekty (8)</a>
+          <a href="projects.html?lang=pl" :href="web4bizSeo.link('projects.html', lang)" class="is-current" x-text="navProjectsLabel">Projekty (9)</a>
           <a href="index.html?lang=pl#estimator" :href="web4bizSeo.link('index.html#estimator', lang)" x-text="lang === 'pl' ? 'Pakiety i wycena' : 'Tiers & Pricing'">Pakiety i wycena</a>
           <a href="index.html?lang=pl#how-i-work" :href="web4bizSeo.link('index.html#how-i-work', lang)" x-text="lang === 'pl' ? 'Jak pracuję' : 'How I work'">Jak pracuję</a>
           <a href="index.html?lang=pl#contact" :href="web4bizSeo.link('index.html#contact', lang)" x-text="lang === 'pl' ? 'Kontakt' : 'Contact'">Kontakt</a>
@@ -186,7 +186,7 @@
           <span aria-hidden="true">←</span>
         </a>
         <a href="projects.html?lang=pl" :href="web4bizSeo.link('projects.html', lang)" @click="mobileMenuOpen = false">
-          <span x-text="navProjectsLabel">Projekty (8)</span>
+          <span x-text="navProjectsLabel">Projekty (9)</span>
           <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
         </a>
         <a href="index.html?lang=pl#estimator" :href="web4bizSeo.link('index.html#estimator', lang)" @click="mobileMenuOpen = false">
@@ -215,14 +215,11 @@
   <header class="case-masthead" id="top">
     <div class="page-wrap">
 
-      <!-- Main Navigation -->
-      
-
       <!-- Back Link + Quick Project Switcher (WCAG tabs + obsługa strzałek + historia pushState) -->
       <div class="masthead-top-bar">
         <a href="projects.html?lang=pl" :href="web4bizSeo.link('projects.html', lang)" class="back-link tactile">
           <span aria-hidden="true">←</span>
-          <span x-text="backProjectsLabel">Wszystkie projekty (8)</span>
+          <span x-text="backProjectsLabel">Wszystkie projekty (9)</span>
         </a>
 
         <div class="project-switcher" role="tablist" x-ref="switcherList" :aria-label="lang === 'pl' ? 'Przełącz Case Study' : 'Switch Case Study'">
@@ -674,11 +671,12 @@
           </template>
 
           <div style="display:flex; flex-wrap:wrap; align-items:center; gap:14px; padding-top:8px;">
-            <a :href="web4bizSeo.link(currentCase.url, lang)"
+            <a href="pmclassics.html?lang=pl" :href="web4bizSeo.link(currentCase.url, lang)"
+               :hreflang="projectId === 'more-dough' ? 'pl' : null"
                :target="currentCase.url.startsWith('http') ? '_blank' : '_self'"
                :rel="currentCase.url.startsWith('http') ? 'noopener noreferrer' : ''"
                class="btn-live tactile">
-              <span x-text="lang === 'pl' ? 'Otwórz działający projekt' : 'Visit live project'">Otwórz działający projekt</span>
+              <span x-text="projectId === 'more-dough' ? currentCase.liveLabel[lang] : (lang === 'pl' ? 'Otwórz działający projekt' : 'Visit live project')">Otwórz działający projekt</span>
               <svg class="ico-ext" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
             </a>
 

@@ -1,0 +1,11 @@
+More Dough
+
+1. Rozpakuj całe archiwum do jednego folderu.
+2. Otwórz index.html w przeglądarce.
+
+index.html to strona główna. Folder menu zawiera podstrony smaków, a assets
+zawiera CSS, JavaScript, zdjęcia i fonty z licencjami. Strona i kreator blachy
+działają bez instalacji. Kopiowanie linku do blachy pojawia się po umieszczeniu
+paczki na hostingu, gdzie link może otworzyć także inna osoba.
+
+Na hosting wrzuć całą zawartość paczki z zachowaniem folderów.

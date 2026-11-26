@@ -26,14 +26,14 @@
   <link rel="alternate" hreflang="x-default" href="https://artur6789.github.io/web4biz/projects.html">
   <meta property="og:site_name" content="web4biz.pl">
   <meta property="og:type" content="website">
-  <meta name="description" content="Zobacz osiem realizacji, od kalkulatora transportu po stronę piekarni. Filtruj projekty i sprawdź, jak rozwiązują konkretne problemy klientów.">
+  <meta name="description" content="Zobacz realizacje, od planera tras po interaktywne menu pizzerii. Filtruj projekty i sprawdź, jak rozwiązują konkretne problemy klientów.">
   <meta property="og:title" content="Portfolio stron internetowych i aplikacji webowych | web4biz.pl">
-  <meta property="og:description" content="Zobacz osiem realizacji, od kalkulatora transportu po stronę piekarni. Filtruj projekty i sprawdź, jak rozwiązują konkretne problemy klientów.">
+  <meta property="og:description" content="Zobacz realizacje, od planera tras po interaktywne menu pizzerii. Filtruj projekty i sprawdź, jak rozwiązują konkretne problemy klientów.">
   <meta property="og:url" content="https://artur6789.github.io/web4biz/projects.html">
   <meta property="og:locale" content="pl_PL">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Portfolio stron internetowych i aplikacji webowych | web4biz.pl">
-  <meta name="twitter:description" content="Zobacz osiem realizacji, od kalkulatora transportu po stronę piekarni. Filtruj projekty i sprawdź, jak rozwiązują konkretne problemy klientów.">
+  <meta name="twitter:description" content="Zobacz realizacje, od planera tras po interaktywne menu pizzerii. Filtruj projekty i sprawdź, jak rozwiązują konkretne problemy klientów.">
 
   <meta name="robots" content="index, follow"/>
 
@@ -48,7 +48,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "Portfolio stron internetowych i aplikacji webowych | web4biz.pl",
-  "description": "Zobacz osiem realizacji, od kalkulatora transportu po stronę piekarni. Filtruj projekty i sprawdź, jak rozwiązują konkretne problemy klientów.",
+  "description": "Zobacz realizacje, od planera tras po interaktywne menu pizzerii. Filtruj projekty i sprawdź, jak rozwiązują konkretne problemy klientów.",
   "inLanguage": "pl",
   "url": "https://artur6789.github.io/web4biz/projects.html",
   "mainEntity": {
@@ -101,6 +101,12 @@
         "position": 8,
         "name": "PIEC® - Niegrzeczny chleb",
         "url": "https://artur6789.github.io/web4biz/case-piec-pl.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 9,
+        "name": "More Dough - pizzeria z kreatorem blachy",
+        "url": "https://artur6789.github.io/web4biz/case-more-dough-pl.html"
       }
     ]
   }
@@ -111,7 +117,7 @@
   <link rel="stylesheet" href="assets/fonts/fonts.css">
 
   <!-- Wspólne dane projektów + Alpine.js -->
-  <script src="projects-data.js?v=a00ac224f877"></script>
+  <script src="projects-data.js?v=2c47110d2b48"></script>
   <script defer src="vendor/alpine-3.17.5.min.js"></script>
 
   <style>
@@ -841,10 +847,10 @@
     .preview-hauhaus { background:#102c26; color:#f5f1e6; } .preview-hauhaus em { color:#f6a55c; }
     .preview-piec { background:#f0e8dc; color:#201815; } .preview-piec em { color:#c4432e; }
   </style>
-  <link rel="stylesheet" href="project-previews.css"/>
+  <link rel="stylesheet" href="project-previews.css?v=12f4e8fc15cf"/>
   <link rel="stylesheet" href="portfolio-layout.css"/>
-  <script src="project-previews.js"></script>
-  <script src="seo.js"></script>
+  <script src="project-previews.js?v=751e1e8f993c"></script>
+  <script src="seo.js?v=ad6a87c6c3b6"></script>
 </head>
 
 <body>
@@ -856,7 +862,7 @@
         </a>
 
         <nav class="nav-links" :aria-label="lang === 'pl' ? 'Główna nawigacja' : 'Main navigation'">
-          <a href="projects.html?lang=pl" :href="web4bizSeo.link('projects.html', lang)" class="is-current" x-text="navProjectsLabel">Projekty (8)</a>
+          <a href="projects.html?lang=pl" :href="web4bizSeo.link('projects.html', lang)" class="is-current" x-text="navProjectsLabel">Projekty (9)</a>
           <a href="index.html?lang=pl#estimator" :href="web4bizSeo.link('index.html#estimator', lang)" x-text="lang === 'pl' ? 'Pakiety i wycena' : 'Tiers & Pricing'">Pakiety i wycena</a>
           <a href="index.html?lang=pl#how-i-work" :href="web4bizSeo.link('index.html#how-i-work', lang)" x-text="lang === 'pl' ? 'Jak pracuję' : 'How I work'">Jak pracuję</a>
           <a href="index.html?lang=pl#contact" :href="web4bizSeo.link('index.html#contact', lang)" x-text="lang === 'pl' ? 'Kontakt' : 'Contact'">Kontakt</a>
@@ -992,7 +998,7 @@
               x-text="f.label[lang]"></button>
           </template>
         </div>
-        <span class="results-meta tabular" x-text="resultsCounterLabel">ZREALIZOWANE: 08 PROJEKTÓW</span>
+        <span class="results-meta tabular" x-text="resultsCounterLabel">ZREALIZOWANE: 09 PROJEKTÓW</span>
       </div>
 
       <!-- Stos projektów - jednakowe rozmiary, jeden pod drugim -->
@@ -1339,6 +1345,45 @@
             <div class="row-actions">
               <a class="btn-card-primary tactile" href="case-piec-pl.html" :href="web4bizSeo.link('case-study.html?project=piec', lang)"><span x-text="lang === 'pl' ? 'Zobacz realizację' : 'Read case study'">Zobacz realizację</span> →</a>
               <a class="btn-card-secondary tactile" href="https://rotating-baguette-637711.framer.app/" :href="web4bizSeo.link('https://rotating-baguette-637711.framer.app/', lang)" target="_blank" rel="noopener noreferrer"><span x-text="project.liveLabel[lang]">Otwórz projekt</span> ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-row-card" x-show="matchesFilter('more-dough')" x-data="{project: WEB4BIZ_DATA.projects.find(item => item.id === 'more-dough')}">
+          <a class="row-art-box preview-link" href="case-more-dough-pl.html" :href="web4bizSeo.link('case-study.html?project=more-dough', lang)" aria-label="More Dough - case study" :aria-label="project.cardTitle[lang] + ' - case study'"
+             x-html="projectPreview(project.id, lang)"><div class="pv pv-more-dough" lang="pl" aria-hidden="true">
+      <div class="pv-canvas"><div class="pv-dough-copy">
+        <small>More Dough</small>
+        <strong>Mordo, złóż blachę.</strong>
+        <div class="pv-dough-options"><div><span>Pomidor, mordo</span><b>14 zł</b></div><div><span>Pepperoni</span><b>18 zł</b></div><div><span>Ziemniak w mundurku</span><b>16 zł</b></div></div>
+      </div>
+      <div class="pv-dough-tray">
+        <img src="demos/more-dough/assets/img/blacha/okienko-720.webp" alt="" width="720" height="720" loading="lazy">
+        <img class="pv-dough-piece" src="demos/more-dough/assets/img/blacha/pomidor-384.webp" alt="" width="384" height="384" loading="lazy"><img class="pv-dough-piece" src="demos/more-dough/assets/img/blacha/pepperoni-384.webp" alt="" width="384" height="384" loading="lazy"><img class="pv-dough-piece" src="demos/more-dough/assets/img/blacha/ziemniak-384.webp" alt="" width="384" height="384" loading="lazy"><img class="pv-dough-piece" src="demos/more-dough/assets/img/blacha/pomidor-384.webp" alt="" width="384" height="384" loading="lazy">
+      </div></div>
+    </div></a>
+          <div class="row-body">
+            <div>
+              <dl class="project-facts">
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Branża' : 'Industry'">Branża</dt>
+                  <dd x-text="project.industry[lang]">Gastronomia</dd>
+                </div>
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Technologia' : 'Technology'">Technologia</dt>
+                  <dd x-text="project.technology[lang]">Astro · TypeScript · CSS</dd>
+                </div>
+                <div>
+                  <dt x-text="lang === 'pl' ? 'Narzędzie' : 'Tool'">Narzędzie</dt>
+                  <dd x-text="project.tool[lang]">Kreator blachy pizzy</dd>
+                </div>
+              </dl>
+              <h2 x-text="project.cardTitle[lang]">More Dough - pizzeria z kreatorem blachy</h2>
+              <p x-text="project.cardDesc[lang]">Strona fikcyjnego okienka z pizzą. Wybierasz kawałki, widzisz cenę całej blachy i wysyłasz swój skład ekipie.</p>
+            </div>
+            <div class="row-actions">
+              <a class="btn-card-primary tactile" href="case-more-dough-pl.html" :href="web4bizSeo.link('case-study.html?project=more-dough', lang)"><span x-text="lang === 'pl' ? 'Zobacz realizację' : 'Read case study'">Zobacz realizację</span> →</a>
+              <a class="btn-card-secondary tactile" href="demos/more-dough/index.html?blacha=pomidor%2Cpepperoni%2Cziemniak%2Cpomidor#blacha" :href="project.url" hreflang="pl"><span x-text="project.liveLabel[lang]">Wypróbuj blachę</span> ↗</a>
             </div>
           </div>
         </article>
