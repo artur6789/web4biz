@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style id="hero-punctuation">
+    html[lang="pl"] .hero-title .hero-tools-period { margin-inline-start: .085em; }
+  </style>
   <style id="initial-colors">
     html { color-scheme: light; background-color: #f4f2e9; color: #172019; }
     html[data-theme="forest"] { color-scheme: dark; background-color: #141a16; color: #f0f2e9; }
@@ -1222,7 +1225,7 @@
 
           <h1 class="hero-title">
             <span class="line"><span class="line-inner" x-text="t.heroLine1">Strony.</span></span>
-            <span class="line"><span class="line-inner" x-text="t.heroLine2">Narzędzia.</span></span>
+            <span class="line"><span class="line-inner"><span x-text="t.heroLine2.slice(0, -1)">Narzędzia</span><span class="hero-tools-period">.</span></span></span>
             <span class="line"><span class="line-inner" x-text="t.heroLine3">Aplikacje webowe.</span></span>
           </h1>
 
