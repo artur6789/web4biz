@@ -3,6 +3,23 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style id="mobile-project-preview">
+    @media (max-width: 960px) {
+      /* Give the graphic a grid row even when its absolutely positioned art
+         does not contribute to its parent's size. */
+      .row-art-box.preview-link { width: 100%; aspect-ratio: auto; }
+      .row-art-box.preview-link::before { content: ""; display: block; padding-top: 54.05%; }
+    }
+    @supports not (font-size: 1cqw) {
+      @media (max-width: 960px) {
+        .row-art-box.preview-link .pv-canvas {
+          width: 100%;
+          height: 100%;
+          font-size: calc(1vw - .32px);
+        }
+      }
+    }
+  </style>
   <style id="initial-colors">
     html { color-scheme: light; background-color: #f4f2e9; color: #172019; }
     html[data-theme="forest"] { color-scheme: dark; background-color: #141a16; color: #f0f2e9; }
