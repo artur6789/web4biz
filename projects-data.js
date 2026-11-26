@@ -701,8 +701,8 @@ window.WEB4BIZ_DATA = {
         ]
       },
       "industry": {
-        "pl": "Piekarnictwo rzemieślnicze",
-        "en": "Artisan bakery"
+        "pl": "Gastronomia",
+        "en": "Food & drink"
       },
       "tool": {
         "pl": "Katalog wypieków",

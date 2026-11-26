@@ -13,7 +13,7 @@ const seo = require('../seo.js');
 const dataContext = { window: {} };
 const projectData = read('projects-data.js');
 const projectDataVersion = createHash('sha256').update(projectData).digest('hex').slice(0, 12);
-const sharedAssetVersions = Object.fromEntries(['project-previews.js', 'project-previews.css', 'seo.js']
+const sharedAssetVersions = Object.fromEntries(['project-previews.js', 'project-previews.css', 'portfolio-layout.css', 'seo.js']
   .map(file => [file, createHash('sha256').update(read(file)).digest('hex').slice(0, 12)]));
 vm.runInNewContext(projectData, dataContext);
 vm.runInNewContext(read('project-previews.js'), dataContext);
@@ -68,7 +68,8 @@ function layers(template, page) {
     if (!/function (web4bizApp|projectsPageApp|caseStudyApp)\(\)/.test(js)) return tag;
     controller = js;
     write(asset + '.js', js.trim() + '\n');
-    return '<script src="' + asset + '.js"></script>';
+    const version = page === 'projects' ? '?v=' + createHash('sha256').update(js).digest('hex').slice(0, 12) : '';
+    return '<script src="' + asset + '.js' + version + '"></script>';
   });
   return { template, controller };
 }
@@ -119,6 +120,10 @@ function caseFallback(html, project, lang) {
   const sections = project.sections[lang].map((section, i) =>
     '<section id="case-section-' + (i + 1) + '"><h2>' + esc(section.heading) + '</h2><p>' + esc(section.body) + '</p></section>').join('\n');
   const base = dataContext.window.projectPreview(project.id, lang);
+  if (project.id === 'more-dough') {
+    html = html.replace('class="case-tool-link" x-show="projectId === \'more-dough\'" x-cloak',
+      'class="case-tool-link" x-show="projectId === \'more-dough\'" href="' + esc(project.url) + '"');
+  }
   return html.replace(/(x-html="projectPreview\(projectId, lang\)">)<\/div>/, (_, tag) => tag + base + '</div>')
     .replace('<div class="case-prose">', '<div class="case-prose"><noscript>' + sections + '</noscript>')
     .replace('<a :href="web4bizSeo.link(currentCase.url, lang)"',
@@ -132,7 +137,7 @@ function caseFallback(html, project, lang) {
 for (const page of ['index', 'projects', 'case-study']) {
   const original = read(page + '.html').replace(/src="projects-data\.js(?:\?v=[a-f0-9]+)?"/g,
     'src="projects-data.js?v=' + projectDataVersion + '"')
-    .replace(/\b(src|href)="(project-previews\.(?:css|js)|seo\.js)(?:\?v=[a-f0-9]+)?"/g,
+    .replace(/\b(src|href)="(project-previews\.(?:css|js)|portfolio-layout\.css|seo\.js)(?:\?v=[a-f0-9]+)?"/g,
       (_, attr, file) => attr + '="' + file + '?v=' + sharedAssetVersions[file] + '"');
   const { template, controller } = layers(original, page);
   if (page === 'case-study') {

@@ -43,6 +43,11 @@ function projectsPageApp() {
           ];
         },
 
+        projectLinkLabel(projectId, language) {
+          if (projectId === 'gemba') return language === 'pl' ? 'Otwórz aplikację' : 'Open app';
+          return language === 'pl' ? 'Otwórz stronę' : 'Open website';
+        },
+
         matchesFilter(projectId) {
           if (this.activeFilter === 'all') return true;
           const item = this.projectsList.find(p => p.id === projectId);

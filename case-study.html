@@ -94,7 +94,7 @@
   <link rel="stylesheet" href="assets/fonts/fonts.css">
 
   <!-- Wspólne źródło danych projektów + Alpine.js -->
-  <script src="projects-data.js?v=2c47110d2b48"></script>
+  <script src="projects-data.js?v=62bf82d7beb2"></script>
   <script defer src="vendor/alpine-3.17.5.min.js"></script>
 
   <style>
@@ -1043,7 +1043,7 @@
     @media(max-width:700px){ .case-brand-art{padding:20px; min-height:260px;} }
   </style>
   <link rel="stylesheet" href="project-previews.css?v=12f4e8fc15cf"/>
-  <link rel="stylesheet" href="portfolio-layout.css"/>
+  <link rel="stylesheet" href="portfolio-layout.css?v=5b404f7cc9c9"/>
   <script src="project-previews.js?v=751e1e8f993c"></script>
   <script src="seo.js?v=ad6a87c6c3b6"></script>
 </head>
@@ -1192,8 +1192,13 @@
       <div class="case-preview-stage">
         <div class="case-preview" role="img" :aria-label="currentCase.cardTitle[lang]" x-html="projectPreview(projectId, lang)"></div>
       </div>
+      <a class="case-tool-link" x-show="projectId === 'more-dough'" x-cloak
+         :href="currentCase.url" hreflang="pl">
+        <span aria-hidden="true">▸</span>
+        <span x-text="lang === 'pl' ? 'Sprawdź narzędzie' : 'Try the tool'">Sprawdź narzędzie</span>
+      </a>
       <details class="case-demo" x-ref="demo" x-show="['adremt2','kubatura','gemba'].includes(projectId)" x-cloak>
-        <summary x-text="({adremt2:{pl:'Sprawdź trasę',en:'Try the route planner'},kubatura:{pl:'Sprawdź ładunek',en:'Try the load planner'},gemba:{pl:'Dobierz metodę Lean',en:'Try the method finder'}})[projectId]?.[lang]"></summary>
+        <summary x-text="lang === 'pl' ? 'Sprawdź narzędzie' : 'Try the tool'">Sprawdź narzędzie</summary>
         <div class="case-hero-art"><div class="case-art-frame">
           <div x-show="projectId === 'adremt2'" x-cloak class="art-route-split">
             <div class="art-route-map-box">

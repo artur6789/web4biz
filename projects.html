@@ -117,7 +117,7 @@
   <link rel="stylesheet" href="assets/fonts/fonts.css">
 
   <!-- Wspólne dane projektów + Alpine.js -->
-  <script src="projects-data.js?v=2c47110d2b48"></script>
+  <script src="projects-data.js?v=62bf82d7beb2"></script>
   <script defer src="vendor/alpine-3.17.5.min.js"></script>
 
   <style>
@@ -848,7 +848,7 @@
     .preview-piec { background:#f0e8dc; color:#201815; } .preview-piec em { color:#c4432e; }
   </style>
   <link rel="stylesheet" href="project-previews.css?v=12f4e8fc15cf"/>
-  <link rel="stylesheet" href="portfolio-layout.css"/>
+  <link rel="stylesheet" href="portfolio-layout.css?v=5b404f7cc9c9"/>
   <script src="project-previews.js?v=751e1e8f993c"></script>
   <script src="seo.js?v=ad6a87c6c3b6"></script>
 </head>
@@ -1058,7 +1058,7 @@
             </div>
             <div class="row-actions">
               <a class="btn-card-primary tactile" href="case-adremt2-pl.html" :href="web4bizSeo.link('case-study.html?project=adremt2', lang)"><span x-text="lang === 'pl' ? 'Zobacz realizację' : 'Read case study'">Zobacz realizację</span> →</a>
-              <a class="btn-card-secondary tactile" href="https://adremt2.pl/index2.html" :href="web4bizSeo.link('https://adremt2.pl/index2.html', lang)" target="_blank" rel="noopener noreferrer"><span x-text="project.liveLabel[lang]">Otwórz projekt</span> ↗</a>
+              <a class="btn-card-secondary tactile" href="https://adremt2.pl/index2.html" :href="web4bizSeo.link('https://adremt2.pl/index2.html', lang)" target="_blank" rel="noopener noreferrer"><span x-text="projectLinkLabel(project.id, lang)">Otwórz stronę</span> ↗</a>
             </div>
           </div>
         </article>
@@ -1094,7 +1094,7 @@
             </div>
             <div class="row-actions">
               <a class="btn-card-primary tactile" href="case-ckadrem-pl.html" :href="web4bizSeo.link('case-study.html?project=ckadrem', lang)"><span x-text="lang === 'pl' ? 'Zobacz realizację' : 'Read case study'">Zobacz realizację</span> →</a>
-              <a class="btn-card-secondary tactile" href="https://ck-adrem.pl" :href="web4bizSeo.link('https://ck-adrem.pl', lang)" target="_blank" rel="noopener noreferrer"><span x-text="project.liveLabel[lang]">Otwórz projekt</span> ↗</a>
+              <a class="btn-card-secondary tactile" href="https://ck-adrem.pl" :href="web4bizSeo.link('https://ck-adrem.pl', lang)" target="_blank" rel="noopener noreferrer"><span x-text="projectLinkLabel(project.id, lang)">Otwórz stronę</span> ↗</a>
             </div>
           </div>
         </article>
@@ -1129,7 +1129,7 @@
             </div>
             <div class="row-actions">
               <a class="btn-card-primary tactile" href="case-pmclassics-pl.html" :href="web4bizSeo.link('case-study.html?project=pmclassics', lang)"><span x-text="lang === 'pl' ? 'Zobacz realizację' : 'Read case study'">Zobacz realizację</span> →</a>
-              <a class="btn-card-secondary tactile" href="pmclassics.html?lang=pl" :href="web4bizSeo.link('pmclassics.html', lang)" ><span x-text="project.liveLabel[lang]">Otwórz projekt</span> ↗</a>
+              <a class="btn-card-secondary tactile" href="pmclassics.html?lang=pl" :href="web4bizSeo.link('pmclassics.html', lang)" ><span x-text="projectLinkLabel(project.id, lang)">Otwórz stronę</span> ↗</a>
             </div>
           </div>
         </article>
@@ -1197,7 +1197,7 @@
             </div>
             <div class="row-actions">
               <a class="btn-card-primary tactile" href="case-kubatura-pl.html" :href="web4bizSeo.link('case-study.html?project=kubatura', lang)"><span x-text="lang === 'pl' ? 'Zobacz realizację' : 'Read case study'">Zobacz realizację</span> →</a>
-              <a class="btn-card-secondary tactile" href="kubatura.html?lang=pl" :href="web4bizSeo.link('kubatura.html', lang)" ><span x-text="project.liveLabel[lang]">Otwórz projekt</span> ↗</a>
+              <a class="btn-card-secondary tactile" href="kubatura.html?lang=pl" :href="web4bizSeo.link('kubatura.html', lang)" ><span x-text="projectLinkLabel(project.id, lang)">Otwórz stronę</span> ↗</a>
             </div>
           </div>
         </article>
@@ -1240,7 +1240,7 @@
             </div>
             <div class="row-actions">
               <a class="btn-card-primary tactile" href="case-gemba-pl.html" :href="web4bizSeo.link('case-study.html?project=gemba', lang)"><span x-text="lang === 'pl' ? 'Zobacz realizację' : 'Read case study'">Zobacz realizację</span> →</a>
-              <a class="btn-card-secondary tactile" href="https://lean-guide-flow.base44.app" :href="web4bizSeo.link('https://lean-guide-flow.base44.app', lang)" target="_blank" rel="noopener noreferrer"><span x-text="project.liveLabel[lang]">Otwórz aplikację</span> ↗</a>
+              <a class="btn-card-secondary tactile" href="https://lean-guide-flow.base44.app" :href="web4bizSeo.link('https://lean-guide-flow.base44.app', lang)" target="_blank" rel="noopener noreferrer"><span x-text="projectLinkLabel(project.id, lang)">Otwórz aplikację</span> ↗</a>
             </div>
           </div>
         </article>
@@ -1274,7 +1274,7 @@
             </div>
             <div class="row-actions">
               <a class="btn-card-primary tactile" href="case-bdcacademy-pl.html" :href="web4bizSeo.link('case-study.html?project=bdcacademy', lang)"><span x-text="lang === 'pl' ? 'Zobacz realizację' : 'Read case study'">Zobacz realizację</span> →</a>
-              <a class="btn-card-secondary tactile" href="bdc-academy.html?lang=pl" :href="web4bizSeo.link('bdc-academy.html', lang)" ><span x-text="project.liveLabel[lang]">Otwórz stronę</span> ↗</a>
+              <a class="btn-card-secondary tactile" href="bdc-academy.html?lang=pl" :href="web4bizSeo.link('bdc-academy.html', lang)" ><span x-text="projectLinkLabel(project.id, lang)">Otwórz stronę</span> ↗</a>
             </div>
           </div>
         </article>
@@ -1308,7 +1308,7 @@
             </div>
             <div class="row-actions">
               <a class="btn-card-primary tactile" href="case-hauhaus-pl.html" :href="web4bizSeo.link('case-study.html?project=hauhaus', lang)"><span x-text="lang === 'pl' ? 'Zobacz realizację' : 'Read case study'">Zobacz realizację</span> →</a>
-              <a class="btn-card-secondary tactile" href="hauhaus.html?lang=pl" :href="web4bizSeo.link('hauhaus.html', lang)" ><span x-text="project.liveLabel[lang]">Otwórz stronę</span> ↗</a>
+              <a class="btn-card-secondary tactile" href="hauhaus.html?lang=pl" :href="web4bizSeo.link('hauhaus.html', lang)" ><span x-text="projectLinkLabel(project.id, lang)">Otwórz stronę</span> ↗</a>
             </div>
           </div>
         </article>
@@ -1328,7 +1328,7 @@
               <dl class="project-facts">
                 <div>
                   <dt x-text="lang === 'pl' ? 'Branża' : 'Industry'">Branża</dt>
-                  <dd x-text="project.industry[lang]">Piekarnictwo rzemieślnicze</dd>
+                  <dd x-text="project.industry[lang]">Gastronomia</dd>
                 </div>
                 <div>
                   <dt x-text="lang === 'pl' ? 'Technologia' : 'Technology'">Technologia</dt>
@@ -1344,7 +1344,7 @@
             </div>
             <div class="row-actions">
               <a class="btn-card-primary tactile" href="case-piec-pl.html" :href="web4bizSeo.link('case-study.html?project=piec', lang)"><span x-text="lang === 'pl' ? 'Zobacz realizację' : 'Read case study'">Zobacz realizację</span> →</a>
-              <a class="btn-card-secondary tactile" href="https://rotating-baguette-637711.framer.app/" :href="web4bizSeo.link('https://rotating-baguette-637711.framer.app/', lang)" target="_blank" rel="noopener noreferrer"><span x-text="project.liveLabel[lang]">Otwórz projekt</span> ↗</a>
+              <a class="btn-card-secondary tactile" href="https://rotating-baguette-637711.framer.app/" :href="web4bizSeo.link('https://rotating-baguette-637711.framer.app/', lang)" target="_blank" rel="noopener noreferrer"><span x-text="projectLinkLabel(project.id, lang)">Otwórz stronę</span> ↗</a>
             </div>
           </div>
         </article>
@@ -1383,7 +1383,7 @@
             </div>
             <div class="row-actions">
               <a class="btn-card-primary tactile" href="case-more-dough-pl.html" :href="web4bizSeo.link('case-study.html?project=more-dough', lang)"><span x-text="lang === 'pl' ? 'Zobacz realizację' : 'Read case study'">Zobacz realizację</span> →</a>
-              <a class="btn-card-secondary tactile" href="demos/more-dough/index.html?blacha=pomidor%2Cpepperoni%2Cziemniak%2Cpomidor#blacha" :href="project.url" hreflang="pl"><span x-text="project.liveLabel[lang]">Wypróbuj blachę</span> ↗</a>
+              <a class="btn-card-secondary tactile" href="demos/more-dough/index.html" hreflang="pl"><span x-text="projectLinkLabel(project.id, lang)">Otwórz stronę</span> ↗</a>
             </div>
           </div>
         </article>
@@ -1466,6 +1466,11 @@
             },
             ...this.baseFilters
           ];
+        },
+
+        projectLinkLabel(projectId, language) {
+          if (projectId === 'gemba') return language === 'pl' ? 'Otwórz aplikację' : 'Open app';
+          return language === 'pl' ? 'Otwórz stronę' : 'Open website';
         },
 
         matchesFilter(projectId) {
