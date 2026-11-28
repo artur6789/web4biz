@@ -28,7 +28,10 @@ function head(html, page, lang, project) {
     ['property', 'og:site_name', 'web4biz.pl'], ['property', 'og:type', project ? 'article' : 'website'],
     ['name', 'description', data.description], ['property', 'og:title', data.title],
     ['property', 'og:description', data.description], ['property', 'og:url', data.url],
-    ['property', 'og:locale', data.locale], ['name', 'twitter:card', 'summary'],
+    ['property', 'og:locale', data.locale], ['property', 'og:image', seo.shareImage],
+    ['property', 'og:image:width', '1200'], ['property', 'og:image:height', '630'],
+    ['property', 'og:image:alt', lang === 'pl' ? 'web4biz.pl – strony i narzędzia dla firm B2B' : 'web4biz.pl – websites and tools for B2B companies'],
+    ['name', 'twitter:card', 'summary_large_image'], ['name', 'twitter:image', seo.shareImage],
     ['name', 'twitter:title', data.title], ['name', 'twitter:description', data.description]
   ];
   const alternates = { ...data.alternates, 'x-default': data.alternates.pl };
@@ -68,7 +71,7 @@ function layers(template, page) {
     if (!/function (web4bizApp|projectsPageApp|caseStudyApp)\(\)/.test(js)) return tag;
     controller = js;
     write(asset + '.js', js.trim() + '\n');
-    const version = page === 'projects' ? '?v=' + createHash('sha256').update(js).digest('hex').slice(0, 12) : '';
+    const version = page === 'case-study' ? '' : '?v=' + createHash('sha256').update(js).digest('hex').slice(0, 12);
     return '<script src="' + asset + '.js' + version + '"></script>';
   });
   return { template, controller };
@@ -111,7 +114,7 @@ function fill(html, page, lang, scope) {
   html = textBindings(html);
   return html.replace(/(\shref=")([^"]+)(")/g, (attr, a, raw, b) => {
     const url = decode(raw);
-    if (!/^(?:index(?:-en)?\.html|projects(?:-en)?\.html|case-study\.html|case-[\w-]+-(?:pl|en)\.html|kubatura\.html|hauhaus\.html|pmclassics\.html|bdc-academy\.html)(?:[?#]|$)/.test(url)) return attr;
+    if (!/^(?:\.\/|index(?:-en)?\.html|projects(?:-en)?\.html|case-study\.html|case-[\w-]+-(?:pl|en)\.html|polityka-prywatnosci\.html|privacy-policy\.html|kubatura\.html|hauhaus\.html|pmclassics\.html|bdc-academy\.html)(?:[?#]|$)/.test(url)) return attr;
     return a + esc(seo.link(url, lang)) + b;
   });
 }
@@ -159,3 +162,21 @@ for (const page of ['index', 'projects', 'case-study']) {
     }
   }
 }
+
+for (const [lang, file] of [['pl', 'polityka-prywatnosci.html'], ['en', 'privacy-policy.html']]) {
+  write(file, head(read(file), 'polityka-prywatnosci', lang));
+}
+
+for (const file of ['bdc-academy.html', 'hauhaus.html', 'kubatura.html', 'pmclassics.html']) {
+  write(file, read(file).replace(/src="seo\.js(?:\?v=[a-f0-9]+)?"/,
+    'src="seo.js?v=' + sharedAssetVersions['seo.js'] + '"'));
+}
+
+const sitemap = [
+  ...['index', 'projects', 'polityka-prywatnosci'].flatMap(page =>
+    ['pl', 'en'].map(lang => seo.metadata(page, lang).url)),
+  ...projects.flatMap(project => ['pl', 'en'].map(lang => seo.metadata('case-study', lang, project).url))
+];
+write('sitemap.xml', '<?xml version="1.0" encoding="UTF-8"?>\n' +
+  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+  sitemap.map(url => '  <url><loc>' + esc(url) + '</loc></url>').join('\n') + '\n</urlset>\n');

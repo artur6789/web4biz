@@ -63,7 +63,7 @@ function projectsPageApp() {
           const total = String(this.projectsCount).padStart(2, '0');
           const shown = String(this.visibleCount).padStart(2, '0');
           if (this.activeFilter === 'all') {
-            return this.lang === 'pl' ? `ZREALIZOWANE: ${total} PROJEKTÓW` : `SHIPPED: ${total} PROJECTS`;
+            return this.lang === 'pl' ? `PROJEKTY W PORTFOLIO: ${total}` : `PORTFOLIO PROJECTS: ${total}`;
           }
           return this.lang === 'pl' ? `WIDOCZNE: ${shown} / ${total}` : `SHOWING: ${shown} / ${total}`;
         },

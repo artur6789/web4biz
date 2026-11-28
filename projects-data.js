@@ -3,7 +3,7 @@ window.WEB4BIZ_DATA = {
   "brand": {
     "name": "web4biz.pl",
     "author": "Artur Załuska (Archie)",
-    "email": "artur.zaluska@gmail.com",
+    "email": "kontakt@web4biz.pl",
     "linkedin": "https://www.linkedin.com/in/artur-zaluska/",
     "instagram": "https://www.instagram.com/agilearchie/"
   },
@@ -293,6 +293,7 @@ window.WEB4BIZ_DATA = {
     },
     {
       "id": "kubatura",
+      "concept": true,
       "num": "04",
       "year": "2026",
       "categories": [
@@ -463,6 +464,7 @@ window.WEB4BIZ_DATA = {
     },
     {
       "id": "bdcacademy",
+      "concept": true,
       "num": "06",
       "year": "2026",
       "categories": [
@@ -547,6 +549,7 @@ window.WEB4BIZ_DATA = {
     },
     {
       "id": "hauhaus",
+      "concept": true,
       "num": "07",
       "year": "2026",
       "categories": [
@@ -715,6 +718,7 @@ window.WEB4BIZ_DATA = {
     },
     {
       "id": "more-dough",
+      "concept": true,
       "num": "09",
       "year": "2026",
       "categories": [
