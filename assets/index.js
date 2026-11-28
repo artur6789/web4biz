@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
 
         async copyEmail() {
-          const email = (shared.brand && shared.brand.email) || 'artur.zaluska@gmail.com';
+          const email = shared.brand.email;
           try {
             if (navigator.clipboard && navigator.clipboard.writeText) {
               await navigator.clipboard.writeText(email);
@@ -228,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
           this.formFeedback = '';
 
           try {
-            const response = await fetch('https://formsubmit.co/ajax/artur.zaluska@gmail.com', {
+            const response = await fetch('https://formsubmit.co/ajax/' + shared.brand.email, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -262,8 +262,8 @@ document.addEventListener('DOMContentLoaded', () => {
           } catch (err) {
             this.formStatus = 'error';
             this.formFeedback = this.lang === 'pl'
-              ? 'Nie udało się wysłać automatycznie. Napisz bezpośrednio na: artur.zaluska@gmail.com'
-              : 'Could not send automatically. Please email me at: artur.zaluska@gmail.com';
+              ? 'Nie udało się wysłać automatycznie. Napisz bezpośrednio na ' + shared.brand.email
+              : 'Could not send automatically. Please email me at ' + shared.brand.email;
           }
         },
 

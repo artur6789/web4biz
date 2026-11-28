@@ -79,3 +79,10 @@ body { padding-top: var(--nav-height); }
 .case-facts dt { color: var(--hero-muted); }
 .case-facts dd { color: var(--hero-ink); }
 .case-facts + .case-subtitle { max-width: 64ch; margin-top: 0; }
+
+.project-concept:not(:empty) {
+  display: inline-block; margin: 0 0 8px; padding: 4px 8px; border: 1px solid var(--line);
+  border-radius: 4px; color: var(--ink); font: 600 .72rem/1.35 var(--mono);
+}
+.footer-contact { display: flex; flex-wrap: wrap; gap: 8px 16px; }
+.footer-contact a, .form-privacy-note a { text-decoration: underline; text-underline-offset: .2em; }

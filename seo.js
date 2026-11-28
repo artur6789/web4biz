@@ -1,6 +1,7 @@
 /* Shared by the portfolio, local project demos and the static page generator. */
 const web4bizSeo = (() => {
-  const base = 'https://artur6789.github.io/web4biz/';
+  const base = 'https://www.web4biz.pl/';
+  const shareImage = base + 'assets/share-web4biz.png';
   const brand = 'web4biz.pl';
   const pages = {
     index: {
@@ -8,8 +9,12 @@ const web4bizSeo = (() => {
       en: ['Websites, tools and web apps for businesses', 'Explore B2B websites, online tools and web apps by Artur Załuska. See selected work, compare project options and discuss what your business needs.']
     },
     projects: {
-      pl: ['Portfolio stron internetowych i aplikacji webowych', 'Zobacz realizacje, od planera tras po interaktywne menu pizzerii. Filtruj projekty i sprawdź, jak rozwiązują konkretne problemy klientów.'],
-      en: ['Website and web app portfolio', 'Explore projects ranging from a freight route calculator to an interactive pizza menu. Filter the portfolio and see how each design addresses a customer need.']
+      pl: ['Portfolio stron internetowych i aplikacji webowych', 'Zobacz realizacje i projekty koncepcyjne, od planera tras po interaktywne menu pizzerii.'],
+      en: ['Website and web app portfolio', 'Explore client work and concept projects, from a freight route calculator to an interactive pizza menu.']
+    },
+    'polityka-prywatnosci': {
+      pl: ['Polityka prywatności', 'Sprawdź, jak web4biz.pl przetwarza dane z formularza kontaktowego i korespondencji e-mail.'],
+      en: ['Privacy policy', 'Learn how web4biz.pl processes data from the contact form and email correspondence.']
     },
     'bdc-academy': {
       pl: ['BDC Academy - szkolenia dla salonów dealerskich', 'Porównaj programy BDC dla sprzedaży, serwisu i kierowników. Wybierz szkolenia dla swojego zespołu dealerskiego i przygotuj zapytanie.'],
@@ -50,6 +55,7 @@ const web4bizSeo = (() => {
     const requested = new URLSearchParams(location.search).get('lang');
     if (supported.includes(requested)) return requested;
     if (current.lang) return current.lang;
+    if (current.page === 'index' || current.page === 'projects') return 'pl';
     try {
       const saved = localStorage.getItem(current.page === 'pmclassics' ? 'pmc_lang' : 'lang');
       return supported.includes(saved) ? saved : 'pl';
@@ -57,11 +63,13 @@ const web4bizSeo = (() => {
   }
   function path(page, lang, project) {
     if (page === 'case-study') return caseFile(project, lang);
-    if ((page === 'index' || page === 'projects') && lang === 'en') return page + '-en.html';
+    if (page === 'polityka-prywatnosci') return lang === 'pl' ? 'polityka-prywatnosci.html' : 'privacy-policy.html';
+    if (page === 'index') return lang === 'pl' ? './' : 'index-en.html';
+    if (page === 'projects') return lang === 'pl' ? 'projects.html' : 'projects-en.html';
     return page + '.html' + (lang === 'pl' ? '' : '?lang=' + lang);
   }
   function canonical(page, lang, project) {
-    return base + (page === 'index' && lang === 'pl' ? '' : path(page, lang, project));
+    return new URL(path(page, lang, project), base).href;
   }
   function link(href, lang) {
     if (!href || href.startsWith('#') || /^(?:[a-z]+:|\/\/)/i.test(href)) return href;
@@ -72,17 +80,17 @@ const web4bizSeo = (() => {
     if (relativePath.includes('/')) return href;
     const file = relativePath || 'index.html';
     const match = file.match(casePattern);
-    const page = match || file === 'case-study.html' ? 'case-study' : file.replace(/(-en)?\.html$/, '');
+    const page = match || file === 'case-study.html' ? 'case-study'
+      : file === 'privacy-policy.html' ? 'polityka-prywatnosci' : file.replace(/(-en)?\.html$/, '');
     if (page !== 'case-study' && !pages[page]) return href;
     const id = url.searchParams.get('project') || (match && match[1]);
     if (page === 'case-study' && !id) return href;
     url.searchParams.delete('project');
     url.searchParams.delete('lang');
-    const result = new URL(path(page, lang, id), base);
-    /* An explicit Polish link also wins over a saved English preference. */
-    if (lang === 'pl' && page !== 'case-study') result.searchParams.set('lang', 'pl');
+    const destination = path(page, lang, id);
+    const result = new URL(destination, base);
     for (const [key, value] of url.searchParams) result.searchParams.append(key, value);
-    return result.pathname.split('/').pop() + result.search + url.hash;
+    return destination.split('?')[0] + result.search + url.hash;
   }
   function metadata(page, lang, project) {
     const entry = project
@@ -147,7 +155,7 @@ const web4bizSeo = (() => {
       }
     }
   }
-  return { route, language, link, metadata, caseSchema, apply, updateUrl };
+  return { route, language, link, metadata, caseSchema, apply, updateUrl, shareImage };
 })();
 if (typeof module !== 'undefined' && module.exports) module.exports = web4bizSeo;
 if (typeof window !== 'undefined') window.web4bizSeo = web4bizSeo;
